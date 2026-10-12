@@ -1223,6 +1223,7 @@ body.iq-lock{overflow:hidden}
 .deck-btn b{display:block;font-size:1rem}
 .deck-btn small{display:block;color:var(--muted);font-size:.85rem;font-weight:500}
 @media (prefers-reduced-motion: reduce){ .deck-btn,.deck-btn .fan i{transition:none} }
+.hello-sub + .hello-sub{margin-top:10px}
 </style>
 </head>
 <body>
@@ -1300,9 +1301,11 @@ const PROFILE = {
   linkedin:'https://www.linkedin.com/in/blancaserranomarco/',
   hello:[['It’s Blanca.','Make yourself','at home'],['Soy Blanca.','Estás en','tu casa']],
   role:['Senior Product Designer · Based in Madrid','Senior Product Designer · Con base en Madrid'],
-  lead:['Complex products. Clear experiences.','Productos complejos. Experiencias claras.'],
-  sub:['I turn complex systems into simple, intuitive experiences, connecting user needs, business goals and measurable outcomes.',
-       'Convierto sistemas complejos en experiencias simples e intuitivas, conectando necesidades de usuario, objetivos de negocio y resultados medibles.'],
+  lead:['I’m Blanca, a product designer.','Yo soy Blanca, diseñadora de producto.'],
+  sub:['I always say I’m a good designer because I’m a terrible user. Maybe that’s why it comes naturally to me to put myself in the shoes of whoever uses a product, understand the problem and look for ways to make it simpler.',
+       'Siempre digo que soy buena diseñadora porque soy una pésima usuaria. Quizá por eso me resulta natural ponerme en el lugar de quien usa un producto, entender el problema y buscar cómo hacerlo más sencillo.'],
+  sub2:['Explore at your own pace, poke around and try whatever catches your eye. I made this space so you can get to know me and enjoy the way.',
+        'Explora con calma, curiosea y prueba lo que te llame la atención. He creado este espacio para que me conozcas y disfrutes por el camino.'],
   years:['6 years at TaxDown, Cobee by Pluxee and Playtomic','6 años en TaxDown, Cobee by Pluxee y Playtomic'],
   quote:['I’m a good designer because I’m a terrible user.','Soy buena diseñadora porque soy una pésima usuaria.'],
   about:[
@@ -1857,6 +1860,7 @@ function heroHTML(){
       <p class="hero-role">${X(PROFILE.role)}</p>
       <h1 class="hello">${S.who?`<span class="h1a h1n">${S.lang==='es'?'Hola':'Hi'} <span class="h1-name">${esc(S.who)}${nameSparks()}</span>,</span>`:`<span class="h1a">${S.lang==='es'?'Hola, soy Blanca.':'Hi, I’m Blanca.'}</span>`} <span class="h1b">${esc(S.who?h[1].charAt(0).toLowerCase()+h[1].slice(1):h[1])}</span> <span class="h1c"><em>${esc(h[2])}</em>.${spark}</span></h1>
       <p class="hello-sub"><strong class="lead-in">${X(PROFILE.lead)}</strong> ${X(PROFILE.sub)}</p>
+      <p class="hello-sub">${X(PROFILE.sub2)}</p>
       <div class="hero-meta"><button type="button" class="deck-btn" data-deck><span class="fan" aria-hidden="true"><i></i><i></i><i>?</i></span><span><b>${dk('h_t')}</b><small>${dk('h_s')}</small></span></button></div>
     </div>
     <div class="cta ice-hero" id="cta">

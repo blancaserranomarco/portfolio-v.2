@@ -86,6 +86,7 @@ function heroHTML(){
       <p class="hero-role">${X(PROFILE.role)}</p>
       <h1 class="hello">${S.who?`<span class="h1a h1n">${S.lang==='es'?'Hola':'Hi'} <span class="h1-name">${esc(S.who)}${nameSparks()}</span>,</span>`:`<span class="h1a">${S.lang==='es'?'Hola, soy Blanca.':'Hi, I’m Blanca.'}</span>`} <span class="h1b">${esc(S.who?h[1].charAt(0).toLowerCase()+h[1].slice(1):h[1])}</span> <span class="h1c"><em>${esc(h[2])}</em>.${spark}</span></h1>
       <p class="hello-sub"><strong class="lead-in">${X(PROFILE.lead)}</strong> ${X(PROFILE.sub)}</p>
+      <p class="hello-sub">${X(PROFILE.sub2)}</p>
       <div class="hero-meta"><button type="button" class="deck-btn" data-deck><span class="fan" aria-hidden="true"><i></i><i></i><i>?</i></span><span><b>${dk('h_t')}</b><small>${dk('h_s')}</small></span></button></div>
     </div>
     <div class="cta ice-hero" id="cta">

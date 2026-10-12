@@ -1212,3 +1212,4 @@ body.iq-lock{overflow:hidden}
 .deck-btn b{display:block;font-size:1rem}
 .deck-btn small{display:block;color:var(--muted);font-size:.85rem;font-weight:500}
 @media (prefers-reduced-motion: reduce){ .deck-btn,.deck-btn .fan i{transition:none} }
+.hello-sub + .hello-sub{margin-top:10px}
