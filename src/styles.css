@@ -1198,3 +1198,17 @@ body.iq-lock{overflow:hidden}
 @keyframes meSpark{0%{opacity:0;transform:scale(.2) rotate(-40deg)}30%{opacity:1;transform:scale(1.2)}100%{opacity:0;transform:scale(1) rotate(20deg)}}
 @media (max-width:760px){ .ct-me{grid-template-columns:1fr} .ct-art{display:none} }
 @media (prefers-reduced-motion: reduce){ .me-eye,.me-m-idle,.is-scared .me-body,.is-happy .me-body,.is-happy .me-sparks path{animation:none;transition:none} }
+
+/* ---- hero: button that opens the "behind this portfolio" deck ---- */
+.deck-btn{display:inline-flex;align-items:center;gap:16px;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:18px;padding:10px 22px 10px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--shadow);text-align:left;font:inherit;transition:transform .15s,box-shadow .15s}
+.deck-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--shadow)}
+.deck-btn .fan{position:relative;width:40px;height:50px;flex:none}
+.deck-btn .fan i{position:absolute;inset:0;border:2px solid #1B1724;border-radius:7px;transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.deck-btn .fan i:nth-child(1){background:var(--pink);transform:rotate(-12deg) translateX(-5px)}
+.deck-btn .fan i:nth-child(2){background:var(--sky);transform:rotate(8deg) translateX(5px)}
+.deck-btn .fan i:nth-child(3){background:#fff;color:#1B1724;display:grid;place-items:center;font-family:var(--display);font-style:normal;font-size:1.2rem}
+.deck-btn:hover .fan i:nth-child(1),.deck-btn:focus-visible .fan i:nth-child(1){transform:rotate(-22deg) translateX(-10px)}
+.deck-btn:hover .fan i:nth-child(2),.deck-btn:focus-visible .fan i:nth-child(2){transform:rotate(18deg) translateX(10px)}
+.deck-btn b{display:block;font-size:1rem}
+.deck-btn small{display:block;color:var(--muted);font-size:.85rem;font-weight:500}
+@media (prefers-reduced-motion: reduce){ .deck-btn,.deck-btn .fan i{transition:none} }

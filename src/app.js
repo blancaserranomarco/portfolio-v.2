@@ -86,7 +86,7 @@ function heroHTML(){
       <p class="hero-role">${X(PROFILE.role)}</p>
       <h1 class="hello">${S.who?`<span class="h1a h1n">${S.lang==='es'?'Hola':'Hi'} <span class="h1-name">${esc(S.who)}${nameSparks()}</span>,</span>`:`<span class="h1a">${S.lang==='es'?'Hola, soy Blanca.':'Hi, I’m Blanca.'}</span>`} <span class="h1b">${esc(S.who?h[1].charAt(0).toLowerCase()+h[1].slice(1):h[1])}</span> <span class="h1c"><em>${esc(h[2])}</em>.${spark}</span></h1>
       <p class="hello-sub"><strong class="lead-in">${X(PROFILE.lead)}</strong> ${X(PROFILE.sub)}</p>
-      <div class="hero-meta"><button class="btn" data-go="sel">${u('seework')} <span aria-hidden="true">↓</span></button><button class="btn ghost" data-go="contact">${u('talk')}</button></div>
+      <div class="hero-meta"><button type="button" class="deck-btn" data-deck><span class="fan" aria-hidden="true"><i></i><i></i><i>?</i></span><span><b>${dk('h_t')}</b><small>${dk('h_s')}</small></span></button></div>
     </div>
     <div class="cta ice-hero" id="cta">
       <span class="sticker tag-p" style="--tone:var(--butter)">${spark}${X(ICE.hero_tag)}</span>
@@ -264,6 +264,7 @@ const DK={
   tip:['Drag the card or use ← →','Arrastra la carta o usa ← →'], why:['Why','Por qué'], data:['The data','El dato'],
   work:['See my projects','Ver mis proyectos'], again:['↺ Back to the cards','↺ Volver a las cartas'], card:['card','carta'],
   of:['Card {a} of {b}','Carta {a} de {b}'],
+  h_t:['Why is this portfolio like this?','¿Por qué este portfolio es así?'], h_s:['Discover the decisions behind this design.','Descubre las decisiones detrás de este diseño.'],
   t_eb:['Behind the portfolio','Detrás del portfolio'], t_h:['Have you wondered why this portfolio is the way it is?','¿Te has preguntado por qué este portfolio es así?'],
   t_p:['Discover the decisions behind the experience.','Descubre las decisiones detrás de la experiencia.'],
   t_btn:['Discover why ✦','Descubre por qué ✦']
@@ -575,7 +576,7 @@ function applyLang(){ document.documentElement.lang=S.lang;
   document.querySelectorAll('[data-lang]').forEach(b=> b.setAttribute('aria-pressed', b.dataset.lang===S.lang));
   document.querySelectorAll('#lang-sel').forEach(s=> s.value=S.lang); }
 function render(){ applyLang();
-  $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + behindHTML() + contactHTML() + feedbackHTML();
+  $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + contactHTML() + feedbackHTML();
   if(S.openId){ const sh=$('#sheet'); if(sh) sh.innerHTML=caseHTML(byId(S.openId)); }
   Ice.init(); }
 function jumpTo(id){ const t=document.getElementById(id); if(!t) return; t.setAttribute('tabindex','-1'); t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); t.focus({preventScroll:true}); }
