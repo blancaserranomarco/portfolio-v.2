@@ -239,7 +239,7 @@ function aboutHTML(){
   return `<div class="wrap"><section class="about section" id="about">
     <div class="about-main">
       <span class="eyebrow-s">${u('about_h')}</span>
-      <h2>${X(PROFILE.quote)}</h2>
+      <blockquote class="about-quote"><h2>${S.lang==='es'?'«':'“'}${X(PROFILE.quote)}${S.lang==='es'?'»':'”'}</h2></blockquote>
       ${PROFILE.about.map((p,i)=>`<p class="${i===0?'lead':''}">${X(p)}</p>`).join('')}
     </div>
     <div class="about-side">

@@ -59,8 +59,10 @@ const PROFILE = {
   years:['6 years at TaxDown, Cobee by Pluxee and Playtomic','6 años en TaxDown, Cobee by Pluxee y Playtomic'],
   quote:['I’m a good designer because I’m a terrible user.','Soy buena diseñadora porque soy una pésima usuaria.'],
   about:[
-    ['I believe design should connect usability with strategy. That belief has led me to build data-informed, human-centred products at TaxDown, Cobee and Playtomic, where design directly shaped business outcomes.',
-     'Creo que el diseño tiene que unir usabilidad y estrategia. Eso me ha llevado a construir productos centrados en las personas y guiados por datos en TaxDown, Cobee y Playtomic, donde el diseño movió resultados de negocio.'],
+    ['That helps me put myself in the shoes of whoever uses a product, understand the problem and look for ways to make it simpler.',
+     'Eso me ayuda a ponerme en el lugar de quien usa un producto, entender el problema y buscar cómo hacerlo más sencillo.'],
+    ['But simple isn’t enough: it also has to work for the business. That’s why I believe design should connect usability with strategy, and that’s how I’ve worked at TaxDown, Cobee and Playtomic, building human-centred, data-informed products where design directly shaped business outcomes.',
+     'Pero que sea sencillo no basta: también tiene que funcionar para el negocio. Por eso creo que el diseño debe unir usabilidad y estrategia, y así he trabajado en TaxDown, Cobee y Playtomic, creando productos centrados en las personas y guiados por datos donde el diseño movió resultados de negocio.'],
     ['I came to product design from Fine Arts and graphic design, through Ironhack in 2020. Since then I’ve worked across B2C, B2B and B2B2C: employee apps, admin dashboards, internal backoffices and growth funnels, in Spain, Portugal and Mexico.',
      'Llegué al diseño de producto desde Bellas Artes y el diseño gráfico, a través de Ironhack en 2020. Desde entonces he trabajado en B2C, B2B y B2B2C: apps de empleados, dashboards de admin, backoffices internos y funnels de growth, en España, Portugal y México.'],
     ['I’m looking for a strong product team where I can grow, contribute and be genuinely challenged.',
