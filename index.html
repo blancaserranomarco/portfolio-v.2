@@ -1245,6 +1245,17 @@ body.iq-lock{overflow:hidden}
 #deck .c-il{flex-basis:124px;height:96px;background:none;border-radius:0;overflow:visible}
 #deck .c-il svg{width:100%;max-height:100%}
 @media (max-width:520px){ #deck .c-il{flex-basis:88px;height:64px} #deck .c-bd{gap:6px} #deck .c-top{gap:10px} }
+/* deck: carta hasta abajo con navegación dentro */
+#deck .stack{height:min(760px,calc(100dvh - 104px));min-height:380px;margin-bottom:12px}
+#deck .c-ft{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:2px solid var(--line);background:var(--surface)}
+#deck .card.back1 .c-ft,#deck .card.back2 .c-ft{visibility:hidden}
+#deck .c-ft .btn{min-height:46px;padding:10px 18px}
+#deck .c-ft .btn.alt{min-width:46px;padding:10px 14px}
+#deck .c-ft .btn:disabled{opacity:.35;cursor:default;box-shadow:none}
+#deck .c-ft .dots i{background:var(--line);opacity:.25}
+#deck .c-ft .dots i.on{background:var(--ink);opacity:1;width:18px}
+#deck .c-ft .dots{flex-wrap:nowrap}
+@media (max-width:520px){ #deck .stack{height:calc(100dvh - 96px);min-height:380px} #deck .c-ft{padding:10px 12px} #deck .c-ft .dots{gap:4px} #deck .c-ft .dots i{width:6px;height:6px} #deck .c-ft .dots i.on{width:14px} }
 </style>
 </head>
 <body>
@@ -2057,7 +2068,7 @@ const pixel = (grid,cls='') => { let r=''; grid.forEach((row,y)=>[...row].forEac
 const DK={
   title:['Behind this portfolio','Detrás de este portfolio'], close:['Close','Cerrar'], prev:['Previous card','Carta anterior'], next:['Next card','Siguiente carta'],
   tip:['Drag the card or use ← →','Arrastra la carta o usa ← →'], why:['Why','Por qué'], data:['The data','El dato'],
-  work:['See my projects','Ver mis proyectos'], again:['↺ Back to the cards','↺ Volver a las cartas'], card:['card','carta'],
+  work:['See my projects','Ver mis proyectos'], again:['↺ Back to the cards','↺ Volver a las cartas'], cont:['Continue','Continuar'], card:['card','carta'],
   of:['Card {a} of {b}','Carta {a} de {b}'],
   h_t:['Why is this portfolio like this?','¿Por qué este portfolio es así?'], h_s:['Discover the decisions behind this design.','Descubre las decisiones detrás de este diseño.'],
   t_eb:['Behind the portfolio','Detrás del portfolio'], t_h:['Have you wondered why this portfolio is the way it is?','¿Te has preguntado por qué este portfolio es así?'],
@@ -2555,9 +2566,7 @@ const DECK=[
    s:[['Kurosu & Kashimura, Hitachi, 1995','Kurosu y Kashimura, Hitachi, 1995'],'https://lawsofux.com/aesthetic-usability-effect/']},
   {il:'fb',tone:'var(--mint)',tag:['Listening and iteration','Escucha e iteración'],h:['How was the experience?','¿Qué tal ha sido la experiencia?'],
    w:['A thumb to rate it. A comment to tell me why.','Un pulgar para valorar. Un comentario para contarme por qué.'],
-   y:['Designing also means putting your own ideas to the test. This satisfaction question lets me gather your impression and make room for criticism. Listening, questioning my decisions and learning from feedback are part of my work as a product designer.','Diseñar también es poner a prueba tus propias ideas. Esta pregunta de satisfacción me permite recoger tu impresión y abrir espacio a la crítica. Escuchar, cuestionar mis decisiones y aprender del feedback son parte de mi trabajo como diseñadora de producto.']},
-  {il:'loop',tone:'var(--lilac)',tag:['Continuity','Continuidad'],h:['Now, discover my work','Ahora, descubre mi trabajo'],
-   w:['You now know the decisions behind the portfolio. Now I invite you to discover how I work with real challenges.','Ya conoces las decisiones detrás del portfolio. Ahora te invito a descubrir cómo trabajo con retos reales.'], end:true}
+   y:['Designing also means putting your own ideas to the test. This satisfaction question lets me gather your impression and make room for criticism. Listening, questioning my decisions and learning from feedback are part of my work as a product designer.','Diseñar también es poner a prueba tus propias ideas. Esta pregunta de satisfacción me permite recoger tu impresión y abrir espacio a la crítica. Escuchar, cuestionar mis decisiones y aprender del feedback son parte de mi trabajo como diseñadora de producto.']}
 ];
 
 let i=0, deck=null, stack=null, dots=null, live=null, opener=null;
@@ -2569,33 +2578,25 @@ function ensure(){
   <div class="deck-in">
     <div class="deck-top"><span class="t" id="deck-t"></span><button class="x" id="dk-close">×</button></div>
     <div class="stack" id="dk-stack"></div>
-    <div class="ctl"><button class="btn alt" id="dk-prev">←</button><div class="dots" id="dk-dots" aria-hidden="true"></div><button class="btn" id="dk-next">→</button></div>
-    <p class="swipe-tip" id="dk-tip"></p>
     <div class="sr" id="dk-live" aria-live="polite"></div>
   </div></div>`);
-    deck=document.getElementById('deck'); stack=document.getElementById('dk-stack'); dots=document.getElementById('dk-dots'); live=document.getElementById('dk-live');
-    dots.innerHTML=CARDS.map(()=>'<i></i>').join('');
-    document.getElementById('dk-next').onclick=()=>go(1);
-    document.getElementById('dk-prev').onclick=()=>go(-1);
+    deck=document.getElementById('deck'); stack=document.getElementById('dk-stack'); live=document.getElementById('dk-live');
     document.getElementById('dk-close').onclick=close;
     deck.addEventListener('click',e=>{ if(e.target===deck) close(); });
     stack.addEventListener('click',e=>{
       const a=e.target.closest('[data-a]'); if(!a) return;
-      if(a.dataset.a==='again'){ i=0; render(); document.getElementById('dk-next').focus(); }
-      else { close(); const w=document.querySelector('[data-go="sel"]'); w&&w.click(); }
+      if(a.dataset.a==='next') go(1); else if(a.dataset.a==='prev') go(-1); else if(a.dataset.a==='close') close();
     });
   }
   document.getElementById('deck-t').textContent=dk('title');
   document.getElementById('dk-close').setAttribute('aria-label',dk('close'));
-  document.getElementById('dk-prev').setAttribute('aria-label',dk('prev'));
-  document.getElementById('dk-next').setAttribute('aria-label',dk('next'));
-  document.getElementById('dk-tip').textContent=dk('tip');
 }
 function cardHTML(c,k){
   return `<div class="c-bd"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><div class="c-top"><h2>${tr(c.h)}</h2><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
   ${c.y?`<div class="why"><span class="k">${c.k?tr(c.k):dk('why')}</span><p>${tr(c.y)}</p></div>`:''}
   ${c.d?`<div class="dato"><span class="k">${dk('data')}</span><p>${tr(c.d)}</p>${c.s?`<a href="${c.s[1]}" target="_blank" rel="noopener">${tr(c.s[0])} ↗</a>`:''}</div>`:''}
-  ${c.end?`<div class="c-end"><button class="btn" data-a="work">${dk('work')}</button><button class="btn alt" data-a="again">${dk('again')}</button></div>`:''}</div>`;
+  </div>
+  <div class="c-ft"><button type="button" class="btn alt" data-a="prev" aria-label="${dk('prev')}"${k===0?' disabled':''}>←</button><span class="dots" aria-hidden="true">${CARDS.map((_,j)=>`<i class="${j===k?'on':''}"></i>`).join('')}</span>${k===CARDS.length-1?`<button type="button" class="btn" data-a="close">${dk('close')}</button>`:`<button type="button" class="btn" data-a="next">${dk('cont')} →</button>`}</div>`;
 }
 function render(){
   stack.innerHTML='';
@@ -2604,15 +2605,13 @@ function render(){
     const el=document.createElement('article');
     el.className='card '+(off===0?'front':off===1?'back1':'back2');
     el.setAttribute('aria-roledescription',dk('card'));
-    if(off) el.setAttribute('aria-hidden','true');
+    if(off){ el.setAttribute('aria-hidden','true'); el.inert=true; }
     el.innerHTML=cardHTML(CARDS[k],k);
     stack.appendChild(el);
   });
-  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
-  document.getElementById('dk-prev').disabled=i===0;
-  document.getElementById('dk-next').style.visibility=i===CARDS.length-1?'hidden':'visible';
   live.textContent=dk('of').replace('{a}',i+1).replace('{b}',CARDS.length)+': '+tr(CARDS[i].h);
   bindDrag(stack.querySelector('.front'));
+  if(deck.classList.contains('on')){ const f=stack.querySelector('.front .c-ft [data-a="next"],.front .c-ft [data-a="close"]'); f&&f.focus({preventScroll:true}); }
 }
 function go(dir){
   const n=i+dir; if(n<0||n>=CARDS.length) return;
@@ -2651,7 +2650,7 @@ function bindDrag(el){
   el.addEventListener('pointercancel',e=>{ if(e.pointerType!=='touch') end(); });
 }
 
-function open(){ ensure(); i=0; render(); deck.classList.add('on'); document.body.style.overflow='hidden'; document.getElementById('dk-next').focus(); }
+function open(){ ensure(); i=0; render(); deck.classList.add('on'); document.body.style.overflow='hidden'; const f=stack.querySelector('.front [data-a="next"]'); f&&f.focus(); }
 function close(){ deck.classList.remove('on'); document.body.style.overflow=''; opener&&opener.focus(); }
 document.addEventListener('click',e=>{ const t=e.target.closest('[data-deck]'); if(!t) return; e.preventDefault(); opener=t; open(); });
 document.addEventListener('keydown',e=>{

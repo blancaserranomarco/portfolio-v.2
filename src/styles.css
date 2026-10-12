@@ -1234,3 +1234,14 @@ body.iq-lock{overflow:hidden}
 #deck .c-il{flex-basis:124px;height:96px;background:none;border-radius:0;overflow:visible}
 #deck .c-il svg{width:100%;max-height:100%}
 @media (max-width:520px){ #deck .c-il{flex-basis:88px;height:64px} #deck .c-bd{gap:6px} #deck .c-top{gap:10px} }
+/* deck: carta hasta abajo con navegación dentro */
+#deck .stack{height:min(760px,calc(100dvh - 104px));min-height:380px;margin-bottom:12px}
+#deck .c-ft{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-top:2px solid var(--line);background:var(--surface)}
+#deck .card.back1 .c-ft,#deck .card.back2 .c-ft{visibility:hidden}
+#deck .c-ft .btn{min-height:46px;padding:10px 18px}
+#deck .c-ft .btn.alt{min-width:46px;padding:10px 14px}
+#deck .c-ft .btn:disabled{opacity:.35;cursor:default;box-shadow:none}
+#deck .c-ft .dots i{background:var(--line);opacity:.25}
+#deck .c-ft .dots i.on{background:var(--ink);opacity:1;width:18px}
+#deck .c-ft .dots{flex-wrap:nowrap}
+@media (max-width:520px){ #deck .stack{height:calc(100dvh - 96px);min-height:380px} #deck .c-ft{padding:10px 12px} #deck .c-ft .dots{gap:4px} #deck .c-ft .dots i{width:6px;height:6px} #deck .c-ft .dots i.on{width:14px} }
