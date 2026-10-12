@@ -797,7 +797,7 @@ function ensure(){
   document.getElementById('dk-tip').textContent=dk('tip');
 }
 function cardHTML(c,k){
-  return `<div class="c-bd"><div class="c-top"><div class="c-tl"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><h2>${tr(c.h)}</h2></div><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
+  return `<div class="c-bd"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><div class="c-top"><h2>${tr(c.h)}</h2><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
   ${c.y?`<div class="why"><span class="k">${c.k?tr(c.k):dk('why')}</span><p>${tr(c.y)}</p></div>`:''}
   ${c.d?`<div class="dato"><span class="k">${dk('data')}</span><p>${tr(c.d)}</p>${c.s?`<a href="${c.s[1]}" target="_blank" rel="noopener">${tr(c.s[0])} ↗</a>`:''}</div>`:''}
   ${c.end?`<div class="c-end"><button class="btn" data-a="work">${dk('work')}</button><button class="btn alt" data-a="again">${dk('again')}</button></div>`:''}</div>`;

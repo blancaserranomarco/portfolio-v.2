@@ -1128,7 +1128,7 @@ body.iq-lock{overflow:hidden}
 @media (prefers-reduced-motion: reduce){ #deck .il svg,#deck .il svg *{animation:none!important} #deck .il-fb .up rect{fill:#A8EBCC} #deck .il-quiz g:first-of-type rect:nth-child(2){fill:#CDBFFF} }
 @media (prefers-reduced-motion: reduce){ #deck .card.fly,#deck .card.settle,#deck .brand svg{transition:none} #deck .brand .why{animation:none} }
 
-@media (max-width:520px){ #deck .stack{height:calc(100dvh - 240px);min-height:380px} }
+@media (max-width:520px){ #deck .stack{height:calc(100dvh - 220px);min-height:380px} }
 
 /* ---- header menu (hamburger on mobile) + footer language selector ---- */
 .menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:2px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;place-items:center;padding:0}
@@ -1239,6 +1239,12 @@ body.iq-lock{overflow:hidden}
 #deck .c-tl{flex:1;min-width:0;display:grid;gap:10px;align-content:start}
 #deck .c-tl h2{padding-top:0}
 #deck .c-meta{justify-content:flex-start;flex-wrap:wrap}
+#deck .c-meta{justify-content:space-between;flex-wrap:nowrap}
+#deck .c-top{align-items:center}
+#deck .c-top h2{padding-top:0}
+#deck .c-il{flex-basis:124px;height:96px;background:none;border-radius:0;overflow:visible}
+#deck .c-il svg{width:100%;max-height:100%}
+@media (max-width:520px){ #deck .c-il{flex-basis:88px;height:64px} #deck .c-bd{gap:6px} #deck .c-top{gap:10px} }
 </style>
 </head>
 <body>
@@ -2586,7 +2592,7 @@ function ensure(){
   document.getElementById('dk-tip').textContent=dk('tip');
 }
 function cardHTML(c,k){
-  return `<div class="c-bd"><div class="c-top"><div class="c-tl"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><h2>${tr(c.h)}</h2></div><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
+  return `<div class="c-bd"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><div class="c-top"><h2>${tr(c.h)}</h2><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
   ${c.y?`<div class="why"><span class="k">${c.k?tr(c.k):dk('why')}</span><p>${tr(c.y)}</p></div>`:''}
   ${c.d?`<div class="dato"><span class="k">${dk('data')}</span><p>${tr(c.d)}</p>${c.s?`<a href="${c.s[1]}" target="_blank" rel="noopener">${tr(c.s[0])} ↗</a>`:''}</div>`:''}
   ${c.end?`<div class="c-end"><button class="btn" data-a="work">${dk('work')}</button><button class="btn alt" data-a="again">${dk('again')}</button></div>`:''}</div>`;
