@@ -8,7 +8,7 @@ Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutal
 |---|---|
 | Copia de trabajo | Escritorio → `portfolio-v3` (incluye `brief/` y `propuestas/`, que no se suben a GitHub) |
 | Código publicado | GitHub `blancaserranomarco/portfolio-v.2`, rama `main` |
-| Web pública | Vercel, proyecto `blanca-portfolio` → https://blanca-portfolio-blond.vercel.app |
+| Web pública | Vercel, proyecto `blanca-portfolio` → https://blancaserrano.vercel.app (la antigua blanca-portfolio-blond.vercel.app sigue funcionando). Cada push a `main` se publica solo |
 | Versión en Claude | Artifact https://claude.ai/artifact/TavqvXqGqCCcaePKcEo2xX |
 | Feedback recibido | Notion → página "Porfolio, feedback" → base de datos "Feedback del portfolio" |
 
@@ -33,7 +33,7 @@ propuestas/     (solo local) bocetos de diseño ya decididos
 2. `python3 build.py`.
 3. Publicar en los dos sitios para que no se desincronicen:
    - **Artifact:** republicar `dist/portfolio.html` en la URL del artifact.
-   - **Web:** subir a GitHub (`main`). Si Vercel no despliega solo, redesplegar a mano desde Vercel.
+   - **Web:** subir a GitHub (`main`). Vercel lo publica solo en ~1 min.
 4. Guardar la copia en el Escritorio.
 
 ## Funcionalidades
@@ -68,6 +68,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-12 · Dirección nueva blancaserrano.vercel.app; despliegue automático comprobado.
 - 2026-10-12 · Feedback a Notion funcionando en producción; web publicada en Vercel desde GitHub.
 - 2026-10-12 · Mini test de entrada, hero con nombre, carpetas Por proyectos / Por empresas, contacto nuevo.
 - 2026-10-06 · Inicio de la v3 (migración desde Notion).
