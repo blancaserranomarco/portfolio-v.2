@@ -59,14 +59,14 @@ const PROFILE = {
   years:['6 years at TaxDown, Cobee by Pluxee and Playtomic','6 años en TaxDown, Cobee by Pluxee y Playtomic'],
   quote:['I’m a good designer because I’m a terrible user.','Soy buena diseñadora porque soy una pésima usuaria.'],
   about:[
-    ['That helps me put myself in the shoes of whoever uses a product, understand the problem and look for ways to make it simpler.',
-     'Eso me ayuda a ponerme en el lugar de quien usa un producto, entender el problema y buscar cómo hacerlo más sencillo.'],
-    ['A simple product isn’t enough: it also has to work for the business. I believe design should connect usability with strategy, creating human-centred, data-informed products that impact results.',
-     'Que un producto sea sencillo no basta: también tiene que funcionar para el negocio. Creo que el diseño debe unir usabilidad y estrategia, creando productos centrados en las personas y guiados por datos, con impacto en los resultados.'],
-    ['I studied Fine Arts and graphic design, but in 2020 I discovered product design: a way to connect creativity and functionality with research and validation.',
-     'Estudié Bellas Artes y diseño gráfico, pero en 2020 descubrí el diseño de producto: una forma de conectar creatividad y funcionalidad con investigación y validación.'],
-    ['Since then, I’ve worked on B2C and B2B2C products at TaxDown, Cobee and Playtomic, supporting their growth and international expansion. I’ve designed modular, scalable systems that adapt to different markets and needs.',
-     'Desde entonces, he trabajado en productos B2C y B2B2C en TaxDown, Cobee y Playtomic, acompañando su crecimiento y expansión internacional. He diseñado sistemas modulares y escalables para adaptarse a distintos mercados y necesidades.']
+    ['That helps me put myself in the shoes of whoever uses a product, understand what they struggle with and look for ways to make it simpler.',
+     'Eso me ayuda a ponerme en el lugar de quien usa un producto, entender qué le cuesta y buscar cómo hacerlo más sencillo.'],
+    ['But a simple product isn’t enough: it also has to work for the business. Research and data help me decide where to act and check whether the solution works. I believe design should connect usability with strategy, creating human-centred, data-informed products that impact results.',
+     'Pero que un producto sea sencillo no basta, también tiene que funcionar para el negocio. La investigación y los datos me ayudan a decidir dónde actuar y comprobar si la solución funciona. Creo que el diseño debe unir usabilidad y estrategia, creando productos centrados en las personas y guiados por datos, con impacto en los resultados.'],
+    ['I studied Fine Arts and graphic design. In 2020 I found in product design a way to bring that creative background together with functionality, research and validation.',
+     'Estudié Bellas Artes y diseño gráfico. En 2020 descubrí en el diseño de producto una forma de unir esa base creativa con funcionalidad, investigación y validación.'],
+    ['Since then I’ve worked on B2C and B2B2C products, supporting their growth and international expansion by designing modular, scalable systems that adapt to different markets and needs.',
+     'Desde entonces he trabajado en productos B2C y B2B2C, acompañando su crecimiento y expansión internacional diseñando sistemas modulares y escalables, capaces de adaptarse a distintos mercados y necesidades.']
   ],
   thread:['This portfolio started as a proposal at TaxDown: an onboarding that adapts to each user and shows them what matters first. Here it is, built.',
           'Este portfolio empezó como una propuesta en TaxDown: un onboarding que se adapta a cada usuario y le enseña primero lo que le importa. Aquí está, construido.'],
