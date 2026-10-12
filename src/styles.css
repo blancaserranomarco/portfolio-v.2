@@ -1118,3 +1118,25 @@ body.iq-lock{overflow:hidden}
 @media (prefers-reduced-motion: reduce){ #deck .card.fly,#deck .card.settle,#deck .brand svg{transition:none} #deck .brand .why{animation:none} }
 
 @media (max-width:520px){ #deck .stack{height:calc(100dvh - 240px);min-height:380px} }
+
+/* ---- header menu (hamburger on mobile) + footer language selector ---- */
+.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border:2px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;place-items:center;padding:0}
+.menu-btn svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
+.menu-btn path{transition:transform .25s,opacity .2s;transform-box:fill-box;transform-origin:center}
+.top.open .menu-btn .mb-a{transform:translateY(5px) rotate(45deg)}
+.top.open .menu-btn .mb-b{opacity:0}
+.top.open .menu-btn .mb-c{transform:translateY(-5px) rotate(-45deg)}
+@media (max-width:640px){
+  .menu-btn{display:grid}
+  .nav{display:none;position:absolute;top:calc(100% + 6px);right:clamp(16px,4vw,40px);flex-direction:column;align-items:stretch;gap:2px;min-width:200px;padding:8px;background:var(--surface);border:2px solid var(--line);border-radius:16px;box-shadow:5px 5px 0 var(--shadow)}
+  .top.open .nav{display:flex}
+  .nav button,.nav a{text-align:left;padding:12px 14px;font-size:1rem;border-radius:10px}
+  .top .wrap{position:relative}
+}
+.foot-r{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.lang-sel{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);border-radius:999px;padding:4px 6px 4px 10px;background:var(--surface);color:var(--ink);position:relative}
+.lang-sel svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}
+.lang-sel select{appearance:none;-webkit-appearance:none;border:0;background:transparent;font:inherit;font-weight:600;font-size:.88rem;color:inherit;padding:2px 22px 2px 0;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 9px) 55%,calc(100% - 4px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.lang-sel:focus-within{outline:3px solid var(--focus);outline-offset:3px}
+.lang-sel select:focus{outline:none}
+@media (prefers-reduced-motion: reduce){ .menu-btn path{transition:none} }

@@ -38,6 +38,7 @@ propuestas/     (solo local) bocetos de diseño ya decididos
 
 ## Funcionalidades
 
+- **Cabecera:** Inicio · Trabajo · Sobre mí · Contacto; en móvil (≤640px) pasa a menú hamburguesa. El idioma se cambia en el pie (selector junto a "Cambiar mi bienvenida").
 - **Mini test de entrada:** idioma, nombre (opcional) e interés (growth / sistemas / todo). Se puede saltar. Se guarda en el navegador (`bs_intro`) y se rehace desde el footer.
 - **Hero personalizado:** "Hola {nombre}," con brillos; sin nombre, "Hola, soy Blanca."
 - **Mi trabajo** en dos pestañas tipo carpeta:
@@ -69,6 +70,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-12 · Idioma movido al pie como desplegable; "Inicio" en la cabecera; menú hamburguesa en móvil.
 - 2026-10-12 · Baraja "Detrás de este portfolio" (9 cartas, EN/ES) con entrada antes del feedback.
 - 2026-10-12 · Dirección nueva blancaserrano-portfolio.vercel.app; despliegue automático comprobado.
 - 2026-10-12 · Feedback a Notion funcionando en producción; web publicada en Vercel desde GitHub.

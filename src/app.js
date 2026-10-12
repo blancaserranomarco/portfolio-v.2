@@ -2,7 +2,7 @@
    APP — focus choice, selected work and rendering
    ========================================================= */
 const UI = {
- nav_work:['Work','Trabajo'], nav_about:['About','Sobre mí'], nav_contact:['Contact','Contacto'],
+ nav_home:['Home','Inicio'], menu:['Menu','Menú'], lang_label:['Language','Idioma'], nav_work:['Work','Trabajo'], nav_about:['About','Sobre mí'], nav_contact:['Contact','Contacto'],
  tag:['Personalise your experience','Personaliza tu experiencia'],
  fq:['What brings you here?','¿Qué te trae por aquí?'], fp:['Pick a focus and I’ll bring the most relevant work to the front.','Elige un foco y pongo delante el trabajo más relevante.'],
  explore:['Just exploring? See all work','¿Solo curioseando? Ver todo el trabajo'], choose:['Choose a focus','Elige un foco'],
@@ -295,7 +295,7 @@ function feedbackHTML(){ const f=S.fb;
         ${f.state==='error'?`<p class="fb-err" role="alert">${fb('fail')} <b>${PROFILE.email}</b></p>`:''}
       </form>`:''}`;
   return `<div class="wrap"><section class="fb-sec" id="feedback" aria-labelledby="fb-h"><div class="bh-card"><div class="bh-stack" aria-hidden="true"><i></i><i></i><i>?</i></div><div class="bh-txt"><span class="bh-eb">${dk('t_eb')}</span><h2>${dk('t_h')}</h2><p>${dk('t_p')}</p></div><button type="button" class="bh-btn" data-deck>${dk('t_btn')}</button></div><div class="fb-card">${inner}</div></section>
-    <footer class="foot"><span>${u('foot')}</span><button type="button" class="link" data-iredo="1">${u('redo')}</button></footer></div>`; }
+    <footer class="foot"><span>${u('foot')}</span><div class="foot-r"><button type="button" class="link" data-iredo="1">${u('redo')}</button><label class="lang-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="sr">${u('lang_label')}</span><select id="lang-sel"><option value="en" ${S.lang==='en'?'selected':''}>English</option><option value="es" ${S.lang==='es'?'selected':''}>Español</option></select></label></div></footer></div>`; }
 function refreshFb(focusSel){ const sec=$('#feedback'); if(!sec) return; sec.querySelector('.fb-card').outerHTML=new DOMParser().parseFromString(feedbackHTML(),'text/html').querySelector('.fb-card').outerHTML; const el=focusSel&&$(focusSel); el&&el.focus(); }
 async function sendFb(rec){
   // 1) the deployed site: serverless endpoint that writes to Notion and emails Blanca
@@ -577,7 +577,8 @@ function iceAttn(){
 /* ---------- Render ---------- */
 function applyLang(){ document.documentElement.lang=S.lang;
   document.querySelectorAll('[data-t]').forEach(el=> el.textContent=u(el.dataset.t));
-  document.querySelectorAll('[data-lang]').forEach(b=> b.setAttribute('aria-pressed', b.dataset.lang===S.lang)); }
+  document.querySelectorAll('[data-lang]').forEach(b=> b.setAttribute('aria-pressed', b.dataset.lang===S.lang));
+  document.querySelectorAll('#lang-sel').forEach(s=> s.value=S.lang); }
 function render(){ applyLang();
   $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + contactHTML() + feedbackHTML();
   if(S.openId){ const sh=$('#sheet'); if(sh) sh.innerHTML=caseHTML(byId(S.openId)); }
@@ -622,7 +623,7 @@ document.addEventListener('click', e=>{
     document.querySelectorAll('[data-depth]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.depth===S.depth)); return; }
   if(el.dataset.jump){ e.preventDefault(); jumpTo(el.dataset.jump); return; }
   if(el.dataset.topic){ S.topic=el.dataset.topic; document.querySelectorAll('[data-topic]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.topic===S.topic)); return; }
-  if(el.dataset.lang){ S.lang=el.dataset.lang; store.set('lang',S.lang); const it=store.get('intro'); if(it){ it.lang=S.lang; store.set('intro',it); } render(); return; }
+  if(el.dataset.lang){ setLang(el.dataset.lang); return; }
   if(el.dataset.go!==undefined){ closeCase(); const map={all:'selected',about:'about',contact:'contact',sel:'selected'}; if(el.dataset.go==='home') window.scrollTo({top:0,behavior:reduce?'auto':'smooth'}); else jumpTo(map[el.dataset.go]); return; }
   if(el.dataset.open!==undefined){ if(el.dataset.open) openCase(el.dataset.open); return; }
   const a=el.dataset.act;
@@ -876,4 +877,17 @@ document.addEventListener('keydown',e=>{
   }
 });
 window.bsDeck={open:()=>open()};
+})();
+
+/* ---------- Language selector (footer) and mobile menu ---------- */
+function setLang(l){ S.lang=l; store.set('lang',S.lang); const it=store.get('intro'); if(it){ it.lang=S.lang; store.set('intro',it); } render(); }
+document.addEventListener('change',e=>{ if(e.target.id==='lang-sel'){ setLang(e.target.value); const s=$('#lang-sel'); s&&s.focus(); } });
+(function(){
+  const top=document.querySelector('.top'), btn=document.getElementById('menu-btn'), nav=document.getElementById('main-nav');
+  if(!btn||!nav) return;
+  const set=o=>{ top.classList.toggle('open',o); btn.setAttribute('aria-expanded',o); };
+  btn.addEventListener('click',()=>set(!top.classList.contains('open')));
+  nav.addEventListener('click',e=>{ if(e.target.closest('button')) set(false); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&top.classList.contains('open')){ set(false); btn.focus(); } });
+  document.addEventListener('click',e=>{ if(top.classList.contains('open')&&!e.target.closest('.top')) set(false); });
 })();

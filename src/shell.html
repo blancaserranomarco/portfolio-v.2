@@ -4,14 +4,12 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.3 7.2 7.2 2.3-7.2 2.3L12 20.5l-2.3-7.2L2.5 11l7.2-2.3z" fill="var(--butter)" stroke="var(--ink)" stroke-width="1.6"/></svg>
       Blanca Serrano Marco
     </button>
-    <nav class="nav" aria-label="Main">
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="main-nav"><span class="sr" data-t="menu"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path class="mb-a" d="M4 7h16"/><path class="mb-b" d="M4 12h16"/><path class="mb-c" d="M4 17h16"/></svg></button>
+    <nav class="nav" id="main-nav" aria-label="Main">
+      <button data-go="home" data-t="nav_home"></button>
       <button data-go="all" data-t="nav_work"></button>
-      <button class="hide-sm" data-go="about" data-t="nav_about"></button>
-      <button class="hide-xs" data-go="contact" data-t="nav_contact"></button>
-      <span class="lang" role="group" aria-label="Language">
-        <button data-lang="en" aria-pressed="true">EN</button>
-        <button data-lang="es" aria-pressed="false">ES</button>
-      </span>
+      <button data-go="about" data-t="nav_about"></button>
+      <button data-go="contact" data-t="nav_contact"></button>
     </nav>
   </div>
 </header>
