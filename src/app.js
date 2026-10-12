@@ -13,7 +13,7 @@ const UI = {
  projects:['projects','proyectos'], project:['project','proyecto'],
  depth:['Reading depth','Profundidad de lectura'], quick:['Quick read','Lectura rápida'], fullstory:['Full story','Historia completa'],
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
- hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], overview:['Overview','Resumen'],
+ hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
  full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
@@ -257,6 +257,18 @@ const STR_PX=[
 const PROFILE_PX=['XXXXXXXXXXX','XoooooooooX','XoooXXXoooX','XooXoooXooX','XooXoooXooX','XoooXXXoooX','XoooooooooX','XooXXXXXooX','XoXoooooXoX','XoXoooooXoX','XXXXXXXXXXX'];
 const pixel = (grid,cls='') => { let r=''; grid.forEach((row,y)=>[...row].forEach((c,x)=>{ if(c!=='.') r+=`<rect x="${x}" y="${y}" width="1" height="1" class="${c==='X'?'hx':'ho'}"/>`; }));
   return `<svg class="px ${cls}" viewBox="0 0 ${grid[0].length} ${grid.length}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`; };
+/* ---------- Image zoom (case images) ---------- */
+(function(){
+  let lb=null, back=null;
+  const close=()=>{ if(!lb) return; lb.remove(); lb=null; back&&back.focus(); };
+  const open=img=>{ back=img; lb=document.createElement('div'); lb.className='zoom'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label',img.alt);
+    lb.innerHTML=`<button type="button" class="zoom-x" aria-label="${esc(u('close_img'))}">×</button><div class="zoom-in"><img src="${img.getAttribute('src')}" alt="${esc(img.alt)}"></div>`;
+    document.body.appendChild(lb); lb.querySelector('.zoom-x').focus(); };
+  document.addEventListener('click',e=>{ const im=e.target.closest('img[data-zoom]'); if(im){ e.preventDefault(); open(im); return; }
+    if(lb && (e.target===lb || e.target.closest('.zoom-x') || e.target.classList.contains('zoom-in'))) close(); });
+  document.addEventListener('keydown',e=>{ if(lb && e.key==='Escape'){ e.stopPropagation(); close(); return; }
+    const im=e.target.closest && e.target.closest('img[data-zoom]'); if(im && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); open(im); } },true);
+})();
 /* ---------- Feedback (thumbs + optional comment) ---------- */
 /* strings for the "Behind this portfolio" deck and its teaser */
 const DK={
@@ -331,6 +343,7 @@ function contactHTML(){
       </div>
     </div>
   </section></div>`; }
+const vidTag=(src,poster,c)=>`<video src="${src}" poster="${poster}" ${reduce?'':'autoplay'} muted loop playsinline controls preload="metadata" aria-label="${esc(tr(c))}"></video>`;
 function block(b, p, ids){
   switch(b.k){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
@@ -342,8 +355,9 @@ function block(b, p, ids){
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
-    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div><img src="${s}" alt="${X(c)}" loading="lazy"><span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
       return `<figure class="fig"><div class="abc">${b.rows.map(([l,v])=>`<div><span>${X(l)}</span><i><em style="width:${(v/max*100).toFixed(1)}%"></em></i><strong>${esc(fmt(v))}${b.unit||''}</strong></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'learn': return `<div class="learns"><h2 class="b-h" id="s-${p.id}-learn">${u('learn')}</h2>${b.items.map(([h,t])=>`<div class="lr"><h3>${X(h)}</h3><p>${X(t)}</p></div>`).join('')}</div>`;

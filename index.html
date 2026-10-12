@@ -1276,6 +1276,17 @@ body.iq-lock{overflow:hidden}
 .case-h{scroll-margin-top:84px}
 @media (max-width:640px){ .case-wrap{grid-template-columns:22px minmax(0,1fr)} .sec-nav{padding-left:8px} .sec-nav a{width:18px} .sec-nav i{width:9px} .sec-nav a.on i{width:15px} .sec-pop{display:none} }
 @media (hover:none){ .sec-pop{display:none} }
+/* casos: imágenes ampliables y vídeos */
+img[data-zoom]{cursor:zoom-in}
+img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.fig .vid{margin:16px auto;padding:0 16px}
+.fig video{display:block;width:100%;height:auto;border-radius:12px;border:2px solid var(--line);background:#fff}
+.ba video{max-height:420px;width:auto;max-width:100%;border-radius:12px;border:2px solid var(--line);background:#fff}
+.zoom{position:fixed;inset:0;z-index:200;background:rgba(27,23,36,.94);display:grid;place-items:center;padding:56px 16px 16px;cursor:zoom-out}
+.zoom-in{max-width:100%;max-height:100%;overflow:auto;display:grid;place-items:center}
+.zoom-in img{max-width:min(1600px,100%);max-height:calc(100dvh - 80px);width:auto;height:auto;border-radius:10px;background:#fff;cursor:auto}
+.zoom-x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.4rem;cursor:pointer;box-shadow:3px 3px 0 var(--shadow)}
+.zoom-x:focus-visible{outline:3px solid #fff;outline-offset:2px}
 </style>
 </head>
 <body>
@@ -1445,10 +1456,13 @@ const PROJECTS = [
        res:['Clear instructions, a price breakdown and a security message. Continuing after the amount: 45.3% → 63.3%. Entering card details: 34.0% → 42.1%. Purchase success: +65.62%.','Instrucciones claras, desglose de precio y mensaje de seguridad. Continuar tras el importe: 45,3% → 63,3%. Introducir tarjeta: 34,0% → 42,1%. Compras con éxito: +65,62%.'],
        learn:['Clarity and trust at the amount and payment steps had the biggest impact of the three tests.','La claridad y la confianza en el importe y el pago tuvieron el mayor impacto de los tres tests.']}
     ]},
-    {k:'ba', n:4, items:[['assets/discount-amount-before.webp',['Before · amount','Antes · importe']],['assets/discount-amount-after.webp',['After · amount','Después · importe']],['assets/discount-pay-before.webp',['Before · payment','Antes · pago']],['assets/discount-pay-after.webp',['After · payment','Después · pago']]],
-      cap:['Test 3, the winning change.','Test 3, el cambio ganador.']},
-    {k:'ba', n:4, items:[['assets/discount-exp1-before.webp',['Test 1 · before','Test 1 · antes']],['assets/discount-exp1-after.webp',['Test 1 · after','Test 1 · después']],['assets/discount-exp2-before.webp',['Test 2 · before','Test 2 · antes']],['assets/discount-exp2-after.webp',['Test 2 · after','Test 2 · después']]],
-      cap:['Tests 1 and 2: value clarity and the new information tab.','Tests 1 y 2: claridad del valor y la nueva pestaña de información.']},
+    {k:'ba', n:2, items:[['assets/discount-t1-before.webp',['Before · “Request coupon”','Antes · “Solicitar cupón”']],['assets/discount-t1-after.webp',['After · “Continue”','Después · “Continuar”']]],
+      cap:['Test 1: a lower-commitment button and a more visible discount on the coupon detail.','Test 1: un botón con menos compromiso y un descuento más visible en el detalle del cupón.']},
+    {k:'ba', n:3, items:[['assets/discount-t2-before.webp',['Before · coupons only','Antes · solo cupones']],['assets/discount-t2-after-a.webp',['After · Discounts tab','Después · pestaña Descuentos']],['assets/discount-t2-after-b.webp',['After · Information tab','Después · pestaña Información']]],
+      cap:['Test 2: how the benefit works, in its own tab for whoever needs it.','Test 2: cómo funciona el beneficio, en su propia pestaña para quien lo necesite.']},
+    {k:'ba', n:4, items:[['assets/discount-t3-amount-before.webp',['Before · amount','Antes · importe']],['assets/discount-t3-amount-after.webp',['After · amount','Después · importe']],['assets/discount-t3-pay-before.webp',['Before · payment','Antes · pago']],['assets/discount-t3-pay-after.webp',['After · payment','Después · pago']]],
+      cap:['Test 3, the winning change: what to type and what you’ll pay, and a security message when entering the card.','Test 3, el cambio ganador: qué escribir y cuánto pagarás, y un mensaje de seguridad al meter la tarjeta.']},
+    {k:'img', src:'assets/discount-t3-amplitude.webp', cap:['Test 3 in Amplitude: purchase success went from 19.4% (A) to 32.2% (B).','Test 3 en Amplitude: las compras con éxito pasaron del 19,4% (A) al 32,2% (B).']},
     {k:'h', t:['Estimating the business impact','Estimar el impacto en negocio']},
     {k:'table', head:[['Estimated per year','Estimación anual'],['Before','Antes'],['After','Después'],['Change','Cambio']], rows:[
       [['Purchase success rate','Tasa de compra con éxito'],'27.3%','45.2%','+65.62%'],
@@ -1499,7 +1513,10 @@ const PROJECTS = [
                'Una única plantilla flexible de texto para cualquier beneficio: imagen, título, descripción y un enlace externo. Un agente la rellena en el backoffice, la publica y los empleados la ven en la app al momento, sin desarrollo por beneficio.']},
     {k:'list', t:[['Success criteria: traction in the sales pipeline and 15+ new custom benefits in three months.','Criterio de éxito: tracción en el pipeline de Ventas y más de 15 beneficios nuevos en tres meses.'],
                  ['For companies: autonomy to launch their own perks. For employees: everything in one place. For Cobee: faster go-to-market.','Para las empresas: autonomía para lanzar sus beneficios. Para los empleados: todo en un sitio. Para Cobee: salir antes al mercado.']]},
-    {k:'img', src:'assets/benefits-ideas.webp', max:480, cap:['One template for very different requests.','Una plantilla para peticiones muy distintas.']},
+    {k:'img', src:'assets/benefits-howto.webp', max:760, cap:['How it works: one guided flow to create a benefit, available worldwide by default or only in the selected countries.','Cómo funciona: un único flujo guiado para crear un beneficio, disponible en todos los países por defecto o solo en los que se elijan.']},
+    {k:'ba', n:2, items:[['assets/benefits-backoffice.webp',['Backoffice · one form','Backoffice · un formulario']],['assets/benefits-app.webp',['App · what employees see','App · lo que ve el empleado']]],
+      cap:['One form feeds every surface: once published, the benefit appears in the employee app…','Un formulario alimenta todas las superficies: al publicarlo, el beneficio aparece en la app del empleado…']},
+    {k:'img', src:'assets/benefits-admin.webp', cap:['…and in the admin dashboard, where HR manages and deactivates it.','…y en el dashboard de admin, donde RRHH lo gestiona y lo desactiva.']},
     {k:'h', t:['Scaling with reusable pieces','Escalar con piezas reutilizables']},
     {k:'steps', items:[
       [['Level 1 · Plain, 2023','Nivel 1 · Plain, 2023'],['Information and a link. Launched in Spain, then Mexico and Portugal.','Información y un enlace. Lanzado en España, luego México y Portugal.']],
@@ -1563,17 +1580,18 @@ const PROJECTS = [
       [['One mental model for all of them','Un único modelo mental para todos'],['Clear, explicit outcomes and the same structure everywhere, reducing technical edge cases through product logic instead of exposing internal complexity. Errors, missing data, emails and notifications were mapped too.','Resultados claros y explícitos y la misma estructura en todas partes, resolviendo casos límite con lógica de producto en vez de mostrar la complejidad interna. También mapeamos errores, datos que faltan, emails y notificaciones.']],
       [['Validated with everyone who carries the risk','Validado con quien asume el riesgo'],['Reviewed with Operations to cover real cases, scoped early with Engineering, and tested with users for clarity and confidence.','Revisado con Operaciones para cubrir casos reales, acotado pronto con Ingeniería y testado con usuarios para comprobar claridad y confianza.']]
     ]},
-    {k:'img', src:'assets/renewals-cases.webp', cap:['The four outcomes, each with its own explicit message.','Los cuatro resultados, cada uno con su mensaje explícito.']},
-    {k:'img', src:'assets/renewals-prototype.webp', max:300, cap:['Prototype of the renewal flow.','Prototipo del flujo de renovación.']},
-    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases inside it.','Todos los flujos organizados por tema y los casos que incluye.']},
+    {k:'img', src:'assets/renewals-members.webp', cap:['The four member scenarios: who acts on whose coverage, the employee alone or with family members.','Los cuatro escenarios de miembros: quién actúa sobre la cobertura de quién, el empleado solo o con familiares.']},
+    {k:'img', src:'assets/renewals-types.webp', cap:['The four renewal outcomes, each with its own explicit message.','Los cuatro resultados de renovación, cada uno con su mensaje explícito.']},
+    {k:'vid', src:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', max:300, cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
+    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases inside it, including errors, missing data, emails and notifications.','Todos los flujos organizados por tema y los casos que incluye, también errores, datos que faltan, emails y notificaciones.']},
     {k:'h', t:['Measuring at the moment of truth','Medir en el momento clave']},
     {k:'p', t:['Right after renewing, an in-app notification asked whether the experience felt simple. We tracked it per company, so we could contact the companies that struggled and learn why, and in which scenarios. Product and Operations tracked incidents jointly against the previous year.',
                'Justo después de renovar, una notificación in-app preguntaba si la experiencia había sido sencilla. Lo medimos por empresa, para poder contactar a las que tuvieron problemas y entender por qué y en qué escenarios. Producto y Operaciones siguieron juntos las incidencias frente al año anterior.']},
+    {k:'img', src:'assets/renewals-feedback.webp', max:760, cap:['The in-app question right after renewing, and the thank-you state.','La pregunta in-app justo después de renovar y el estado de agradecimiento.']},
     {k:'table', head:[['Type','Tipo'],['Answers','Respuestas'],['Positive','Positivas'],['% positive','% positivo']], rows:[
       ['Total','351','331','89.2%'],[['Renewal','Renovación'],'272','250','91.9%'],[['Replacement','Sustitución'],'79','63','79.7%']
     ]},
     {k:'quote', t:['The new renewal experience is widely perceived as clearer, more intuitive and better structured. It significantly reduced operational friction.','La nueva experiencia de renovación se percibe como más clara, intuitiva y mejor estructurada. Ha reducido mucho la fricción operativa.'], by:['Operations team','Equipo de Operaciones']},
-    {k:'img', src:'assets/renewals-report.webp', cap:['Results report, January 2026.','Informe de resultados, enero de 2026.']},
     {k:'learn', items:[
       [['Seasonality forces better decisions','La estacionalidad obliga a decidir mejor'],['With one high-risk window a year, priorities got sharper and solutions simpler. When you can’t iterate, clarity and robustness matter more than feature depth.','Con una única ventana de alto riesgo al año, las prioridades se afinaron y las soluciones se simplificaron. Si no puedes iterar, la claridad y la robustez importan más que la profundidad.']],
       [['Measuring unlocks long-term value','Medir desbloquea valor a largo plazo'],['Company-level feedback let us reach the exact companies and users with problems and understand the cause.','El feedback por empresa nos permitió llegar a las empresas y usuarios con problemas y entender la causa.']]
@@ -1665,6 +1683,8 @@ const PROJECTS = [
     {k:'h', t:['Finding the friction','Encontrar la fricción']},
     {k:'p', t:['A CX ticket analysis put hiring the insurance as the area with the most errors and doubts. None of the employee flows were documented, so I mapped them first and set five goals.',
                'Un análisis de tickets de CX señaló la contratación del seguro como la zona con más errores y dudas. Ningún flujo de empleado estaba documentado, así que primero los mapeé y fijé cinco objetivos.']},
+    {k:'img', src:'assets/health-tickets.webp', max:760, cap:['30 CX tickets reviewed: payroll and hiring errors and doubts were the main pain points.','30 tickets de CX revisados: los errores de nómina y de contratación y las dudas eran los principales problemas.']},
+    {k:'img', src:'assets/health-current.webp', cap:['The old flow, with the friction points marked.','El flujo anterior, con los puntos de fricción marcados.']},
     {k:'steps', items:[
       [['Simplify enrolment','Simplificar la contratación'],['Make plan selection clear and effortless.','Que elegir plan sea claro y sencillo.']],
       [['Improve family management','Mejorar la gestión de familiares'],['An intuitive flow for adding family members and covering them.','Un flujo intuitivo para añadir familiares y darles cobertura.']],
@@ -1672,9 +1692,13 @@ const PROJECTS = [
       [['Request tracking','Seguimiento de solicitudes'],['Real-time updates on each application.','Estado de cada solicitud en tiempo real.']],
       [['All benefit info in one place','Toda la información en un sitio'],['Easy access to every coverage detail.','Acceso fácil a todos los detalles de cobertura.']]
     ]},
+    {k:'img', src:'assets/health-happyflow.webp', cap:['The main employee flow, documented for the first time: choose the benefit, request it, pick the plan, complete hiring and add relatives.','El flujo principal del empleado, documentado por primera vez: elegir el beneficio, solicitarlo, escoger modalidad, completar la contratación y añadir familiares.']},
     {k:'h', t:['Design process','Proceso de diseño']},
     {k:'p', t:['I ran iterative tests with employees, CX and Operations, and worked closely with engineering. The hardest part was prioritising alerts so the combinations didn’t explode. To keep every benefit consistent, I created a master document of all possible benefit statuses, starting with health insurance because it had the most variations. It became the reference for design and other departments.',
                'Hice tests iterativos con empleados, CX y Operaciones, y trabajé muy cerca de ingeniería. Lo más difícil fue priorizar las alertas para que las combinaciones no se dispararan. Para que todos los beneficios fueran coherentes, creé un documento maestro con todos los estados posibles, empezando por el seguro porque era el que más variantes tenía. Se convirtió en la referencia de diseño y de otros departamentos.']},
+    {k:'ba', n:3, items:[['assets/health-hire-employee.mp4',['Hiring for yourself','Contratar para ti']],['assets/health-hire-family.mp4',['Hiring for a relative','Contratar para un familiar']],['assets/health-add-family.mp4',['Adding a new relative','Añadir un familiar nuevo']]],
+      cap:['The final product: the three main employee tasks.','El producto final: las tres tareas principales del empleado.']},
+    {k:'img', src:'assets/health-states.webp', cap:['The master document of benefit statuses, the shared reference for design and other teams.','El documento maestro de estados de los beneficios, la referencia común para diseño y otros equipos.']},
     {k:'h', t:['Results','Resultados']},
     {k:'table', head:[['Area','Área'],['Result','Resultado']], rows:[
       [['Rollout','Lanzamiento'],['Spain, Mexico and Portugal: Cobee’s first truly global benefit','España, México y Portugal: el primer beneficio realmente global de Cobee']],
@@ -1724,9 +1748,15 @@ const PROJECTS = [
       [['Export everything at once','Exportar todo de golpe'],['Choose the banners and sizes and download them in one organised ZIP, ready to upload, instead of unnamed PNGs one by one.','Elegir banners y tamaños y descargarlos en un ZIP ordenado, listo para subir, en vez de PNGs sin nombre uno a uno.']],
       [['Ship it where people work','Llevarlo a donde trabaja la gente'],['Published on Vercel so the team uses it from a link, with nothing to install.','Publicada en Vercel para que el equipo la use desde un enlace, sin instalar nada.']]
     ]},
+    {k:'img', src:'assets/banners-editor.webp', cap:['Template editor: CRM customises content, assets and layout without design support.','Editor de plantillas: CRM personaliza contenido, assets y layout sin ayuda de diseño.']},
+    {k:'ba', n:2, items:[['assets/banners-inspo.webp',['Image from the partner’s website','Imagen de la web del partner']],['assets/banners-palette.webp',['Suggested palette','Paleta sugerida']]],
+      cap:['Palette generator: the partner’s brand colours, extracted from a screenshot and still editable.','Generador de paleta: los colores de marca del partner, extraídos de una captura y editables.']},
+    {k:'img', src:'assets/banners-preview.webp', max:560, cap:['Multi-format preview: each banner checked in app and web sizes before exporting.','Vista previa multiformato: cada banner revisado en tamaños de app y web antes de exportar.']},
+    {k:'img', src:'assets/banners-export.webp', cap:['Batch export: choose banners and formats and download one organised ZIP.','Exportación en lote: eliges banners y formatos y descargas un ZIP ordenado.']},
     {k:'h', t:['What I left out, and why','Qué dejé fuera y por qué']},
     {k:'p', t:['Two ideas would have made it even more useful, but both needed engineering and shared infrastructure: saving partners and settings so each is set up once, and automatic delivery, publishing each banner at a fixed link so Customer.io shows every user their own partner’s banner. Instead of blocking a quick win, I shipped what I could build alone and shared the next step with Tech and Data, who validated it.',
                'Dos ideas la habrían hecho aún más útil, pero ambas necesitaban ingeniería e infraestructura compartida: guardar partners y ajustes para configurarlos una vez, y la entrega automática, publicando cada banner en un enlace fijo para que Customer.io muestre a cada usuario el de su partner. En vez de bloquear un quick win, lancé lo que podía construir sola y compartí el siguiente paso con Tech y Data, que lo validaron.']},
+    {k:'img', src:'assets/banners-tobe.webp', cap:['The proposed next step: publish each banner at a URL so Customer.io personalises it per partner automatically.','El siguiente paso propuesto: publicar cada banner en una URL para que Customer.io lo personalice por partner automáticamente.']},
     {k:'h', t:['Before and after','Antes y después']},
     {k:'table', head:['',['Before','Antes'],['After','Después']], rows:[
       [['Creative options','Opciones creativas'],['1 fixed template','1 plantilla fija'],['9 templates × 8 sizes, with preview','9 plantillas × 8 tamaños, con preview']],
@@ -1839,7 +1869,7 @@ const UI = {
  projects:['projects','proyectos'], project:['project','proyecto'],
  depth:['Reading depth','Profundidad de lectura'], quick:['Quick read','Lectura rápida'], fullstory:['Full story','Historia completa'],
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
- hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], overview:['Overview','Resumen'],
+ hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
  full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
@@ -2083,6 +2113,18 @@ const STR_PX=[
 const PROFILE_PX=['XXXXXXXXXXX','XoooooooooX','XoooXXXoooX','XooXoooXooX','XooXoooXooX','XoooXXXoooX','XoooooooooX','XooXXXXXooX','XoXoooooXoX','XoXoooooXoX','XXXXXXXXXXX'];
 const pixel = (grid,cls='') => { let r=''; grid.forEach((row,y)=>[...row].forEach((c,x)=>{ if(c!=='.') r+=`<rect x="${x}" y="${y}" width="1" height="1" class="${c==='X'?'hx':'ho'}"/>`; }));
   return `<svg class="px ${cls}" viewBox="0 0 ${grid[0].length} ${grid.length}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`; };
+/* ---------- Image zoom (case images) ---------- */
+(function(){
+  let lb=null, back=null;
+  const close=()=>{ if(!lb) return; lb.remove(); lb=null; back&&back.focus(); };
+  const open=img=>{ back=img; lb=document.createElement('div'); lb.className='zoom'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true'); lb.setAttribute('aria-label',img.alt);
+    lb.innerHTML=`<button type="button" class="zoom-x" aria-label="${esc(u('close_img'))}">×</button><div class="zoom-in"><img src="${img.getAttribute('src')}" alt="${esc(img.alt)}"></div>`;
+    document.body.appendChild(lb); lb.querySelector('.zoom-x').focus(); };
+  document.addEventListener('click',e=>{ const im=e.target.closest('img[data-zoom]'); if(im){ e.preventDefault(); open(im); return; }
+    if(lb && (e.target===lb || e.target.closest('.zoom-x') || e.target.classList.contains('zoom-in'))) close(); });
+  document.addEventListener('keydown',e=>{ if(lb && e.key==='Escape'){ e.stopPropagation(); close(); return; }
+    const im=e.target.closest && e.target.closest('img[data-zoom]'); if(im && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); open(im); } },true);
+})();
 /* ---------- Feedback (thumbs + optional comment) ---------- */
 /* strings for the "Behind this portfolio" deck and its teaser */
 const DK={
@@ -2157,6 +2199,7 @@ function contactHTML(){
       </div>
     </div>
   </section></div>`; }
+const vidTag=(src,poster,c)=>`<video src="${src}" poster="${poster}" ${reduce?'':'autoplay'} muted loop playsinline controls preload="metadata" aria-label="${esc(tr(c))}"></video>`;
 function block(b, p, ids){
   switch(b.k){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
@@ -2168,8 +2211,9 @@ function block(b, p, ids){
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
-    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div><img src="${s}" alt="${X(c)}" loading="lazy"><span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
       return `<figure class="fig"><div class="abc">${b.rows.map(([l,v])=>`<div><span>${X(l)}</span><i><em style="width:${(v/max*100).toFixed(1)}%"></em></i><strong>${esc(fmt(v))}${b.unit||''}</strong></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'learn': return `<div class="learns"><h2 class="b-h" id="s-${p.id}-learn">${u('learn')}</h2>${b.items.map(([h,t])=>`<div class="lr"><h3>${X(h)}</h3><p>${X(t)}</p></div>`).join('')}</div>`;
