@@ -772,6 +772,7 @@ function ensure(){
   <div class="deck-in">
     <div class="deck-top"><span class="t" id="deck-t"></span><button class="x" id="dk-close">×</button></div>
     <div class="stack" id="dk-stack"></div>
+    <p class="swipe-tip" id="dk-tip"></p>
     <div class="sr" id="dk-live" aria-live="polite"></div>
   </div></div>`);
     deck=document.getElementById('deck'); stack=document.getElementById('dk-stack'); live=document.getElementById('dk-live');
@@ -784,6 +785,7 @@ function ensure(){
   }
   document.getElementById('deck-t').textContent=dk('title');
   document.getElementById('dk-close').setAttribute('aria-label',dk('close'));
+  document.getElementById('dk-tip').textContent=dk('tip');
 }
 function cardHTML(c,k){
   return `<div class="c-bd"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><div class="c-top"><h2>${tr(c.h)}</h2><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
