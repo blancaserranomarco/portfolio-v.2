@@ -44,6 +44,7 @@ propuestas/     (solo local) bocetos de diseño ya decididos
 - **Mi trabajo** en dos pestañas tipo carpeta:
   - *Por proyectos:* filtros (All primero y por defecto) y cards con ilustración; el "por qué" se abre sobre la ilustración (en móvil, cita visible).
   - *Por empresas:* línea temporal por empresa con proyectos asociados; el "por qué" aparece al pasar el ratón.
+  - *Caso abierto:* panel lateral con todo el contenido seguido (sin lectura rápida/completa) e índice de rayitas a la izquierda que marca la sección actual; al pasar el ratón muestra título y extracto. Flechas arriba para caso anterior/siguiente.
 - **Contacto ("Hablemos"):** botones Copiar email y LinkedIn + email visible; a la derecha tu retrato en pegatina (SVG en `contactHTML`): los ojos siguen el ratón y parpadea; al pincharlo se asusta (ojos cerrados, boca en "o"); al copiar el email sonríe. Oculto en ≤760px. Ilustración original en `assets/yo.png`.
 - **Detrás de este portfolio:** botón en el hero ("¿Por qué este portfolio es así?" / "Descubre las decisiones detrás de este diseño.", con mini baraja) que abre una baraja deslizable de 8 cartas con el porqué de cada decisión de UX (texto, "Por qué" y a veces "El dato" con fuente). Cada carta ocupa hasta abajo de la pantalla y lleva dentro la navegación (← · puntos · Continuar; en la última, Cerrar), con la pista "Arrastra la carta o usa ← →" debajo. Ilustraciones animadas junto al título; en ordenador la carta se inclina hacia el ratón para sugerir que se puede arrastrar; se pasa arrastrando, con los botones o con las flechas del teclado. Textos en `DK`/`DECK` de `src/app.js`; cualquier elemento con `data-deck` la abre.
 - **Feedback** ("¿Te ha gustado?"): sin caja, separado por una línea; pulgar arriba/abajo + comentario y nombre opcionales (por defecto "Anónimo"); se puede enviar solo la valoración.
@@ -70,6 +71,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-12 · Casos: se quita "Lectura rápida / Historia completa" y el botón "Siguiente caso" de abajo; índice lateral de secciones.
 - 2026-10-12 · Baraja: 8 cartas (se quita "Ahora, descubre mi trabajo"), navegación dentro de la carta y carta a altura completa.
 - 2026-10-12 · El hero sustituye "Ver mi trabajo" y "Hablemos" por el botón-baraja; se quita el bloque lila de abajo.
 - 2026-10-12 · "Hablemos" rediseñado con retrato-pegatina interactivo. Orden final: Detrás del portfolio → Hablemos → Feedback.

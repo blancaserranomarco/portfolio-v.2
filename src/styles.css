@@ -1249,3 +1249,19 @@ body.iq-lock{overflow:hidden}
 #deck .swipe-tip{margin-top:4px}
 @media (max-width:520px){ #deck .stack{height:calc(100dvh - 124px)} }
 #deck .card.front.lean{transition:translate .25s ease-out,rotate .25s ease-out}
+/* caso: índice lateral de secciones (rayitas) */
+.case-wrap{display:grid;grid-template-columns:40px minmax(0,1fr)}
+.sec-nav{position:sticky;top:calc(50vh - 60px);align-self:start;display:flex;flex-direction:column;gap:2px;padding:24px 0 0 14px;z-index:3}
+.sec-nav a{position:relative;display:flex;align-items:center;height:14px;width:30px;text-decoration:none}
+.sec-nav i{display:block;width:14px;height:2.5px;border-radius:2px;background:var(--ink);opacity:.22;transition:width .2s,opacity .2s}
+.sec-nav a.past i{opacity:.5}
+.sec-nav a.on i{width:24px;opacity:1}
+.sec-nav a:hover i,.sec-nav a:focus-visible i{opacity:1}
+.sec-nav a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:3px}
+.sec-pop{position:absolute;left:34px;top:50%;transform:translateY(-50%) translateX(-4px);width:290px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--line) 18%,transparent);border-radius:14px;box-shadow:0 8px 24px rgba(27,23,36,.12);padding:10px 14px;display:grid;gap:4px;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+.sec-pop b{font-size:.9rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sec-pop small{font-size:.82rem;line-height:1.4;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.sec-nav a:hover .sec-pop,.sec-nav a:focus-visible .sec-pop{opacity:1;transform:translateY(-50%)}
+.case-h{scroll-margin-top:84px}
+@media (max-width:640px){ .case-wrap{grid-template-columns:22px minmax(0,1fr)} .sec-nav{padding-left:8px} .sec-nav a{width:18px} .sec-nav i{width:9px} .sec-nav a.on i{width:15px} .sec-pop{display:none} }
+@media (hover:none){ .sec-pop{display:none} }

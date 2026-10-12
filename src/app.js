@@ -13,7 +13,7 @@ const UI = {
  projects:['projects','proyectos'], project:['project','proyecto'],
  depth:['Reading depth','Profundidad de lectura'], quick:['Quick read','Lectura rápida'], fullstory:['Full story','Historia completa'],
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
- hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Jump to','Ir a'],
+ hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
  full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
@@ -353,30 +353,30 @@ function block(b, p, ids){
 function caseHTML(p){
   const order = caseOrder();
   const idx=order.findIndex(x=>x.id===p.id), prev=order[idx-1], next=order[idx+1];
-  const w=whyFor(p), open=S.depth!=='quick';
+  const w=whyFor(p);
   const ids=[]; const body=p.blocks.map(b=>block(b,p,ids)).join('');
   if(p.blocks.some(b=>b.k==='learn')) ids.push([`s-${p.id}-learn`, u('learn')]);
+  // snippet for each section: first text block after its heading
+  const plain=t=>tr(t).replace(/\*\*|__|<[^>]+>/g,'');
+  const snip=[]; let hi=-1; p.blocks.forEach(b=>{ if(b.k==='h'){ hi++; snip[hi]=''; } else if(hi>=0 && !snip[hi] && (b.k==='p'||b.k==='call')) snip[hi]=plain(b.t); else if(b.k==='learn' && b.items&&b.items[0]) snip[ids.length-1]=plain(b.items[0][1]); });
+  const secs=[[`case-top-${p.id}`, u('overview'), plain(p.challenge)], ...ids.map(([id,t],k)=>[id,t,snip[k]||''])];
+  const cut=t=>t.length>120?t.slice(0,118).replace(/\s+\S*$/,'')+'…':t;
   return `<div class="sheet-bar">
       <button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button>
       <span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span>
       <button class="icon-btn" data-open="${prev?prev.id:''}" aria-label="${u('prev')}" ${prev?'':'disabled'}>${icon.l}</button>
       <button class="icon-btn" data-open="${next?next.id:''}" aria-label="${u('next_c')}" ${next?'':'disabled'}>${icon.r}</button></div>
+    <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in" style="--tone:var(${p.tone})">
-      <header class="case-h">${tagsHTML(p)}
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}
         <h1 id="case-title">${X(p.title)}</h1><p class="challenge">${X(p.challenge)}</p>
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
       <div class="bignums">${p.nums.map(n=>`<div><strong>${esc(fmt(n.v))}</strong><span>${X(n.t)}</span></div>`).join('')}</div>
-      <div class="depth" role="group" aria-label="${u('depth')}"><button data-depth="quick" aria-pressed="${!open}">${u('quick')}</button><button data-depth="full" aria-pressed="${open}">${u('fullstory')}</button></div>
       <div class="hl-big"><b>${X(p.hl.label)}</b>${X(p.hl.text)}</div>
       ${w?`<div class="why-big"><b>${spark}${u('why')}</b>${esc(w)}</div>`:''}
-      <details class="story" ${open?'open':''}>
-        <summary><span><h2>${u('story')}</h2><small>${u('story_hint')}</small></span><span class="tog"><span class="o">${u('hide')}</span><span class="c">${u('show')}</span></span></summary>
-        <nav class="toc" aria-label="${u('jump')}">${ids.map(([id,t])=>`<a href="#${id}" data-jump="${id}">${esc(t)}</a>`).join('')}</nav>
-        <div class="blocks">${body}</div>
-      </details>
-      <footer class="sheet-foot">${p.notion?`<a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a>`:'<span></span>'}
-        ${next?`<button class="btn" data-open="${next.id}">${u('next_c')}: ${X(next.short)}</button>`:''}</footer>
-    </article>`;
+      <div class="blocks">${body}</div>
+      ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
+    </article></div>`;
 }
 function openCase(id){
   const p=P.find(x=>x.id===id); if(!p) return; let sheet=$('#sheet');
@@ -386,6 +386,15 @@ function openCase(id){
     document.body.append(scrim,sheet); document.body.style.overflow='hidden';
     requestAnimationFrame(()=>{scrim.classList.add('on'); sheet.classList.add('on');}); }
   S.openId=id; sheet.innerHTML=caseHTML(p); sheet.scrollTop=0; $('[data-act="close"]',sheet).focus();
+  if(!sheet.dataset.spy){ sheet.dataset.spy=1; sheet.addEventListener('scroll',()=>secSpy(sheet),{passive:true}); }
+  secSpy(sheet);
+}
+function secSpy(sheet){
+  const links=[...sheet.querySelectorAll('.sec-nav a')]; if(!links.length) return;
+  const line=sheet.getBoundingClientRect().top+innerHeight*.3; let cur=0;
+  links.forEach((a,k)=>{ const t=document.getElementById(a.dataset.jump); if(t && t.getBoundingClientRect().top<=line) cur=k; });
+  if(sheet.scrollTop+sheet.clientHeight>=sheet.scrollHeight-4) cur=links.length-1;
+  links.forEach((a,k)=>{ a.classList.toggle('on',k===cur); a.classList.toggle('past',k<cur); if(k===cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
 }
 function closeCase(){ const sheet=$('#sheet'), scrim=$('#scrim'); if(!sheet) return;
   sheet.classList.remove('on'); scrim.classList.remove('on'); S.openId=null;
@@ -615,8 +624,6 @@ document.addEventListener('click', e=>{
   const el=e.target.closest('[data-wtab],[data-focus],[data-depth],[data-act],[data-go],[data-open],[data-lang],[data-jump],[data-topic]'); if(!el) return;
   if(el.dataset.wtab){ setWTab(el.dataset.wtab); return; }
   if(el.dataset.focus){ setFocus(el.dataset.focus); return; }
-  if(el.dataset.depth){ S.depth=el.dataset.depth; store.set('depth',S.depth); const d=$('#sheet details.story'); if(d) d.open = S.depth!=='quick';
-    document.querySelectorAll('[data-depth]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.depth===S.depth)); return; }
   if(el.dataset.jump){ e.preventDefault(); jumpTo(el.dataset.jump); return; }
   if(el.dataset.topic){ S.topic=el.dataset.topic; document.querySelectorAll('[data-topic]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.topic===S.topic)); return; }
   if(el.dataset.lang){ setLang(el.dataset.lang); return; }
@@ -632,7 +639,6 @@ document.addEventListener('click', e=>{
     try{ navigator.clipboard.writeText(PROFILE.email).then(done,selectMail); }catch(err){ selectMail(); } return; }
   if(a==='copymsg'){ const txt=$('#f-status').dataset.body||''; try{ navigator.clipboard.writeText(txt).then(()=>{el.textContent=u('copied');},()=>{}); }catch(err){} return; }
 });
-document.addEventListener('toggle', e=>{ if(e.target.matches && e.target.matches('#sheet details.story')){ const open=e.target.open; document.querySelectorAll('[data-depth]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.depth===(open?'full':'quick'))); } }, true);
 document.addEventListener('submit', e=>{ if(e.target.id==='fb') sendFeedback(e); });
 document.addEventListener('input', e=>{ if(e.target.id==='f-msg') S.form.msg=e.target.value; if(e.target.id==='f-name') S.form.name=e.target.value; if(e.target.id==='f-mail') S.form.mail=e.target.value; });
 document.addEventListener('keydown', e=>{
