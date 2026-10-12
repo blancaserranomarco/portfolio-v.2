@@ -2169,8 +2169,6 @@ function block(b, p, ids){
   return '';
 }
 function caseHTML(p){
-  const order = caseOrder();
-  const idx=order.findIndex(x=>x.id===p.id), prev=order[idx-1], next=order[idx+1];
   const w=whyFor(p);
   const ids=[]; const body=p.blocks.map(b=>block(b,p,ids)).join('');
   if(p.blocks.some(b=>b.k==='learn')) ids.push([`s-${p.id}-learn`, u('learn')]);
@@ -2182,8 +2180,7 @@ function caseHTML(p){
   return `<div class="sheet-bar">
       <button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button>
       <span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span>
-      <button class="icon-btn" data-open="${prev?prev.id:''}" aria-label="${u('prev')}" ${prev?'':'disabled'}>${icon.l}</button>
-      <button class="icon-btn" data-open="${next?next.id:''}" aria-label="${u('next_c')}" ${next?'':'disabled'}>${icon.r}</button></div>
+</div>
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in" style="--tone:var(${p.tone})">
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}
