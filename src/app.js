@@ -258,6 +258,17 @@ const PROFILE_PX=['XXXXXXXXXXX','XoooooooooX','XoooXXXoooX','XooXoooXooX','XooXo
 const pixel = (grid,cls='') => { let r=''; grid.forEach((row,y)=>[...row].forEach((c,x)=>{ if(c!=='.') r+=`<rect x="${x}" y="${y}" width="1" height="1" class="${c==='X'?'hx':'ho'}"/>`; }));
   return `<svg class="px ${cls}" viewBox="0 0 ${grid[0].length} ${grid.length}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`; };
 /* ---------- Feedback (thumbs + optional comment) ---------- */
+/* strings for the "Behind this portfolio" deck and its teaser */
+const DK={
+  title:['Behind this portfolio','Detrás de este portfolio'], close:['Close','Cerrar'], prev:['Previous card','Carta anterior'], next:['Next card','Siguiente carta'],
+  tip:['Drag the card or use ← →','Arrastra la carta o usa ← →'], why:['Why','Por qué'], data:['The data','El dato'],
+  work:['See my projects','Ver mis proyectos'], again:['↺ Back to the cards','↺ Volver a las cartas'], card:['card','carta'],
+  of:['Card {a} of {b}','Carta {a} de {b}'],
+  t_eb:['Before you go','Antes de irte'], t_h:['Have you wondered why this portfolio is the way it is?','¿Te has preguntado por qué este portfolio es así?'],
+  t_p:['Every detail has a reason. I’ll tell you in less than a minute.','Cada detalle tiene un porqué. Te lo cuento en menos de un minuto.'],
+  t_btn:['Discover it in 9 cards ✦','Descúbrelo en 9 cartas ✦']
+};
+const dk=k=>tr(DK[k]);
 const FB={ h:['Did you like it?','¿Te ha gustado?'], p:['Help me improve it, or leave me a comment.','Ayúdame a mejorar o déjame un comentario.'],
   up:['Yes, I liked it','Sí, me ha gustado'], down:['Not really','No mucho'],
   q_up:['What did you like most? (optional)','¿Qué es lo que más te ha gustado? (opcional)'], q_down:['What would you improve? (optional)','¿Qué mejorarías? (opcional)'],
@@ -283,7 +294,7 @@ function feedbackHTML(){ const f=S.fb;
         <button class="btn" type="submit" ${f.state==='sending'?'disabled':''}>${f.state==='sending'?fb('sending'):fb('send')}</button></div>
         ${f.state==='error'?`<p class="fb-err" role="alert">${fb('fail')} <b>${PROFILE.email}</b></p>`:''}
       </form>`:''}`;
-  return `<div class="wrap"><section class="fb-sec" id="feedback" aria-labelledby="fb-h"><div class="fb-card">${inner}</div></section>
+  return `<div class="wrap"><section class="fb-sec" id="feedback" aria-labelledby="fb-h"><div class="bh-card"><div class="bh-stack" aria-hidden="true"><i></i><i></i><i>?</i></div><div class="bh-txt"><span class="bh-eb">${dk('t_eb')}</span><h2>${dk('t_h')}</h2><p>${dk('t_p')}</p></div><button type="button" class="bh-btn" data-deck>${dk('t_btn')}</button></div><div class="fb-card">${inner}</div></section>
     <footer class="foot"><span>${u('foot')}</span><button type="button" class="link" data-iredo="1">${u('redo')}</button></footer></div>`; }
 function refreshFb(focusSel){ const sec=$('#feedback'); if(!sec) return; sec.querySelector('.fb-card').outerHTML=new DOMParser().parseFromString(feedbackHTML(),'text/html').querySelector('.fb-card').outerHTML; const el=focusSel&&$(focusSel); el&&el.focus(); }
 async function sendFb(rec){
@@ -705,4 +716,164 @@ if(S.introOpen) showIntro();
     el.animate([{transform:'translate(-50%,-50%) scale(.4) rotate(0deg)',opacity:0},{transform:'translate(-50%,-50%) scale(1) rotate(20deg)',opacity:.9,offset:.18},{transform:`translate(calc(-50% + ${drift}px),calc(-50% + ${fall}px)) scale(.3) rotate(${rot}deg)`,opacity:0}],
       {duration:760+Math.random()*260,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>{el.remove(); alive--;};
   },{passive:true});
+})();
+
+
+/* ---------- "Behind this portfolio": swipeable deck explaining the UX decisions ---------- */
+(function(){
+const INK='#1B1724';
+const IL={
+  hello:`<svg viewBox="0 0 200 140"><rect x="22" y="22" width="156" height="92" rx="18" fill="#fff" stroke="${INK}" stroke-width="4"/><path d="M60 114l-6 22 26-22" fill="#fff" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><text x="100" y="80" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="34" fill="${INK}">hola ✦</text></svg>`,
+  quiz:`<svg viewBox="0 0 200 140"><g stroke="${INK}" stroke-width="4"><rect x="30" y="18" width="140" height="30" rx="15" fill="#fff"/><rect x="30" y="56" width="140" height="30" rx="15" fill="#CDBFFF"/><rect x="30" y="94" width="140" height="30" rx="15" fill="#fff"/></g><circle cx="50" cy="71" r="7" fill="${INK}"/><g fill="${INK}"><rect x="66" y="29" width="70" height="8" rx="4"/><rect x="66" y="67" width="84" height="8" rx="4"/><rect x="66" y="105" width="56" height="8" rx="4"/></g></svg>`,
+  name:`<svg viewBox="0 0 200 140"><rect x="28" y="36" width="144" height="70" rx="12" fill="#fff" stroke="${INK}" stroke-width="4"/><rect x="28" y="36" width="144" height="22" rx="10" fill="#FFC6E3" stroke="${INK}" stroke-width="4"/><path d="M58 92h84" stroke="#FFE7A1" stroke-width="9" stroke-linecap="round"/><text x="100" y="88" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="24" fill="${INK}">tu nombre</text><path d="M168 18l3 9 9 3-9 3-3 9-3-9-9-3 9-3z M30 104l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#FFE7A1" stroke="${INK}" stroke-width="2.5"/></svg>`,
+  ice:`<svg viewBox="0 0 200 140"><rect x="0" y="62" width="200" height="78" fill="#7FB6F0"/><path d="M0 62h200" stroke="${INK}" stroke-width="4"/><path d="M78 62l14-34 18 10 14 24z" fill="#fff" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M58 62l-10 30 22 34 50 4 36-28-14-40z" fill="#E6F2FF" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/></svg>`,
+  folders:`<svg viewBox="0 0 200 140"><path d="M24 40h52l10 12h62v70H24z" fill="#FFE7A1" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M58 22h50l10 12h58v66H58z" fill="#fff" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M24 62h124v60H24z" fill="#FFE7A1" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><g fill="${INK}"><rect x="40" y="80" width="60" height="7" rx="3.5"/><rect x="40" y="96" width="40" height="7" rx="3.5"/></g></svg>`,
+  why:`<svg viewBox="0 0 200 140"><rect x="26" y="24" width="148" height="92" rx="14" fill="#C2E2FF" stroke="${INK}" stroke-width="4"/><rect x="40" y="38" width="120" height="64" rx="10" fill="#fff" stroke="${INK}" stroke-width="3"/><text x="100" y="84" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-size="44" fill="${INK}">?</text><path d="M150 20l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#FFE7A1" stroke="${INK}" stroke-width="2.5"/></svg>`,
+  hand:`<svg viewBox="0 0 200 140"><path d="M30 104c26-40 46 6 70-28s40-10 70-44" fill="none" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><g transform="rotate(-38 132 62)"><rect x="96" y="54" width="86" height="18" rx="4" fill="#FFD3BE" stroke="${INK}" stroke-width="4"/><path d="M96 54l-16 9 16 9z" fill="#fff" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><rect x="164" y="54" width="18" height="18" rx="3" fill="#FFC6E3" stroke="${INK}" stroke-width="4"/></g></svg>`,
+  fb:`<svg viewBox="0 0 200 140"><g class="up"><rect x="40" y="34" width="54" height="72" rx="27" fill="#fff" stroke="${INK}" stroke-width="4"/><text x="67" y="82" text-anchor="middle" font-size="30">👍</text></g><g class="dn"><rect x="106" y="34" width="54" height="72" rx="27" fill="#fff" stroke="${INK}" stroke-width="4"/><text x="133" y="82" text-anchor="middle" font-size="30">👎</text></g><g class="ck"><circle cx="90" cy="36" r="13" fill="${INK}" stroke="#fff" stroke-width="2.5"/><path d="M84 36.5l4 4 8-8.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g></svg>`,
+  loop:`<svg viewBox="0 0 200 140"><g class="doc"><rect x="34" y="20" width="104" height="100" rx="12" fill="#fff" stroke="${INK}" stroke-width="4"/><path d="M34 50V32a12 12 0 0 1 12-12h80a12 12 0 0 1 12 12v18z" fill="#FFC6E3" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><g class="ln" fill="${INK}"><rect x="48" y="64" width="62" height="7" rx="3.5"/><rect x="48" y="80" width="76" height="7" rx="3.5"/><rect x="48" y="96" width="44" height="7" rx="3.5"/></g></g><g class="lens"><path d="M151 101l20 20" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><circle cx="132" cy="82" r="26" fill="#C2E2FF" fill-opacity=".75" stroke="${INK}" stroke-width="5"/><path d="M120 72a14 14 0 0 1 10-6" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/></g><path class="spk" d="M172 26l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#FFE7A1" stroke="${INK}" stroke-width="2.5"/></svg>`
+};
+const DECK=[
+  {il:'hello',k:['My approach','Mi criterio'],tone:'var(--lilac)',tag:['Creativity and experimentation','Creatividad y experimentación'],h:['A portfolio that also speaks about me','Un portfolio que también habla de mí'],
+   w:['AI is part of my toolkit. In this portfolio I used it to explore ideas, try out interactions and turn my designs into a working experience.','La IA forma parte de mis herramientas de trabajo. En este portfolio la he utilizado para explorar ideas, probar interacciones y llevar mis diseños a una experiencia funcional.'],
+   y:['As a product designer, I look for new ways to work and create. This portfolio is a space of my own to try ideas, enjoy myself and express my personality. I allowed myself to trade a little simplicity and usability for play and surprise: a conscious decision to explore freely.','Como diseñadora de producto, busco nuevas formas de trabajar y crear. Este portfolio es un espacio propio donde probar ideas, disfrutar y expresar mi personalidad. Me he permitido sacrificar algo de simplicidad y usabilidad para dar espacio al juego y la sorpresa: una decisión consciente para explorar con libertad.']},
+  {il:'quiz',tone:'var(--sky)',tag:['Relevance and control','Relevancia y control'],h:['Start with what interests you','Empieza por lo que te interesa'],
+   w:['The welcome adapts the language and the projects you see to your answers. You can skip it or change your preferences later.','La bienvenida adapta el idioma y los proyectos que ves según tus respuestas. Puedes saltártela o cambiar tus preferencias después.'],
+   y:['In several projects I worked with people who needed different things from the same product. Here I apply that lesson: showing relevant content to help you focus and spark the interest to keep exploring.','En varios proyectos he trabajado con personas que necesitaban cosas distintas de un mismo producto. Aquí aplico ese aprendizaje: mostrar contenido relevante para facilitar el foco y despertar interés por seguir explorando.']},
+  {il:'name',tone:'var(--pink)',tag:['Closeness','Cercanía'],h:['Come in, {your name}','Pasa, {tu nombre}'],
+   w:['If you tell me your name, I welcome you by it.','Si me dices cómo te llamas, te recibo por tu nombre.'],
+   y:['When you meet someone, you ask their name. I wanted to bring that gesture into the portfolio. It gives the visit the tone of a conversation, from the very first “hi”.','Cuando conoces a alguien, preguntas su nombre. Quería trasladar ese gesto al portfolio. Es una forma de ponerle un tono de conversación a la visita, desde el primer «hola».'],
+   d:['A name can catch attention: in an email marketing experiment, adding it to the subject line increased opens by about 20%.','Un nombre puede captar atención: en un experimento de email marketing, añadirlo al asunto aumentó las aperturas aproximadamente un 20 %.'],
+   s:[['Sahni, Wheeler & Chintagunta · Marketing Science, 2018','Sahni, Wheeler y Chintagunta · Marketing Science, 2018'],'https://pubsonline.informs.org/doi/10.1287/mksc.2017.1066']},
+  {il:'ice',tone:'var(--mint)',tag:['Participation and discovery','Participación y descubrimiento'],h:['Let’s break the ice','Rompamos el hielo'],
+   w:['Draw an iceberg and watch it float. Like this portfolio, what you see is only the tip.','Dibuja un iceberg y mira cómo flota. Como en este portfolio, lo que ves es solo la punta.'],
+   y:['After so many portfolios, you might welcome a surprise. This little game invites you to pause, pay attention and take part. I want to spark your curiosity, make the visit more memorable and make you want to keep exploring.','Después de tantos portfolios, quizá agradezcas una sorpresa. Este pequeño juego te invita a parar, prestar atención y participar. Busco despertar tu curiosidad, hacer más memorable la visita y darte ganas de seguir explorando.'],
+   d:['Von Restorff effect: among similar items, we remember the one that stands out.','Efecto Von Restorff: entre elementos parecidos, recordamos el que es diferente.'],
+   s:['Hedwig von Restorff, 1933','https://en.wikipedia.org/wiki/Von_Restorff_effect']},
+  {il:'folders',tone:'var(--butter)',tag:['Flexible navigation','Flexibilidad de uso'],h:['Two ways to get to know my work','Dos formas de conocer mi trabajo'],
+   w:['Explore my projects by type of challenge, or follow my path company by company.','Explora mis proyectos por tipo de reto o recorre mi trayectoria por empresa.'],
+   y:['What have I solved? Where and how have I grown? Depending on what you want to know, one view will be more useful than the other. That’s why I organised the same work into two paths: so you can find it the way that makes sense to you.','¿Qué he resuelto? ¿Dónde y cómo he ido creciendo? Según lo que quieras saber, te será más útil una vista u otra. Por eso organicé el mismo trabajo en dos recorridos: para que puedas encontrarlo como tiene sentido para ti.']},
+  {il:'why',tone:'var(--sky)',tag:['Product judgement','Criterio de producto'],h:['The problem first, then the solution','Primero el problema, después la solución'],
+   w:['What did we need to solve? My cases start there and walk through the decisions until the result.','¿Qué necesitábamos resolver? Mis casos parten de ahí y recorren las decisiones hasta llegar al resultado.'],
+   y:['To judge a solution, you need to know the challenge. So I share what I prioritised, what I ruled out and how I balanced people’s needs with business goals. I want you to follow the reasoning and understand my contribution.','Para valorar una solución, necesitas conocer el reto. Por eso cuento qué prioricé, qué descarté y cómo equilibré las necesidades de las personas con los objetivos del negocio. Quiero que puedas seguir el razonamiento y entender mi aportación.']},
+  {il:'hand',tone:'var(--peach)',tag:['Visual design','Diseño visual'],h:['My identity, in the details','Mi identidad, en los detalles'],
+   w:['A retro-flavoured look in a modern digital experience.','Una estética con aire retro en una experiencia digital actual.'],
+   y:['I chose a visual language that mixes nostalgia and play, with nods to those interfaces that borrowed from the physical world and opened up a territory to explore, where the rules still seemed to be unwritten.','Elegí un lenguaje visual que mezcla nostalgia y juego, con guiños a aquellas interfaces que tomaban referencias del mundo físico y abrían un terreno por explorar donde las reglas parecían estar todavía por escribir.'],
+   d:['Aesthetic-usability effect: we perceive attractive designs as easier to use.','Efecto estética-usabilidad: percibimos los diseños atractivos como más fáciles de usar.'],
+   s:[['Kurosu & Kashimura, Hitachi, 1995','Kurosu y Kashimura, Hitachi, 1995'],'https://lawsofux.com/aesthetic-usability-effect/']},
+  {il:'fb',tone:'var(--mint)',tag:['Listening and iteration','Escucha e iteración'],h:['How was the experience?','¿Qué tal ha sido la experiencia?'],
+   w:['A thumb to rate it. A comment to tell me why.','Un pulgar para valorar. Un comentario para contarme por qué.'],
+   y:['Designing also means putting your own ideas to the test. This satisfaction question lets me gather your impression and make room for criticism. Listening, questioning my decisions and learning from feedback are part of my work as a product designer.','Diseñar también es poner a prueba tus propias ideas. Esta pregunta de satisfacción me permite recoger tu impresión y abrir espacio a la crítica. Escuchar, cuestionar mis decisiones y aprender del feedback son parte de mi trabajo como diseñadora de producto.']},
+  {il:'loop',tone:'var(--lilac)',tag:['Continuity','Continuidad'],h:['Now, discover my work','Ahora, descubre mi trabajo'],
+   w:['You now know the decisions behind the portfolio. Now I invite you to discover how I work with real challenges.','Ya conoces las decisiones detrás del portfolio. Ahora te invito a descubrir cómo trabajo con retos reales.'], end:true}
+];
+
+let i=0, deck=null, stack=null, dots=null, live=null, opener=null;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const CARDS=DECK;
+function ensure(){
+  if(!deck){
+    document.body.insertAdjacentHTML('beforeend',`<div class="deck" id="deck" role="dialog" aria-modal="true" aria-labelledby="deck-t">
+  <div class="deck-in">
+    <div class="deck-top"><span class="t" id="deck-t"></span><button class="x" id="dk-close">×</button></div>
+    <div class="stack" id="dk-stack"></div>
+    <div class="ctl"><button class="btn alt" id="dk-prev">←</button><div class="dots" id="dk-dots" aria-hidden="true"></div><button class="btn" id="dk-next">→</button></div>
+    <p class="swipe-tip" id="dk-tip"></p>
+    <div class="sr" id="dk-live" aria-live="polite"></div>
+  </div></div>`);
+    deck=document.getElementById('deck'); stack=document.getElementById('dk-stack'); dots=document.getElementById('dk-dots'); live=document.getElementById('dk-live');
+    dots.innerHTML=CARDS.map(()=>'<i></i>').join('');
+    document.getElementById('dk-next').onclick=()=>go(1);
+    document.getElementById('dk-prev').onclick=()=>go(-1);
+    document.getElementById('dk-close').onclick=close;
+    deck.addEventListener('click',e=>{ if(e.target===deck) close(); });
+    stack.addEventListener('click',e=>{
+      const a=e.target.closest('[data-a]'); if(!a) return;
+      if(a.dataset.a==='again'){ i=0; render(); document.getElementById('dk-next').focus(); }
+      else { close(); const w=document.querySelector('[data-go="sel"]'); w&&w.click(); }
+    });
+  }
+  document.getElementById('deck-t').textContent=dk('title');
+  document.getElementById('dk-close').setAttribute('aria-label',dk('close'));
+  document.getElementById('dk-prev').setAttribute('aria-label',dk('prev'));
+  document.getElementById('dk-next').setAttribute('aria-label',dk('next'));
+  document.getElementById('dk-tip').textContent=dk('tip');
+}
+function cardHTML(c,k){
+  return `<div class="c-hd" style="--tone:${c.tone}"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag">${tr(c.tag)}</span><div class="il il-${c.il}">${IL[c.il]}</div></div>
+  <div class="c-bd"><h2>${tr(c.h)}</h2><p class="what">${tr(c.w)}</p>
+  ${c.y?`<div class="why"><span class="k">${c.k?tr(c.k):dk('why')}</span><p>${tr(c.y)}</p></div>`:''}
+  ${c.d?`<div class="dato"><span class="k">${dk('data')}</span><p>${tr(c.d)}</p>${c.s?`<a href="${c.s[1]}" target="_blank" rel="noopener">${tr(c.s[0])} ↗</a>`:''}</div>`:''}
+  ${c.end?`<div class="c-end"><button class="btn" data-a="work">${dk('work')}</button><button class="btn alt" data-a="again">${dk('again')}</button></div>`:''}</div>`;
+}
+function render(){
+  stack.innerHTML='';
+  [2,1,0].forEach(off=>{
+    const k=i+off; if(k>=CARDS.length) return;
+    const el=document.createElement('article');
+    el.className='card '+(off===0?'front':off===1?'back1':'back2');
+    el.setAttribute('aria-roledescription',dk('card'));
+    if(off) el.setAttribute('aria-hidden','true');
+    el.innerHTML=cardHTML(CARDS[k],k);
+    stack.appendChild(el);
+  });
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  document.getElementById('dk-prev').disabled=i===0;
+  document.getElementById('dk-next').style.visibility=i===CARDS.length-1?'hidden':'visible';
+  live.textContent=dk('of').replace('{a}',i+1).replace('{b}',CARDS.length)+': '+tr(CARDS[i].h);
+  bindDrag(stack.querySelector('.front'));
+}
+function go(dir){
+  const n=i+dir; if(n<0||n>=CARDS.length) return;
+  const f=stack.querySelector('.front');
+  if(dir>0 && f && !reduce){ f.classList.add('fly'); f.style.transform='translate(110%,-20px) rotate(18deg)'; f.style.opacity='0'; setTimeout(()=>{i=n;render();},300); }
+  else { i=n; render(); }
+}
+function bindDrag(el){
+  if(!el) return;
+  let x0=null,y0=0,dx=0,lock=null;
+  const start=(x,y)=>{x0=x;y0=y;dx=0;lock=null;};
+  const move=(x,y,e)=>{
+    if(x0===null) return;
+    const ddx=x-x0, ddy=y-y0;
+    if(!lock){ if(Math.abs(ddx)<6&&Math.abs(ddy)<6) return; lock=Math.abs(ddx)>Math.abs(ddy)?'x':'y'; if(lock==='x') el.classList.add('drag'); }
+    if(lock!=='x') return;
+    if(e&&e.cancelable) e.preventDefault();
+    dx=ddx; el.style.transform=`translateX(${dx}px) rotate(${dx/18}deg)`;
+  };
+  const end=()=>{
+    if(x0===null) return; x0=null; el.classList.remove('drag');
+    if(lock!=='x') return;
+    if(Math.abs(dx)>80 && i<CARDS.length-1){
+      el.classList.add('fly'); el.style.transform=`translate(${Math.sign(dx)*120}%,-20px) rotate(${Math.sign(dx)*20}deg)`; el.style.opacity='0';
+      setTimeout(()=>{i++;render();},reduce?0:300);
+    } else { el.classList.add('settle'); el.style.transform=''; setTimeout(()=>el.classList.remove('settle'),260); }
+  };
+  // touch (phones/tablets): lock to the horizontal axis, vertical keeps scrolling the card text
+  el.addEventListener('touchstart',e=>{ if(e.target.closest('button,a')) return; const t=e.touches[0]; start(t.clientX,t.clientY); },{passive:true});
+  el.addEventListener('touchmove',e=>{ const t=e.touches[0]; move(t.clientX,t.clientY,e); },{passive:false});
+  el.addEventListener('touchend',end); el.addEventListener('touchcancel',end);
+  // mouse / pen
+  el.addEventListener('pointerdown',e=>{ if(e.pointerType==='touch'||e.target.closest('button,a')) return; start(e.clientX,e.clientY); el.setPointerCapture(e.pointerId); });
+  el.addEventListener('pointermove',e=>{ if(e.pointerType!=='touch') move(e.clientX,e.clientY,e); });
+  el.addEventListener('pointerup',e=>{ if(e.pointerType!=='touch') end(); });
+  el.addEventListener('pointercancel',e=>{ if(e.pointerType!=='touch') end(); });
+}
+
+function open(){ ensure(); i=0; render(); deck.classList.add('on'); document.body.style.overflow='hidden'; document.getElementById('dk-next').focus(); }
+function close(){ deck.classList.remove('on'); document.body.style.overflow=''; opener&&opener.focus(); }
+document.addEventListener('click',e=>{ const t=e.target.closest('[data-deck]'); if(!t) return; e.preventDefault(); opener=t; open(); });
+document.addEventListener('keydown',e=>{
+  if(!deck||!deck.classList.contains('on')) return;
+  if(e.key==='Escape') close();
+  if(e.key==='ArrowRight') go(1);
+  if(e.key==='ArrowLeft') go(-1);
+  if(e.key==='Tab'){
+    const f=[...deck.querySelectorAll('button:not([disabled])')].filter(b=>b.offsetParent!==null && b.style.visibility!=='hidden' && !b.closest('[aria-hidden="true"]'));
+    if(!f.length) return; const a=f[0], z=f[f.length-1];
+    if(e.shiftKey && document.activeElement===a){ e.preventDefault(); z.focus(); }
+    else if(!e.shiftKey && document.activeElement===z){ e.preventDefault(); a.focus(); }
+  }
+});
+window.bsDeck={open:()=>open()};
 })();
