@@ -1,40 +1,73 @@
-# Portfolio v3 — Blanca Serrano
+# Portfolio v3 · Blanca Serrano
 
-Portfolio con elección inmediata: "What brings you here?" con 3 focos (growth, sistemas, construir desde cero) que reordenan el trabajo destacado. Sin elegir nada, se ven los 3 casos más fuertes.
+Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutalista, sin frameworks: HTML + CSS + JS.
 
-## Abrir en local
-Doble clic en `index.html` (funciona sin servidor).
+## Dónde vive cada cosa
 
-## Editar
-- **Textos de casos y perfil:** `src/content.js`. Cada texto es `'igual en ambos idiomas'` o `['English', 'Español']`.
-  - `hl` = el highlight que sale en el callout de la shortlist.
-  - `blocks` = la historia completa (h título, p párrafo, call destacado, list, table, steps, exp experimento, quote, img, ba antes/después, abc barras, learn aprendizajes).
-  - `w` = pesos por interés; deciden el orden según las respuestas.
-- **Focos y qué casos muestra cada uno:** `FOCUS` en `src/content.js`.
-- **Textos de interfaz:** `UI` en `src/app.js`.
-- **Estilos:** `src/styles.css`.
+| Qué | Dónde |
+|---|---|
+| Copia de trabajo | Escritorio → `portfolio-v3` (incluye `brief/` y `propuestas/`, que no se suben a GitHub) |
+| Código publicado | GitHub `blancaserranomarco/portfolio-v.2`, rama `main` |
+| Web pública | Vercel, proyecto `blanca-portfolio` → https://blanca-portfolio-blond.vercel.app |
+| Versión en Claude | Artifact https://claude.ai/artifact/TavqvXqGqCCcaePKcEo2xX |
+| Feedback recibido | Notion → página "Porfolio, feedback" → base de datos "Feedback del portfolio" |
 
-Después de editar, ejecuta `python3 build.py` para regenerar `index.html`.
+## Estructura
+
+```
+src/            código fuente (lo único que se edita)
+  content.js    textos de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
+  app.js        interfaz, textos UI, mini test, carpetas de trabajo, feedback
+  styles.css    estilos
+  head.html, shell.html
+api/feedback.js función de Vercel: guarda el feedback en Notion (y email si se configura)
+assets/         imágenes de los casos
+build.py        genera index.html (web) y dist/portfolio.html (artifact)
+brief/          (solo local) histórico del descubrimiento inicial
+propuestas/     (solo local) bocetos de diseño ya decididos
+```
+
+## Cómo hacer un cambio
+
+1. Editar en `src/`.
+2. `python3 build.py`.
+3. Publicar en los dos sitios para que no se desincronicen:
+   - **Artifact:** republicar `dist/portfolio.html` en la URL del artifact.
+   - **Web:** subir a GitHub (`main`). Si Vercel no despliega solo, redesplegar a mano desde Vercel.
+4. Guardar la copia en el Escritorio.
+
+## Funcionalidades
+
+- **Mini test de entrada:** idioma, nombre (opcional) e interés (growth / sistemas / todo). Se puede saltar. Se guarda en el navegador (`bs_intro`) y se rehace desde el footer.
+- **Hero personalizado:** "Hola {nombre}," con brillos; sin nombre, "Hola, soy Blanca."
+- **Mi trabajo** en dos pestañas tipo carpeta:
+  - *Por proyectos:* filtros (All primero y por defecto) y cards con ilustración; el "por qué" se abre sobre la ilustración (en móvil, cita visible).
+  - *Por empresas:* línea temporal por empresa con proyectos asociados; el "por qué" aparece al pasar el ratón.
+- **Contacto:** email (con botón copiar) y LinkedIn.
+- **Feedback:** pulgar arriba/abajo + comentario + nombre (por defecto "Anónimo").
+
+## Feedback → Notion
+
+Web: el widget envía `POST /api/feedback` → crea una fila en Notion (Usuario, Fecha, Valoración Positivo/Negativo, Comentario; idioma e interés en el cuerpo). Tiene un honeypot anti-spam (campo `website`).
+Artifact: no puede llamar a la API; guarda las respuestas en su propia base de datos.
+
+Variables de entorno en Vercel (tras cambiarlas, redesplegar):
+- `NOTION_TOKEN`: secreto de la integración. Lo gestiona Blanca, nunca va en el código ni en el chat.
+- `NOTION_DATABASE_ID` = `d2d2c8acb0ee4e28bf873f3ed5510939`
+- `FEEDBACK_TO`: email de aviso.
+- Opcionales para email: `RESEND_API_KEY`, `FEEDBACK_FROM` (sin configurar).
 
 ## Pendiente
-- Imágenes de Notion (exportar la página con imágenes y dejar el zip en el escritorio)
-- Confirmar si se puede mostrar la marca BBVA (modales y landing de TaxDown)
-- Dominio, favicon, Open Graph, analytics
 
-## Feedback → Notion + email
+- Métricas / eventos.
+- "Modo 1 minuto" (aplazado).
+- Avisos por email del feedback (Resend o automatización de Notion).
+- Dominio propio, favicon, Open Graph.
 
-The "Did you like it?" block at the end sends each answer to `POST /api/feedback`
-(`api/feedback.js`, a Vercel function). It creates a row in the Notion database
-**Feedback del portfolio** (Usuario, Fecha, Valoración, Comentario) and, if configured, emails you.
+## Registro de cambios importantes
 
-Setup once, when the site is on Vercel:
-1. Notion → Settings → Connections → Develop or manage integrations → New integration (internal). Copy the secret.
-2. Open the database "Feedback del portfolio" → ••• → Connections → add that integration.
-3. Vercel → Project → Settings → Environment Variables:
-   - `NOTION_TOKEN` = the integration secret
-   - `NOTION_DATABASE_ID` = `d2d2c8acb0ee4e28bf873f3ed5510939`
-   - Email (optional): create a free Resend account, then `RESEND_API_KEY`, `FEEDBACK_TO` = your email.
-4. Redeploy.
+Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
-Inside Claude (the published artifact) the site cannot call that endpoint, so answers made there are kept in the
-artifact's own store and can be copied to Notion on request.
+- 2026-10-12 · Feedback a Notion funcionando en producción; web publicada en Vercel desde GitHub.
+- 2026-10-12 · Mini test de entrada, hero con nombre, carpetas Por proyectos / Por empresas, contacto nuevo.
+- 2026-10-06 · Inicio de la v3 (migración desde Notion).
