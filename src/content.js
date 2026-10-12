@@ -61,12 +61,12 @@ const PROFILE = {
   about:[
     ['That helps me put myself in the shoes of whoever uses a product, understand the problem and look for ways to make it simpler.',
      'Eso me ayuda a ponerme en el lugar de quien usa un producto, entender el problema y buscar cómo hacerlo más sencillo.'],
-    ['But simple isn’t enough: it also has to work for the business. That’s why I believe design should connect usability with strategy, and that’s how I’ve worked at TaxDown, Cobee and Playtomic, building human-centred, data-informed products where design directly shaped business outcomes.',
-     'Pero que sea sencillo no basta: también tiene que funcionar para el negocio. Por eso creo que el diseño debe unir usabilidad y estrategia, y así he trabajado en TaxDown, Cobee y Playtomic, creando productos centrados en las personas y guiados por datos donde el diseño movió resultados de negocio.'],
-    ['I studied Fine Arts and graphic design, but in 2020 I discovered product design: a way to bring together creativity, functionality and decisions grounded in research and validation.',
-     'Estudié Bellas Artes y diseño gráfico, pero en 2020 descubrí el diseño de producto: una forma de unir creatividad, funcionalidad y decisiones basadas en investigación y validación.'],
-    ['Since then, I’ve worked on B2C and B2B2C products such as Cobee, TaxDown and Playtomic, supporting their growth and international expansion. I’ve designed modular, scalable systems to meet the challenges of different markets and needs.',
-     'Desde entonces, he trabajado en productos B2C y B2B2C como Cobee, TaxDown y Playtomic, acompañando su crecimiento y expansión internacional. He diseñado sistemas modulares y escalables para responder a los retos de distintos mercados y necesidades.']
+    ['A simple product isn’t enough: it also has to work for the business. I believe design should connect usability with strategy, creating human-centred, data-informed products that impact results.',
+     'Que un producto sea sencillo no basta: también tiene que funcionar para el negocio. Creo que el diseño debe unir usabilidad y estrategia, creando productos centrados en las personas y guiados por datos, con impacto en los resultados.'],
+    ['I studied Fine Arts and graphic design, but in 2020 I discovered product design: a way to connect creativity and functionality with research and validation.',
+     'Estudié Bellas Artes y diseño gráfico, pero en 2020 descubrí el diseño de producto: una forma de conectar creatividad y funcionalidad con investigación y validación.'],
+    ['Since then, I’ve worked on B2C and B2B2C products at TaxDown, Cobee and Playtomic, supporting their growth and international expansion. I’ve designed modular, scalable systems that adapt to different markets and needs.',
+     'Desde entonces, he trabajado en productos B2C y B2B2C en TaxDown, Cobee y Playtomic, acompañando su crecimiento y expansión internacional. He diseñado sistemas modulares y escalables para adaptarse a distintos mercados y necesidades.']
   ],
   thread:['This portfolio started as a proposal at TaxDown: an onboarding that adapts to each user and shows them what matters first. Here it is, built.',
           'Este portfolio empezó como una propuesta en TaxDown: un onboarding que se adapta a cada usuario y le enseña primero lo que le importa. Aquí está, construido.'],
