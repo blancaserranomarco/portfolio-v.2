@@ -1140,3 +1140,23 @@ body.iq-lock{overflow:hidden}
 .lang-sel:focus-within{outline:3px solid var(--focus);outline-offset:3px}
 .lang-sel select:focus{outline:none}
 @media (prefers-reduced-motion: reduce){ .menu-btn path{transition:none} }
+
+/* ---- behind-the-portfolio section (above contact) + lighter feedback ---- */
+.bh-sec{padding-block:clamp(8px,2vw,16px) clamp(24px,4vw,40px)}
+.bh-sec .bh-card{margin-bottom:0}
+.fb-card{background:none;border:0;border-radius:0;padding:0;gap:22px}
+.fb-q{padding-bottom:24px;border-bottom:1.5px solid var(--line)}
+.fb-q p{color:var(--ink)}
+.fb-t{width:64px;height:64px}
+.fb-t.up[aria-pressed="true"],.fb-t.down[aria-pressed="true"]{background:var(--sky);color:var(--sticker-ink);border-color:#2F5BD3;box-shadow:none}
+.fb-form{border-top:0;padding-top:0;gap:12px}
+.fb-form label{font-size:1.05rem;font-weight:400}
+.fb-form label b{font-weight:700}
+.fb-opt{font-size:.9rem;color:var(--muted)}
+.fb-form textarea,.fb-form input{border-width:1.5px;border-radius:12px;padding:14px 18px}
+.fb-form textarea{min-height:150px}
+.fb-form label[for="fb-n"]{margin-top:10px}
+.fb-row{gap:24px}
+.fb-row input{border-radius:12px}
+.fb-row .btn{padding:14px 30px}
+.fb-hint{color:var(--muted);font-size:.92rem}

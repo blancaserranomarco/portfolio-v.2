@@ -1145,6 +1145,26 @@ body.iq-lock{overflow:hidden}
 .lang-sel:focus-within{outline:3px solid var(--focus);outline-offset:3px}
 .lang-sel select:focus{outline:none}
 @media (prefers-reduced-motion: reduce){ .menu-btn path{transition:none} }
+
+/* ---- behind-the-portfolio section (above contact) + lighter feedback ---- */
+.bh-sec{padding-block:clamp(8px,2vw,16px) clamp(24px,4vw,40px)}
+.bh-sec .bh-card{margin-bottom:0}
+.fb-card{background:none;border:0;border-radius:0;padding:0;gap:22px}
+.fb-q{padding-bottom:24px;border-bottom:1.5px solid var(--line)}
+.fb-q p{color:var(--ink)}
+.fb-t{width:64px;height:64px}
+.fb-t.up[aria-pressed="true"],.fb-t.down[aria-pressed="true"]{background:var(--sky);color:var(--sticker-ink);border-color:#2F5BD3;box-shadow:none}
+.fb-form{border-top:0;padding-top:0;gap:12px}
+.fb-form label{font-size:1.05rem;font-weight:400}
+.fb-form label b{font-weight:700}
+.fb-opt{font-size:.9rem;color:var(--muted)}
+.fb-form textarea,.fb-form input{border-width:1.5px;border-radius:12px;padding:14px 18px}
+.fb-form textarea{min-height:150px}
+.fb-form label[for="fb-n"]{margin-top:10px}
+.fb-row{gap:24px}
+.fb-row input{border-radius:12px}
+.fb-row .btn{padding:14px 30px}
+.fb-hint{color:var(--muted);font-size:.92rem}
 </style>
 <header class="top">
   <div class="wrap">
@@ -1955,15 +1975,16 @@ const DK={
   tip:['Drag the card or use ← →','Arrastra la carta o usa ← →'], why:['Why','Por qué'], data:['The data','El dato'],
   work:['See my projects','Ver mis proyectos'], again:['↺ Back to the cards','↺ Volver a las cartas'], card:['card','carta'],
   of:['Card {a} of {b}','Carta {a} de {b}'],
-  t_eb:['Before you go','Antes de irte'], t_h:['Have you wondered why this portfolio is the way it is?','¿Te has preguntado por qué este portfolio es así?'],
-  t_p:['Every detail has a reason. I’ll tell you in less than a minute.','Cada detalle tiene un porqué. Te lo cuento en menos de un minuto.'],
+  t_eb:['Behind the portfolio','Detrás del portfolio'], t_h:['Have you wondered why this portfolio is the way it is?','¿Te has preguntado por qué este portfolio es así?'],
+  t_p:['Discover the decisions behind the experience.','Descubre las decisiones detrás de la experiencia.'],
   t_btn:['Discover why ✦','Descubre por qué ✦']
 };
 const dk=k=>tr(DK[k]);
-const FB={ h:['Did you like it?','¿Te ha gustado?'], p:['Help me improve it, or leave me a comment.','Ayúdame a mejorar o déjame un comentario.'],
+const FB={ h:['How was your visit?','¿Qué tal ha sido la visita?'], p:['Your impression helps me improve.','Tu impresión me ayuda a mejorar.'],
+  opt:['Optional','Opcional'], ph:['Tell me in your own words…','Cuéntamelo con tus palabras…'], name_l:['Name or company','Nombre o empresa'], name_ph:['You can leave it blank','Puedes dejarlo en blanco'], hint:['You can send just your rating, without writing anything.','Puedes enviar solo tu valoración, sin escribir nada.'],
   up:['Yes, I liked it','Sí, me ha gustado'], down:['Not really','No mucho'],
-  q_up:['What did you like most? (optional)','¿Qué es lo que más te ha gustado? (opcional)'], q_down:['What would you improve? (optional)','¿Qué mejorarías? (opcional)'],
-  name:['Your name or company (optional)','Tu nombre o empresa (opcional)'], send:['Send','Enviar'], sending:['Sending…','Enviando…'],
+  q_up:['What did you like most?','¿Qué es lo que más te ha gustado?'], q_down:['What could we improve?','¿Qué podríamos mejorar?'],
+  name:['Your name or company (optional)','Tu nombre o empresa (opcional)'], send:['Send rating','Enviar valoración'], sending:['Sending…','Enviando…'],
   thanks:['Thank you! It reached me.','¡Gracias! Me ha llegado.'], thanks2:['Every comment helps me make this better.','Cada comentario me ayuda a mejorarlo.'],
   fail:['I couldn’t send it from here. You can email me at','No he podido enviarlo desde aquí. Puedes escribirme a'] };
 const fb=k=>tr(FB[k]);
@@ -1978,14 +1999,16 @@ function feedbackHTML(){ const f=S.fb;
         <button type="button" class="fb-t down" data-fb="down" aria-pressed="${f.rate==='down'}" aria-label="${fb('down')}">${THUMB}</button>
       </div></div>
       ${f.rate?`<form class="fb-form" id="fb-form">
-        <label for="fb-c">${fb(f.rate==='up'?'q_up':'q_down')}</label>
-        <textarea id="fb-c" rows="3" maxlength="1500">${esc(f.c||'')}</textarea>
-        <div class="fb-row"><label class="sr" for="fb-n">${fb('name')}</label><input id="fb-n" type="text" maxlength="60" placeholder="${esc(fb('name'))}" value="${esc(f.n!=null?f.n:(S.who||''))}">
+        <label for="fb-c"><b>${fb(f.rate==='up'?'q_up':'q_down')}</b> <span class="fb-opt">${fb('opt')}</span></label>
+        <textarea id="fb-c" rows="4" maxlength="1500" placeholder="${esc(fb('ph'))}">${esc(f.c||'')}</textarea>
+        <label for="fb-n"><b>${fb('name_l')}</b> <span class="fb-opt">${fb('opt')}</span></label>
+        <div class="fb-row"><input id="fb-n" type="text" maxlength="60" placeholder="${esc(fb('name_ph'))}" value="${esc(f.n!=null?f.n:(S.who||''))}">
         <input type="text" name="website" class="fb-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn" type="submit" ${f.state==='sending'?'disabled':''}>${f.state==='sending'?fb('sending'):fb('send')}</button></div>
+        <button class="btn" type="submit" ${f.state==='sending'?'disabled':''}>${f.state==='sending'?fb('sending'):fb('send')+' <span aria-hidden="true">→</span>'}</button></div>
+        <p class="fb-hint">${fb('hint')}</p>
         ${f.state==='error'?`<p class="fb-err" role="alert">${fb('fail')} <b>${PROFILE.email}</b></p>`:''}
       </form>`:''}`;
-  return `<div class="wrap"><section class="fb-sec" id="feedback" aria-labelledby="fb-h"><div class="bh-card"><div class="bh-stack" aria-hidden="true"><i></i><i></i><i>?</i></div><div class="bh-txt"><span class="bh-eb">${dk('t_eb')}</span><h2>${dk('t_h')}</h2><p>${dk('t_p')}</p></div><button type="button" class="bh-btn" data-deck>${dk('t_btn')}</button></div><div class="fb-card">${inner}</div></section>
+  return `<div class="wrap"><section class="fb-sec" id="feedback" aria-labelledby="fb-h"><div class="fb-card">${inner}</div></section>
     <footer class="foot"><span>${u('foot')}</span><div class="foot-r"><button type="button" class="link" data-iredo="1">${u('redo')}</button><label class="lang-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18"/></svg><span class="sr">${u('lang_label')}</span><select id="lang-sel"><option value="en" ${S.lang==='en'?'selected':''}>English</option><option value="es" ${S.lang==='es'?'selected':''}>Español</option></select></label></div></footer></div>`; }
 function refreshFb(focusSel){ const sec=$('#feedback'); if(!sec) return; sec.querySelector('.fb-card').outerHTML=new DOMParser().parseFromString(feedbackHTML(),'text/html').querySelector('.fb-card').outerHTML; const el=focusSel&&$(focusSel); el&&el.focus(); }
 async function sendFb(rec){
@@ -2001,6 +2024,7 @@ document.addEventListener('submit',async e=>{ if(e.target.id!=='fb-form') return
   const rec={rating:S.fb.rate==='up'?'Positivo':'Negativo',comment:(S.fb.c||'').trim().slice(0,1500),name:((S.fb.n!=null?S.fb.n:S.who)||'').trim().slice(0,60)||'Anónimo',date:new Date().toISOString(),lang:S.lang,focus:curF()};
   S.fb.state='sending'; refreshFb();
   const ok=await sendFb(rec); S.fb.state=ok?'done':'error'; if(ok) store.set('fb_sent',true); refreshFb(ok?'.fb-done':'#fb-c'); });
+function behindHTML(){ return `<div class="wrap"><section class="bh-sec" aria-labelledby="bh-h"><div class="bh-card"><div class="bh-stack" aria-hidden="true"><i></i><i></i><i>?</i></div><div class="bh-txt"><span class="bh-eb">${dk('t_eb')}</span><h2 id="bh-h">${dk('t_h')}</h2><p>${dk('t_p')}</p></div><button type="button" class="bh-btn" data-deck>${dk('t_btn')}</button></div></section></div>`; }
 function contactHTML(){
   const li=PROFILE.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com/,'').replace(/\/$/,'');
   return `<div class="wrap"><section class="contact-sec section" id="contact" aria-labelledby="ct-h">
@@ -2271,7 +2295,7 @@ function applyLang(){ document.documentElement.lang=S.lang;
   document.querySelectorAll('[data-lang]').forEach(b=> b.setAttribute('aria-pressed', b.dataset.lang===S.lang));
   document.querySelectorAll('#lang-sel').forEach(s=> s.value=S.lang); }
 function render(){ applyLang();
-  $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + contactHTML() + feedbackHTML();
+  $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + behindHTML() + contactHTML() + feedbackHTML();
   if(S.openId){ const sh=$('#sheet'); if(sh) sh.innerHTML=caseHTML(byId(S.openId)); }
   Ice.init(); }
 function jumpTo(id){ const t=document.getElementById(id); if(!t) return; t.setAttribute('tabindex','-1'); t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); t.focus({preventScroll:true}); }

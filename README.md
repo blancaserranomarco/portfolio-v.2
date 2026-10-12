@@ -45,8 +45,8 @@ propuestas/     (solo local) bocetos de diseño ya decididos
   - *Por proyectos:* filtros (All primero y por defecto) y cards con ilustración; el "por qué" se abre sobre la ilustración (en móvil, cita visible).
   - *Por empresas:* línea temporal por empresa con proyectos asociados; el "por qué" aparece al pasar el ratón.
 - **Contacto:** email (con botón copiar) y LinkedIn.
-- **Detrás de este portfolio:** bloque lila antes del feedback ("Descubre por qué") que abre una baraja deslizable con el porqué de cada decisión de UX (texto, "Por qué" y a veces "El dato" con fuente). Ilustraciones animadas, se pasa arrastrando, con flechas o botones. Textos en `DK`/`DECK` de `src/app.js`; cualquier elemento con `data-deck` la abre.
-- **Feedback:** pulgar arriba/abajo + comentario + nombre (por defecto "Anónimo").
+- **Detrás de este portfolio:** bloque lila encima de Contacto ("Descubre por qué") que abre una baraja deslizable con el porqué de cada decisión de UX (texto, "Por qué" y a veces "El dato" con fuente). Ilustraciones animadas, se pasa arrastrando, con flechas o botones. Textos en `DK`/`DECK` de `src/app.js`; cualquier elemento con `data-deck` la abre.
+- **Feedback** ("¿Qué tal ha sido la visita?"): sin caja, separado por una línea; pulgar arriba/abajo + comentario y nombre opcionales (por defecto "Anónimo"); se puede enviar solo la valoración.
 
 ## Feedback → Notion
 
@@ -70,6 +70,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-12 · Bloque "Detrás del portfolio" movido encima de Contacto; feedback simplificado.
 - 2026-10-12 · Idioma movido al pie como desplegable; "Inicio" en la cabecera; menú hamburguesa en móvil.
 - 2026-10-12 · Baraja "Detrás de este portfolio" (9 cartas, EN/ES) con entrada antes del feedback.
 - 2026-10-12 · Dirección nueva blancaserrano-portfolio.vercel.app; despliegue automático comprobado.
