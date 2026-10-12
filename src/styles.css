@@ -1160,3 +1160,41 @@ body.iq-lock{overflow:hidden}
 .fb-row input{border-radius:12px}
 .fb-row .btn{padding:14px 30px}
 .fb-hint{color:var(--muted);font-size:.92rem}
+
+/* ---- contact with portrait ---- */
+.ct-me{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.ct-me .ct-l h2{font-size:clamp(2.8rem,6vw,4.6rem)}
+.ct-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.ct-btns .btn{display:inline-flex;align-items:center;gap:8px}
+.ct-copy svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+.ct-mail{font-family:var(--body);font-size:.95rem;color:var(--ink);margin-top:2px;user-select:all;overflow-wrap:anywhere}
+.ct-art{display:grid;place-items:center}
+.ct-face{background:none;border:0;padding:0;cursor:pointer;border-radius:50%;width:min(100%,320px)}
+.me-svg{width:100%;height:auto;display:block;overflow:visible}
+.me-svg *{transform-box:fill-box}
+.me-eye{transition:transform .12s ease-out}
+.me-lid{transform-origin:center}
+.me-lid.blink{animation:meBlink .22s ease-in-out}
+@keyframes meBlink{50%{transform:scaleY(.08)}}
+.me-shut,.me-joy,.me-m-o,.me-m-joy,.me-sweat,.me-sparks path{opacity:0}
+.me-m-idle{transform-origin:center;animation:meMouth 4s ease-in-out infinite}
+@keyframes meMouth{0%,70%,100%{transform:scale(1)}78%{transform:scale(1.15,1.35)}86%{transform:scale(.95,1)}}
+.ct-face:hover .me-m-idle{transform:scale(1.2,1.3)}
+.me-body{transform-origin:150px 260px}
+/* scared */
+.is-scared .me-open,.is-scared .me-m-idle{opacity:0}
+.is-scared .me-shut,.is-scared .me-m-o,.is-scared .me-sweat{opacity:1}
+.is-scared .me-body{animation:meShake .45s ease-in-out}
+.is-scared .me-brows{transform:translateY(-5px)}
+@keyframes meShake{20%{transform:translateX(-5px) rotate(-2deg)}40%{transform:translateX(5px) rotate(2deg)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+/* happy */
+.is-happy .me-open,.is-happy .me-m-idle{opacity:0}
+.is-happy .me-joy,.is-happy .me-m-joy{opacity:1}
+.is-happy .me-body{animation:meHop .5s cubic-bezier(.3,1.6,.6,1)}
+.is-happy .me-blush{transform:scale(1.25);transform-origin:center}
+.is-happy .me-sparks path{animation:meSpark 1.2s ease-out both}
+.is-happy .me-sparks path:nth-child(2){animation-delay:.1s}.is-happy .me-sparks path:nth-child(3){animation-delay:.2s}
+@keyframes meHop{40%{transform:translateY(-12px) rotate(2deg)}}
+@keyframes meSpark{0%{opacity:0;transform:scale(.2) rotate(-40deg)}30%{opacity:1;transform:scale(1.2)}100%{opacity:0;transform:scale(1) rotate(20deg)}}
+@media (max-width:760px){ .ct-me{grid-template-columns:1fr} .ct-art{display:none} }
+@media (prefers-reduced-motion: reduce){ .me-eye,.me-m-idle,.is-scared .me-body,.is-happy .me-body,.is-happy .me-sparks path{animation:none;transition:none} }

@@ -18,7 +18,7 @@ const UI = {
  full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
  contact_h:['Let’s talk','Hablemos'], contact_p:['Open to senior product design roles.','Abierta a roles senior de diseño de producto.'],
- copy:['Copy','Copiar'], copied:['Copied','Copiado'], linkedin:['Visit my LinkedIn','Visita mi LinkedIn'], or_write:['Prefer another way?','¿Prefieres otro canal?'],
+ copy:['Copy','Copiar'], copied:['Copied','Copiado'], copy_mail:['Copy email','Copiar email'], mail_copied:['Email copied!','¡Email copiado!'], me_alt:['Illustrated portrait of Blanca','Retrato ilustrado de Blanca'], me_poke:['Poke Blanca','Pincha a Blanca'], linkedin:['Visit my LinkedIn','Visita mi LinkedIn'], or_write:['Prefer another way?','¿Prefieres otro canal?'],
  form_h:['Write to me','Escríbeme'], form_p:['An opportunity, feedback on a case or just a hello. I reply to every message.','Una oportunidad, feedback sobre un caso o simplemente un hola. Respondo a todos los mensajes.'], ct_eb:['Contact','Contacto'],
  f_topic:['What is it about?','¿De qué se trata?'], f_t1:['Portfolio feedback','Feedback del portfolio'], f_t2:['A role or project','Un rol o proyecto'], f_t3:['Just saying hi','Solo saludar'],
  f_msg:['What would you like to tell me?','¿Qué quieres contarme?'], f_msg_ph:['A role you’re hiring for, feedback on a case or just a hello. I read every message.','Un puesto que quieres cubrir, feedback sobre un caso o simplemente un hola. Leo todos los mensajes.'],
@@ -315,30 +315,21 @@ document.addEventListener('submit',async e=>{ if(e.target.id!=='fb-form') return
   const ok=await sendFb(rec); S.fb.state=ok?'done':'error'; if(ok) store.set('fb_sent',true); refreshFb(ok?'.fb-done':'#fb-c'); });
 function behindHTML(){ return `<div class="wrap"><section class="bh-sec" aria-labelledby="bh-h"><div class="bh-card"><div class="bh-stack" aria-hidden="true"><i></i><i></i><i>?</i></div><div class="bh-txt"><span class="bh-eb">${dk('t_eb')}</span><h2 id="bh-h">${dk('t_h')}</h2><p>${dk('t_p')}</p></div><button type="button" class="bh-btn" data-deck>${dk('t_btn')}</button></div></section></div>`; }
 function contactHTML(){
-  const li=PROFILE.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com/,'').replace(/\/$/,'');
   return `<div class="wrap"><section class="contact-sec section" id="contact" aria-labelledby="ct-h">
-    <div class="ct-panel">
+    <div class="ct-panel ct-me">
       <div class="ct-l">
         <span class="eyebrow-s">${u('ct_eb')}</span>
-        <h2 id="ct-h">${u('contact_h')}.${spark}</h2>
+        <h2 id="ct-h">${u('contact_h')}.</h2>
         <p>${u('contact_p')}</p>
+        <div class="ct-btns"><button type="button" class="btn ghost ct-copy" data-act="copy"><span class="lbl">${u('copy_mail')}</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg></button>
+        <a class="btn ghost" href="${PROFILE.linkedin}" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></div>
+        <code id="mail" class="ct-mail">${PROFILE.email}</code>
       </div>
-      <div class="ct-tiles">
-        <div class="ct-tile" style="--tone:var(--butter)">
-          <span class="ct-lbl">${icon.mail||''}Email</span>
-          <code id="mail" class="ct-val">${PROFILE.email}</code>
-          <button type="button" class="small-btn ct-act" data-act="copy">${u('copy')}</button>
-        </div>
-        <a class="ct-tile ct-link" style="--tone:var(--sky)" href="${PROFILE.linkedin}" target="_blank" rel="noopener">
-          <span class="ct-lbl">LinkedIn</span>
-          <span class="ct-val">${esc(li)}</span>
-          <span class="ct-act ct-go">${u('linkedin')} <span aria-hidden="true">${icon.ne}</span></span>
-        </a>
+      <div class="ct-art" aria-hidden="false">
+        <button type="button" class="ct-face" data-me="poke" aria-label="${esc(u('me_poke'))}"><svg class="me-svg" viewBox="0 0 300 300" role="img" aria-label="${esc(u('me_alt'))}"><circle cx="150" cy="150" r="140" fill="#FFC6E3" stroke="#1B1724" stroke-width="4"/><g class="me-body"><g transform="rotate(-6 150 150)"><path d="M150 40C96 40 66 80 68 138C70 186 58 220 74 252C88 268 112 264 112 244L114 176L186 176L188 244C188 264 212 268 226 252C242 220 230 186 232 138C234 80 204 40 150 40Z" fill="#fff" stroke="#fff" stroke-width="22" stroke-linejoin="round"/><ellipse cx="150" cy="146" rx="62" ry="72" fill="#fff" stroke="#fff" stroke-width="22"/><path d="M150 40C96 40 66 80 68 138C70 186 58 220 74 252C88 268 112 264 112 244L114 176L186 176L188 244C188 264 212 268 226 252C242 220 230 186 232 138C234 80 204 40 150 40Z" fill="#1B1724" transform="translate(7 7)"/><path d="M150 40C96 40 66 80 68 138C70 186 58 220 74 252C88 268 112 264 112 244L114 176L186 176L188 244C188 264 212 268 226 252C242 220 230 186 232 138C234 80 204 40 150 40Z" fill="#C98A4B" stroke="#1B1724" stroke-width="4" stroke-linejoin="round"/><path d="M86 170c-6 26-8 50 0 70M214 170c6 26 8 50 0 70" fill="none" stroke="#A86C35" stroke-width="4" stroke-linecap="round"/><path d="M134 210v26h32v-26" fill="#FFD3BE" stroke="#1B1724" stroke-width="4" stroke-linejoin="round"/><ellipse cx="90" cy="152" rx="11" ry="17" fill="#E8725F" stroke="#1B1724" stroke-width="4"/><circle cx="91" cy="176" r="4.5" fill="none" stroke="#E0A93A" stroke-width="3"/><ellipse cx="210" cy="152" rx="11" ry="17" fill="#FFD3BE" stroke="#1B1724" stroke-width="4"/><ellipse cx="150" cy="146" rx="62" ry="72" fill="#FFD3BE" stroke="#1B1724" stroke-width="4"/><path d="M150 52C112 52 86 76 84 120C102 98 126 82 150 72C174 82 198 98 216 120C214 76 188 52 150 52Z" fill="#C98A4B" stroke="#1B1724" stroke-width="4" stroke-linejoin="round"/><path d="M150 54v18" stroke="#1B1724" stroke-width="3" stroke-linecap="round"/><path d="M110 74c-10 10-16 24-18 38M190 74c10 10 16 24 18 38" fill="none" stroke="#A86C35" stroke-width="3.5" stroke-linecap="round"/><path class="me-brows" d="M110 114q14-9 28-2M162 112q14-7 28 2" fill="none" stroke="#A86C35" stroke-width="5" stroke-linecap="round"/><g class="me-blush"><ellipse cx="112" cy="170" rx="13" ry="7" fill="#FFB4C8"/><ellipse cx="188" cy="170" rx="13" ry="7" fill="#FFB4C8"/></g><path d="M153 118C141 134 138 158 150 172C157 178 165 170 158 163C149 152 150 135 157 121Z" fill="#E8725F" stroke="#1B1724" stroke-width="3.5" stroke-linejoin="round"/><g class="me-open"><g class="me-eye" data-cx="124" data-cy="140"><g class="me-lid"><path d="M118 133l-5 -4M117.2 137.5l-6 -1.5M118 142l-5 1.5" stroke="#1B1724" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="124" cy="140" rx="6.5" ry="11.5" fill="#1B1724"/><circle cx="126" cy="138" r="2.6" fill="#fff"/></g></g><g class="me-eye" data-cx="176" data-cy="140"><g class="me-lid"><path d="M182 133l5 -4M182.8 137.5l6 -1.5M182 142l5 1.5" stroke="#1B1724" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="176" cy="140" rx="6.5" ry="11.5" fill="#1B1724"/><circle cx="178" cy="138" r="2.6" fill="#fff"/></g></g></g><g class="me-shut" fill="none" stroke="#1B1724" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M114 132l14 8-14 8M186 132l-14 8 14 8"/></g><g class="me-joy" fill="none" stroke="#1B1724" stroke-width="4.5" stroke-linecap="round"><path d="M114 144q10-14 20 0M166 144q10-14 20 0"/></g><path class="me-m me-m-idle" d="M134 190q16 12 32 0q-16 4-32 0z" fill="#FFB4C8" stroke="#1B1724" stroke-width="3" stroke-linejoin="round"/><ellipse class="me-m me-m-o" cx="150" cy="193" rx="7" ry="9" fill="#8A3A3A" stroke="#1B1724" stroke-width="3"/><path class="me-m me-m-joy" d="M128 186q22 0 44 0q-4 26-22 26t-22-26z" fill="#8A3A3A" stroke="#1B1724" stroke-width="3" stroke-linejoin="round"/><path class="me-m me-m-joy" d="M140 204q10-8 20 0q-10 8-20 0z" fill="#FF8FA6"/><g class="me-sweat"><path d="M214 106q8 12 0 16q-8-4 0-16z" fill="#C2E2FF" stroke="#1B1724" stroke-width="2.5"/></g></g></g><g class="me-sparks" fill="#FFE7A1" stroke="#1B1724" stroke-width="2.5"><path d="M48 70l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path d="M256 60l4 11 11 4-11 4-4 11-4-11-11-4 11-4z"/><path d="M250 214l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g></svg></button>
       </div>
-    </div></section>
-    </div>`;
-}
-/* ---------- Case sheet ---------- */
+    </div>
+  </section></div>`; }
 function block(b, p, ids){
   switch(b.k){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
@@ -636,7 +627,7 @@ document.addEventListener('click', e=>{
     if(S.iceOpen){ Ice.init(); pnl.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'}); } else { Ice.stop(); $('.ice-btn').focus(); } return; }
   if(a==='ice-again'){ Ice.reset(); return; }
   if(a==='ice-auto'){ Ice.auto(); return; }
-  if(a==='copy'){ const done=()=>{el.textContent=u('copied'); setTimeout(()=>el.textContent=u('copy'),1600)};
+  if(a==='copy'){ const lb=el.querySelector('.lbl')||el, base=lb.textContent; const done=()=>{lb.textContent=el.classList.contains('ct-copy')?u('mail_copied'):u('copied'); document.dispatchEvent(new CustomEvent('bs:copied')); setTimeout(()=>lb.textContent=base,1800)};
     try{ navigator.clipboard.writeText(PROFILE.email).then(done,selectMail); }catch(err){ selectMail(); } return; }
   if(a==='copymsg'){ const txt=$('#f-status').dataset.body||''; try{ navigator.clipboard.writeText(txt).then(()=>{el.textContent=u('copied');},()=>{}); }catch(err){} return; }
 });
@@ -894,4 +885,18 @@ document.addEventListener('change',e=>{ if(e.target.id==='lang-sel'){ setLang(e.
   nav.addEventListener('click',e=>{ if(e.target.closest('button')) set(false); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&top.classList.contains('open')){ set(false); btn.focus(); } });
   document.addEventListener('click',e=>{ if(top.classList.contains('open')&&!e.target.closest('.top')) set(false); });
+})();
+
+/* ---------- Contact portrait: eyes follow the pointer, poke = scared, email copied = happy ---------- */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const face=()=>document.querySelector('.me-svg');
+  let tmr=null;
+  const mood=(m,ms)=>{ const s=face(); if(!s) return; clearTimeout(tmr); s.classList.remove('is-scared','is-happy'); void s.getBoundingClientRect(); if(m){ s.classList.add('is-'+m); tmr=setTimeout(()=>s.classList.remove('is-'+m),ms); } };
+  if(!reduce) document.addEventListener('pointermove',e=>{ const s=face(); if(!s||s.offsetParent===null) return; const m=s.getScreenCTM(); if(!m) return;
+    s.querySelectorAll('.me-eye').forEach(eye=>{ const ex=+eye.dataset.cx, ey=+eye.dataset.cy; const sx=m.a*ex+m.c*ey+m.e, sy=m.b*ex+m.d*ey+m.f; const dx=e.clientX-sx, dy=e.clientY-sy, L=Math.hypot(dx,dy)||1, k=Math.min(1,L/220);
+      eye.style.transform=`translate(${(dx/L*3.4*k).toFixed(2)}px,${(dy/L*2.6*k).toFixed(2)}px)`; }); });
+  if(!reduce) (function loop(){ setTimeout(()=>{ const s=face(); if(s&&!s.classList.contains('is-scared')&&!s.classList.contains('is-happy')){ s.querySelectorAll('.me-lid').forEach(l=>{ l.classList.remove('blink'); void l.getBoundingClientRect(); l.classList.add('blink'); }); } loop(); },2600+Math.random()*2800); })();
+  document.addEventListener('click',e=>{ if(e.target.closest('[data-me="poke"]')) mood('scared',900); });
+  document.addEventListener('bs:copied',()=>mood('happy',2200));
 })();
