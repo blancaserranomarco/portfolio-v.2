@@ -1227,6 +1227,12 @@ body.iq-lock{overflow:hidden}
 #deck .c-il svg{width:84%;height:auto;max-height:84%}
 #deck .c-bd{padding-top:20px}
 @media (max-width:520px){ #deck .c-il{flex-basis:72px;height:72px;border-radius:14px} #deck .c-bd{gap:8px;padding:16px 16px 16px} }
+#deck .c-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#deck .c-meta .c-n,#deck .c-meta .c-tag{position:static}
+#deck .c-meta .c-tag{background:var(--tone);border:1.5px solid var(--line)}
+#deck .c-tl{flex:1;min-width:0;display:grid;gap:10px;align-content:start}
+#deck .c-tl h2{padding-top:0}
+#deck .c-meta{justify-content:flex-start;flex-wrap:wrap}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2572,7 +2578,7 @@ function ensure(){
   document.getElementById('dk-tip').textContent=dk('tip');
 }
 function cardHTML(c,k){
-  return `<div class="c-bd"><div class="c-top"><h2>${tr(c.h)}</h2><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
+  return `<div class="c-bd"><div class="c-top"><div class="c-tl"><div class="c-meta"><span class="c-n">${k+1}/${CARDS.length}</span><span class="c-tag" style="--tone:${c.tone}">${tr(c.tag)}</span></div><h2>${tr(c.h)}</h2></div><div class="c-il il il-${c.il}" style="--tone:${c.tone}" aria-hidden="true">${IL[c.il]}</div></div><p class="what">${tr(c.w)}</p>
   ${c.y?`<div class="why"><span class="k">${c.k?tr(c.k):dk('why')}</span><p>${tr(c.y)}</p></div>`:''}
   ${c.d?`<div class="dato"><span class="k">${dk('data')}</span><p>${tr(c.d)}</p>${c.s?`<a href="${c.s[1]}" target="_blank" rel="noopener">${tr(c.s[0])} ↗</a>`:''}</div>`:''}
   ${c.end?`<div class="c-end"><button class="btn" data-a="work">${dk('work')}</button><button class="btn alt" data-a="again">${dk('again')}</button></div>`:''}</div>`;

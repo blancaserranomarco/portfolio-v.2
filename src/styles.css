@@ -1222,3 +1222,9 @@ body.iq-lock{overflow:hidden}
 #deck .c-il svg{width:84%;height:auto;max-height:84%}
 #deck .c-bd{padding-top:20px}
 @media (max-width:520px){ #deck .c-il{flex-basis:72px;height:72px;border-radius:14px} #deck .c-bd{gap:8px;padding:16px 16px 16px} }
+#deck .c-meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#deck .c-meta .c-n,#deck .c-meta .c-tag{position:static}
+#deck .c-meta .c-tag{background:var(--tone);border:1.5px solid var(--line)}
+#deck .c-tl{flex:1;min-width:0;display:grid;gap:10px;align-content:start}
+#deck .c-tl h2{padding-top:0}
+#deck .c-meta{justify-content:flex-start;flex-wrap:wrap}
