@@ -844,6 +844,12 @@ function bindDrag(el){
   el.addEventListener('pointermove',e=>{ if(e.pointerType!=='touch') move(e.clientX,e.clientY,e); });
   el.addEventListener('pointerup',e=>{ if(e.pointerType!=='touch') end(); });
   el.addEventListener('pointercancel',e=>{ if(e.pointerType!=='touch') end(); });
+  // hover (desktop): the card leans toward the mouse to hint that it can be dragged
+  if(!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
+    el.addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse'||x0!==null) return; const r=el.getBoundingClientRect(); const k=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)); el.classList.add('lean'); el.style.translate=`${k*12}px 0`; el.style.rotate=`${k*2}deg`; });
+    el.addEventListener('pointerleave',()=>{ el.style.translate=''; el.style.rotate=''; });
+    el.addEventListener('pointerdown',()=>{ el.style.translate=''; el.style.rotate=''; });
+  }
 }
 
 function open(){ ensure(); i=0; render(); deck.classList.add('on'); document.body.style.overflow='hidden'; const f=stack.querySelector('.front [data-a="next"]'); f&&f.focus(); }
