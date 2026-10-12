@@ -44,7 +44,7 @@ propuestas/     (solo local) bocetos de diseño ya decididos
   - *Por proyectos:* filtros (All primero y por defecto) y cards con ilustración; el "por qué" se abre sobre la ilustración (en móvil, cita visible).
   - *Por empresas:* línea temporal por empresa con proyectos asociados; el "por qué" aparece al pasar el ratón.
 - **Contacto:** email (con botón copiar) y LinkedIn.
-- **Detrás de este portfolio:** bloque lila antes del feedback ("Descúbrelo en 9 cartas") que abre una baraja deslizable con el porqué de cada decisión de UX (texto, "Por qué" y a veces "El dato" con fuente). Ilustraciones animadas, se pasa arrastrando, con flechas o botones. Textos en `DK`/`DECK` de `src/app.js`; cualquier elemento con `data-deck` la abre.
+- **Detrás de este portfolio:** bloque lila antes del feedback ("Descubre por qué") que abre una baraja deslizable con el porqué de cada decisión de UX (texto, "Por qué" y a veces "El dato" con fuente). Ilustraciones animadas, se pasa arrastrando, con flechas o botones. Textos en `DK`/`DECK` de `src/app.js`; cualquier elemento con `data-deck` la abre.
 - **Feedback:** pulgar arriba/abajo + comentario + nombre (por defecto "Anónimo").
 
 ## Feedback → Notion
