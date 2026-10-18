@@ -1483,39 +1483,61 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .jr-exp{margin-left:18px;border-left-width:4px}
   .jr > figcaption{order:20}
 }
-/* Journey v2: line and circles fill in as the user advances; test 2B as a loop */
+/* Journey v3: base (where they drop) + focus per test (friction point, sticker, 2B loop) */
+.s-goal{margin-top:20px;background:color-mix(in srgb,var(--mint) 55%,var(--surface));border:1.5px solid color-mix(in srgb,var(--mint) 50%,var(--ink) 50%);border-left-width:6px;border-radius:14px;padding:16px 20px;max-width:62ch}
+.s-goal .sc-k{color:var(--ink)}
+.s-goal p{font-family:var(--display);font-size:1.35rem;line-height:1.3}
 .jr2 svg{display:block;width:100%;height:auto;overflow:visible;margin-top:6px}
 .jr2 .jr-v{display:none}
 @media (max-width:640px){ .jr2 .jr-h{display:none} .jr2 .jr-v{display:block;max-width:420px} }
 .jr2 text{font-family:var(--body);fill:var(--ink)}
 .jr2 .jt{font-size:14px;font-weight:700}
-.jr2 .jh{font-family:var(--display);font-size:16px}
+.jr2 .jh{font-family:var(--display);font-size:17px}
 .jr2 .jdesc{font-size:12.5px;fill:var(--muted)}
+.jr2 .jqt{font-size:13px;font-style:italic;fill:var(--sticker-ink)}
 .jr2 .jb{stroke:var(--soft);stroke-width:4;stroke-linecap:round}
+.jr2 .jb.full{stroke:var(--ink)}
 .jr2 .jf{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
-.jr2 .jl{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:1;stroke-dashoffset:1}
 .jr2 .jn circle{fill:var(--surface);stroke:var(--soft);stroke-width:2;transition:fill .35s,stroke .35s}
 .jr2 .ji{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
 .jr2 .jn > *{transform-box:fill-box;transform-origin:center}
 .jr2 .jn.on circle{fill:var(--lilac);stroke:var(--ink)}
 .jr2 .jn.on .ji{stroke:var(--sticker-ink)}
-.jr2 .jn.on > circle{animation:jpop .45s cubic-bezier(.3,1.6,.5,1)}
+.jr2.m-base .jn.on > circle{animation:jpop .45s cubic-bezier(.3,1.6,.5,1)}
 .jr2 .jn[data-p="4"].on circle{fill:var(--mint)}
-.jr2 .jm.on circle{fill:var(--paper);stroke:var(--muted)}
-.jr2 .jm.on .ji{stroke:var(--ink)}
+.jr2 .jn.dim{opacity:.45}
+.jr2 .jn.jx.on circle{fill:var(--butter);stroke-width:3}
 @keyframes jpop{0%{transform:scale(.8)}100%{transform:scale(1)}}
-.jr2 .jc{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 4;opacity:0;transition:opacity .35s}
-.jr2 .jd{fill:var(--ink);opacity:0;transition:opacity .35s}
-.jr2 .jc.on,.jr2 .jd.on{opacity:1}
-.jr2 .js{opacity:0;transition:opacity .4s}
-.jr2 .js.on{opacity:1}
+.jr2 .jface circle:first-child{fill:var(--butter);stroke:var(--ink);stroke-width:1.5}
+.jr2 .jface circle:not(:first-child){fill:var(--sticker-ink)}
+.jr2 .jface path{fill:none;stroke:var(--sticker-ink);stroke-width:1.6;stroke-linecap:round}
+.jr2 .jface .jq{font-family:var(--display);font-size:18px;font-weight:600;fill:var(--ink)}
+.jr2 .jc{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 4}
 .jr2 .js rect{stroke:var(--ink);stroke-width:1.5}
 .jr2 .js.dashed rect{stroke-dasharray:5 4;stroke:var(--muted)}
 .jr2 .js .jt{font-size:11px;letter-spacing:.05em;text-transform:uppercase;fill:var(--sticker-ink)}
 .jr2 .js .jh{fill:var(--sticker-ink)}
 .jr2 .js.dashed .jt,.jr2 .js.dashed .jh{fill:var(--ink)}
+.jr2 .jfr rect{fill:var(--surface);stroke:var(--soft);stroke-width:1}
+.jr2 .jfr .jt{fill:var(--ink)}
+.jr2 .jst{font-size:13px;fill:var(--muted)}
+.jr2 .jsv{font-family:var(--display);font-size:20px;fill:var(--ink)}
+.jr2 .jsv.lo{fill:#b0436f}
+.jr2 .jl{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:1;stroke-dashoffset:1}
+.jr2 .jband{opacity:.0}
+/* reveal: what appears when the scene enters the screen */
+.jr2 .js,.jr2 .jc,.jr2 .jface,.jr2 .jm{opacity:0;transition:opacity .45s}
+.jr2 .js{transform-box:fill-box}
+.jr2 .jband{transition:opacity .5s}
+.jr2.on .jband{opacity:.55}
+.jr2.on .jc{opacity:1;transition-delay:.25s}
+.jr2.on .jface{opacity:1;transition-delay:.35s}
+.jr2.on .js{opacity:1;transition-delay:.55s}
+.jr2.on .jl{stroke-dashoffset:0;transition:stroke-dashoffset 1s .6s ease}
+.jr2.on .jm{opacity:1;transition-delay:1.3s}
+.jr2.on .js.dashed{transition-delay:1.5s}
+.jr2 .jface.on{opacity:1}
 @media (prefers-reduced-motion: reduce){ .jr2 *{transition:none!important;animation:none!important} }
-.jr2 .jm{opacity:0;transition:opacity .35s}.jr2 .jm.on{opacity:1}
 </style>
 <header class="top">
   <div class="wrap">
@@ -1639,6 +1661,12 @@ const PROFILE = {
 /* ---------- Projects ----------
    w: weight per interest (decides order).  hl: the highlight shown in the shortlist callout.
    blocks: the full story. Kinds: h (section title), p, call, list, table, steps, exp, quote, ba, img, abc, learn */
+/* Partner user journey, reused by the TaxDown case scenes */
+const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
+  ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
+  ['bank',['Tax agency','Conexión AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
+  ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
+  ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]];
 const PROJECTS = [
 {
   id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'+65.6%', t:['purchase success','compras con éxito']}, base:.6, recruiter:1,
@@ -1851,24 +1879,17 @@ const PROJECTS = [
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A channel worth 40% of revenue that stalled halfway','Un canal que valía el 40% de la facturación y se quedaba a medias']},
     {k:'p', t:['Banks and companies offer TaxDown to their customers with a discount. That channel brought in around 40% of revenue, but the people arriving through it behaved differently: they came for the discount, didn’t know the product and dropped along the way.',
                'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero quienes llegaban por él se comportaban distinto: venían por el descuento, no conocían el producto y se quedaban por el camino.']},
-    {k:'p', t:['The goal: more partner users going from sign up to purchase, in the middle of tax season, when every week counts.',
-               'El objetivo: que más usuarios de partner pasaran de registrarse a comprar, en plena campaña, cuando cada semana cuenta.']},
-    {k:'journey', label:['The partner user’s journey','El journey del usuario de partner'],
-      steps:[['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
-             ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
-             ['bank',['Tax agency','Conexión AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
-             ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
-             ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]],
-      t1:{tag:['Test 1','Test 1'], h:['Context before connecting','Contexto antes de conectar']},
-      t2a:{tag:['Test 2A · Hot','Test 2A · Hot'], h:['Modal after the result','Modal tras el resultado']},
-      t2b:{tag:['Test 2B · Cold','Test 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
-      cap:['Test 1 acts before connecting their data. Test 2 reminds the discount right before paying: in the flow (2A) or, for those who leave, through an email that brings them back (2B).','El test 1 actúa antes de conectar los datos. El test 2 recuerda el descuento justo antes de pagar: dentro del flujo (2A) o, a quien se va, con un email que le trae de vuelta (2B).']},
-    {k:'bars', label:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], max:100,
-      rows:[[['Organic','Orgánicos'],56.4],[['From partners','De partners'],39.4,'peach']], cap:['A 17-point gap at the first step of the funnel.','17 puntos de diferencia en el primer paso del funnel.']},
+    {k:'goal', label:['The goal','El objetivo'], t:['More partner users going from sign up to purchase, in the middle of tax season.','Que más usuarios de partner pasaran de registrarse a comprar, en plena campaña de la renta.']},
+    {k:'journey', mode:'base', label:['The partner user’s journey','El journey del usuario de partner'], steps:TD_STEPS,
+      fr:{at:2, tag:['Where they dropped','Dónde se caían'], h:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
+      cap:['17 points less at the step that unlocks everything else: without their data, there’s no result and no purchase.','17 puntos menos en el paso que desbloquea todo lo demás: sin sus datos no hay resultado ni compra.']},
 
     {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['If they understand the product, they’ll connect. If they connect, they’ll buy','Si entienden el producto, conectarán. Y si conectan, comprarán']},
     {k:'p', t:['The team suggested retrying a longer landing, but an earlier test had shown the short one converted better. So I proposed testing inside the product, closer to where people dropped.',
                'El equipo propuso volver a probar una landing más larga, pero un test anterior ya demostraba que la corta convertía mejor. Así que propuse probar dentro del producto, más cerca de donde se caían.']},
+    {k:'journey', mode:'t1', label:['Where test 1 acts','Dónde actúa el test 1'], steps:TD_STEPS,
+      t1:{tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['Improve understanding before connecting','Mejorar la comprensión antes de conectar'], q:['“Who is TaxDown? Why do they want my data?”','«¿Quién es TaxDown? ¿Por qué me piden mis datos?»']},
+      cap:['The friction was between signing up and connecting: users arrived for the discount, without knowing us.','La fricción estaba entre el registro y la conexión: llegaban por el descuento, sin conocernos.']},
     {k:'p', t:['I designed a four-step intro, like a short story: who we are, how it works, your discount and connecting with the tax agency. It couldn’t be skipped, because the authorisation was mandatory anyway: better at the end of an explanation than on a cold screen.',
                'Diseñé una intro de cuatro pasos, como una historia corta: quiénes somos, cómo funciona, tu descuento y la conexión con la AEAT. Sin opción de saltarla, porque el apoderamiento era obligatorio igualmente: mejor al final de una explicación que en una pantalla fría.']},
     {k:'img', src:'assets/taxdown-stepper.webp', cap:['The stepper, 1–15 June, A/B 80/20 on mobile. Validated first with users and internal teams.','El stepper, del 1 al 15 de junio, A/B 80/20 en móvil. Validado antes con usuarios y equipos internos.']},
@@ -1886,6 +1907,10 @@ const PROJECTS = [
     {k:'chap', n:['4 · Second bet','4 · Segunda apuesta'], t:['Remind them at the moment they decide','Recordarlo en el momento de decidir']},
     {k:'p', t:['The discount already showed under the result and in checkout, but many never reached checkout. I designed a modal right after the result, with a button to checkout with the discount applied. A modal because it barely touched the flow and could be removed quickly mid-season.',
                'El descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout. Diseñé una modal justo después del resultado, con un botón al checkout con el descuento aplicado. Una modal porque apenas tocaba el flujo y se podía quitar rápido en plena campaña.']},
+    {k:'journey', mode:'t2', label:['Where test 2 acts','Dónde actúa el test 2'], steps:TD_STEPS,
+      t2a:{tag:['Test 2A · Hot','Test 2A · Hot'], h:['Modal right after the result','Modal justo tras el resultado'], q:['“Did I have a discount?”','«¿Tenía un descuento?»']},
+      t2b:{tag:['Test 2B · Cold','Test 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
+      cap:['The friction was right before paying: they had forgotten their discount. 2A reminds them in the flow; 2B, for those who left, brings them back with an email.','La fricción estaba justo antes de pagar: habían olvidado su descuento. El 2A se lo recuerda en el flujo; el 2B, a quien se fue, le trae de vuelta con un email.']},
     {k:'segs', label:['Test 2: same reminder, two segments, 12 days at the same time','Test 2: el mismo recordatorio, dos segmentos, 12 días a la vez'],
       items:[{tag:'2A · Hot', tone:'mint', icon:'phone', h:['Still in the flow','Siguen en el flujo'],
               rows:[[['Where','Dónde'],['Inside the app','Dentro de la app']],[['What','Qué'],['The modal, right after their result','La modal, justo después del resultado']]],
@@ -2529,34 +2554,43 @@ function sBlock(b,p,ids){
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
+    case 'goal': return `<div class="s-goal"><span class="sc-k">${X(b.label)}</span><p>${X(b.t)}</p></div>`;
     case 'journey': {
       const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6zM9 10h6M9 13.5h6M9 17h3.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 14.5h5"/>',mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>'};
+      const face=(x,y)=>`<g class="jface" transform="translate(${x} ${y})"><circle r="17"/><circle cx="-5" cy="-3" r="1.8"/><circle cx="5" cy="-3" r="1.8"/><path d="M-6 7q3-3 6 0t6 0"/><text class="jq" x="14" y="-11">?</text></g>`;
       const wrap=(t,n)=>{ const w=tr(t).split(' '), L=[]; let c=''; w.forEach(x=>{ if((c+' '+x).trim().length>n){ L.push(c.trim()); c=x; } else c+=' '+x; }); if(c.trim()) L.push(c.trim()); return L; };
       const tsp=(L,x,y,lh)=>L.map((l,i)=>`<tspan x="${x}" y="${y+i*lh}">${esc(l)}</tspan>`).join('');
-      const node=(ic,x,y,i)=>`<g class="jn" data-p="${i}" transform="translate(${x} ${y})"><circle r="24"/><g class="ji" transform="translate(-12 -12)">${I[ic]}</g></g>`;
-      const stick=(t,x,y,w,tone,cls,d)=>`<g class="js ${cls}" data-at="${d}" transform="translate(${x} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="58" rx="12" style="fill:var(--${tone})"/><text class="jt" x="${-w/2+14}" y="22">${X(t.tag)}</text><text class="jh" x="${-w/2+14}" y="44">${X(t.h)}</text></g>`;
-      // Desktop (horizontal)
-      const xs=[60,255,450,645,840], ry=150;
-      const H=`<svg class="jr-h" viewBox="0 0 900 390" aria-hidden="true">
-        <line class="jb" x1="60" y1="${ry}" x2="840" y2="${ry}"/><line class="jf" x1="60" y1="${ry}" x2="840" y2="${ry}" pathLength="1"/>
-        <path class="jl" pathLength="1" d="M690 ${ry} C712 ${ry} 712 172 712 200 V272 C712 292 722 300 742 300 C762 300 772 292 772 272 V200 C772 172 772 ${ry} 790 ${ry}"/>
-        <g class="jn jm" data-p="3.7" transform="translate(742 300)"><circle r="20"/><g class="ji" transform="translate(-12 -12)">${I.mail}</g></g>
-        <line class="jc c1" x1="352" y1="88" x2="352" y2="${ry}"/><circle class="jd c1" cx="352" cy="${ry}" r="5"/>
-        <line class="jc c2" x1="742" y1="88" x2="742" y2="${ry}"/><circle class="jd c2" cx="742" cy="${ry}" r="5"/>
-        ${b.steps.map(([ic,h,t],i)=>node(ic,xs[i],ry,i)+`<text class="jt jlab" text-anchor="middle" x="${xs[i]}" y="${ry+46}">${X(h)}</text><text class="jdesc" text-anchor="middle">${tsp(wrap(t,20),xs[i],ry+66,16)}</text>`).join('')}
-        ${stick(b.t1,352,30,230,'sky','c1',1.5)}${stick(b.t2a,742,30,230,'pink','c2',3.5)}${stick(b.t2b,742,322,230,'paper','c3 dashed',3.9)}
-      </svg>`;
-      // Mobile (vertical)
-      const ys=[40,200,360,520,770], rx=34;
-      const V=`<svg class="jr-v" viewBox="0 0 360 840" aria-hidden="true">
-        <line class="jb" x1="${rx}" y1="40" x2="${rx}" y2="770"/><line class="jf" x1="${rx}" y1="40" x2="${rx}" y2="770" pathLength="1"/>
-        ${b.steps.map(([ic,h,t],i)=>node(ic,rx,ys[i],i)+`<text class="jt jlab" x="72" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,30),72,ys[i]+18,16)}</text>`).join('')}
-        <line class="jc c1" x1="${rx}" y1="290" x2="70" y2="290"/>${stick(b.t1,200,261,260,'sky','c1',1.5)}
-        <line class="jc c2" x1="${rx}" y1="622" x2="70" y2="622"/>${stick(b.t2a,200,593,260,'pink','c2',3.5)}${stick(b.t2b,200,662,260,'paper','c3 dashed',3.9)}
-      </svg>`;
-      return `<figure class="scene jr2" data-anim="journey"><span class="sc-k">${X(b.label)}</span>${H}${V}
-        <ol class="sr">${b.steps.map(([ic,h,t])=>`<li>${X(h)}: ${X(t)}</li>`).join('')}<li>${X(b.t1.tag)}: ${X(b.t1.h)}</li><li>${X(b.t2a.tag)}: ${X(b.t2a.h)}</li><li>${X(b.t2b.tag)}: ${X(b.t2b.h)}</li></ol>
-        <figcaption>${X(b.cap)}</figcaption></figure>`; }
+      const node=(ic,x,y,i,cls='')=>`<g class="jn ${cls}" data-p="${i}" transform="translate(${x} ${y})"><circle r="24"/><g class="ji" transform="translate(-12 -12)">${I[ic]}</g></g>`;
+      const stick=(t,cx,y,w,tone,cls,n)=>{ const HL=wrap(t.h,Math.floor((w-28)/8.6)), L=t.q?wrap(t.q,n||40):[], qy=42+(HL.length-1)*20+22, h=qy-14+(t.q?L.length*17+6:-8)+(t.q?0:0);
+        return `<g class="js ${cls}" transform="translate(${cx} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="${t.q?qy+L.length*17-6:qy-8}" rx="12" style="fill:var(--${tone})"/><text class="jt" x="${-w/2+14}" y="21">${X(t.tag)}</text><text class="jh">${tsp(HL,-w/2+14,42,20)}</text>${t.q?`<text class="jqt">${tsp(L,-w/2+14,qy,17)}</text>`:''}</g>`; };
+      const labelsH=(xs,ry)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" text-anchor="middle" x="${xs[i]}" y="${ry+46}">${X(h)}</text><text class="jdesc" text-anchor="middle">${tsp(wrap(t,20),xs[i],ry+66,16)}</text>`).join('');
+      const labelsV=(ys,rx)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" x="${rx+38}" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,30),rx+38,ys[i]+18,16)}</text>`).join('');
+      const xs=[60,255,450,645,840], rx=34; let H='', V='';
+      if(b.mode==='base'){ const ry=150, f=b.fr;
+        const card=(cx,y,w)=>`<g class="js jfr" transform="translate(${cx} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="92" rx="12"/>${face(-w/2+34,46).replace('class="jface"','class="jface on"')}<text class="jt" x="${-w/2+64}" y="24">${X(f.tag)}</text><text class="jdesc" x="${-w/2+64}" y="44">${X(f.h)}</text>${f.stats.map(([l,v],i)=>`<text class="jst" x="${-w/2+64+i*128}" y="74"><tspan class="jsv${i?' lo':''}">${esc(fmt(v))}</tspan> ${X(l)}</text>`).join('')}</g>`;
+        H=`<svg class="jr-h" viewBox="0 0 900 300" aria-hidden="true"><line class="jb" x1="60" y1="${ry}" x2="840" y2="${ry}"/><line class="jf" x1="60" y1="${ry}" x2="840" y2="${ry}" pathLength="1"/>
+          <line class="jc" x1="450" y1="104" x2="450" y2="${ry-26}"/>${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,i===f.at?'jx':'')).join('')}${labelsH(xs,ry)}${card(450,10,360)}</svg>`;
+        const ys=[40,150,260,450,560];
+        V=`<svg class="jr-v" viewBox="0 0 360 630" aria-hidden="true"><line class="jb" x1="${rx}" y1="40" x2="${rx}" y2="560"/><line class="jf" x1="${rx}" y1="40" x2="${rx}" y2="560" pathLength="1"/>
+          ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,i===f.at?'jx':'')).join('')}${labelsV(ys,rx)}<line class="jc" x1="190" y1="300" x2="190" y2="316"/>${card(195,318,310)}</svg>`;
+      } else if(b.mode==='t1'){ const ry=170;
+        H=`<svg class="jr-h" viewBox="0 0 900 300" aria-hidden="true"><rect class="jband" x="282" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
+          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="114" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,352,8,380,'sky','',44)}</svg>`;
+        const ys=[40,150,400,510,620];
+        V=`<svg class="jr-v" viewBox="0 0 360 680" aria-hidden="true"><rect class="jband" x="${rx-30}" y="200" width="60" height="160" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="${rx}" y1="40" x2="${rx}" y2="620"/>
+          ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i>1?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="280" x2="70" y2="280"/>${face(rx,280)}${stick(b.t1,212,226,284,'sky','',34)}</svg>`;
+      } else { const ry=170;
+        H=`<svg class="jr-h" viewBox="0 0 900 430" aria-hidden="true"><rect class="jband" x="672" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--pink)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
+          <path class="jl" pathLength="1" d="M690 ${ry} C708 ${ry} 708 ${ry+22} 708 ${ry+50} V${ry+120} C708 ${ry+140} 722 ${ry+150} 742 ${ry+150} C762 ${ry+150} 776 ${ry+140} 776 ${ry+120} V${ry+50} C776 ${ry+22} 776 ${ry} 794 ${ry}"/>
+          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i<3?' dim':''))).join('')}${node('mail',742,ry+150,9,'jm')}${labelsH(xs,ry)}<line class="jc" x1="742" y1="114" x2="742" y2="${ry-18}"/>${face(742,ry)}
+          ${stick(b.t2a,690,8,380,'pink','',44)}${stick(b.t2b,742,ry+186,250,'paper','dashed')}</svg>`;
+        const ys=[40,150,260,370,670];
+        V=`<svg class="jr-v" viewBox="0 0 360 730" aria-hidden="true"><rect class="jband" x="${rx-30}" y="420" width="60" height="210" rx="16" style="fill:var(--pink)"/><line class="jb full" x1="${rx}" y1="40" x2="${rx}" y2="670"/>
+          ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i<3?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="478" x2="70" y2="478"/>${face(rx,478)}${stick(b.t2a,212,430,284,'pink','',34)}${stick(b.t2b,212,560,284,'paper','dashed')}</svg>`;
+      }
+      const sr=b.mode==='base'?`${X(b.fr.h)}: ${b.fr.stats.map(([l,v])=>`${X(l)} ${esc(fmt(v))}`).join(', ')}`:b.mode==='t1'?`${X(b.t1.tag)}: ${X(b.t1.h)}. ${X(b.t1.q)}`:`${X(b.t2a.tag)}: ${X(b.t2a.h)}. ${X(b.t2a.q)} ${X(b.t2b.tag)}: ${X(b.t2b.h)}.`;
+      return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
+        <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -2613,13 +2647,12 @@ function initStory(sheet){
   const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
   const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
   sheet.querySelectorAll('[data-anim="journey"]').forEach(f=>once(f,instant=>{
+    if(f.dataset.mode!=='base'){ f.classList.add('on'); return; }
     const set=p=>{ f.querySelectorAll('.jf').forEach(l=>l.style.strokeDashoffset=1-Math.min(1,p/4));
       f.querySelectorAll('[data-p]').forEach(n=>n.classList.toggle('on',p>=+n.dataset.p-.02));
-      f.querySelectorAll('.js').forEach(n=>n.classList.toggle('on',p>=+n.dataset.at));
-      f.querySelectorAll('.jc,.jd').forEach(n=>n.classList.toggle('on',p>=(n.classList.contains('c1')?1.5:3.5)));
-      f.querySelectorAll('.jl').forEach(l=>l.style.strokeDashoffset=p<3.05?1:Math.max(0,1-(p-3.05)/.85)); };
+      f.classList.toggle('on',p>=2); };
     if(instant){ set(4); return; }
-    let t0=null; const dur=3600; const st=ts=>{ if(!t0) t0=ts; const k=Math.min(1,(ts-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; set(e*4); if(k<1) requestAnimationFrame(st); }; set(0); requestAnimationFrame(st);
+    let t0=null; const dur=2600; const st=ts=>{ if(!t0) t0=ts; const k=Math.min(1,(ts-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; set(e*4); if(k<1) requestAnimationFrame(st); }; set(0); requestAnimationFrame(st);
   }));
   sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(!instant) q.classList.add('nudge'); }));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));

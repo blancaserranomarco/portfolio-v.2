@@ -101,6 +101,12 @@ const PROFILE = {
 /* ---------- Projects ----------
    w: weight per interest (decides order).  hl: the highlight shown in the shortlist callout.
    blocks: the full story. Kinds: h (section title), p, call, list, table, steps, exp, quote, ba, img, abc, learn */
+/* Partner user journey, reused by the TaxDown case scenes */
+const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
+  ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
+  ['bank',['Tax agency','Conexión AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
+  ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
+  ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]];
 const PROJECTS = [
 {
   id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'+65.6%', t:['purchase success','compras con éxito']}, base:.6, recruiter:1,
@@ -313,24 +319,17 @@ const PROJECTS = [
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A channel worth 40% of revenue that stalled halfway','Un canal que valía el 40% de la facturación y se quedaba a medias']},
     {k:'p', t:['Banks and companies offer TaxDown to their customers with a discount. That channel brought in around 40% of revenue, but the people arriving through it behaved differently: they came for the discount, didn’t know the product and dropped along the way.',
                'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero quienes llegaban por él se comportaban distinto: venían por el descuento, no conocían el producto y se quedaban por el camino.']},
-    {k:'p', t:['The goal: more partner users going from sign up to purchase, in the middle of tax season, when every week counts.',
-               'El objetivo: que más usuarios de partner pasaran de registrarse a comprar, en plena campaña, cuando cada semana cuenta.']},
-    {k:'journey', label:['The partner user’s journey','El journey del usuario de partner'],
-      steps:[['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
-             ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
-             ['bank',['Tax agency','Conexión AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
-             ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
-             ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]],
-      t1:{tag:['Test 1','Test 1'], h:['Context before connecting','Contexto antes de conectar']},
-      t2a:{tag:['Test 2A · Hot','Test 2A · Hot'], h:['Modal after the result','Modal tras el resultado']},
-      t2b:{tag:['Test 2B · Cold','Test 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
-      cap:['Test 1 acts before connecting their data. Test 2 reminds the discount right before paying: in the flow (2A) or, for those who leave, through an email that brings them back (2B).','El test 1 actúa antes de conectar los datos. El test 2 recuerda el descuento justo antes de pagar: dentro del flujo (2A) o, a quien se va, con un email que le trae de vuelta (2B).']},
-    {k:'bars', label:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], max:100,
-      rows:[[['Organic','Orgánicos'],56.4],[['From partners','De partners'],39.4,'peach']], cap:['A 17-point gap at the first step of the funnel.','17 puntos de diferencia en el primer paso del funnel.']},
+    {k:'goal', label:['The goal','El objetivo'], t:['More partner users going from sign up to purchase, in the middle of tax season.','Que más usuarios de partner pasaran de registrarse a comprar, en plena campaña de la renta.']},
+    {k:'journey', mode:'base', label:['The partner user’s journey','El journey del usuario de partner'], steps:TD_STEPS,
+      fr:{at:2, tag:['Where they dropped','Dónde se caían'], h:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
+      cap:['17 points less at the step that unlocks everything else: without their data, there’s no result and no purchase.','17 puntos menos en el paso que desbloquea todo lo demás: sin sus datos no hay resultado ni compra.']},
 
     {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['If they understand the product, they’ll connect. If they connect, they’ll buy','Si entienden el producto, conectarán. Y si conectan, comprarán']},
     {k:'p', t:['The team suggested retrying a longer landing, but an earlier test had shown the short one converted better. So I proposed testing inside the product, closer to where people dropped.',
                'El equipo propuso volver a probar una landing más larga, pero un test anterior ya demostraba que la corta convertía mejor. Así que propuse probar dentro del producto, más cerca de donde se caían.']},
+    {k:'journey', mode:'t1', label:['Where test 1 acts','Dónde actúa el test 1'], steps:TD_STEPS,
+      t1:{tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['Improve understanding before connecting','Mejorar la comprensión antes de conectar'], q:['“Who is TaxDown? Why do they want my data?”','«¿Quién es TaxDown? ¿Por qué me piden mis datos?»']},
+      cap:['The friction was between signing up and connecting: users arrived for the discount, without knowing us.','La fricción estaba entre el registro y la conexión: llegaban por el descuento, sin conocernos.']},
     {k:'p', t:['I designed a four-step intro, like a short story: who we are, how it works, your discount and connecting with the tax agency. It couldn’t be skipped, because the authorisation was mandatory anyway: better at the end of an explanation than on a cold screen.',
                'Diseñé una intro de cuatro pasos, como una historia corta: quiénes somos, cómo funciona, tu descuento y la conexión con la AEAT. Sin opción de saltarla, porque el apoderamiento era obligatorio igualmente: mejor al final de una explicación que en una pantalla fría.']},
     {k:'img', src:'assets/taxdown-stepper.webp', cap:['The stepper, 1–15 June, A/B 80/20 on mobile. Validated first with users and internal teams.','El stepper, del 1 al 15 de junio, A/B 80/20 en móvil. Validado antes con usuarios y equipos internos.']},
@@ -348,6 +347,10 @@ const PROJECTS = [
     {k:'chap', n:['4 · Second bet','4 · Segunda apuesta'], t:['Remind them at the moment they decide','Recordarlo en el momento de decidir']},
     {k:'p', t:['The discount already showed under the result and in checkout, but many never reached checkout. I designed a modal right after the result, with a button to checkout with the discount applied. A modal because it barely touched the flow and could be removed quickly mid-season.',
                'El descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout. Diseñé una modal justo después del resultado, con un botón al checkout con el descuento aplicado. Una modal porque apenas tocaba el flujo y se podía quitar rápido en plena campaña.']},
+    {k:'journey', mode:'t2', label:['Where test 2 acts','Dónde actúa el test 2'], steps:TD_STEPS,
+      t2a:{tag:['Test 2A · Hot','Test 2A · Hot'], h:['Modal right after the result','Modal justo tras el resultado'], q:['“Did I have a discount?”','«¿Tenía un descuento?»']},
+      t2b:{tag:['Test 2B · Cold','Test 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
+      cap:['The friction was right before paying: they had forgotten their discount. 2A reminds them in the flow; 2B, for those who left, brings them back with an email.','La fricción estaba justo antes de pagar: habían olvidado su descuento. El 2A se lo recuerda en el flujo; el 2B, a quien se fue, le trae de vuelta con un email.']},
     {k:'segs', label:['Test 2: same reminder, two segments, 12 days at the same time','Test 2: el mismo recordatorio, dos segmentos, 12 días a la vez'],
       items:[{tag:'2A · Hot', tone:'mint', icon:'phone', h:['Still in the flow','Siguen en el flujo'],
               rows:[[['Where','Dónde'],['Inside the app','Dentro de la app']],[['What','Qué'],['The modal, right after their result','La modal, justo después del resultado']]],
