@@ -2707,8 +2707,8 @@ function sBlock(b,p,ids){
       const xs=[60,255,450,645,840], rx=34; let H='', V='';
       if(b.mode==='base'){ const ry=200, f=b.fr;
         const card=(cx,y,w,bw)=>{ const x0=-w/2;
-          const TL=wrap(f.tag,Math.floor((w-90)/7.6)), d=(TL.length-1)*16, HL=wrap(f.h,Math.floor((w-90)/9.6)), d2=(HL.length-1)*22;
-          return `<g class="js jfr" transform="translate(${cx} ${y})"><rect x="${x0}" y="0" width="${w}" height="${142+d+d2}" rx="14"/>${face(x0+36,40).replace('class="jface"','class="jface on"')}<text class="jfk">${tsp(TL,x0+68,30,16)}</text><text class="jfh">${tsp(HL,x0+68,54+d,22)}</text>
+          const TL=wrap(f.tag,Math.floor((w-40)/7.6)), d=(TL.length-1)*16, HL=wrap(f.h,Math.floor((w-40)/9.6)), d2=(HL.length-1)*22;
+          return `<g class="js jfr" transform="translate(${cx} ${y})"><rect x="${x0}" y="0" width="${w}" height="${142+d+d2}" rx="14"/><text class="jfk">${tsp(TL,x0+20,30,16)}</text><text class="jfh">${tsp(HL,x0+20,54+d,22)}</text>
             ${f.stats.map(([l,v],i)=>{ const yy=88+d+d2+i*32, pct=parseFloat(v); return `<text class="jfl" x="${x0+20}" y="${yy+5}">${X(l)}</text><rect class="jbar0" x="${x0+110}" y="${yy-7}" width="${bw}" height="14" rx="7"/><rect class="jbar ${i?'lo':''}" x="${x0+110}" y="${yy-7}" width="${(bw*pct/100).toFixed(1)}" height="14" rx="7"/><text class="jfv ${i?'lo':''}" x="${x0+120+bw}" y="${yy+7}">${esc(fmt(v))}</text>`; }).join('')}</g>`; };
         H=`<svg class="jr-h" viewBox="0 0 900 350" aria-hidden="true"><line class="jb" x1="60" y1="${ry}" x2="840" y2="${ry}"/><line class="jf" x1="60" y1="${ry}" x2="840" y2="${ry}" pathLength="1"/>
           <line class="jc" x1="450" y1="150" x2="450" y2="${ry-26}"/>${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,i===f.at?'jx':'')).join('')}${labelsH(xs,ry)}${card(450,6,440,230)}</svg>`;
