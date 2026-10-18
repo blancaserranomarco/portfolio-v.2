@@ -1433,6 +1433,25 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-next li{margin:6px 0}
 .ask-l{margin-top:0}
 .dec-pill.testno{background:var(--dot)}
+/* Hot vs cold segments: two columns */
+.sc-segs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.seg{border:1px solid var(--soft);border-radius:14px;padding:16px;background:var(--paper);display:flex;flex-direction:column}
+.seg-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.seg-ic svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.seg-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 10px;color:var(--sticker-ink)}
+.seg h3{font-size:1.25rem;margin-bottom:8px}
+.seg dl{margin:0;display:grid;gap:6px}
+.seg dl div{display:grid;grid-template-columns:56px 1fr;gap:8px;font-size:.92rem}
+.seg dt{color:var(--muted)}.seg dd{margin:0}
+.seg-res{margin-top:auto;padding-top:12px;border-top:1px solid var(--soft);font-size:.92rem;font-weight:500}
+.seg.win .seg-res{color:#1f7a50}
+.seg.lose{opacity:.85}.seg.lose .seg-res{color:var(--muted)}
+.seg dl + .seg-res{margin-top:14px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .seg.win .seg-res{color:#7fe0b2} }
+:root[data-theme="dark"] .seg.win .seg-res{color:#7fe0b2}
+@media (max-width:560px){ .sc-segs{grid-template-columns:1fr} }
+/* Lists inside story chapters use the same size as the prose */
+.story .s-body > .b-list{font-size:1.06rem;max-width:62ch;margin-top:14px}
 </style>
 </head>
 <body>
@@ -1795,11 +1814,14 @@ const PROJECTS = [
     {k:'chap', n:['4 · Second bet','4 · Segunda apuesta'], t:['Remind them at the moment they decide','Recordarlo en el momento de decidir']},
     {k:'p', t:['The discount already showed under the result and in checkout, but many never reached checkout. I designed a modal right after the result, with a button to checkout with the discount applied. A modal because it barely touched the flow and could be removed quickly mid-season.',
                'El descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout. Diseñé una modal justo después del resultado, con un botón al checkout con el descuento aplicado. Una modal porque apenas tocaba el flujo y se podía quitar rápido en plena campaña.']},
-    {k:'p', t:['We tested it for 12 days in two segments at the same time:','Lo probamos durante 12 días en dos segmentos a la vez:']},
-    {k:'list', t:[['Hot: users still in the flow. They got the modal right after their result.','Hot: quienes seguían en el flujo. Les salía la modal justo después del resultado.'],
-                 ['Cold: users who saw their result, left without buying and didn’t come back to the app. We could only reach them outside the product, so 4 days later they got an email reminding them of their partner discount.','Cold: quienes veían su resultado, dejaban el flujo a medias y no volvían a la app. Solo podíamos llegar a ellos fuera del producto, así que a los 4 días les enviábamos un email recordándoles el descuento de su partner.']]},
-    {k:'p', t:['The cold email barely got opened. Our hypothesis: CRM and Marketing were already sending them plenty of follow-ups, so one more added nothing. We closed it and focused on the hot segment: the reminder has to reach users where they already are.',
-               'El email cold apenas se abría. Nuestra hipótesis: CRM y Marketing ya les enviaban muchos seguimientos, así que uno más no aportaba. Lo cerramos y nos centramos en el hot: el recordatorio tiene que llegar donde ya está el usuario.']},
+    {k:'segs', label:['Two segments, tested at the same time for 12 days','Dos segmentos, probados a la vez durante 12 días'],
+      items:[{tag:'Hot', tone:'mint', icon:'phone', h:['Still in the flow','Siguen en el flujo'],
+              rows:[[['Where','Dónde'],['Inside the app','Dentro de la app']],[['What','Qué'],['The modal, right after their result','La modal, justo después del resultado']]],
+              res:['Moved purchases: we tested which brand worked best ↓','Movió las compras: probamos qué marca funcionaba mejor ↓'], win:1},
+             {tag:'Cold', tone:'dot', icon:'mail', h:['Left without buying','Se fueron sin comprar'],
+              rows:[[['Where','Dónde'],['Outside the app: they didn’t come back','Fuera de la app: no volvían']],[['What','Qué'],['An email 4 days later with their discount','Un email a los 4 días con su descuento']]],
+              res:['Barely opened. Our hypothesis: CRM and Marketing already sent plenty of follow-ups. We closed it.','Apenas se abría. Nuestra hipótesis: CRM y Marketing ya enviaban muchos seguimientos. Lo cerramos.']}],
+      cap:['The reminder has to reach users where they already are: inside the flow, not in one more email.','El recordatorio tiene que llegar donde ya está el usuario: dentro del flujo, no en un email más.']},
     {k:'tl', items:[[['Sign up','Registro'],['sees the discount','ve su descuento']],[['Connects data','Conecta datos'],['days go by…','pasan días…']],[['Sees the result','Ve su resultado'],''],[['Here, the modal','Aquí, la modal'],['reminds the discount','recuerda el descuento'],1],[['Purchase','Compra'],['checkout with the discount applied','checkout con el descuento aplicado']]],
       cap:['The modal sits between the result and the purchase: right when users decide. It can be closed, and its button opens checkout with the discount already applied.','La modal va entre el resultado y la compra: justo cuando el usuario decide. Se puede cerrar, y su botón abre el checkout con el descuento ya aplicado.']},
     {k:'p', t:['One question remained: which brand should go first? My hypothesis was that another brand in the middle of a payment could feel like an ad. We tested it with around 5,000 users from 3 top partners.',
@@ -2435,6 +2457,8 @@ function sBlock(b,p,ids){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
     case 'p': return `<p class="s-p">${X(b.t)}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
+    case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
+      return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="seg ${it.win?'win':'lose'}"><div class="seg-top"><span class="seg-ic">${ic[it.icon]}</span><span class="seg-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="seg-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;

@@ -1422,3 +1422,22 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-next li{margin:6px 0}
 .ask-l{margin-top:0}
 .dec-pill.testno{background:var(--dot)}
+/* Hot vs cold segments: two columns */
+.sc-segs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.seg{border:1px solid var(--soft);border-radius:14px;padding:16px;background:var(--paper);display:flex;flex-direction:column}
+.seg-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.seg-ic svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.seg-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 10px;color:var(--sticker-ink)}
+.seg h3{font-size:1.25rem;margin-bottom:8px}
+.seg dl{margin:0;display:grid;gap:6px}
+.seg dl div{display:grid;grid-template-columns:56px 1fr;gap:8px;font-size:.92rem}
+.seg dt{color:var(--muted)}.seg dd{margin:0}
+.seg-res{margin-top:auto;padding-top:12px;border-top:1px solid var(--soft);font-size:.92rem;font-weight:500}
+.seg.win .seg-res{color:#1f7a50}
+.seg.lose{opacity:.85}.seg.lose .seg-res{color:var(--muted)}
+.seg dl + .seg-res{margin-top:14px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .seg.win .seg-res{color:#7fe0b2} }
+:root[data-theme="dark"] .seg.win .seg-res{color:#7fe0b2}
+@media (max-width:560px){ .sc-segs{grid-template-columns:1fr} }
+/* Lists inside story chapters use the same size as the prose */
+.story .s-body > .b-list{font-size:1.06rem;max-width:62ch;margin-top:14px}
