@@ -1429,20 +1429,20 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .dec-pill.testno{background:var(--dot)}
 /* Hot vs cold segments: two columns */
 .sc-segs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
-.seg{border:1px solid var(--soft);border-radius:14px;padding:16px;background:var(--paper);display:flex;flex-direction:column}
-.seg-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.seg-ic svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.seg-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 10px;color:var(--sticker-ink)}
-.seg h3{font-size:1.25rem;margin-bottom:8px}
-.seg dl{margin:0;display:grid;gap:6px}
-.seg dl div{display:grid;grid-template-columns:56px 1fr;gap:8px;font-size:.92rem}
-.seg dt{color:var(--muted)}.seg dd{margin:0}
-.seg-res{margin-top:auto;padding-top:12px;border-top:1px solid var(--soft);font-size:.92rem;font-weight:500}
-.seg.win .seg-res{color:#1f7a50}
-.seg.lose{opacity:.85}.seg.lose .seg-res{color:var(--muted)}
-.seg dl + .seg-res{margin-top:14px}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .seg.win .seg-res{color:#7fe0b2} }
-:root[data-theme="dark"] .seg.win .seg-res{color:#7fe0b2}
+.sgc{border:1px solid var(--soft);border-radius:14px;padding:16px;background:var(--paper);display:flex;flex-direction:column}
+.sgc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sgc-ic svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sgc-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 10px;color:var(--sticker-ink)}
+.sgc h3{font-size:1.25rem;margin-bottom:8px}
+.sgc dl{margin:0;display:grid;gap:6px}
+.sgc dl div{display:grid;grid-template-columns:56px 1fr;gap:8px;font-size:.92rem}
+.sgc dt{color:var(--muted)}.sgc dd{margin:0}
+.sgc-res{margin-top:auto;padding-top:12px;border-top:1px solid var(--soft);font-size:.92rem;font-weight:500}
+.sgc.win .sgc-res{color:#1f7a50}
+.sgc.lose{opacity:.85}.sgc.lose .sgc-res{color:var(--muted)}
+.sgc dl + .sgc-res{margin-top:14px}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sgc.win .sgc-res{color:#7fe0b2} }
+:root[data-theme="dark"] .sgc.win .sgc-res{color:#7fe0b2}
 @media (max-width:560px){ .sc-segs{grid-template-columns:1fr} }
 /* Lists inside story chapters use the same size as the prose */
 .story .s-body > .b-list{font-size:1.06rem;max-width:62ch;margin-top:14px}
@@ -2450,7 +2450,7 @@ function sBlock(b,p,ids){
     case 'p': return `<p class="s-p">${X(b.t)}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
-      return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="seg ${it.win?'win':'lose'}"><div class="seg-top"><span class="seg-ic">${ic[it.icon]}</span><span class="seg-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="seg-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
+      return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
