@@ -1646,7 +1646,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){ .fl-steps i{transition:none} }
 
 /* Sub-heading inside a chapter, and test card header */
-.s-h3{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.2vw,1.5rem);line-height:1.2;margin-top:8px}
+.s-h3{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.2vw,1.5rem);line-height:1.2;margin-top:clamp(20px,3vw,32px)}
 .sc-meta{font-size:.82rem;color:var(--muted);margin:0 0 6px}
 .sc-h{font-family:var(--display);font-weight:500;font-size:clamp(1.2rem,2vw,1.4rem);margin:0 0 14px}
 .sc-split.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
