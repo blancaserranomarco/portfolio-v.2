@@ -1607,3 +1607,20 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .ask-i .ask-p{margin:0;padding:14px 18px 18px;border-top:0}
 .ask-i:hover summary{background:color-mix(in srgb,var(--ink) 4%,transparent)}
 @media (prefers-reduced-motion: reduce){ .ask-i summary i,.ask-i summary i::after{transition:none} }
+/* Case summary: problem → goal → what I did → result */
+.s-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}
+.sum-c{background:var(--surface);border:1px solid var(--soft);border-radius:16px;padding:16px 18px;opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s}
+.s-sum.on .sum-c{opacity:1;transform:none}
+.s-sum.on .sum-c:nth-child(2){transition-delay:.15s}.s-sum.on .sum-c:nth-child(3){transition-delay:.3s}.s-sum.on .sum-c:nth-child(4){transition-delay:.45s}
+.sum-c p{font-size:1rem;line-height:1.5;margin-top:2px}
+.sum-c.bad{background:color-mix(in srgb,#ef4444 12%,var(--surface));border-color:color-mix(in srgb,#ef4444 40%,transparent)}
+.sum-c.bad .sc-k{color:#b42318}
+.sum-c.good{background:color-mix(in srgb,var(--mint) 45%,var(--surface));border-color:color-mix(in srgb,#1f8a5b 40%,transparent)}
+.sum-c.good .sc-k{color:#1f7a50}
+.sum-n{font-family:var(--display);font-weight:500;font-size:1.2rem;white-space:nowrap}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sum-c.bad .sc-k{color:#ff8a80} :root:not([data-theme="light"]) .sum-c.good .sc-k{color:#7fe0b2} }
+:root[data-theme="dark"] .sum-c.bad .sc-k{color:#ff8a80} :root[data-theme="dark"] .sum-c.good .sc-k{color:#7fe0b2}
+@media (max-width:620px){ .s-sum{grid-template-columns:1fr} }
+@media (prefers-reduced-motion: reduce){ .sum-c{opacity:1;transform:none;transition:none} }
+.story .facts{grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 18px}
+.story .s-sum{margin-top:calc(-1 * clamp(8px,2vw,22px))}

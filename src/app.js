@@ -491,8 +491,7 @@ function storyCaseHTML(p){
     <article class="sheet-in story" style="--tone:var(${p.tone})">
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.title)}</h1>
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
-      <div class="s-nums">${p.nums.map(n=>`<div><span class="sc-k">${X(n.k)}</span><strong>${esc(fmt(n.v))}</strong><span>${X(n.t)}</span></div>`).join('')}</div>
-      <section class="s30" aria-label="${u('in30')}"><span class="sc-k">${u('in30')}</span><div class="chain">${p.chain.map(([k,h,t],i)=>`${i?'<span class="lk" aria-hidden="true"><svg viewBox="0 0 40 20"><path d="M2 10h32M26 3l8 7-8 7"/></svg></span>':''}<div class="node"><span class="nk n${i}">${X(k)}</span><strong>${X(h)}</strong><p>${X(t)}</p></div>`).join('')}</div></section>
+      <section class="s-sum" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span><p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}</p></div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
@@ -501,6 +500,7 @@ function storyCaseHTML(p){
 function initStory(sheet){
   const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
   const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
+  const sm=sheet.querySelector('.s-sum'); sm&&once(sm,()=>sm.classList.add('on'));
   sheet.querySelectorAll('[data-anim="journey"]').forEach(f=>once(f,instant=>{
     if(f.dataset.mode!=='base'){ f.classList.add('on'); return; }
     const set=p=>{ f.querySelectorAll('.jf').forEach(l=>l.style.strokeDashoffset=1-Math.min(1,p/4));
