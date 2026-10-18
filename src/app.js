@@ -543,7 +543,7 @@ function flGo(box,i){ const n=+box.dataset.n, img=box.querySelector('.fl-frame i
   bs.forEach((b,k)=>{ if(k===i) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); b.classList.toggle('done',k<i); }); }
 function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector('[data-flpp]'); box.classList.toggle('playing',on);
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
-  if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),4500)); }
+  if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
     const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
