@@ -1441,3 +1441,40 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:560px){ .sc-segs{grid-template-columns:1fr} }
 /* Lists inside story chapters use the same size as the prose */
 .story .s-body > .b-list{font-size:1.06rem;max-width:62ch;margin-top:14px}
+/* Journey with experiments mapped on it */
+.jr-steps{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:none}
+.jr-steps li{position:relative;background:var(--paper);border:1px solid var(--soft);border-radius:14px;padding:14px 12px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.jr-steps li + li::before{content:"→";position:absolute;left:-10px;top:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:.9rem;width:10px;text-align:center;margin-left:5px}
+.jr-n{align-self:flex-start;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.jr-steps svg{width:34px;height:34px;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin:2px 0 6px}
+.jr-steps b{font-weight:700;font-size:.95rem;line-height:1.25}
+.jr-steps li > span:last-child{font-size:.84rem;color:var(--muted);line-height:1.35}
+.jr-exps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:26px}
+.jr-exp{position:relative;border:1.5px solid color-mix(in srgb,var(--c) 70%,var(--ink) 30%);background:color-mix(in srgb,var(--c) 35%,var(--surface));border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.jr-exp::before{content:"";position:absolute;left:50%;top:-27px;width:2px;height:26px;background:color-mix(in srgb,var(--c) 60%,var(--ink) 40%)}
+.jr-exp::after{content:"";position:absolute;left:50%;top:-31px;width:10px;height:10px;border-radius:50%;transform:translateX(-4px);background:color-mix(in srgb,var(--c) 60%,var(--ink) 40%)}
+.jr-tag{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--c);color:var(--sticker-ink);border-radius:999px;padding:2px 9px}
+.jr-exp strong{font-family:var(--display);font-weight:500;font-size:1.15rem;line-height:1.2}
+.jr-m{font-size:.86rem;color:var(--muted)}
+.jr-side{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--soft);padding-top:6px;margin-top:4px}
+@media (max-width:720px){
+  .jr-steps{grid-template-columns:1fr;gap:8px}
+  .jr-steps li{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:10px}
+  .jr-steps li + li::before{content:none}
+  .jr-steps svg{width:26px;height:26px;margin:0}
+  .jr-steps li > span:last-child{flex-basis:100%;padding-left:60px}
+  .jr-exps{grid-template-columns:1fr;margin-top:14px}
+  .jr-exp{grid-column:auto !important}
+  .jr-exp::before,.jr-exp::after{content:none}
+}
+.jr-exps{align-items:start}
+/* Mobile: each test sits between the steps where it acts */
+@media (max-width:720px){
+  .jr{display:flex;flex-direction:column;gap:8px}
+  .jr-steps,.jr-exps{display:contents}
+  .jr > .sc-k{order:0}
+  .jr-steps li:nth-child(1){order:2}.jr-steps li:nth-child(2){order:4}.jr-steps li:nth-child(3){order:6}.jr-steps li:nth-child(4){order:8}.jr-steps li:nth-child(5){order:10}
+  .jr-exp:nth-child(1){order:5}.jr-exp:nth-child(2){order:9}
+  .jr-exp{margin-left:18px;border-left-width:4px}
+  .jr > figcaption{order:20}
+}

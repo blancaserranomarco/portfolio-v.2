@@ -1452,6 +1452,43 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:560px){ .sc-segs{grid-template-columns:1fr} }
 /* Lists inside story chapters use the same size as the prose */
 .story .s-body > .b-list{font-size:1.06rem;max-width:62ch;margin-top:14px}
+/* Journey with experiments mapped on it */
+.jr-steps{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:none}
+.jr-steps li{position:relative;background:var(--paper);border:1px solid var(--soft);border-radius:14px;padding:14px 12px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.jr-steps li + li::before{content:"→";position:absolute;left:-10px;top:50%;transform:translate(-50%,-50%);color:var(--muted);font-size:.9rem;width:10px;text-align:center;margin-left:5px}
+.jr-n{align-self:flex-start;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--paper);font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.jr-steps svg{width:34px;height:34px;fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin:2px 0 6px}
+.jr-steps b{font-weight:700;font-size:.95rem;line-height:1.25}
+.jr-steps li > span:last-child{font-size:.84rem;color:var(--muted);line-height:1.35}
+.jr-exps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:26px}
+.jr-exp{position:relative;border:1.5px solid color-mix(in srgb,var(--c) 70%,var(--ink) 30%);background:color-mix(in srgb,var(--c) 35%,var(--surface));border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.jr-exp::before{content:"";position:absolute;left:50%;top:-27px;width:2px;height:26px;background:color-mix(in srgb,var(--c) 60%,var(--ink) 40%)}
+.jr-exp::after{content:"";position:absolute;left:50%;top:-31px;width:10px;height:10px;border-radius:50%;transform:translateX(-4px);background:color-mix(in srgb,var(--c) 60%,var(--ink) 40%)}
+.jr-tag{align-self:flex-start;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--c);color:var(--sticker-ink);border-radius:999px;padding:2px 9px}
+.jr-exp strong{font-family:var(--display);font-weight:500;font-size:1.15rem;line-height:1.2}
+.jr-m{font-size:.86rem;color:var(--muted)}
+.jr-side{font-size:.82rem;color:var(--muted);border-top:1px dashed var(--soft);padding-top:6px;margin-top:4px}
+@media (max-width:720px){
+  .jr-steps{grid-template-columns:1fr;gap:8px}
+  .jr-steps li{flex-direction:row;text-align:left;flex-wrap:wrap;column-gap:10px}
+  .jr-steps li + li::before{content:none}
+  .jr-steps svg{width:26px;height:26px;margin:0}
+  .jr-steps li > span:last-child{flex-basis:100%;padding-left:60px}
+  .jr-exps{grid-template-columns:1fr;margin-top:14px}
+  .jr-exp{grid-column:auto !important}
+  .jr-exp::before,.jr-exp::after{content:none}
+}
+.jr-exps{align-items:start}
+/* Mobile: each test sits between the steps where it acts */
+@media (max-width:720px){
+  .jr{display:flex;flex-direction:column;gap:8px}
+  .jr-steps,.jr-exps{display:contents}
+  .jr > .sc-k{order:0}
+  .jr-steps li:nth-child(1){order:2}.jr-steps li:nth-child(2){order:4}.jr-steps li:nth-child(3){order:6}.jr-steps li:nth-child(4){order:8}.jr-steps li:nth-child(5){order:10}
+  .jr-exp:nth-child(1){order:5}.jr-exp:nth-child(2){order:9}
+  .jr-exp{margin-left:18px;border-left-width:4px}
+  .jr > figcaption{order:20}
+}
 </style>
 </head>
 <body>
@@ -1791,6 +1828,16 @@ const PROJECTS = [
                'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero quienes llegaban por él se comportaban distinto: venían por el descuento, no conocían el producto y se quedaban por el camino.']},
     {k:'p', t:['The goal: more partner users going from sign up to purchase, in the middle of tax season, when every week counts.',
                'El objetivo: que más usuarios de partner pasaran de registrarse a comprar, en plena campaña, cuando cada semana cuenta.']},
+    {k:'journey', label:['The partner user’s journey','El journey del usuario de partner'],
+      steps:[['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
+             ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
+             ['bank',['Connect with the tax agency','Conexión con la AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
+             ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
+             ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]],
+      exps:[{at:2, tone:'sky', tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['Context before connecting','Dar contexto antes de conectar'], m:['Metric: connection with the tax agency','Métrica: conexión con la AEAT']},
+            {at:4, tone:'pink', tag:['Test 2 · Hot users','Test 2 · Hot users'], h:['Remind the discount when they decide','Recordar el descuento al decidir'], m:['Metric: result → purchase','Métrica: resultado → compra'],
+             side:['In parallel, cold: those who left here got an email 4 days later.','En paralelo, cold: a quien se iba aquí le llegaba un email a los 4 días.']}],
+      cap:['Test 1 acts before connecting their data, test 2 right before paying: the two points where partner users dropped.','El test 1 actúa antes de conectar los datos y el test 2 justo antes de pagar: los dos puntos donde se caían los usuarios de partner.']},
     {k:'bars', label:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], max:100,
       rows:[[['Organic','Orgánicos'],56.4],[['From partners','De partners'],39.4,'peach']], cap:['A 17-point gap at the first step of the funnel.','17 puntos de diferencia en el primer paso del funnel.']},
 
@@ -1822,8 +1869,6 @@ const PROJECTS = [
               rows:[[['Where','Dónde'],['Outside the app: they didn’t come back','Fuera de la app: no volvían']],[['What','Qué'],['An email 4 days later with their discount','Un email a los 4 días con su descuento']]],
               res:['Barely opened. Our hypothesis: CRM and Marketing already sent plenty of follow-ups. We closed it.','Apenas se abría. Nuestra hipótesis: CRM y Marketing ya enviaban muchos seguimientos. Lo cerramos.']}],
       cap:['The reminder has to reach users where they already are: inside the flow, not in one more email.','El recordatorio tiene que llegar donde ya está el usuario: dentro del flujo, no en un email más.']},
-    {k:'tl', items:[[['Sign up','Registro'],['sees the discount','ve su descuento']],[['Connects data','Conecta datos'],['days go by…','pasan días…']],[['Sees the result','Ve su resultado'],''],[['Here, the modal','Aquí, la modal'],['reminds the discount','recuerda el descuento'],1],[['Purchase','Compra'],['checkout with the discount applied','checkout con el descuento aplicado']]],
-      cap:['The modal sits between the result and the purchase: right when users decide. It can be closed, and its button opens checkout with the discount already applied.','La modal va entre el resultado y la compra: justo cuando el usuario decide. Se puede cerrar, y su botón abre el checkout con el descuento ya aplicado.']},
     {k:'p', t:['One question remained: which brand should go first? My hypothesis was that another brand in the middle of a payment could feel like an ad. We tested it with around 5,000 users from 3 top partners.',
                'Quedaba una duda: ¿qué marca debía ir primero? Mi hipótesis era que otra marca en mitad de un pago podía parecer publicidad. Lo probamos con unos 5.000 usuarios de 3 partners top.']},
     {k:'quiz', q:['Which one do you think sold more?','¿Cuál crees que vendió más?'], sub:['Same discount, same moment. Only the brand that goes first changes.','Mismo descuento, mismo momento. Solo cambia qué marca va primero.'],
@@ -2459,6 +2504,12 @@ function sBlock(b,p,ids){
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
+    case 'journey': { const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18"/><path d="M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1"/><path d="M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7"/><path d="M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6z"/><path d="M9 10h6M9 13.5h6M9 17h3.5"/><path d="M18.5 3l1-1.5M20.5 5.5l1.5-.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19"/><path d="M6 14.5h5"/>'};
+      const svg=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${I[k]}</svg>`;
+      return `<figure class="scene jr"><span class="sc-k">${X(b.label)}</span>
+        <ol class="jr-steps">${b.steps.map(([ic,h,t],i)=>`<li><span class="jr-n">${i+1}</span>${svg(ic)}<b>${X(h)}</b><span>${X(t)}</span></li>`).join('')}</ol>
+        <div class="jr-exps">${b.exps.map(e=>`<div class="jr-exp" style="--c:var(--${e.tone});grid-column:${e.at} / span 2"><span class="jr-tag">${X(e.tag)}</span><strong>${X(e.h)}</strong><span class="jr-m">${X(e.m)}</span>${e.side?`<span class="jr-side">${X(e.side)}</span>`:''}</div>`).join('')}</div>
+        <figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
