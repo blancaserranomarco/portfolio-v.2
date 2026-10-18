@@ -10,7 +10,7 @@ const CASES = {
 };
 const QUESTIONS = {
   impact: 'Impacto en negocio', role: 'Mi papel', discarded: 'Qué descarté',
-  wrong: 'Qué salió mal', different: 'Qué haría distinto', inspired: 'En qué me inspiré',
+  wrong: 'Qué salió mal', learned: 'Qué aprendí', different: 'Qué haría distinto', inspired: 'En qué me inspiré',
 };
 const FOCUS = { all: 'Todo', growth: 'Growth', systems: 'Sistemas', build: 'Construir desde cero' };
 

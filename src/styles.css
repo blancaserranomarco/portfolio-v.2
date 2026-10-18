@@ -1417,3 +1417,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .qz-opt{display:flex;flex-direction:column;align-items:flex-start}.qz-opt > .mock{align-self:stretch}.qz-opt > span:not(.mock):not(.qz-go){font-size:.88rem;color:var(--muted)}.qz-go{margin-top:auto;padding-top:10px}
 [data-anim="dots"] .sc-dots{margin-inline:auto}[data-anim="dots"] .sc-cnt{justify-content:center}[data-anim="dots"] figcaption{text-align:center}
 @media (max-width:560px){ .sc-tl li:last-child{grid-column:1 / -1} }
+.s-next{margin-top:22px}
+.s-next ol{margin:6px 0 0;padding-left:22px;max-width:62ch}
+.s-next li{margin:6px 0}
+.ask-l{margin-top:0}

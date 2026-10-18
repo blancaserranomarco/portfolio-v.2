@@ -397,6 +397,7 @@ function sBlock(b,p,ids){
   switch(b.k){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
     case 'p': return `<p class="s-p">${X(b.t)}</p>`;
+    case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -420,6 +421,7 @@ function sBlock(b,p,ids){
 function askPanel(a){
   if(a.draft) return `<p class="ph">${u('draft')}</p>`;
   if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(v)}</span>`:esc(fmt(v))}</strong><span>${X(t)}</span></div>`).join('')}</div>`;
+  if(a.learn) return `<div class="learns ask-l">${a.learn.map(([h,t])=>`<div class="lr"><h3>${X(h)}</h3><p>${X(t)}</p></div>`).join('')}</div>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec) return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th><th scope="col">${u('th_dec')}</th><th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th><td><span class="dec-pill ${d}">${u('d_'+d)}</span></td><td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`;
   return a.t?`<p>${X(a.t)}</p>`:'';
