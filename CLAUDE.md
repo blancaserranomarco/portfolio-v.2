@@ -9,9 +9,6 @@ Lee primero `README.md`: dice dónde vive cada cosa, cómo publicar y qué está
 - Mantener accesibilidad (contraste, foco visible, teclado, textos alternativos) y el responsive.
 - Todo texto visible va en EN y ES.
 
-## Casos
-- Antes de crear o reescribir un caso, lee `plantilla-caso.md` (estructura, tono y ficha). Lo que falte de la ficha se le pregunta a Blanca; nunca se inventa. Cada caso se aplica a Notion y a la web.
-
 ## Reglas técnicas
 - Editar solo `src/` y `api/`; `index.html` y `dist/` se generan con `python3 build.py`.
 - Cada cambio se publica en los dos sitios: artifact y GitHub/Vercel. Y se guarda en el Escritorio (`portfolio-v3`).

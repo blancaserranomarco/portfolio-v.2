@@ -22,7 +22,6 @@ src/            código fuente (lo único que se edita)
   head.html, shell.html
 api/feedback.js función de Vercel: guarda el feedback en Notion (y email si se configura)
 assets/         imágenes y vídeos de los casos (sacados del export de Notion; solo los que documentan, sin relleno)
-plantilla-caso.md  estructura, tono y ficha de recogida de cada caso (Notion y web)
 build.py        genera index.html (web) y dist/portfolio.html (artifact)
 brief/          (solo local) histórico del descubrimiento inicial
 propuestas/     (solo local) bocetos de diseño ya decididos
@@ -63,7 +62,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar la nueva estructura de casos (historia con escenas + «Pregúntame») a los 7 casos; boceto v2 en https://claude.ai/artifact/Sj39t3A8b88CfMHsezcCVZ, pendiente de ok y de los datos de la ficha.
+- Aplicar la nueva estructura de casos (historia con escenas + «Pregúntame») a los 7 casos; boceto v2 en https://claude.ai/artifact/Sj39t3A8b88CfMHsezcCVZ, pendiente de ok y de los datos que faltan. Cuando esté cerrada, crear la plantilla de casos a partir de ella (borrador en `propuestas/plantilla-caso-borrador.md`).
 - Métricas / eventos.
 - "Modo 1 minuto" (aplazado).
 - Avisos por email del feedback (Resend o automatización de Notion).
@@ -73,7 +72,6 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
-- 2026-10-18 · Nueva `plantilla-caso.md`: estructura común de casos, voz, ficha de recogida y checklist. Decidido tras el feedback de entrevista (conexión con negocio, trade-offs, qué haría distinto, referentes).
 - 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.
 - 2026-10-12 · Casos: recursos visuales del Notion (pantallas HD, diagramas, vídeos) en Descuentos, Beneficios, Renovaciones, Salud y Banners; fuera las imágenes de relleno.
 - 2026-10-12 · Casos: se quita "Lectura rápida / Historia completa" y el botón "Siguiente caso" de abajo; índice lateral de secciones.
