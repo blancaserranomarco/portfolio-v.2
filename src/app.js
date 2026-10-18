@@ -400,11 +400,33 @@ function sBlock(b,p,ids){
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
-    case 'journey': { const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18"/><path d="M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1"/><path d="M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5"/><path d="M5 10v7M9.5 10v7M14.5 10v7M19 10v7"/><path d="M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6z"/><path d="M9 10h6M9 13.5h6M9 17h3.5"/><path d="M18.5 3l1-1.5M20.5 5.5l1.5-.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19"/><path d="M6 14.5h5"/>'};
-      const svg=k=>`<svg viewBox="0 0 24 24" aria-hidden="true">${I[k]}</svg>`;
-      return `<figure class="scene jr"><span class="sc-k">${X(b.label)}</span>
-        <ol class="jr-steps">${b.steps.map(([ic,h,t],i)=>`<li><span class="jr-n">${i+1}</span>${svg(ic)}<b>${X(h)}</b><span>${X(t)}</span></li>`).join('')}</ol>
-        <div class="jr-exps">${b.exps.map(e=>`<div class="jr-exp" style="--c:var(--${e.tone});grid-column:${e.at} / span 2"><span class="jr-tag">${X(e.tag)}</span><strong>${X(e.h)}</strong><span class="jr-m">${X(e.m)}</span>${e.side?`<span class="jr-side">${X(e.side)}</span>`:''}</div>`).join('')}</div>
+    case 'journey': {
+      const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6zM9 10h6M9 13.5h6M9 17h3.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 14.5h5"/>',mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>'};
+      const wrap=(t,n)=>{ const w=tr(t).split(' '), L=[]; let c=''; w.forEach(x=>{ if((c+' '+x).trim().length>n){ L.push(c.trim()); c=x; } else c+=' '+x; }); if(c.trim()) L.push(c.trim()); return L; };
+      const tsp=(L,x,y,lh)=>L.map((l,i)=>`<tspan x="${x}" y="${y+i*lh}">${esc(l)}</tspan>`).join('');
+      const node=(ic,x,y,i)=>`<g class="jn" data-p="${i}" transform="translate(${x} ${y})"><circle r="24"/><g class="ji" transform="translate(-12 -12)">${I[ic]}</g></g>`;
+      const stick=(t,x,y,w,tone,cls,d)=>`<g class="js ${cls}" data-at="${d}" transform="translate(${x} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="58" rx="12" style="fill:var(--${tone})"/><text class="jt" x="${-w/2+14}" y="22">${X(t.tag)}</text><text class="jh" x="${-w/2+14}" y="44">${X(t.h)}</text></g>`;
+      // Desktop (horizontal)
+      const xs=[60,255,450,645,840], ry=150;
+      const H=`<svg class="jr-h" viewBox="0 0 900 390" aria-hidden="true">
+        <line class="jb" x1="60" y1="${ry}" x2="840" y2="${ry}"/><line class="jf" x1="60" y1="${ry}" x2="840" y2="${ry}" pathLength="1"/>
+        <path class="jl" pathLength="1" d="M690 ${ry} C712 ${ry} 712 172 712 200 V272 C712 292 722 300 742 300 C762 300 772 292 772 272 V200 C772 172 772 ${ry} 790 ${ry}"/>
+        <g class="jn jm" data-p="3.7" transform="translate(742 300)"><circle r="20"/><g class="ji" transform="translate(-12 -12)">${I.mail}</g></g>
+        <line class="jc c1" x1="352" y1="88" x2="352" y2="${ry}"/><circle class="jd c1" cx="352" cy="${ry}" r="5"/>
+        <line class="jc c2" x1="742" y1="88" x2="742" y2="${ry}"/><circle class="jd c2" cx="742" cy="${ry}" r="5"/>
+        ${b.steps.map(([ic,h,t],i)=>node(ic,xs[i],ry,i)+`<text class="jt jlab" text-anchor="middle" x="${xs[i]}" y="${ry+46}">${X(h)}</text><text class="jdesc" text-anchor="middle">${tsp(wrap(t,20),xs[i],ry+66,16)}</text>`).join('')}
+        ${stick(b.t1,352,30,230,'sky','c1',1.5)}${stick(b.t2a,742,30,230,'pink','c2',3.5)}${stick(b.t2b,742,322,230,'paper','c3 dashed',3.9)}
+      </svg>`;
+      // Mobile (vertical)
+      const ys=[40,200,360,520,770], rx=34;
+      const V=`<svg class="jr-v" viewBox="0 0 360 840" aria-hidden="true">
+        <line class="jb" x1="${rx}" y1="40" x2="${rx}" y2="770"/><line class="jf" x1="${rx}" y1="40" x2="${rx}" y2="770" pathLength="1"/>
+        ${b.steps.map(([ic,h,t],i)=>node(ic,rx,ys[i],i)+`<text class="jt jlab" x="72" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,30),72,ys[i]+18,16)}</text>`).join('')}
+        <line class="jc c1" x1="${rx}" y1="290" x2="70" y2="290"/>${stick(b.t1,200,261,260,'sky','c1',1.5)}
+        <line class="jc c2" x1="${rx}" y1="622" x2="70" y2="622"/>${stick(b.t2a,200,593,260,'pink','c2',3.5)}${stick(b.t2b,200,662,260,'paper','c3 dashed',3.9)}
+      </svg>`;
+      return `<figure class="scene jr2" data-anim="journey"><span class="sc-k">${X(b.label)}</span>${H}${V}
+        <ol class="sr">${b.steps.map(([ic,h,t])=>`<li>${X(h)}: ${X(t)}</li>`).join('')}<li>${X(b.t1.tag)}: ${X(b.t1.h)}</li><li>${X(b.t2a.tag)}: ${X(b.t2a.h)}</li><li>${X(b.t2b.tag)}: ${X(b.t2b.h)}</li></ol>
         <figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -461,6 +483,15 @@ function storyCaseHTML(p){
 function initStory(sheet){
   const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
   const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
+  sheet.querySelectorAll('[data-anim="journey"]').forEach(f=>once(f,instant=>{
+    const set=p=>{ f.querySelectorAll('.jf').forEach(l=>l.style.strokeDashoffset=1-Math.min(1,p/4));
+      f.querySelectorAll('[data-p]').forEach(n=>n.classList.toggle('on',p>=+n.dataset.p-.02));
+      f.querySelectorAll('.js').forEach(n=>n.classList.toggle('on',p>=+n.dataset.at));
+      f.querySelectorAll('.jc,.jd').forEach(n=>n.classList.toggle('on',p>=(n.classList.contains('c1')?1.5:3.5)));
+      f.querySelectorAll('.jl').forEach(l=>l.style.strokeDashoffset=p<3.05?1:Math.max(0,1-(p-3.05)/.85)); };
+    if(instant){ set(4); return; }
+    let t0=null; const dur=3600; const st=ts=>{ if(!t0) t0=ts; const k=Math.min(1,(ts-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; set(e*4); if(k<1) requestAnimationFrame(st); }; set(0); requestAnimationFrame(st);
+  }));
   sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(!instant) q.classList.add('nudge'); }));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
   sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{

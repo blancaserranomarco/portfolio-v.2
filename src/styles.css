@@ -1478,3 +1478,36 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .jr-exp{margin-left:18px;border-left-width:4px}
   .jr > figcaption{order:20}
 }
+/* Journey v2: line and circles fill in as the user advances; test 2B as a loop */
+.jr2 svg{display:block;width:100%;height:auto;overflow:visible;margin-top:6px}
+.jr2 .jr-v{display:none}
+@media (max-width:640px){ .jr2 .jr-h{display:none} .jr2 .jr-v{display:block;max-width:420px} }
+.jr2 text{font-family:var(--body);fill:var(--ink)}
+.jr2 .jt{font-size:14px;font-weight:700}
+.jr2 .jh{font-family:var(--display);font-size:16px}
+.jr2 .jdesc{font-size:12.5px;fill:var(--muted)}
+.jr2 .jb{stroke:var(--soft);stroke-width:4;stroke-linecap:round}
+.jr2 .jf{stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.jr2 .jl{fill:none;stroke:var(--muted);stroke-width:2.5;stroke-dasharray:1;stroke-dashoffset:1}
+.jr2 .jn circle{fill:var(--surface);stroke:var(--soft);stroke-width:2;transition:fill .35s,stroke .35s}
+.jr2 .ji{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+.jr2 .jn > *{transform-box:fill-box;transform-origin:center}
+.jr2 .jn.on circle{fill:var(--lilac);stroke:var(--ink)}
+.jr2 .jn.on .ji{stroke:var(--sticker-ink)}
+.jr2 .jn.on > circle{animation:jpop .45s cubic-bezier(.3,1.6,.5,1)}
+.jr2 .jn[data-p="4"].on circle{fill:var(--mint)}
+.jr2 .jm.on circle{fill:var(--paper);stroke:var(--muted)}
+.jr2 .jm.on .ji{stroke:var(--ink)}
+@keyframes jpop{0%{transform:scale(.8)}100%{transform:scale(1)}}
+.jr2 .jc{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 4;opacity:0;transition:opacity .35s}
+.jr2 .jd{fill:var(--ink);opacity:0;transition:opacity .35s}
+.jr2 .jc.on,.jr2 .jd.on{opacity:1}
+.jr2 .js{opacity:0;transition:opacity .4s}
+.jr2 .js.on{opacity:1}
+.jr2 .js rect{stroke:var(--ink);stroke-width:1.5}
+.jr2 .js.dashed rect{stroke-dasharray:5 4;stroke:var(--muted)}
+.jr2 .js .jt{font-size:11px;letter-spacing:.05em;text-transform:uppercase;fill:var(--sticker-ink)}
+.jr2 .js .jh{fill:var(--sticker-ink)}
+.jr2 .js.dashed .jt,.jr2 .js.dashed .jh{fill:var(--ink)}
+@media (prefers-reduced-motion: reduce){ .jr2 *{transition:none!important;animation:none!important} }
+.jr2 .jm{opacity:0;transition:opacity .35s}.jr2 .jm.on{opacity:1}
