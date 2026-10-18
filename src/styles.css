@@ -1421,3 +1421,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-next ol{margin:6px 0 0;padding-left:22px;max-width:62ch}
 .s-next li{margin:6px 0}
 .ask-l{margin-top:0}
+.dec-pill.testno{background:var(--dot)}
