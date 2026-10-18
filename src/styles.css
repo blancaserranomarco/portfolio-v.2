@@ -1552,3 +1552,35 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-goal p{font-family:var(--body);font-size:1.02rem;line-height:1.5}
 .s-goal .g-sub{margin-top:4px;font-weight:700}
 .s-goal.main{background:var(--butter)}
+/* Journey: Diagram / Real flow switch + frame player */
+.jv-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.jv-top .sc-k{margin:0}
+.jv-sw{display:inline-flex;border:2px solid var(--line);border-radius:999px;overflow:hidden;box-shadow:2px 2px 0 var(--shadow);background:var(--paper)}
+.jv-sw button{font:inherit;font-size:.85rem;font-weight:700;padding:6px 14px;border:0;background:none;color:var(--ink);cursor:pointer}
+.jv-sw button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.fl-frame{margin-top:12px;border:1px solid var(--soft);border-radius:12px;overflow:hidden;background:var(--paper)}
+.fl-frame img{display:block;width:100%;height:auto;aspect-ratio:1470/682;object-fit:cover;cursor:zoom-in}
+.fl-bar{display:flex;align-items:flex-start;gap:12px;margin-top:14px}
+.fl-pp{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--paper);box-shadow:2px 2px 0 var(--shadow);cursor:pointer;font-size:.7rem;font-weight:700;color:var(--ink)}
+.fl-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;flex:1}
+.fl-steps button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:6px;row-gap:6px;width:100%;font-size:.82rem;color:var(--muted)}
+.fl-steps button:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.fl-steps i{grid-column:1/-1;height:4px;border-radius:4px;background:var(--soft);position:relative;overflow:hidden}
+.fl-steps i::after{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(0);transform-origin:left}
+.fl-steps .done i::after{transform:scaleX(1)}
+.fl-steps [aria-current] i::after{transform:scaleX(1)}
+.jv-flow.playing .fl-steps [aria-current] i::after{transform:scaleX(0);animation:flfill 4.5s linear forwards}
+@keyframes flfill{to{transform:scaleX(1)}}
+.fl-n{font-weight:700}
+.fl-steps [aria-current]{color:var(--ink);font-weight:700}
+.fl-steps [aria-current] .fl-n{background:var(--ink);color:var(--paper);border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem}
+.jv-flow figcaption{margin-top:12px}
+@media (max-width:640px){ .fl-steps{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px} .fl-l{display:none} .fl-steps [aria-current] .fl-l{display:none} }
+@media (prefers-reduced-motion: reduce){ .jv-flow.playing .fl-steps [aria-current] i::after{animation:none;transform:scaleX(1)} }
+.fl-steps{gap:6px}
+.fl-steps button{font-size:.78rem}
+.fl-l{min-width:0;line-height:1.25}
+.fl-steps [aria-current]{font-weight:500}
+.fl-steps [aria-current] .fl-l{color:var(--ink);font-weight:700;letter-spacing:-.01em}
+@media (min-width:641px){ .fl-steps button{grid-template-columns:1fr} .fl-steps .fl-n{display:none} .fl-l{overflow-wrap:anywhere} }
+@media (min-width:641px){ .fl-steps [aria-current] .fl-n{display:none} }

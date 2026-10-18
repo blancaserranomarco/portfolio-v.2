@@ -15,7 +15,7 @@ const UI = {
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
  hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
- full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], qz_tag:['Your turn · quick quiz','Tu turno · mini quiz'], qz_hint:['Pick an option to reveal the result','Elige una opción para descubrir el resultado'], qz_pick:['Choose this one','Elegir esta'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
+ full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], v_schema:['Diagram','Esquema'], v_flow:['Real flow','Flujo real'], v_label:['View','Vista'], fl_pause:['Pause','Pausar'], fl_play:['Play','Reproducir'], fl_step:['Step','Paso'], qz_tag:['Your turn · quick quiz','Tu turno · mini quiz'], qz_hint:['Pick an option to reveal the result','Elige una opción para descubrir el resultado'], qz_pick:['Choose this one','Elegir esta'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
  d_no:['Ruled out','Descartada'], d_later:['Postponed','Aplazada'], d_test:['Tested','Probada'], d_testno:['Tested, no impact','Probada, sin impacto'], d_win:['Winner','Ganadora'], th_opt:['Option','Opción'], th_dec:['Decision','Decisión'], th_why:['Why','Por qué'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
  contact_h:['Let’s talk','Hablemos'], contact_p:['Open to senior product design roles.','Abierta a roles senior de diseño de producto.'],
@@ -438,6 +438,14 @@ function sBlock(b,p,ids){
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i<3?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="478" x2="70" y2="478"/>${face(rx,478)}${stick(b.t2a,212,430,284,'pink','',34)}${stick(b.t2b,212,560,284,'paper','dashed')}</svg>`;
       }
       const sr=b.mode==='base'?`${X(b.fr.h)}: ${b.fr.stats.map(([l,v])=>`${X(l)} ${esc(fmt(v))}`).join(', ')}`:b.mode==='t1'?`${X(b.t1.tag)}: ${X(b.t1.h)}`:`${X(b.t2a.tag)}: ${X(b.t2a.h)}. ${X(b.t2a.q)} ${X(b.t2b.tag)}: ${X(b.t2b.h)}.`;
+      if(b.flow){ const F=b.flow, n=F.steps.length;
+        return `<figure class="scene jr2 m-${b.mode} has-flow" data-anim="journey" data-mode="${b.mode}"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
+          <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
+          <div class="jv jv-schema">${H}${V}<p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</div>
+          <div class="jv jv-flow" hidden data-n="${n}" data-src="${F.src}"><div class="fl-frame"><img src="${F.src}1.webp" alt="${u('fl_step')} 1: ${X(F.steps[0])}" loading="lazy" tabindex="0" data-zoom></div>
+            <div class="fl-bar"><button type="button" class="fl-pp" data-flpp aria-label="${u('fl_pause')}" data-l-pause="${u('fl_pause')}" data-l-play="${u('fl_play')}"><span aria-hidden="true">❚❚</span></button>
+            <ol class="fl-steps">${F.steps.map((l,i)=>`<li><button type="button" data-fl="${i}" ${i?'':'aria-current="step"'}><i aria-hidden="true"></i><span class="fl-n">${i+1}</span><span class="fl-l">${X(l)}</span></button></li>`).join('')}</ol></div>
+            <figcaption>${X(F.cap)}</figcaption></div></figure>`; }
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
         <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
@@ -528,6 +536,21 @@ document.addEventListener('click',e=>{
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
   res.hidden=false; const lk=qz.querySelector('.qz-lock'); if(lk) lk.remove(); v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
   requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
+});
+/* Journey: schema / real flow switch and a small frame player */
+const flT=new WeakMap();
+function flGo(box,i){ const n=+box.dataset.n, img=box.querySelector('.fl-frame img'), bs=box.querySelectorAll('[data-fl]'); i=(i+n)%n; box.dataset.i=i;
+  img.src=box.dataset.src+(i+1)+'.webp'; img.alt=`${u('fl_step')} ${i+1}: ${bs[i].querySelector('.fl-l').textContent}`;
+  bs.forEach((b,k)=>{ if(k===i) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); b.classList.toggle('done',k<i); }); }
+function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector('[data-flpp]'); box.classList.toggle('playing',on);
+  pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
+  if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),4500)); }
+document.addEventListener('click',e=>{
+  const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
+    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    if(flow){ flGo(box,+box.dataset.i||0); flPlay(box,!reduce); } else flPlay(box,false); return; }
+  const st=e.target.closest('[data-fl]'); if(st){ const box=st.closest('.jv-flow'); flPlay(box,false); flGo(box,+st.dataset.fl); return; }
+  const pp=e.target.closest('[data-flpp]'); if(pp){ const box=pp.closest('.jv-flow'); flPlay(box,!box.classList.contains('playing')); }
 });
 document.addEventListener('keydown',e=>{ const t=e.target.closest&&e.target.closest('.ask [role="tab"]'); if(!t) return;
   const tabs=[...t.parentElement.children], i=tabs.indexOf(t); let j=null;

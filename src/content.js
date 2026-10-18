@@ -104,9 +104,9 @@ const PROFILE = {
 /* Partner user journey, reused by the TaxDown case scenes */
 const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
   ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
-  ['bank',['Tax agency','Conexión AEAT'],['Accepts connecting their data (authorisation)','Acepta conectar sus datos (apoderamiento)']],
-  ['doc',['Result','Resultado'],['Completes the draft and sees the result','Completa el borrador y ve su resultado']],
-  ['card',['Purchase','Compra'],['Buys the plan to file the return','Compra el plan para presentar la declaración']]];
+  ['bank',['Authorisation','Apoderamiento'],['Accepts connecting their data with the AEAT','Acepta conectar sus datos con la AEAT']],
+  ['doc',['Data and result','Datos y resultado'],['Completes the draft and sees the result','Completa el borrador y ve su resultado']],
+  ['card',['Plan','Plan'],['Buys the plan to file the return','Compra el plan para presentar la declaración']]];
 const PROJECTS = [
 {
   id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'+65.6%', t:['purchase success','compras con éxito']}, base:.6, recruiter:1,
@@ -321,6 +321,8 @@ const PROJECTS = [
                'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero sus usuarios compraban menos que los orgánicos, y la mayor diferencia estaba en el primer paso: autorizar a TaxDown a conectar sus datos con la AEAT.']},
     {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Increase purchase conversion among users coming from partners.','Aumentar la conversión a compra de los usuarios procedentes de partners.']},
     {k:'journey', mode:'base', label:['The partner user’s journey','El journey del usuario de partner'], steps:TD_STEPS,
+      flow:{src:'assets/taxdown-flow-', steps:[['BBVA landing','Landing BBVA'],['Sign up','Registro'],['Authorisation','Apoderamiento'],['Home','Inicio'],['Data','Datos'],['Result','Resultado'],['Plan','Plan']],
+            cap:['The real flow for a BBVA customer, from the landing to choosing a plan. Screens of the Spanish app.','El flujo real para un cliente de BBVA, de la landing a elegir el plan.']},
       fr:{at:2, tag:['First big drop: partner vs organic','Primera gran caída: partner vs. orgánico'], h:['How many accept connecting their data?','¿Cuántos aceptan conectar sus datos?'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
       cap:['Why this step matters so much: after signing up, a window asked for the authorisation (the permission TaxDown needed to access the user’s tax data and act on their behalf with the AEAT, the Spanish tax agency). If users didn’t accept, we couldn’t prepare or review their draft, so it blocked the way to buying the plan.','Por qué este paso es tan importante: tras el registro, una ventana solicitaba el apoderamiento (una autorización necesaria para que TaxDown pudiera acceder a los datos fiscales y actuar en nombre del usuario ante la AEAT, la Agencia Tributaria española). Si el usuario no aceptaba, no podíamos preparar ni revisar el borrador y, por lo tanto, suponía un bloqueo para llegar hasta la compra del plan.']},
 
