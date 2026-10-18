@@ -400,7 +400,7 @@ function sBlock(b,p,ids){
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
-    case 'goal': return `<div class="s-goal"><span class="sc-k">${X(b.label)}</span><p>${X(b.t)}</p></div>`;
+    case 'goal': return `<div class="s-goal"><b>${X(b.label)}</b><p>${X(b.t)}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}</div>`;
     case 'journey': {
       const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6zM9 10h6M9 13.5h6M9 17h3.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 14.5h5"/>',mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>'};
       const face=(x,y)=>`<g class="jface" transform="translate(${x} ${y})"><circle r="17"/><circle cx="-5" cy="-3" r="1.8"/><circle cx="5" cy="-3" r="1.8"/><path d="M-6 7q3-3 6 0t6 0"/><text class="jq" x="14" y="-11">?</text></g>`;
@@ -424,22 +424,22 @@ function sBlock(b,p,ids){
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,i===f.at?'jx':'')).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+26}" y1="260" x2="${rx+40}" y2="260"/><line class="jc" x1="206" y1="300" x2="206" y2="314"/>${card(206,316,296,100)}</svg>`;
       } else if(b.mode==='t1'){ const ry=170;
         H=`<svg class="jr-h" viewBox="0 0 900 300" aria-hidden="true"><rect class="jband" x="282" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
-          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="114" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,372,8,440,'sky','',52)}</svg>`;
+          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="66" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,372,8,440,'sky','',52)}</svg>`;
         const ys=[40,150,400,510,620];
         V=`<svg class="jr-v" viewBox="0 0 360 680" aria-hidden="true"><rect class="jband" x="${rx-30}" y="200" width="60" height="160" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="${rx}" y1="40" x2="${rx}" y2="620"/>
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i>1?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="280" x2="70" y2="280"/>${face(rx,280)}${stick(b.t1,212,226,284,'sky','',34)}</svg>`;
       } else { const ry=170;
         H=`<svg class="jr-h" viewBox="0 0 900 430" aria-hidden="true"><rect class="jband" x="672" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--pink)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
           <path class="jl" pathLength="1" d="M690 ${ry} C708 ${ry} 708 ${ry+22} 708 ${ry+50} V${ry+120} C708 ${ry+140} 722 ${ry+150} 742 ${ry+150} C762 ${ry+150} 776 ${ry+140} 776 ${ry+120} V${ry+50} C776 ${ry+22} 776 ${ry} 794 ${ry}"/>
-          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i<3?' dim':''))).join('')}${node('mail',742,ry+150,9,'jm')}${labelsH(xs,ry)}<line class="jc" x1="742" y1="114" x2="742" y2="${ry-18}"/>${face(742,ry)}
+          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i<3?' dim':''))).join('')}${node('mail',742,ry+150,9,'jm')}${labelsH(xs,ry)}<line class="jc" x1="742" y1="85" x2="742" y2="${ry-18}"/>${face(742,ry)}
           ${stick(b.t2a,690,8,380,'pink','',44)}${stick(b.t2b,742,ry+186,250,'paper','dashed')}</svg>`;
         const ys=[40,150,260,370,670];
         V=`<svg class="jr-v" viewBox="0 0 360 730" aria-hidden="true"><rect class="jband" x="${rx-30}" y="420" width="60" height="210" rx="16" style="fill:var(--pink)"/><line class="jb full" x1="${rx}" y1="40" x2="${rx}" y2="670"/>
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i<3?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="478" x2="70" y2="478"/>${face(rx,478)}${stick(b.t2a,212,430,284,'pink','',34)}${stick(b.t2b,212,560,284,'paper','dashed')}</svg>`;
       }
-      const sr=b.mode==='base'?`${X(b.fr.h)}: ${b.fr.stats.map(([l,v])=>`${X(l)} ${esc(fmt(v))}`).join(', ')}`:b.mode==='t1'?`${X(b.t1.tag)}: ${X(b.t1.h)}. ${X(b.t1.q)}`:`${X(b.t2a.tag)}: ${X(b.t2a.h)}. ${X(b.t2a.q)} ${X(b.t2b.tag)}: ${X(b.t2b.h)}.`;
+      const sr=b.mode==='base'?`${X(b.fr.h)}: ${b.fr.stats.map(([l,v])=>`${X(l)} ${esc(fmt(v))}`).join(', ')}`:b.mode==='t1'?`${X(b.t1.tag)}: ${X(b.t1.h)}`:`${X(b.t2a.tag)}: ${X(b.t2a.h)}. ${X(b.t2a.q)} ${X(b.t2b.tag)}: ${X(b.t2b.h)}.`;
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
-        <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p><figcaption>${X(b.cap)}</figcaption></figure>`; }
+        <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -741,7 +741,7 @@ function applyLang(){ document.documentElement.lang=S.lang;
   document.querySelectorAll('#lang-sel').forEach(s=> s.value=S.lang); }
 function render(){ applyLang();
   $('#app').innerHTML = heroHTML() + selectedHTML() + aboutHTML() + contactHTML() + feedbackHTML();
-  if(S.openId){ const sh=$('#sheet'); if(sh) sh.innerHTML=caseHTML(byId(S.openId)); }
+  if(S.openId){ const sh=$('#sheet'); if(sh){ const p=byId(S.openId); sh.innerHTML=caseHTML(p); if(p.story) initStory(sh); } }
   Ice.init(); }
 function jumpTo(id){ const t=document.getElementById(id); if(!t) return; t.setAttribute('tabindex','-1'); t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); t.focus({preventScroll:true}); }
 function selectMail(){ const r=document.createRange(); r.selectNodeContents($('#mail')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }

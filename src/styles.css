@@ -1546,3 +1546,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .jr2 .jfv.lo{fill:#b0436f}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .jr2 .jfv.lo{fill:#ff9cc4} }
 :root[data-theme="dark"] .jr2 .jfv.lo{fill:#ff9cc4}
+/* Goal callout: same treatment as the case highlight ("Why it's interesting") */
+.s-goal{margin-top:20px;max-width:none;background:var(--tone);color:var(--sticker-ink);border:2px solid var(--line);border-left-width:2px;border-radius:16px;padding:16px 18px;box-shadow:4px 4px 0 var(--shadow)}
+.s-goal b{display:block;font-size:.82rem;margin-bottom:4px}
+.s-goal p{font-family:var(--body);font-size:1.02rem;line-height:1.5}
+.s-goal .g-sub{margin-top:4px;font-weight:700}
