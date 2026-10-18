@@ -1592,3 +1592,18 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .jr2 .jr-v .jh{font-size:18px}
 .jr2 .jr-v .jqt{font-size:15px}
 .jr2 .jr-v .jfl{font-size:15px}
+/* Ask me as an FAQ accordion */
+.ask-acc{display:grid;gap:10px;margin-top:6px}
+.ask-i{border:2px solid var(--line);border-radius:14px;background:var(--paper);box-shadow:3px 3px 0 var(--shadow);overflow:hidden}
+.ask-i summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;font-weight:700;font-size:1rem}
+.ask-i summary::-webkit-details-marker{display:none}
+.ask-i summary:focus-visible{outline:3px solid var(--focus);outline-offset:-3px;border-radius:12px}
+.ask-i summary i{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--line);position:relative;background:var(--surface);transition:transform .25s}
+.ask-i summary i::before,.ask-i summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--ink);transform:translate(-50%,-50%)}
+.ask-i summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .25s}
+.ask-i[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.ask-i[open]{background:var(--surface)}
+.ask-i[open] summary{border-bottom:1px solid var(--soft)}
+.ask-i .ask-p{margin:0;padding:14px 18px 18px;border-top:0}
+.ask-i:hover summary{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+@media (prefers-reduced-motion: reduce){ .ask-i summary i,.ask-i summary i::after{transition:none} }

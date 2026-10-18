@@ -477,10 +477,8 @@ function askPanel(a){
   return a.t?`<p>${X(a.t)}</p>`:'';
 }
 function askHTML(p){
-  const sel=p.ask.some(a=>a.id===S.askTab)?S.askTab:p.ask[0].id;
   return `<section class="ask" id="s-${p.id}-ask" aria-labelledby="ask-h-${p.id}"><h2 id="ask-h-${p.id}">${u('ask_h')}</h2><p class="muted">${u('ask_sub')}</p>
-    <div class="ask-qs" role="tablist" aria-label="${u('ask_l')}">${p.ask.map(a=>`<button type="button" role="tab" class="ask-q" id="aq-${a.id}" aria-controls="ap-${a.id}" aria-selected="${a.id===sel}" tabindex="${a.id===sel?0:-1}" data-ask="${a.id}">${X(a.q)}</button>`).join('')}</div>
-    ${p.ask.map(a=>`<div class="ask-p" role="tabpanel" id="ap-${a.id}" aria-labelledby="aq-${a.id}" tabindex="0" ${a.id===sel?'':'hidden'}>${askPanel(a)}</div>`).join('')}</section>`;
+    <div class="ask-acc">${p.ask.map(a=>`<details class="ask-i" data-ask="${a.id}"><summary><span>${X(a.q)}</span><i aria-hidden="true"></i></summary><div class="ask-p">${askPanel(a)}</div></details>`).join('')}</div></section>`;
 }
 function storyCaseHTML(p){
   const ids=[]; const body=p.blocks.map(b=>sBlock(b,p,ids)).join('');
@@ -529,8 +527,8 @@ function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
   try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
 function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
   S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('toggle',e=>{ const d=e.target; if(d.matches&&d.matches('details.ask-i')&&d.open&&S.openId) track(S.openId,d.dataset.ask); },true);
 document.addEventListener('click',e=>{
-  const t=e.target.closest('.ask [role="tab"]'); if(t){ selAsk(t); return; }
   const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
   const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
