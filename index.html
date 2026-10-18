@@ -1655,6 +1655,13 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .fl-steps [aria-current] i{width:26px}
 @media (max-width:640px){ .fl-steps i{justify-self:center} }
 @media (prefers-reduced-motion: reduce){ .fl-steps i{transition:none} }
+
+/* Sub-heading inside a chapter, and test card header */
+.s-h3{font-family:var(--display);font-weight:500;font-size:clamp(1.25rem,2.2vw,1.5rem);line-height:1.2;margin-top:8px}
+.sc-meta{font-size:.82rem;color:var(--muted);margin:0 0 6px}
+.sc-h{font-family:var(--display);font-weight:500;font-size:clamp(1.2rem,2vw,1.4rem);margin:0 0 14px}
+.sc-split.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:620px){ .sc-split.n3{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -2012,21 +2019,29 @@ const PROJECTS = [
       fr:{at:2, tag:['First big drop: partner vs organic','Primera gran caída: partner vs. orgánico'], h:['How many accept connecting their data?','¿Cuántos aceptan conectar sus datos?'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
       cap:['Why this step matters so much: after signing up, a window asked for the authorisation (the permission TaxDown needed to access the user’s tax data and act on their behalf with the AEAT, the Spanish tax agency). If users didn’t accept, we couldn’t prepare or review their draft, so it blocked the way to buying the plan.','Por qué este paso es tan importante: tras el registro, una ventana solicitaba el apoderamiento (una autorización necesaria para que TaxDown pudiera acceder a los datos fiscales y actuar en nombre del usuario ante la AEAT, la Agencia Tributaria española). Si el usuario no aceptaba, no podíamos preparar ni revisar el borrador y, por lo tanto, suponía un bloqueo para llegar hasta la compra del plan.']},
 
-    {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['If they understand the product, they’ll connect. If they connect, they’ll buy','Si entienden el producto, conectarán. Y si conectan, comprarán']},
-    {k:'p', t:['The hypothesis was that partner users came for the discount without knowing the product, so they hesitated to hand over their data. The team’s first idea was to make the landing more explanatory, but an earlier test had already shown that the current one, a single screen with no scroll, converted significantly better.',
-               'La hipótesis era que los usuarios de partner llegaban por el descuento sin conocer el producto, y por eso dudaban al dar sus datos. La primera idea del equipo fue mejorar la landing haciéndola más explicativa, pero un test anterior ya había demostrado que la actual, reducida a una sola pantalla sin scroll, convertía significativamente mejor.']},
-    {k:'p', t:['So I proposed looking for the improvement at another point of the flow: inside the product, once users had already signed up. Instead of loading the landing with information, we would split it into a short onboarding that explained, in one flow, who we are, what we do and how, their partner discount and, at the end, the authorisation.',
-               'Así que propuse buscar la mejora en otro punto del flujo: dentro del producto, cuando el usuario ya se había registrado. En vez de cargar la landing de información, la segmentaríamos en un onboarding sencillo que explicara, en un mismo flujo, quiénes éramos, qué hacíamos y cómo, su descuento de partner y, al final, el apoderamiento.']},
+    {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['Understanding the product before trusting it with their data','Entender el producto antes de confiarle sus datos']},
+    {k:'p', t:['Our hypothesis was that partner users arrived drawn by the discount, but without really knowing TaxDown. Giving them context before asking for access to their tax data could increase connection and, after that, purchases.',
+               'Nuestra hipótesis era que los usuarios de partners llegaban atraídos por el descuento, pero sin conocer bien TaxDown. Darles contexto antes de pedir acceso a sus datos fiscales podría aumentar la conexión y, después, las compras.']},
+    {k:'p', t:['The team suggested expanding the landing, but an earlier experiment had already shown that the short version converted better. I proposed keeping it and stepping in after sign-up, right before asking for the authorisation.',
+               'El equipo planteó ampliar la landing, pero un experimento anterior ya había mostrado que la versión corta convertía mejor. Propuse mantenerla e intervenir después del registro, justo antes de solicitar el apoderamiento.']},
     {k:'journey', mode:'t1', label:['Where test 1 acts','Dónde actúa el test 1'], steps:TD_STEPS,
       t1:{tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['“Who is TaxDown and why do they want my data?”','«¿Quién es TaxDown y por qué me piden mis datos?»']}},
-    {k:'goal', label:['Goal of test 1','Objetivo del test 1'], t:['That users understand TaxDown’s value.','Que entiendan el valor de TaxDown.'], sub:['How do we get more users to accept the authorisation?','¿Cómo hacer que más usuarios acepten el apoderamiento?']},
-    {k:'p', t:['With the metric we wanted to move in mind, I designed a four-step intro, like a short story: who we are, how it works, your discount and connecting with the tax agency. It couldn’t be skipped, because the authorisation was mandatory anyway: better at the end of an explanation than on a cold screen.',
-               'Teniendo en cuenta la métrica que queríamos mover como objetivo, diseñé una intro de cuatro pasos, como una historia corta: quiénes somos, cómo funciona, tu descuento y la conexión con la AEAT. Sin opción de saltarla, porque el apoderamiento era obligatorio igualmente: mejor al final de una explicación que en una pantalla fría.']},
-    {k:'p', t:['We also wanted to watch that adding steps didn’t make users drop out of the onboarding, a fear the team had. It didn’t: 96% of those who started it finished it.',
-               'También queríamos vigilar que añadir pasos no hiciera caer a los usuarios en el onboarding, un miedo que había en el equipo. No pasó: el 96% de quienes lo empezaban lo finalizaba.']},
-    {k:'img', src:'assets/taxdown-stepper.webp', cap:['The stepper, 1–15 June, A/B 80/20 on mobile. Validated first with users and internal teams.','El stepper, del 1 al 15 de junio, A/B 80/20 en móvil. Validado antes con usuarios y equipos internos.']},
-    {k:'split', items:[[['Connection with the tax agency','Conexión con la AEAT'],'+5.3 pp',['Significant. 96% finished it.','Significativo. El 96% lo terminó.'],'up'],[['Purchase','Compra'],['= no change','= sin cambio'],['They connected more, but didn’t buy more.','Conectaban más, pero no compraban más.']]],
-      cap:['We increased the expected behaviour, but it didn’t improve the outcome. That suggested our problem hypothesis was weaker than we thought, so I went back to validate the root cause.','Aumentamos el comportamiento esperado, pero no mejoró el resultado. Eso sugería que nuestra hipótesis del problema era más débil de lo que pensábamos, así que volví atrás a validar la causa raíz.']},
+    {k:'goal', label:['Test question','Pregunta del test'], t:['Would explaining TaxDown’s value before asking for the authorisation get more users to connect their data?','¿Explicar el valor de TaxDown antes de pedir la autorización conseguiría que más usuarios conectaran sus datos?']},
+    {k:'h', t:['Four steps to give context','Cuatro pasos para dar contexto']},
+    {k:'p', t:['I designed a short introduction: who we are → how it works → your discount → connecting with the AEAT.',
+               'Diseñé una introducción breve: quiénes somos → cómo funciona → tu descuento → conexión con la AEAT.']},
+    {k:'p', t:['The authorisation came at the end, after explaining why we needed the data. I decided the flow couldn’t be skipped, since the authorisation was required to continue. That decision also brought a risk: adding steps could increase drop-off, so we measured onboarding completion.',
+               'La autorización quedaba al final, después de explicar para qué necesitábamos los datos. Decidí que el flujo no pudiera saltarse, ya que el apoderamiento era necesario para continuar. Esa decisión también introducía un riesgo: añadir pasos podía aumentar el abandono, así que medimos la finalización del onboarding.']},
+    {k:'p', t:['Before launching it, we validated comprehension with users and reviewed the proposal with the internal teams responsible for approving the authorisation.',
+               'Antes de lanzarlo, validamos la comprensión con usuarios y revisamos la propuesta con los equipos internos responsables de aprobar la autorización.']},
+    {k:'img', src:'assets/taxdown-stepper.webp', cap:['The four-step onboarding, with the authorisation at the end.','El onboarding de cuatro pasos, con el apoderamiento al final.']},
+    {k:'split', meta:['1–15 June 2026 · A/B test with an 80/20 split · New partner users on mobile','1–15 de junio de 2026 · Test A/B con reparto 80/20 · Nuevos usuarios de partners en móvil'],
+      h:['More connections, no improvement in purchases','Más conexiones, sin mejora en compras'],
+      items:[[['Connection with the AEAT','Conexión con la AEAT'],['+5.3 pp','+5,3 pp'],['Statistically significant improvement.','Mejora estadísticamente significativa.'],'up'],
+             [['Onboarding completion','Finalización del onboarding'],'96%',['Among those who started it.','Entre quienes lo empezaron.']],
+             [['Purchase conversion','Conversión a compra'],['No change','Sin cambios'],['They connected more, but didn’t buy more.','Conectaban más, pero no compraban más.']]]},
+    {k:'p', t:['The test supported the first part of our hypothesis: giving context helped people connect their data. But that improvement didn’t turn into more purchases. I kept the onboarding and decided to investigate what was holding back those who had already connected, before iterating further on the same solution.',
+               'El test apoyaba la primera parte de nuestra hipótesis: dar contexto ayudaba a conectar los datos. Pero esa mejora no se tradujo en más compras. Mantuve el onboarding y decidí investigar qué frenaba a quienes ya habían conectado, antes de seguir iterando sobre la misma solución.']},
 
     {k:'chap', n:['3 · The turn','3 · El giro'], t:['Before changing the hypothesis, ask why','Antes de cambiar la hipótesis, preguntar por qué']},
     {k:'p', t:['Instead of polishing the stepper, we asked the people who connected but didn’t buy. We surveyed 96 users from four groups, and the answer changed the problem.',
@@ -2737,7 +2752,8 @@ function sBlock(b,p,ids){
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'split': return `<figure class="scene"><div class="sc-split">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+    case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
         <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>
           <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
