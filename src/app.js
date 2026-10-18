@@ -15,7 +15,8 @@ const UI = {
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
  hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
- full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
+ full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
+ d_no:['Ruled out','Descartada'], d_later:['Postponed','Aplazada'], d_test:['Tested','Probada'], d_win:['Winner','Ganadora'], th_opt:['Option','Opción'], th_dec:['Decision','Decisión'], th_why:['Why','Por qué'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
  contact_h:['Let’s talk','Hablemos'], contact_p:['Open to senior product design roles.','Abierta a roles senior de diseño de producto.'],
  copy:['Copy','Copiar'], copied:['Copied','Copiado'], copy_mail:['Copy email','Copiar email'], mail_copied:['Email copied!','¡Email copiado!'], me_alt:['Illustrated portrait of Blanca','Retrato ilustrado de Blanca'], me_poke:['Poke Blanca','Pincha a Blanca'], linkedin:['Visit my LinkedIn','Visita mi LinkedIn'], or_write:['Prefer another way?','¿Prefieres otro canal?'],
@@ -365,6 +366,7 @@ function block(b, p, ids){
   return '';
 }
 function caseHTML(p){
+  if(p.story) return storyCaseHTML(p);
   const w=whyFor(p);
   const ids=[]; const body=p.blocks.map(b=>block(b,p,ids)).join('');
   if(p.blocks.some(b=>b.k==='learn')) ids.push([`s-${p.id}-learn`, u('learn')]);
@@ -389,6 +391,94 @@ function caseHTML(p){
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
     </article></div>`;
 }
+/* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
+const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
+function sBlock(b,p,ids){
+  switch(b.k){
+    case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
+    case 'p': return `<p class="s-p">${X(b.t)}</p>`;
+    case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
+    case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'split': return `<figure class="scene"><div class="sc-split">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
+        <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>
+          <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
+        <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
+        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span></button>`).join('')}</div>
+        <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
+          <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
+          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}</div></div>`;
+    case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
+      return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div></figure>`; }
+  }
+  return block(b,p,ids);
+}
+function askPanel(a){
+  if(a.draft) return `<p class="ph">${u('draft')}</p>`;
+  if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(v)}</span>`:esc(fmt(v))}</strong><span>${X(t)}</span></div>`).join('')}</div>`;
+  if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
+  if(a.dec) return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th><th scope="col">${u('th_dec')}</th><th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th><td><span class="dec-pill ${d}">${u('d_'+d)}</span></td><td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`;
+  return a.t?`<p>${X(a.t)}</p>`:'';
+}
+function askHTML(p){
+  const sel=p.ask.some(a=>a.id===S.askTab)?S.askTab:p.ask[0].id;
+  return `<section class="ask" id="s-${p.id}-ask" aria-labelledby="ask-h-${p.id}"><h2 id="ask-h-${p.id}">${u('ask_h')}</h2><p class="muted">${u('ask_sub')}</p>
+    <div class="ask-qs" role="tablist" aria-label="${u('ask_l')}">${p.ask.map(a=>`<button type="button" role="tab" class="ask-q" id="aq-${a.id}" aria-controls="ap-${a.id}" aria-selected="${a.id===sel}" tabindex="${a.id===sel?0:-1}" data-ask="${a.id}">${X(a.q)}</button>`).join('')}</div>
+    ${p.ask.map(a=>`<div class="ask-p" role="tabpanel" id="ap-${a.id}" aria-labelledby="aq-${a.id}" tabindex="0" ${a.id===sel?'':'hidden'}>${askPanel(a)}</div>`).join('')}</section>`;
+}
+function storyCaseHTML(p){
+  const ids=[]; const body=p.blocks.map(b=>sBlock(b,p,ids)).join('');
+  ids.push([`s-${p.id}-ask`, u('ask_h')]);
+  const snip=[]; let hi=-1; p.blocks.forEach(b=>{ if(b.k==='chap'){ hi++; snip[hi]=''; } else if(hi>=0 && !snip[hi] && b.k==='p') snip[hi]=tr(b.t); });
+  const secs=[[`case-top-${p.id}`, u('overview'), tr(p.chain[1][1])], ...ids.map(([id,t],k)=>[id,t,snip[k]||''])];
+  const cut=t=>t.length>120?t.slice(0,118).replace(/\s+\S*$/,'')+'…':t;
+  return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
+    <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
+    <article class="sheet-in story" style="--tone:var(${p.tone})">
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.title)}</h1>
+        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
+      <div class="s-nums">${p.nums.map(n=>`<div><span class="sc-k">${X(n.k)}</span><strong>${esc(fmt(n.v))}</strong><span>${X(n.t)}</span></div>`).join('')}</div>
+      <section class="s30" aria-label="${u('in30')}"><span class="sc-k">${u('in30')}</span><div class="chain">${p.chain.map(([k,h,t],i)=>`${i?'<span class="lk" aria-hidden="true"><svg viewBox="0 0 40 20"><path d="M2 10h32M26 3l8 7-8 7"/></svg></span>':''}<div class="node"><span class="nk n${i}">${X(k)}</span><strong>${X(h)}</strong><p>${X(t)}</p></div>`).join('')}</div></section>
+      <div class="s-body">${body}</div>
+      ${askHTML(p)}
+      ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
+    </article></div>`;
+}
+function initStory(sheet){
+  const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
+  const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
+  sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
+  sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
+    const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
+    const order=d.map((_,i)=>i); for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+    const forgot=new Set(order.slice(0,N));
+    if(instant){ d.forEach((x,i)=>x.classList.add('in',forgot.has(i)?'no':'yes')); n('tot').textContent=T; n('yes').textContent=T-N; n('no').textContent=N; cnt.classList.add('ph2'); return; }
+    let k=0; const a=setInterval(()=>{ if(k>=T){ clearInterval(a); setTimeout(ph2,250); return; } d[k++].classList.add('in'); n('tot').textContent=k; },12);
+    function ph2(){ cnt.classList.add('ph2'); let m=0,y=0,z=0; const b=setInterval(()=>{ if(m>=T){clearInterval(b);return} const i=order[T-1-m++]; if(forgot.has(i)){ d[i].classList.add('no'); n('no').textContent=++z; } else { d[i].classList.add('yes'); n('yes').textContent=++y; } },16); }
+  }));
+}
+/* Anonymous "Ask me" tracking: case, question, language and focus. No cookies, no personal data. Web only (/api/event). */
+const tracked=new Set();
+function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
+  if(!/^https?:/.test(location.protocol)) return;
+  try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
+function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
+  S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.ask [role="tab"]'); if(t){ selAsk(t); return; }
+  const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
+  const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
+  qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
+  res.hidden=false; v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
+  requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
+});
+document.addEventListener('keydown',e=>{ const t=e.target.closest&&e.target.closest('.ask [role="tab"]'); if(!t) return;
+  const tabs=[...t.parentElement.children], i=tabs.indexOf(t); let j=null;
+  if(e.key==='ArrowRight') j=(i+1)%tabs.length; else if(e.key==='ArrowLeft') j=(i-1+tabs.length)%tabs.length; else if(e.key==='Home') j=0; else if(e.key==='End') j=tabs.length-1;
+  if(j!==null){ e.preventDefault(); selAsk(tabs[j],true); } });
 function openCase(id){
   const p=P.find(x=>x.id===id); if(!p) return; let sheet=$('#sheet');
   if(!sheet){ S.lastFocus=document.activeElement;
@@ -396,7 +486,7 @@ function openCase(id){
     sheet=document.createElement('div'); sheet.className='sheet'; sheet.id='sheet'; sheet.setAttribute('role','dialog'); sheet.setAttribute('aria-modal','true'); sheet.setAttribute('aria-labelledby','case-title');
     document.body.append(scrim,sheet); document.body.style.overflow='hidden';
     requestAnimationFrame(()=>{scrim.classList.add('on'); sheet.classList.add('on');}); }
-  S.openId=id; sheet.innerHTML=caseHTML(p); sheet.scrollTop=0; $('[data-act="close"]',sheet).focus();
+  S.openId=id; sheet.innerHTML=caseHTML(p); sheet.scrollTop=0; $('[data-act="close"]',sheet).focus(); if(p.story) initStory(sheet);
   if(!sheet.dataset.spy){ sheet.dataset.spy=1; sheet.addEventListener('scroll',()=>secSpy(sheet),{passive:true}); }
   secSpy(sheet);
 }

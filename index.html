@@ -1288,6 +1288,123 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .zoom-x{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.4rem;cursor:pointer;box-shadow:3px 3px 0 var(--shadow)}
 .zoom-x:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .fig > img:not(.narrow){box-sizing:border-box;padding:20px 16px 12px}
+
+/* ===== Story case: chapters, scenes and "Ask me" (TaxDown first) ===== */
+:root{--soft:color-mix(in srgb,#1B1724 14%,transparent);--dot:#D9D5E3}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--soft:color-mix(in srgb,#E9E4F5 18%,transparent);--dot:#3A3448} }
+:root[data-theme="dark"]{--soft:color-mix(in srgb,#E9E4F5 18%,transparent);--dot:#3A3448}
+.story .muted{color:var(--muted)}
+.story .ph{background:color-mix(in srgb,var(--butter) 70%,transparent);border-bottom:2px dashed #B8860B;padding:0 3px;border-radius:3px;font-weight:700}
+.story .sc-k{display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+/* Read-only boxes: thin soft border. Thick border + hard shadow only on what you can press. */
+.s-nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.s-nums > div,.s30 .node,.scene,.s-fig{background:var(--surface);border:1px solid var(--soft);border-radius:16px;box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 6%,transparent)}
+.s-nums > div{padding:16px}
+.s-nums strong{display:block;font-family:var(--display);font-weight:500;font-size:clamp(1.8rem,3.4vw,2.3rem);line-height:1.05}
+.s-nums > div > span:last-child{display:block;margin-top:6px;font-size:.88rem;color:var(--muted);line-height:1.4}
+@media (max-width:620px){ .s-nums{grid-template-columns:1fr} }
+.s30{margin-top:40px}
+.s30 .chain{display:grid;grid-template-columns:1fr auto 1fr auto 1fr}
+.s30 .node{padding:18px;opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.s30 .nk{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 9px;border-radius:999px;color:var(--sticker-ink);margin-bottom:8px}
+.nk.n0{background:var(--peach)}.nk.n1{background:var(--lilac)}.nk.n2{background:var(--mint)}
+.s30 .node strong{display:block;font-family:var(--display);font-weight:500;font-size:1.4rem;line-height:1.15;margin-bottom:6px}
+.s30 .node p{font-size:.9rem;color:var(--muted)}
+.s30 .lk{display:flex;align-items:center;justify-content:center;width:44px}
+.s30 .lk svg{width:40px;height:20px;overflow:visible}
+.s30 .lk path{stroke:var(--ink);stroke-width:2.5;fill:none;stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset .5s}
+.chain.on .node{opacity:1;transform:none}.chain.on .node:nth-of-type(2){transition-delay:.55s}.chain.on .node:nth-of-type(3){transition-delay:1.1s}
+.chain.on .lk path{stroke-dashoffset:0}.chain.on .lk:nth-of-type(1) path{transition-delay:.35s}.chain.on .lk:nth-of-type(2) path{transition-delay:.9s}
+@media (max-width:720px){ .s30 .chain{grid-template-columns:1fr} .s30 .lk{width:auto;height:34px} .s30 .lk svg{transform:rotate(90deg)} }
+.s-body{margin-top:8px}
+.chap{margin-top:56px;scroll-margin-top:84px}
+.chap-n{font-family:var(--display);font-style:italic;color:var(--muted)}
+.chap h2{font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.15;margin-top:2px}
+.s-p{font-size:1.06rem;max-width:62ch;margin-top:14px}
+.s-lead{font-size:1.1rem;font-weight:700;max-width:62ch;margin-top:16px}
+.scene,.s-fig{margin:22px 0 4px;padding:22px}
+.s-fig{padding:0;overflow:hidden}
+.s-fig img{display:block;width:100%;height:auto;cursor:zoom-in}
+.scene figcaption,.s-fig figcaption{font-size:.86rem;color:var(--muted);margin-top:14px}
+.s-fig figcaption{margin:0;padding:10px 14px;border-top:1px solid var(--soft)}
+.sc-row{display:grid;grid-template-columns:150px 1fr 60px;gap:12px;align-items:center;margin:10px 0}
+.sc-row i{height:14px;border:1px solid var(--soft);border-radius:999px;overflow:hidden;background:var(--paper)}
+.sc-row em{display:block;height:100%;width:0;background:var(--sky);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.sc-row em.peach{background:var(--peach)}.sc-row em.mint{background:var(--mint)}
+.sc-row b{font-family:var(--display);font-weight:600;text-align:right}
+@media (max-width:560px){ .sc-row{grid-template-columns:96px 1fr 50px} }
+.sc-split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sc-split > div{border:1px solid var(--soft);border-radius:12px;padding:16px;background:var(--paper)}
+.sc-split strong{display:block;font-family:var(--display);font-weight:500;font-size:1.9rem;line-height:1.1;margin:2px 0 4px}
+.sc-split strong.up{color:#1f8a5b}
+.sc-split > div > span:last-child{color:var(--muted);font-size:.92rem}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sc-split strong.up{color:#7fe0b2} }
+:root[data-theme="dark"] .sc-split strong.up{color:#7fe0b2}
+@media (max-width:560px){ .sc-split{grid-template-columns:1fr} }
+.sc-cnt{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;margin-bottom:16px}
+.sc-cnt .tot{font-family:var(--display);font-size:2.4rem;line-height:1}
+.sc-cnt .tot small{font-family:var(--body);font-size:.9rem;color:var(--muted);margin-left:6px}
+.sc-cnt .grp{display:inline-flex;align-items:center;gap:8px;font-size:.92rem;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.sc-cnt.ph2 .grp{opacity:1;transform:none}
+.sc-cnt .grp b{font-family:var(--display);font-size:1.5rem;font-weight:500;min-width:2ch;text-align:right}
+.sc-cnt .sw{width:14px;height:14px;border-radius:50%;display:inline-block;border:1.5px solid var(--soft)}
+.sc-dots{display:grid;grid-template-columns:repeat(16,1fr);gap:6px;max-width:520px}
+.sc-dots i{aspect-ratio:1;border-radius:50%;background:var(--surface);border:1.5px solid var(--soft);transform:scale(0);transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .3s,border-color .3s,opacity .3s}
+.sc-dots i.in{transform:scale(1)}
+.sw.yes,.sc-dots i.yes{background:var(--mint);border-color:color-mix(in srgb,#1f8a5b 45%,transparent)}
+.sw.no,.sc-dots i.no{background:var(--dot);border-color:transparent}
+.sc-dots i.no{opacity:.6}
+.sc-tl{list-style:none;margin:0;padding:8px 0 0;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:.88rem}
+.sc-tl::before{content:"";position:absolute;left:12%;right:12%;top:28px;height:2px;background:var(--soft)}
+.sc-tl .c{width:40px;height:40px;margin:0 auto 8px;border-radius:50%;border:1.5px solid var(--soft);background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:700;position:relative;z-index:1}
+.sc-tl b{display:block;font-weight:500}.sc-tl em{display:block;color:var(--muted)}
+.sc-tl .hit .c{background:var(--mint);color:var(--sticker-ink);border-color:var(--line);transform:scale(1.15)}
+.sc-tl .hit b{font-weight:700}
+@media (max-width:560px){ .sc-tl{grid-template-columns:1fr 1fr;row-gap:18px} .sc-tl::before{display:none} }
+.quiz h3{font-size:1.25rem}
+.qz-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.qz-opt{text-align:left;cursor:pointer;border:2px solid var(--line);border-radius:14px;padding:14px;background:var(--paper);box-shadow:3px 3px 0 var(--shadow);transition:transform .15s,box-shadow .15s}
+.qz-opt:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--shadow)}
+.qz-opt[aria-pressed="true"]{background:var(--surface);box-shadow:5px 5px 0 var(--shadow)}
+.qz-opt strong{display:block;font-family:var(--display);font-weight:500;font-size:1.08rem}
+.qz-opt > span:last-child{font-size:.88rem;color:var(--muted)}
+.mock{height:76px;border-radius:10px;margin-bottom:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.88rem;border:1px solid var(--soft)}
+.mock small{font-weight:700;font-size:.8rem}
+.mock.a{background:#1d3b8f;color:#fff}.mock.b{background:#fff;color:#1B1724}
+.mock.b small{background:#00C389;color:#fff;border-radius:999px;padding:0 8px}
+.qz-res{margin-top:16px}.qz-v{margin-top:10px}
+@media (max-width:560px){ .qz-opts{grid-template-columns:1fr} }
+.sc-imp{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.sc-imp > div{border:1px solid var(--soft);border-radius:12px;padding:16px;background:var(--paper)}
+.sc-imp strong{display:block;font-family:var(--display);font-weight:500;font-size:1.8rem}
+.sc-imp > div > span:last-child{color:var(--muted);font-size:.92rem}
+.sc-imp .ar{font-family:var(--display);font-size:1.6rem}
+@media (max-width:560px){ .sc-imp{grid-template-columns:1fr} .sc-imp .ar{transform:rotate(90deg);justify-self:center} }
+.ask{margin-top:64px;padding:24px;background:var(--surface);border:1px solid var(--soft);border-radius:18px;scroll-margin-top:84px}
+.ask h2{font-size:1.6rem}
+.ask > .muted{margin:4px 0 16px}
+.ask-qs{display:flex;flex-wrap:wrap;gap:8px}
+.ask-q{cursor:pointer;border:2px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:500;font-size:.92rem;background:var(--paper);box-shadow:2px 2px 0 var(--shadow);transition:transform .12s,box-shadow .12s}
+.ask-q:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--shadow)}
+.ask-q[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.ask-p{margin-top:18px;padding-top:18px;border-top:1px solid var(--soft)}
+.ask-p > p,.ask-p li{max-width:64ch}
+.ask-m{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ask-m > div{border:1px solid var(--soft);border-radius:12px;padding:12px;background:var(--paper)}
+.ask-m strong{display:block;font-family:var(--display);font-weight:500;font-size:1.4rem}
+.ask-m > div > span{color:var(--muted);font-size:.9rem}
+@media (max-width:560px){ .ask-m{grid-template-columns:1fr} }
+.ask-t{overflow-x:auto}
+.ask-t table{width:100%;border-collapse:collapse;font-size:.92rem}
+.ask-t th,.ask-t td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--soft);vertical-align:top}
+.ask-t thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.ask-t tbody th{font-weight:500}
+.ask-t tr:last-child > *{border-bottom:0}
+.dec-pill{display:inline-block;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 9px;border:1px solid color-mix(in srgb,#1B1724 25%,transparent);white-space:nowrap;color:var(--sticker-ink)}
+.dec-pill.no{background:#fff}.dec-pill.later{background:var(--butter)}.dec-pill.test{background:var(--sky)}.dec-pill.win{background:var(--mint)}
+@media (prefers-reduced-motion: reduce){ .s30 .node,.s30 .lk path,.sc-row em,.sc-dots i,.sc-cnt .grp{transition:none} }
+.story > *,.s-body > *{min-width:0}
+@media (max-width:560px){ .ask{padding:18px} .ask-t th,.ask-t td{padding:8px} }
 </style>
 </head>
 <body>
@@ -1614,47 +1731,67 @@ const PROJECTS = [
   challenge:['People arriving from partners, mostly banks, connected their data with the Spanish tax agency 17 points less than organic users: 39.4% vs 56.4%. Partners were around 40% of company revenue.',
              'Los usuarios que llegaban desde partners, sobre todo bancos, conectaban sus datos con la AEAT 17 puntos menos que los orgánicos: 39,4% frente a 56,4%. Los partners suponían cerca del 40% de la facturación.'],
   facts:[[['My role','Mi rol'],['Senior product designer, B2B growth','Senior product designer, growth B2B']],[['Team','Equipo'],['PM and 2 engineers','PM y 2 ingenieros']],[['When','Cuándo'],['June 2026, in the middle of tax season','Junio de 2026, en plena campaña de la renta']],[['Surfaces','Superficies'],['Onboarding, result and checkout (mobile)','Onboarding, resultado y compra (móvil)']]],
-  nums:[{v:'14.5% → 21.5%',t:['purchase after seeing the result','compra tras ver el resultado']},{v:'+5.3 pp',t:['connection with the tax agency','conexión con la AEAT']},{v:'96%',t:['finished the new onboarding once started','completó el onboarding tras empezarlo']}],
+  story:1,
+  nums:[{k:['Business','Negocio'],v:'+48%',t:['more purchases in the test, in the channel behind ~40% of revenue','más compras en el test, en el canal que aporta ~40% de la facturación']},
+        {k:['User','Usuario'],v:'~55%',t:['had forgotten their discount by the time they saw their result','había olvidado su descuento al ver el resultado']},
+        {k:['Test','Prueba'],v:'A/B/C',t:['~5,000 users from 3 top partners, significant','~5.000 usuarios de 3 partners top, significativo']}],
+  chain:[[['What was at stake','Lo que estaba en juego'],['40% of revenue','40% de la facturación'],['It came through partners, but those users connected their data 17 points less and rarely bought.','Llegaba por partners, pero esos usuarios conectaban sus datos 17 puntos menos y compraban poco.']],
+         [['My bet','Mi apuesta'],['The problem was when, not what','El problema era el cuándo, no el qué'],['Remind users of their discount right after their result, with our brand instead of the bank’s.','Recordar el descuento justo tras el resultado, con nuestra marca y no la del banco.']],
+         [['Impact','Impacto'],['14.5% → 21.5%','14,5% → 21,5%'],['Purchases after seeing the result, with one modal and the same discount.','Compras tras ver el resultado, con una modal y el mismo descuento.']]],
   blocks:[
-    {k:'h', t:['One question per test','Una pregunta por test']},
-    {k:'p', t:['Mid-campaign, every test had to answer one question, be cheap to build and safe to run on real traffic. Its conclusion set the next one. The team proposed retrying a longer landing, but a previous test had already shown the short one converted better, so I decided to test inside the product, closer to where users dropped.',
-               'En plena campaña, cada test tenía que responder una pregunta, ser barato de construir y seguro con tráfico real. Su conclusión marcaba el siguiente. El equipo propuso volver a probar una landing más larga, pero un test anterior ya demostraba que la corta convertía mejor, así que decidí probar dentro del producto, más cerca de donde se caían los usuarios.']},
-    {k:'h', t:['Test 1 · Onboarding stepper','Test 1 · Stepper de onboarding']},
-    {k:'p', t:['1–15 June · A/B test 80/20 · mobile. Hypothesis: if we improve the entry into data gathering, more users will connect their data and, in the end, more will buy. Partner users come for the discount and, unlike B2C users, often don’t know our product.',
-               '1–15 de junio · A/B test 80/20 · móvil. Hipótesis: si mejoramos la entrada al data gathering, más usuarios conectarán sus datos y, al final, más comprarán. Los usuarios de partner llegan por el descuento y, a diferencia de los de B2C, a menudo no conocen el producto.']},
-    {k:'img', src:'assets/taxdown-stepper.webp', cap:['A short, story-like intro: who we are, how it works, your partner discount, and connecting with the AEAT.','Una intro corta, como una historia: quiénes somos, cómo funciona, tu descuento de partner y la conexión con la AEAT.']},
-    {k:'list', t:[['The minimum context, no more: enough to explain the product without extra steps that could make users drop.','El contexto mínimo, sin más: lo justo para explicar el producto sin pasos extra que hicieran caer a los usuarios.'],
-                 ['No skipping or closing: authorising TaxDown with the AEAT was mandatory anyway, so I placed it at the end of the explanation instead of on a cold page right after sign up.','Sin saltar ni cerrar: el apoderamiento era obligatorio de todas formas, así que lo puse al final de la explicación en vez de en una pantalla fría tras registrarse.'],
-                 ['Validated before launch with users, to check they understood it, and with internal teams, because the authorisation is sensitive.','Validado antes de lanzar con usuarios, para ver si lo entendían, y con equipos internos, porque el apoderamiento es sensible.']]},
-    {k:'p', t:['Result: +5.3 pp in data connection (significant) and 96% completion, but purchases didn’t change. My decision: keep it on and find out why connected users still didn’t buy before iterating on it.',
-               'Resultado: +5,3 pp en conexión de datos (significativo) y 96% de finalización, pero las compras no cambiaron. Mi decisión: mantenerlo y entender por qué los usuarios que conectaban seguían sin comprar antes de iterarlo.']},
-    {k:'h', t:['Between tests · Asking why','Entre tests · Preguntar por qué']},
-    {k:'p', t:['We surveyed 96 users across four groups. Around 55% of those who saw the partner screen didn’t remember having any discount, and days pass between signing up and seeing the result.',
-               'Encuestamos a 96 usuarios de cuatro grupos. Cerca del 55% de quienes vieron la pantalla del partner no recordaba tener ningún descuento, y pasan días entre registrarse y ver el resultado.']},
-    {k:'call', t:['New hypothesis: the problem wasn’t what we told users, but when. We designed the next test in days and launched it on 19 June.',
-                  'Nueva hipótesis: el problema no era qué les contábamos, sino cuándo. Diseñamos el siguiente test en días y lo lanzamos el 19 de junio.']},
-    {k:'h', t:['Test 2 · Reminder modal','Test 2 · Modal recordatorio']},
-    {k:'p', t:['19–30 June · A/B/C test · ~5,000 users from 3 top partners. A closable modal right after the result, whose button takes users to checkout with the discount applied.',
-               '19–30 de junio · A/B/C test · ~5.000 usuarios de 3 partners top. Una modal que se puede cerrar justo después del resultado, con un botón que lleva al checkout con el descuento aplicado.']},
-    {k:'list', t:[['Why there: the discount already appeared under the result and in checkout, but many users never reached checkout, and in the app it had little visual impact.','Por qué ahí: el descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout, y en la app tenía poco impacto visual.'],
-                 ['Why a modal: it barely touched the flow, so we could add or remove it quickly mid-campaign. A strikethrough price, which depends on each plan and discount, was left for the next iteration.','Por qué una modal: apenas tocaba el flujo, así que se podía poner y quitar rápido en plena campaña. El precio tachado, que depende de cada plan y descuento, quedó para la siguiente iteración.'],
-                 ['Why two versions: my hypothesis was that another brand appearing in the middle of a payment could feel like an ad. Leading with TaxDown makes it part of our flow, reinforced by the partner.','Por qué dos versiones: mi hipótesis era que otra marca en mitad de un pago podía parecer publicidad. Liderar con TaxDown lo hace parte de nuestro flujo, reforzado por el partner.']]},
-    {k:'img', src:'assets/taxdown-modals.webp', max:760, cap:['A puts the partner’s brand first; B leads with TaxDown. Example with BBVA.','La A pone primero la marca del partner; la B lidera con TaxDown. Ejemplo con BBVA.']},
-    {k:'abc', unit:'%', rows:[[['Control, no modal','Control, sin modal'],14.5],[['A · partner brand','A · marca partner'],17],[['B · TaxDown brand','B · marca TaxDown'],21.5]],
-      cap:['Purchase after seeing the result. Statistically significant. B: +7 points vs control.','Compra tras ver el resultado. Estadísticamente significativo. B: +7 puntos frente al control.']},
-    {k:'call', t:['Same discount, better timing. And inside a payment, our own brand reads as part of the flow, not as an ad: it beat the partner’s by 4.5 points.',
-                  'Mismo descuento, mejor momento. Y dentro de un pago, nuestra marca se lee como parte del flujo, no como publicidad: superó a la del partner en 4,5 puntos.']},
-    {k:'p', t:['My decision: the campaign ended before we could roll it out, so the plan was to launch B in the next campaign and stop re-branding each modal per partner.',
-               'Mi decisión: la campaña acabó antes de desplegarla, así que el plan era lanzar la B en la siguiente campaña y dejar de adaptar cada modal a cada partner.']},
-    {k:'h', t:['Next steps','Siguientes pasos']},
-    {k:'list', t:[['Launch the TaxDown modal in the next campaign and test a strikethrough price with each user’s figures.','Lanzar la modal de TaxDown en la siguiente campaña y probar el precio tachado con las cifras de cada usuario.'],
-                 ['Reuse the stepper as the base for one piece at each moment of the journey.','Reutilizar el stepper como base para una pieza en cada momento del journey.'],
-                 ['Fix a bug the interviews surfaced: a referral code overrode the partner discount.','Arreglar un bug que salió en las entrevistas: un código referral pisaba el descuento del partner.']]},
-    {k:'learn', items:[
-      [['Chain your experiments','Encadenar experimentos'],['Each test answered one question, and its conclusion set the next hypothesis.','Cada test respondió una pregunta, y su conclusión marcó la siguiente hipótesis.']],
-      [['Numbers say what, users say why','Los números dicen qué, los usuarios por qué'],['The survey turned a partial result into the hypothesis that worked.','La encuesta convirtió un resultado parcial en la hipótesis que funcionó.']],
-      [['Timing beats volume','El momento gana al volumen'],['We didn’t need to show the discount more, just at the right moment.','No hacía falta enseñar más el descuento, solo en el momento justo.']]
-    ]}
+    {k:'chap', n:['1 · The context','1 · El contexto'], t:['A channel worth 40% of revenue that stalled halfway','Un canal que valía el 40% de la facturación y se quedaba a medias']},
+    {k:'p', t:['Banks and companies offer TaxDown to their customers with a discount. That channel brought in around 40% of revenue, but the people arriving through it behaved differently: they came for the discount, didn’t know the product and dropped along the way.',
+               'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero quienes llegaban por él se comportaban distinto: venían por el descuento, no conocían el producto y se quedaban por el camino.']},
+    {k:'p', t:['The goal: more partner users going from sign up to purchase, in the middle of tax season, when every week counts.',
+               'El objetivo: que más usuarios de partner pasaran de registrarse a comprar, en plena campaña, cuando cada semana cuenta.']},
+    {k:'bars', label:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], max:100,
+      rows:[[['Organic','Orgánicos'],56.4],[['From partners','De partners'],39.4,'peach']], cap:['A 17-point gap at the first step of the funnel.','17 puntos de diferencia en el primer paso del funnel.']},
+
+    {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['If they understand the product, they’ll connect. If they connect, they’ll buy','Si entienden el producto, conectarán. Y si conectan, comprarán']},
+    {k:'p', t:['The team suggested retrying a longer landing, but an earlier test had shown the short one converted better. So I proposed testing inside the product, closer to where people dropped.',
+               'El equipo propuso volver a probar una landing más larga, pero un test anterior ya demostraba que la corta convertía mejor. Así que propuse probar dentro del producto, más cerca de donde se caían.']},
+    {k:'p', t:['I designed a four-step intro, like a short story: who we are, how it works, your discount and connecting with the tax agency. It couldn’t be skipped, because the authorisation was mandatory anyway: better at the end of an explanation than on a cold screen.',
+               'Diseñé una intro de cuatro pasos, como una historia corta: quiénes somos, cómo funciona, tu descuento y la conexión con la AEAT. Sin opción de saltarla, porque el apoderamiento era obligatorio igualmente: mejor al final de una explicación que en una pantalla fría.']},
+    {k:'img', src:'assets/taxdown-stepper.webp', cap:['The stepper, 1–15 June, A/B 80/20 on mobile. Validated first with users and internal teams.','El stepper, del 1 al 15 de junio, A/B 80/20 en móvil. Validado antes con usuarios y equipos internos.']},
+    {k:'split', items:[[['Connection with the tax agency','Conexión con la AEAT'],'+5.3 pp',['Significant. 96% finished it.','Significativo. El 96% lo terminó.'],'up'],[['Purchase','Compra'],['= no change','= sin cambio'],['They connected more, but didn’t buy more.','Conectaban más, pero no compraban más.']]],
+      cap:['Half of the hypothesis worked. The other half didn’t.','La mitad de la hipótesis funcionó. La otra mitad, no.']},
+
+    {k:'chap', n:['3 · The turn','3 · El giro'], t:['Before iterating, ask why','Antes de iterar, preguntar por qué']},
+    {k:'p', t:['Instead of polishing the stepper, we asked the people who connected but didn’t buy. We surveyed 96 users from four groups, and the answer changed the problem.',
+               'En vez de pulir el stepper, preguntamos a quienes conectaban y no compraban. Encuestamos a 96 usuarios de cuatro grupos, y la respuesta cambió el problema.']},
+    {k:'dots', total:96, no:53, l_tot:['users surveyed','usuarios encuestados'], l_yes:['remembered their discount','recordaban su descuento'], l_no:['didn’t remember it','no lo recordaban'],
+      sr:['Of 96 users surveyed, 43 remembered their discount and 53, around 55%, didn’t.','De 96 usuarios encuestados, 43 recordaban su descuento y 53, cerca del 55%, no lo recordaban.'],
+      cap:['Days pass between signing up and seeing the result. By then, more than half had forgotten their discount.','Entre registrarse y ver el resultado pasan días. Para entonces, más de la mitad había olvidado su descuento.']},
+    {k:'lead', t:['New hypothesis: the problem wasn’t what we told them, but when.','Nueva hipótesis: el problema no era qué les contábamos, sino cuándo.']},
+
+    {k:'chap', n:['4 · Second bet','4 · Segunda apuesta'], t:['Remind them at the moment they decide','Recordarlo en el momento de decidir']},
+    {k:'p', t:['The discount already showed under the result and in checkout, but many never reached checkout. I designed a modal right after the result, with a button to checkout with the discount applied. A modal because it barely touched the flow and could be removed quickly mid-season.',
+               'El descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout. Diseñé una modal justo después del resultado, con un botón al checkout con el descuento aplicado. Una modal porque apenas tocaba el flujo y se podía quitar rápido en plena campaña.']},
+    {k:'tl', items:[[['Sign up','Registro'],['sees the discount','ve su descuento']],[['Connects data','Conecta datos'],['days go by…','pasan días…']],[['Sees the result','Ve su resultado'],''],[['Here, the modal','Aquí, la modal'],['right when they decide','justo cuando decide'],1]],
+      cap:['Same discount, at a different moment in the journey.','Mismo descuento, en otro momento del journey.']},
+    {k:'p', t:['One question remained: which brand should go first? My hypothesis was that another brand in the middle of a payment could feel like an ad. We tested it with around 5,000 users from 3 top partners, 19–30 June.',
+               'Quedaba una duda: ¿qué marca debía ir primero? Mi hipótesis era que otra marca en mitad de un pago podía parecer publicidad. Lo probamos con unos 5.000 usuarios de 3 partners top, del 19 al 30 de junio.']},
+    {k:'quiz', q:['Which one do you think sold more?','¿Cuál crees que vendió más?'], sub:['Same discount, same moment. Only the brand that goes first changes.','Mismo descuento, mismo momento. Solo cambia qué marca va primero.'],
+      opts:[{id:'a',mock:'a',h:['A · Partner brand','A · Marca del partner'],t:['The bank the user knows, front and centre.','El banco que el usuario conoce, en grande.']},
+            {id:'b',mock:'b',h:['B · TaxDown brand','B · Marca TaxDown'],t:['Our brand first, the partner as reinforcement.','Nuestra marca primero, el partner como refuerzo.']}],
+      win:'b', rows:[[['No modal','Sin modal'],14.5],[['A · Partner','A · Partner'],17],[['B · TaxDown','B · TaxDown'],21.5,'mint']], unit:'%',
+      ok:['Well spotted. B won by 4.5 points: inside a payment, our brand reads as part of the flow, not as an ad.','Bien visto. Ganó la B por 4,5 puntos: dentro de un pago, nuestra marca se lee como parte del flujo y no como publicidad.'],
+      ko:['It seems logical, but B won by 4.5 points: another brand in the middle of a payment reads as an ad.','Parece lo lógico, pero ganó la B por 4,5 puntos: otra marca en mitad de un pago se lee como publicidad.'],
+      img:'assets/taxdown-modals.webp', imgcap:['The two modals, with BBVA as the example. Purchase after seeing the result, statistically significant.','Las dos modales, con BBVA como ejemplo. Compra tras ver el resultado, estadísticamente significativo.']},
+
+    {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Same discount, better timing','Mismo descuento, mejor momento']},
+    {k:'p', t:['The season ended before we could roll it out, so the plan was to launch B in the next one and stop adapting each modal to each partner: a single piece, cheaper to maintain and converting more.',
+               'La campaña acabó antes de poder desplegarlo, así que el plan era lanzar la B en la siguiente y dejar de adaptar cada modal a cada partner: una sola pieza, más barata de mantener y que convertía más.']},
+    {k:'impact', from:[['Product','Producto'],'+7 pp',['purchase after the result (+48% relative)','compra tras el resultado (+48% relativo)']],
+      to:[['Business','Negocio'],'≈ X €',['per season: partner users × average plan price','por campaña: usuarios de partner × precio medio del plan'],1]}
+  ],
+  ask:[
+    {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[['14.5% → 21.5%',['purchase after seeing the result, significant','compra tras ver el resultado, significativo']],['+5.3 pp',['connection with the tax agency, with the stepper','conexión con la AEAT con el stepper']],['~40%',['of revenue came through partners','de la facturación llegaba por partners']],['≈ X €',['estimated per season, conservative','estimado por campaña, criterio conservador'],1]]},
+    {id:'role', q:['What was your role?','¿Cuál fue tu papel?'], list:[['I proposed testing inside the product instead of repeating the landing.','Propuse probar dentro del producto en lugar de repetir la landing.'],['I designed the stepper and the modals, and defined the brand hypothesis for the A/B/C.','Diseñé el stepper y las modales, y definí la hipótesis de marca del A/B/C.'],['I validated the stepper with users and internal teams before launch, because the authorisation is sensitive.','Validé el stepper con usuarios y equipos internos antes de lanzarlo, porque el apoderamiento es sensible.'],['I worked with the PM and 2 engineers, one focused on this experiment.','Trabajé con el PM y 2 ingenieros, uno con foco en este experimento.']]},
+    {id:'discarded', q:['What did you rule out?','¿Qué descartaste?'], dec:[[['Longer landing','Landing más larga'],'no',['An earlier test showed the short one converted better.','Un test anterior ya demostraba que la corta convertía mejor.']],[['Skippable stepper','Stepper que se puede saltar'],'no',['The authorisation was mandatory: skipping only delayed it.','El apoderamiento era obligatorio: saltarlo solo lo retrasaba.']],[['Strikethrough price','Precio tachado'],'later',['It depended on each plan and discount: too big a change mid-season.','Dependía de cada plan y descuento: demasiado cambio en campaña.']],[['Modal with the partner brand','Modal con marca del partner'],'test',['The most intuitive option: the brand users already know.','La opción más intuitiva: la marca que el usuario conoce.']],[['Modal with the TaxDown brand','Modal con marca TaxDown'],'win',['Inside a payment, another brand feels like an ad.','En mitad de un pago, otra marca parece publicidad.']]]},
+    {id:'wrong', q:['What went wrong?','¿Qué salió mal?'], list:[['The first test lifted connection but not purchases: we measured an intermediate step and assumed it would carry through.','El primer test mejoró la conexión pero no las compras: medimos un paso intermedio y asumimos que arrastraría al final.'],['The season ended before we could roll out the winning modal.','La campaña acabó antes de desplegar la modal ganadora.'],['The interviews surfaced a bug: a referral code overrode the partner discount.','Las entrevistas destaparon un bug: un código referral pisaba el descuento del partner.']]},
+    {id:'different', q:['What would you do differently today?','¿Qué harías distinto hoy?'], draft:1},
+    {id:'inspired', q:['What inspired you?','¿En qué te inspiraste?'], draft:1}
   ],
   reasons:{experimentation:['Two chained tests mid-campaign, the second one shaped by a 96-person survey.','Dos tests encadenados en plena campaña, el segundo guiado por una encuesta a 96 personas.'],
            b2b:['Activation and conversion for users arriving through partners, around 40% of revenue.','Activación y conversión de usuarios que llegan desde partners, cerca del 40% de la facturación.']},
@@ -1875,7 +2012,8 @@ const UI = {
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
  hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
- full:['Original case in Notion','Caso original en Notion'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
+ full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
+ d_no:['Ruled out','Descartada'], d_later:['Postponed','Aplazada'], d_test:['Tested','Probada'], d_win:['Winner','Ganadora'], th_opt:['Option','Opción'], th_dec:['Decision','Decisión'], th_why:['Why','Por qué'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
  contact_h:['Let’s talk','Hablemos'], contact_p:['Open to senior product design roles.','Abierta a roles senior de diseño de producto.'],
  copy:['Copy','Copiar'], copied:['Copied','Copiado'], copy_mail:['Copy email','Copiar email'], mail_copied:['Email copied!','¡Email copiado!'], me_alt:['Illustrated portrait of Blanca','Retrato ilustrado de Blanca'], me_poke:['Poke Blanca','Pincha a Blanca'], linkedin:['Visit my LinkedIn','Visita mi LinkedIn'], or_write:['Prefer another way?','¿Prefieres otro canal?'],
@@ -2225,6 +2363,7 @@ function block(b, p, ids){
   return '';
 }
 function caseHTML(p){
+  if(p.story) return storyCaseHTML(p);
   const w=whyFor(p);
   const ids=[]; const body=p.blocks.map(b=>block(b,p,ids)).join('');
   if(p.blocks.some(b=>b.k==='learn')) ids.push([`s-${p.id}-learn`, u('learn')]);
@@ -2249,6 +2388,94 @@ function caseHTML(p){
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
     </article></div>`;
 }
+/* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
+const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
+function sBlock(b,p,ids){
+  switch(b.k){
+    case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
+    case 'p': return `<p class="s-p">${X(b.t)}</p>`;
+    case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
+    case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'split': return `<figure class="scene"><div class="sc-split">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
+        <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>
+          <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
+        <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
+        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span></button>`).join('')}</div>
+        <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
+          <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
+          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}</div></div>`;
+    case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
+      return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div></figure>`; }
+  }
+  return block(b,p,ids);
+}
+function askPanel(a){
+  if(a.draft) return `<p class="ph">${u('draft')}</p>`;
+  if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(v)}</span>`:esc(fmt(v))}</strong><span>${X(t)}</span></div>`).join('')}</div>`;
+  if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
+  if(a.dec) return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th><th scope="col">${u('th_dec')}</th><th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th><td><span class="dec-pill ${d}">${u('d_'+d)}</span></td><td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`;
+  return a.t?`<p>${X(a.t)}</p>`:'';
+}
+function askHTML(p){
+  const sel=p.ask.some(a=>a.id===S.askTab)?S.askTab:p.ask[0].id;
+  return `<section class="ask" id="s-${p.id}-ask" aria-labelledby="ask-h-${p.id}"><h2 id="ask-h-${p.id}">${u('ask_h')}</h2><p class="muted">${u('ask_sub')}</p>
+    <div class="ask-qs" role="tablist" aria-label="${u('ask_l')}">${p.ask.map(a=>`<button type="button" role="tab" class="ask-q" id="aq-${a.id}" aria-controls="ap-${a.id}" aria-selected="${a.id===sel}" tabindex="${a.id===sel?0:-1}" data-ask="${a.id}">${X(a.q)}</button>`).join('')}</div>
+    ${p.ask.map(a=>`<div class="ask-p" role="tabpanel" id="ap-${a.id}" aria-labelledby="aq-${a.id}" tabindex="0" ${a.id===sel?'':'hidden'}>${askPanel(a)}</div>`).join('')}</section>`;
+}
+function storyCaseHTML(p){
+  const ids=[]; const body=p.blocks.map(b=>sBlock(b,p,ids)).join('');
+  ids.push([`s-${p.id}-ask`, u('ask_h')]);
+  const snip=[]; let hi=-1; p.blocks.forEach(b=>{ if(b.k==='chap'){ hi++; snip[hi]=''; } else if(hi>=0 && !snip[hi] && b.k==='p') snip[hi]=tr(b.t); });
+  const secs=[[`case-top-${p.id}`, u('overview'), tr(p.chain[1][1])], ...ids.map(([id,t],k)=>[id,t,snip[k]||''])];
+  const cut=t=>t.length>120?t.slice(0,118).replace(/\s+\S*$/,'')+'…':t;
+  return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
+    <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
+    <article class="sheet-in story" style="--tone:var(${p.tone})">
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.title)}</h1>
+        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
+      <div class="s-nums">${p.nums.map(n=>`<div><span class="sc-k">${X(n.k)}</span><strong>${esc(fmt(n.v))}</strong><span>${X(n.t)}</span></div>`).join('')}</div>
+      <section class="s30" aria-label="${u('in30')}"><span class="sc-k">${u('in30')}</span><div class="chain">${p.chain.map(([k,h,t],i)=>`${i?'<span class="lk" aria-hidden="true"><svg viewBox="0 0 40 20"><path d="M2 10h32M26 3l8 7-8 7"/></svg></span>':''}<div class="node"><span class="nk n${i}">${X(k)}</span><strong>${X(h)}</strong><p>${X(t)}</p></div>`).join('')}</div></section>
+      <div class="s-body">${body}</div>
+      ${askHTML(p)}
+      ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
+    </article></div>`;
+}
+function initStory(sheet){
+  const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
+  const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
+  sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
+  sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
+    const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
+    const order=d.map((_,i)=>i); for(let i=order.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+    const forgot=new Set(order.slice(0,N));
+    if(instant){ d.forEach((x,i)=>x.classList.add('in',forgot.has(i)?'no':'yes')); n('tot').textContent=T; n('yes').textContent=T-N; n('no').textContent=N; cnt.classList.add('ph2'); return; }
+    let k=0; const a=setInterval(()=>{ if(k>=T){ clearInterval(a); setTimeout(ph2,250); return; } d[k++].classList.add('in'); n('tot').textContent=k; },12);
+    function ph2(){ cnt.classList.add('ph2'); let m=0,y=0,z=0; const b=setInterval(()=>{ if(m>=T){clearInterval(b);return} const i=order[T-1-m++]; if(forgot.has(i)){ d[i].classList.add('no'); n('no').textContent=++z; } else { d[i].classList.add('yes'); n('yes').textContent=++y; } },16); }
+  }));
+}
+/* Anonymous "Ask me" tracking: case, question, language and focus. No cookies, no personal data. Web only (/api/event). */
+const tracked=new Set();
+function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
+  if(!/^https?:/.test(location.protocol)) return;
+  try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
+function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
+  S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.ask [role="tab"]'); if(t){ selAsk(t); return; }
+  const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
+  const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
+  qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
+  res.hidden=false; v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
+  requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
+});
+document.addEventListener('keydown',e=>{ const t=e.target.closest&&e.target.closest('.ask [role="tab"]'); if(!t) return;
+  const tabs=[...t.parentElement.children], i=tabs.indexOf(t); let j=null;
+  if(e.key==='ArrowRight') j=(i+1)%tabs.length; else if(e.key==='ArrowLeft') j=(i-1+tabs.length)%tabs.length; else if(e.key==='Home') j=0; else if(e.key==='End') j=tabs.length-1;
+  if(j!==null){ e.preventDefault(); selAsk(tabs[j],true); } });
 function openCase(id){
   const p=P.find(x=>x.id===id); if(!p) return; let sheet=$('#sheet');
   if(!sheet){ S.lastFocus=document.activeElement;
@@ -2256,7 +2483,7 @@ function openCase(id){
     sheet=document.createElement('div'); sheet.className='sheet'; sheet.id='sheet'; sheet.setAttribute('role','dialog'); sheet.setAttribute('aria-modal','true'); sheet.setAttribute('aria-labelledby','case-title');
     document.body.append(scrim,sheet); document.body.style.overflow='hidden';
     requestAnimationFrame(()=>{scrim.classList.add('on'); sheet.classList.add('on');}); }
-  S.openId=id; sheet.innerHTML=caseHTML(p); sheet.scrollTop=0; $('[data-act="close"]',sheet).focus();
+  S.openId=id; sheet.innerHTML=caseHTML(p); sheet.scrollTop=0; $('[data-act="close"]',sheet).focus(); if(p.story) initStory(sheet);
   if(!sheet.dataset.spy){ sheet.dataset.spy=1; sheet.addEventListener('scroll',()=>secSpy(sheet),{passive:true}); }
   secSpy(sheet);
 }
