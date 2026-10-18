@@ -410,18 +410,18 @@ function sBlock(b,p,ids){
       const stick=(t,cx,y,w,tone,cls,n)=>{ const HL=wrap(t.h,Math.floor((w-28)/8.6)), L=t.q?wrap(t.q,n||40):[], qy=42+(HL.length-1)*20+22, h=qy-14+(t.q?L.length*17+6:-8)+(t.q?0:0);
         return `<g class="js ${cls}" transform="translate(${cx} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="${t.q?qy+L.length*17-6:qy-8}" rx="12" style="fill:var(--${tone})"/><text class="jt" x="${-w/2+14}" y="21">${X(t.tag)}</text><text class="jh">${tsp(HL,-w/2+14,42,20)}</text>${t.q?`<text class="jqt">${tsp(L,-w/2+14,qy,17)}</text>`:''}</g>`; };
       const labelsH=(xs,ry)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" text-anchor="middle" x="${xs[i]}" y="${ry+46}">${X(h)}</text><text class="jdesc" text-anchor="middle">${tsp(wrap(t,20),xs[i],ry+66,16)}</text>`).join('');
-      const labelsV=(ys,rx)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" x="${rx+38}" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,30),rx+38,ys[i]+18,16)}</text>`).join('');
+      const labelsV=(ys,rx)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" x="${rx+38}" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,24),rx+38,ys[i]+21,20)}</text>`).join('');
       const xs=[60,255,450,645,840], rx=34; let H='', V='';
       if(b.mode==='base'){ const ry=200, f=b.fr;
         const card=(cx,y,w,bw)=>{ const x0=-w/2;
-          const TL=wrap(f.tag,Math.floor((w-90)/7.6)), d=(TL.length-1)*16;
-          return `<g class="js jfr" transform="translate(${cx} ${y})"><rect x="${x0}" y="0" width="${w}" height="${142+d}" rx="14"/>${face(x0+36,40).replace('class="jface"','class="jface on"')}<text class="jfk">${tsp(TL,x0+68,30,16)}</text><text class="jfh" x="${x0+68}" y="${54+d}">${X(f.h)}</text>
-            ${f.stats.map(([l,v],i)=>{ const yy=88+d+i*32, pct=parseFloat(v); return `<text class="jfl" x="${x0+20}" y="${yy+5}">${X(l)}</text><rect class="jbar0" x="${x0+110}" y="${yy-7}" width="${bw}" height="14" rx="7"/><rect class="jbar ${i?'lo':''}" x="${x0+110}" y="${yy-7}" width="${(bw*pct/100).toFixed(1)}" height="14" rx="7"/><text class="jfv ${i?'lo':''}" x="${x0+120+bw}" y="${yy+7}">${esc(fmt(v))}</text>`; }).join('')}</g>`; };
+          const TL=wrap(f.tag,Math.floor((w-90)/7.6)), d=(TL.length-1)*16, HL=wrap(f.h,Math.floor((w-90)/9.6)), d2=(HL.length-1)*22;
+          return `<g class="js jfr" transform="translate(${cx} ${y})"><rect x="${x0}" y="0" width="${w}" height="${142+d+d2}" rx="14"/>${face(x0+36,40).replace('class="jface"','class="jface on"')}<text class="jfk">${tsp(TL,x0+68,30,16)}</text><text class="jfh">${tsp(HL,x0+68,54+d,22)}</text>
+            ${f.stats.map(([l,v],i)=>{ const yy=88+d+d2+i*32, pct=parseFloat(v); return `<text class="jfl" x="${x0+20}" y="${yy+5}">${X(l)}</text><rect class="jbar0" x="${x0+110}" y="${yy-7}" width="${bw}" height="14" rx="7"/><rect class="jbar ${i?'lo':''}" x="${x0+110}" y="${yy-7}" width="${(bw*pct/100).toFixed(1)}" height="14" rx="7"/><text class="jfv ${i?'lo':''}" x="${x0+120+bw}" y="${yy+7}">${esc(fmt(v))}</text>`; }).join('')}</g>`; };
         H=`<svg class="jr-h" viewBox="0 0 900 350" aria-hidden="true"><line class="jb" x1="60" y1="${ry}" x2="840" y2="${ry}"/><line class="jf" x1="60" y1="${ry}" x2="840" y2="${ry}" pathLength="1"/>
           <line class="jc" x1="450" y1="150" x2="450" y2="${ry-26}"/>${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,i===f.at?'jx':'')).join('')}${labelsH(xs,ry)}${card(450,6,440,230)}</svg>`;
-        const ys=[40,150,260,520,630];
-        V=`<svg class="jr-v" viewBox="0 0 360 700" aria-hidden="true"><line class="jb" x1="${rx}" y1="40" x2="${rx}" y2="630"/><line class="jf" x1="${rx}" y1="40" x2="${rx}" y2="630" pathLength="1"/>
-          ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,i===f.at?'jx':'')).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+26}" y1="260" x2="${rx+40}" y2="260"/><line class="jc" x1="206" y1="300" x2="206" y2="314"/>${card(206,316,296,100)}</svg>`;
+        const ys=[40,150,260,560,670];
+        V=`<svg class="jr-v" viewBox="0 0 360 740" aria-hidden="true"><line class="jb" x1="${rx}" y1="40" x2="${rx}" y2="670"/><line class="jf" x1="${rx}" y1="40" x2="${rx}" y2="670" pathLength="1"/>
+          ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,i===f.at?'jx':'')).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+26}" y1="260" x2="${rx+40}" y2="260"/><line class="jc" x1="206" y1="304" x2="206" y2="318"/>${card(204,320,300,100)}</svg>`;
       } else if(b.mode==='t1'){ const ry=170;
         H=`<svg class="jr-h" viewBox="0 0 900 300" aria-hidden="true"><rect class="jband" x="282" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
           ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="66" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,372,8,440,'sky','',52)}</svg>`;
