@@ -1348,8 +1348,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sw.yes,.sc-dots i.yes{background:var(--mint);border-color:color-mix(in srgb,#1f8a5b 45%,transparent)}
 .sw.no,.sc-dots i.no{background:var(--dot);border-color:transparent}
 .sc-dots i.no{opacity:.6}
-.sc-tl{list-style:none;margin:0;padding:8px 0 0;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:.88rem}
-.sc-tl::before{content:"";position:absolute;left:12%;right:12%;top:28px;height:2px;background:var(--soft)}
+.sc-tl{list-style:none;margin:0;padding:8px 0 0;position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center;font-size:.88rem}
+.sc-tl::before{content:"";position:absolute;left:10%;right:10%;top:28px;height:2px;background:var(--soft)}
 .sc-tl .c{width:40px;height:40px;margin:0 auto 8px;border-radius:50%;border:1.5px solid var(--soft);background:var(--surface);display:flex;align-items:center;justify-content:center;font-weight:700;position:relative;z-index:1}
 .sc-tl b{display:block;font-weight:500}.sc-tl em{display:block;color:var(--muted)}
 .sc-tl .hit .c{background:var(--mint);color:var(--sticker-ink);border-color:var(--line);transform:scale(1.15)}
@@ -1421,6 +1421,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){ .quiz.nudge .qz-opt{animation:none} }
 .qz-opt{display:flex;flex-direction:column;align-items:flex-start}.qz-opt > .mock{align-self:stretch}.qz-opt > span:not(.mock):not(.qz-go){font-size:.88rem;color:var(--muted)}.qz-go{margin-top:auto;padding-top:10px}
 [data-anim="dots"] .sc-dots{margin-inline:auto}[data-anim="dots"] .sc-cnt{justify-content:center}[data-anim="dots"] figcaption{text-align:center}
+@media (max-width:560px){ .sc-tl li:last-child{grid-column:1 / -1} }
 </style>
 <header class="top">
   <div class="wrap">
@@ -1781,8 +1782,8 @@ const PROJECTS = [
     {k:'chap', n:['4 · Second bet','4 · Segunda apuesta'], t:['Remind them at the moment they decide','Recordarlo en el momento de decidir']},
     {k:'p', t:['The discount already showed under the result and in checkout, but many never reached checkout. I designed a modal right after the result, with a button to checkout with the discount applied. A modal because it barely touched the flow and could be removed quickly mid-season.',
                'El descuento ya aparecía bajo el resultado y en el checkout, pero muchos no llegaban al checkout. Diseñé una modal justo después del resultado, con un botón al checkout con el descuento aplicado. Una modal porque apenas tocaba el flujo y se podía quitar rápido en plena campaña.']},
-    {k:'tl', items:[[['Sign up','Registro'],['sees the discount','ve su descuento']],[['Connects data','Conecta datos'],['days go by…','pasan días…']],[['Sees the result','Ve su resultado'],''],[['Here, the modal','Aquí, la modal'],['right when they decide','justo cuando decide'],1]],
-      cap:['Same discount, at a different moment in the journey.','Mismo descuento, en otro momento del journey.']},
+    {k:'tl', items:[[['Sign up','Registro'],['sees the discount','ve su descuento']],[['Connects data','Conecta datos'],['days go by…','pasan días…']],[['Sees the result','Ve su resultado'],''],[['Here, the modal','Aquí, la modal'],['reminds the discount','recuerda el descuento'],1],[['Purchase','Compra'],['checkout with the discount applied','checkout con el descuento aplicado']]],
+      cap:['The modal sits between the result and the purchase: right when users decide. It can be closed, and its button opens checkout with the discount already applied.','La modal va entre el resultado y la compra: justo cuando el usuario decide. Se puede cerrar, y su botón abre el checkout con el descuento ya aplicado.']},
     {k:'p', t:['One question remained: which brand should go first? My hypothesis was that another brand in the middle of a payment could feel like an ad. We tested it with around 5,000 users from 3 top partners, 19–30 June.',
                'Quedaba una duda: ¿qué marca debía ir primero? Mi hipótesis era que otra marca en mitad de un pago podía parecer publicidad. Lo probamos con unos 5.000 usuarios de 3 partners top, del 19 al 30 de junio.']},
     {k:'quiz', q:['Which one do you think sold more?','¿Cuál crees que vendió más?'], sub:['Same discount, same moment. Only the brand that goes first changes.','Mismo descuento, mismo momento. Solo cambia qué marca va primero.'],
@@ -2416,7 +2417,7 @@ function sBlock(b,p,ids){
         <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>
           <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
         <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1-(b.items.slice(0,i).some(x=>x[2])?1:0)}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
         <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
         <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
