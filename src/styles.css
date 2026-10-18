@@ -1533,3 +1533,16 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .jr2.on .js.dashed{transition-delay:1.5s}
 .jr2 .jface.on{opacity:1}
 @media (prefers-reduced-motion: reduce){ .jr2 *{transition:none!important;animation:none!important} }
+/* Friction card: readable and prominent */
+.jr2 .jfr rect:first-child{fill:color-mix(in srgb,var(--butter) 60%,var(--surface));stroke:var(--ink);stroke-width:1.5}
+.jr2 .jfk{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;fill:var(--ink)}
+.jr2 .jfh{font-family:var(--display);font-size:19px;fill:var(--ink)}
+.jr2 .jfl{font-size:14px;font-weight:500;fill:var(--ink)}
+.jr2 .jfr .jbar0{fill:var(--surface);stroke:var(--soft)}
+.jr2 .jfr .jbar{fill:#6aa6dd;transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1) .2s}
+.jr2 .jfr .jbar.lo{fill:#e58cb4}
+.jr2.on .jbar{transform:scaleX(1)}
+.jr2 .jfv{font-family:var(--display);font-size:22px;fill:var(--ink)}
+.jr2 .jfv.lo{fill:#b0436f}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .jr2 .jfv.lo{fill:#ff9cc4} }
+:root[data-theme="dark"] .jr2 .jfv.lo{fill:#ff9cc4}
