@@ -395,7 +395,7 @@ function caseHTML(p){
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
 function sBlock(b,p,ids){
   switch(b.k){
-    case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
+    case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
     case 'p': return `<p class="s-p">${X(b.t)}</p>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -432,9 +432,9 @@ function askHTML(p){
 }
 function storyCaseHTML(p){
   const ids=[]; const body=p.blocks.map(b=>sBlock(b,p,ids)).join('');
-  ids.push([`s-${p.id}-ask`, u('ask_h')]);
-  const snip=[]; let hi=-1; p.blocks.forEach(b=>{ if(b.k==='chap'){ hi++; snip[hi]=''; } else if(hi>=0 && !snip[hi] && b.k==='p') snip[hi]=tr(b.t); });
-  const secs=[[`case-top-${p.id}`, u('overview'), tr(p.chain[1][1])], ...ids.map(([id,t],k)=>[id,t,snip[k]||''])];
+  ids.push([`s-${p.id}-ask`, u('ask_h'), u('ask_sub')]);
+  // side index: chapter number as title, chapter heading as description
+  const secs=[[`case-top-${p.id}`, u('overview'), tr(p.title)], ...ids];
   const cut=t=>t.length>120?t.slice(0,118).replace(/\s+\S*$/,'')+'…':t;
   return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
