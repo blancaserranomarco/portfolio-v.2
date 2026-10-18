@@ -71,6 +71,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.
 - 2026-10-12 · Casos: recursos visuales del Notion (pantallas HD, diagramas, vídeos) en Descuentos, Beneficios, Renovaciones, Salud y Banners; fuera las imágenes de relleno.
 - 2026-10-12 · Casos: se quita "Lectura rápida / Historia completa" y el botón "Siguiente caso" de abajo; índice lateral de secciones.
 - 2026-10-12 · Baraja: 8 cartas (se quita "Ahora, descubre mi trabajo"), navegación dentro de la carta y carta a altura completa.
