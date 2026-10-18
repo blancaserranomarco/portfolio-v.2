@@ -1399,6 +1399,12 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){ .s30 .node,.s30 .lk path,.sc-row em,.sc-dots i,.sc-cnt .grp{transition:none} }
 .story > *,.s-body > *{min-width:0}
 @media (max-width:560px){ .ask{padding:18px} .ask-t th,.ask-t td{padding:8px} }
+
+/* Survey dots become faces: smiling = remembered, sad = forgot */
+.sw.yes,.sc-dots i.yes{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B1724' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='8.6' cy='10' r='.6' fill='%231B1724'/%3E%3Ccircle cx='15.4' cy='10' r='.6' fill='%231B1724'/%3E%3Cpath d='M8 14.2q4 3.6 8 0'/%3E%3C/svg%3E");background-size:100% 100%}
+.sw.no,.sc-dots i.no{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23686277' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='8.6' cy='10' r='.6' fill='%23686277'/%3E%3Ccircle cx='15.4' cy='10' r='.6' fill='%23686277'/%3E%3Cpath d='M8.5 16.4q3.5-3 7 0'/%3E%3C/svg%3E");background-size:100% 100%}
+.sc-dots i.no{opacity:.75}
+.sc-cnt .sw{width:18px;height:18px}
 </style>
 <header class="top">
   <div class="wrap">
