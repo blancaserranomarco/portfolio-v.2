@@ -104,9 +104,9 @@ const PROFILE = {
 /* Partner user journey, reused by the TaxDown case scenes */
 const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers the offer','Descubre la oferta']],
   ['user',['Sign up','Registro'],['Arrives linked to the partner','Llega vinculado al partner']],
-  ['bank',['Tax agency','Conexión AEAT'],['Connects their data and completes the draft','Conecta sus datos y completa el borrador']],
-  ['doc',['Result','Resultado'],['Sees their result and weighs the plan','Ve su resultado y valora el plan']],
-  ['card',['Purchase','Compra'],['Chooses and pays for a plan','Elige y paga su plan']]];
+  ['bank',['Tax agency','Conexión AEAT'],['Accepts connecting their data (authorisation)','Acepta conectar sus datos (apoderamiento)']],
+  ['doc',['Result','Resultado'],['Confirms the pre-filled draft and sees the result','Confirma el borrador autorrellenado y ve su resultado']],
+  ['card',['Purchase','Compra'],['Buys the plan to file the return','Compra el plan para presentar la declaración']]];
 const PROJECTS = [
 {
   id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'+65.6%', t:['purchase success','compras con éxito']}, base:.6, recruiter:1,
@@ -317,19 +317,19 @@ const PROJECTS = [
          [['Impact','Impacto'],['14.5% → 21.5%','14,5% → 21,5%'],['Purchases after seeing the result, with one modal and the same discount.','Compras tras ver el resultado, con una modal y el mismo descuento.']]],
   blocks:[
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A channel worth 40% of revenue that stalled halfway','Un canal que valía el 40% de la facturación y se quedaba a medias']},
-    {k:'p', t:['Banks and companies offer TaxDown to their customers with a discount. That channel brought in around 40% of revenue, but the people arriving through it behaved differently: they came for the discount, didn’t know the product and dropped along the way.',
-               'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero quienes llegaban por él se comportaban distinto: venían por el descuento, no conocían el producto y se quedaban por el camino.']},
-    {k:'goal', label:['The goal','El objetivo'], t:['More partner users going from sign up to purchase, in the middle of tax season.','Que más usuarios de partner pasaran de registrarse a comprar, en plena campaña de la renta.']},
+    {k:'p', t:['Banks and companies offer TaxDown to their customers with a discount. That channel brought in around 40% of revenue, but its users bought less than organic ones, and the biggest gap was at the very first step: authorising TaxDown to connect their data with the tax agency.',
+               'Bancos y empresas ofrecen TaxDown con descuento a sus clientes. Ese canal suponía cerca del 40% de la facturación, pero sus usuarios compraban menos que los orgánicos, y la mayor diferencia estaba en el primer paso: autorizar a TaxDown a conectar sus datos con la AEAT.']},
+    {k:'goal', label:['The goal','El objetivo'], t:['Increase plan purchases among partner users.','Mejorar el % de compra del plan entre los usuarios de partner.']},
     {k:'journey', mode:'base', label:['The partner user’s journey','El journey del usuario de partner'], steps:TD_STEPS,
-      fr:{at:2, tag:['Where they dropped','Dónde se caían'], h:['Connect their data with the tax agency','Conectan sus datos con la AEAT'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
-      cap:['17 points less at the step that unlocks everything else: without their data, there’s no result and no purchase.','17 puntos menos en el paso que desbloquea todo lo demás: sin sus datos no hay resultado ni compra.']},
+      fr:{at:2, tag:['Where they dropped','Dónde se caían'], h:['Accept connecting their data','Aceptan conectar sus datos'], stats:[[['Organic','Orgánicos'],'56.4%'],[['Partners','Partners'],'39.4%']]},
+      cap:['17 points less at the step that unlocks everything else: once they accept, the draft fills in by itself; they confirm it, see their result and buy the plan to file it. Without their data, there’s no draft, no result and no purchase.','17 puntos menos en el paso que desbloquea todo lo demás: al aceptar, el borrador se rellena solo; lo confirman, ven su resultado y compran el plan para presentarlo a Hacienda. Sin sus datos no hay borrador, ni resultado, ni compra.']},
 
     {k:'chap', n:['2 · First bet','2 · Primera apuesta'], t:['If they understand the product, they’ll connect. If they connect, they’ll buy','Si entienden el producto, conectarán. Y si conectan, comprarán']},
     {k:'p', t:['The team suggested retrying a longer landing, but an earlier test had shown the short one converted better. So I proposed testing inside the product, closer to where people dropped.',
                'El equipo propuso volver a probar una landing más larga, pero un test anterior ya demostraba que la corta convertía mejor. Así que propuse probar dentro del producto, más cerca de donde se caían.']},
     {k:'journey', mode:'t1', label:['Where test 1 acts','Dónde actúa el test 1'], steps:TD_STEPS,
-      t1:{tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['Improve understanding before connecting','Mejorar la comprensión antes de conectar'], q:['“Who is TaxDown? Why do they want my data?”','«¿Quién es TaxDown? ¿Por qué me piden mis datos?»']},
-      cap:['The friction was between signing up and connecting: users arrived for the discount, without knowing us.','La fricción estaba entre el registro y la conexión: llegaban por el descuento, sin conocernos.']},
+      t1:{tag:['Test 1 · Onboarding','Test 1 · Onboarding'], h:['More users accepting to connect their data','Que más usuarios acepten conectar sus datos'], q:['“Who is TaxDown? Why do they want my data?”','«¿Quién es TaxDown? ¿Por qué me piden mis datos?»']},
+      cap:['Hypothesis to validate: they arrived for the discount without knowing us, so they hesitated to share their data.','Hipótesis a validar: llegaban por el descuento sin conocernos, y por eso dudaban al dar sus datos.']},
     {k:'p', t:['I designed a four-step intro, like a short story: who we are, how it works, your discount and connecting with the tax agency. It couldn’t be skipped, because the authorisation was mandatory anyway: better at the end of an explanation than on a cold screen.',
                'Diseñé una intro de cuatro pasos, como una historia corta: quiénes somos, cómo funciona, tu descuento y la conexión con la AEAT. Sin opción de saltarla, porque el apoderamiento era obligatorio igualmente: mejor al final de una explicación que en una pantalla fría.']},
     {k:'img', src:'assets/taxdown-stepper.webp', cap:['The stepper, 1–15 June, A/B 80/20 on mobile. Validated first with users and internal teams.','El stepper, del 1 al 15 de junio, A/B 80/20 en móvil. Validado antes con usuarios y equipos internos.']},

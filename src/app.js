@@ -421,7 +421,7 @@ function sBlock(b,p,ids){
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,i===f.at?'jx':'')).join('')}${labelsV(ys,rx)}<line class="jc" x1="190" y1="300" x2="190" y2="316"/>${card(195,318,310)}</svg>`;
       } else if(b.mode==='t1'){ const ry=170;
         H=`<svg class="jr-h" viewBox="0 0 900 300" aria-hidden="true"><rect class="jband" x="282" y="${ry-38}" width="140" height="76" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="60" y1="${ry}" x2="840" y2="${ry}"/>
-          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="114" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,352,8,380,'sky','',44)}</svg>`;
+          ${b.steps.map(([ic],i)=>node(ic,xs[i],ry,i,'on'+(i>1?' dim':''))).join('')}${labelsH(xs,ry)}<line class="jc" x1="352" y1="114" x2="352" y2="${ry-18}"/>${face(352,ry)}${stick(b.t1,372,8,440,'sky','',52)}</svg>`;
         const ys=[40,150,400,510,620];
         V=`<svg class="jr-v" viewBox="0 0 360 680" aria-hidden="true"><rect class="jband" x="${rx-30}" y="200" width="60" height="160" rx="16" style="fill:var(--sky)"/><line class="jb full" x1="${rx}" y1="40" x2="${rx}" y2="620"/>
           ${b.steps.map(([ic],i)=>node(ic,rx,ys[i],i,'on'+(i>1?' dim':''))).join('')}${labelsV(ys,rx)}<line class="jc" x1="${rx+18}" y1="280" x2="70" y2="280"/>${face(rx,280)}${stick(b.t1,212,226,284,'sky','',34)}</svg>`;
