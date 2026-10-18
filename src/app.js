@@ -396,7 +396,7 @@ const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
 function sBlock(b,p,ids){
   switch(b.k){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
-    case 'p': return `<p class="s-p">${X(b.t)}</p>`;
+    case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="scene"><span class="sc-k">${X(b.label)}</span><div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3><dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl><p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
