@@ -1629,6 +1629,21 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){ .sum-c{opacity:1;transform:none;transition:none} }
 .story .facts{grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:12px 18px}
 .story .s-sum{margin-top:calc(-1 * clamp(8px,2vw,22px))}
+
+/* Story header: big title, lede, 3 facts, challenge · contribution · impact */
+.story .case-h h1{font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1;letter-spacing:-.02em}
+.s-lede{margin-top:16px;font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:58ch}
+.story .case-h .facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 24px;margin-top:28px}
+.story .case-h .facts dt{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.story .case-h .facts dd{font-weight:400}
+.story .s-sum.n3{grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:24px}
+.s-sum.n3 .sum-c{padding:20px 22px;border-radius:18px}
+.s-sum.n3 .sum-c p{font-size:1.04rem}
+.s-sum.n3 .sum-c.good p{font-size:1rem}
+.sum-big{font-family:var(--display);font-weight:500;font-size:clamp(1.5rem,2.3vw,1.8rem)!important;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap;margin:4px 0 6px}
+.sum-chip{display:inline-block;margin-top:14px;font-size:.85rem;font-weight:700;background:#7FD3AE;border:2px solid #1F6B4A;color:#10331F;border-radius:999px;padding:3px 14px}
+@media (max-width:820px){ .story .s-sum.n3{grid-template-columns:1fr} }
+@media (max-width:560px){ .story .case-h .facts{grid-template-columns:1fr} }
 </style>
 <header class="top">
   <div class="wrap">
@@ -1958,12 +1973,13 @@ const PROJECTS = [
       text:['Around 55% of users had forgotten their partner discount by the time they saw their tax result. Reminding them right then, with TaxDown’s own brand, raised purchases from 14.5% to 21.5%.','Cerca del 55% de los usuarios ya había olvidado el descuento de su partner al ver el resultado de su renta. Recordárselo justo ahí, con la marca de TaxDown, subió las compras del 14,5% al 21,5%.']},
   challenge:['People arriving from partners, mostly banks, connected their data with the Spanish tax agency 17 points less than organic users: 39.4% vs 56.4%. Partners were around 40% of company revenue.',
              'Los usuarios que llegaban desde partners, sobre todo bancos, conectaban sus datos con la AEAT 17 puntos menos que los orgánicos: 39,4% frente a 56,4%. Los partners suponían cerca del 40% de la facturación.'],
-  facts:[[['My role','Mi rol'],['Senior product designer, B2B growth','Senior product designer, growth B2B']],[['When','Cuándo'],['June 2026, in the middle of tax season','Junio de 2026, en plena campaña de la renta']],[['Surfaces','Superficies'],['Mobile app only: onboarding, result and checkout','Solo en la app: onboarding, resultado y compra']]],
+  h1:['Same discount, better timing.','Mismo descuento, mejor momento.'],
+  lede:['A series of initiatives built on quick experiments to increase annual-plan purchases among partner users.','Una serie de iniciativas basadas en experimentos rápidos para aumentar la compra de planes anuales entre los usuarios de partners.'],
+  facts:[[['My role','Mi rol'],['Senior Product Designer\nB2B growth','Senior Product Designer\nGrowth B2B']],[['When','Cuándo'],['June 2026\nIn the middle of tax season','Junio de 2026\nEn plena campaña de la renta']],[['Scope','Alcance'],['Mobile app\nOnboarding, result and checkout','App móvil\nOnboarding, resultado y compra']]],
   story:1,
-  sum:[{k:['Problem','Problema'], tone:'bad', t:['Users arriving through partners, around 40% of revenue, bought less than organic ones.','Los usuarios que llegaban por partners, cerca del 40% de la facturación, compraban menos que los orgánicos.']},
-       {k:['Goal','Objetivo'], t:['Increase their purchase conversion.','Aumentar su conversión a compra.']},
-       {k:['What I did','Qué hice'], t:['Two chained A/B tests. The first didn’t move purchases; a survey told us why, and the second, tested in the flow and by email, solved it.','Dos A/B tests encadenados. El primero no movió las compras; una encuesta nos dijo por qué, y el segundo, probado dentro del flujo y por email, lo resolvió.']},
-       {k:['Result','Resultado'], tone:'good', t:['Reminding users of their discount right before paying raised purchases from [[14.5% to 21.5%]].','Recordar el descuento justo antes de pagar subió la compra del [[14,5% al 21,5%]].']}],
+  sum:[{k:['The challenge','El reto'], tone:'bad', t:['Partners brought in around 40% of revenue, but their users converted less than organic ones.','Los partners aportaban cerca del 40% de los ingresos, pero sus usuarios convertían menos que los orgánicos.']},
+       {k:['My contribution','Mi aportación'], t:['I designed two experiments and a survey between them. The first improved data connection; that learning shaped the next purchase test.','Diseñé dos experimentos y una encuesta entre ambos. El primero mejoró la conexión de datos; ese aprendizaje orientó el siguiente test de compra.']},
+       {k:['Impact','Impacto'], tone:'good', big:['14.5% → 21.5%','14,5% → 21,5%'], bigl:['From 14.5% to 21.5%','Del 14,5% al 21,5%'], t:['Purchase conversion after seeing the result','Conversión a compra tras ver el resultado'], chip:['+48% purchases','+48% de compras']}],
   nums:[{k:['Business','Negocio'],v:'+48%',t:['more purchases in the test, in the channel behind ~40% of revenue','más compras en el test, en el canal que aporta ~40% de la facturación']},
         {k:['User','Usuario'],v:'~55%',t:['had forgotten their discount by the time they saw their result','había olvidado su descuento al ver el resultado']},
         {k:['Test','Prueba'],v:'A/B/C',t:['~5,000 users from 3 top partners, significant','~5.000 usuarios de 3 partners top, significativo']}],
@@ -2744,9 +2760,10 @@ function storyCaseHTML(p){
   return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in story" style="--tone:var(${p.tone})">
-      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.title)}</h1>
-        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span><p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}</p></div>`).join('')}</section>
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
+        ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
+        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).replace(/\n/g,'<br>')}</dd></div>`).join('')}</dl></header>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}

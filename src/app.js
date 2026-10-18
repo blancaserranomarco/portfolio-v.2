@@ -489,9 +489,10 @@ function storyCaseHTML(p){
   return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in story" style="--tone:var(${p.tone})">
-      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.title)}</h1>
-        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span><p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}</p></div>`).join('')}</section>
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
+        ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
+        <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).replace(/\n/g,'<br>')}</dd></div>`).join('')}</dl></header>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
