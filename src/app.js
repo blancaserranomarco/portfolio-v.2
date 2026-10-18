@@ -15,7 +15,7 @@ const UI = {
  story:['The full story','La historia completa'], story_hint:['Context, decisions, results and learnings','Contexto, decisiones, resultados y aprendizajes'],
  hide:['Hide','Ocultar'], showx:['Show','Mostrar'], learn:['What I learned','Qué aprendí'], jump:['Sections','Secciones'], close_img:['Close image','Cerrar imagen'], overview:['Overview','Resumen'],
  hyp:['Hypothesis','Hipótesis'], res:['Result','Resultado'], lrn:['Learning','Aprendizaje'],
- full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
+ full:['Original case in Notion','Caso original en Notion'], in30:['In 30 seconds','En 30 segundos'], qz_tag:['Your turn · quick quiz','Tu turno · mini quiz'], qz_hint:['Pick an option to reveal the result','Elige una opción para descubrir el resultado'], qz_pick:['Choose this one','Elegir esta'], ask_h:['Ask me','Pregúntame'], ask_sub:['What people usually ask me about this project.','Lo que suelen preguntarme de este proyecto.'], ask_l:['Questions about this case','Preguntas sobre el caso'], draft:['Coming soon','Pendiente de completar'],
  d_no:['Ruled out','Descartada'], d_later:['Postponed','Aplazada'], d_test:['Tested','Probada'], d_win:['Winner','Ganadora'], th_opt:['Option','Opción'], th_dec:['Decision','Decisión'], th_why:['Why','Por qué'], close:['Close case','Cerrar caso'], prev:['Previous case','Caso anterior'], next_c:['Next case','Caso siguiente'],
  about_h:['Who I am','Quién soy'], strengths:['What I’m good at','En qué soy buena'], xp:['Experience','Experiencia'], edu:['Education','Formación'],
  contact_h:['Let’s talk','Hablemos'], contact_p:['Open to senior product design roles.','Abierta a roles senior de diseño de producto.'],
@@ -406,8 +406,9 @@ function sBlock(b,p,ids){
           <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
         <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
-        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span></button>`).join('')}</div>
+    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
+        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
+        <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}</div></div>`;
@@ -450,6 +451,7 @@ function storyCaseHTML(p){
 function initStory(sheet){
   const once=(el,fn)=>{ if(reduce||!('IntersectionObserver' in window)){fn(true);return} const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){fn(false);o.disconnect()} },{root:sheet,threshold:.45}); o.observe(el); };
   const ch=sheet.querySelector('.s30 .chain'); ch&&once(ch,()=>ch.classList.add('on'));
+  sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(!instant) q.classList.add('nudge'); }));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
   sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
     const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
@@ -472,7 +474,7 @@ document.addEventListener('click',e=>{
   const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
   const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
-  res.hidden=false; v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
+  res.hidden=false; const lk=qz.querySelector('.qz-lock'); if(lk) lk.remove(); v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
   requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
 });
 document.addEventListener('keydown',e=>{ const t=e.target.closest&&e.target.closest('.ask [role="tab"]'); if(!t) return;
