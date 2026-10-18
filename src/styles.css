@@ -1551,3 +1551,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-goal b{display:block;font-size:.82rem;margin-bottom:4px}
 .s-goal p{font-family:var(--body);font-size:1.02rem;line-height:1.5}
 .s-goal .g-sub{margin-top:4px;font-weight:700}
+.s-goal.main{background:var(--butter)}
