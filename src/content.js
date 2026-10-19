@@ -125,7 +125,7 @@ const PROJECTS = [
   story:1,
   sum:[{k:['The challenge','El reto'], tone:'bad', t:['A benefit moving almost €1M a year, but used by fewer than 2% of eligible employees.','Un beneficio que movía casi 1M € al año, pero que usaba menos del 2 % de los empleados con acceso.']},
        {k:['My contribution','Mi aportación'], t:['I turned a required migration into three experiments, one per funnel step, with a single developer.','Convertí una migración obligatoria en tres experimentos, uno por paso del funnel, con un solo desarrollador.']},
-       {k:['Impact','Impacto'], tone:'good', big:['19.4% → 32.2%','19,4% → 32,2%'], bigl:['From 19.4% to 32.2%','Del 19,4% al 32,2%'], t:['Purchase success in experiment 3','Compras con éxito en el experimento 3'], pp:['+12.8 pp','+12,8 pp']}],
+       {k:['Impact','Impacto'], tone:'good', big:['19.4% → 32.2%','19,4% → 32,2%'], bigl:['From 19.4% to 32.2%','Del 19,4% al 32,2%'], t:['Completed purchases in experiment 3','Compras completadas en el experimento 3'], pp:['+12.8 pp','+12,8 pp']}],
   nums:[{v:'32.2%',t:['purchase success, from 19.4%','compras con éxito, desde 19,4%']},{v:'+€98.8K',t:['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']},{v:'3',t:['chained A/B experiments, 50/50, in Amplitude','experimentos A/B encadenados, 50/50, en Amplitude']}],
   blocks:[
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A profitable benefit almost no one used','Un beneficio rentable que casi nadie usaba']},
