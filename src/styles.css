@@ -1774,3 +1774,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .story .quiz .qz-lock i{background:var(--surface)}
 .qz-v{font-weight:700;font-size:1.02rem}
 .ask-note{font-size:.85rem;color:var(--muted);margin-top:12px;max-width:70ch}
+.imp-more{margin:12px 0 0;text-align:right;font-size:.88rem}.imp-more a{font-weight:700;color:var(--ink)}
