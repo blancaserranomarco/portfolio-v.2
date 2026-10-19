@@ -1818,7 +1818,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-list b{display:block}
 /* Funnel trip · real flow */
 .trip .jv-top{margin-bottom:4px}
-.tf-row{display:grid;grid-template-rows:auto auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:14px 16px;margin-top:14px}
+.tf-row{display:grid;grid-template-rows:auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:14px 16px;margin-top:14px}
 .tf-b{align-self:end}
 .tf-note{position:relative;padding:0 0 12px 12px;margin-bottom:8px;border-left:3px solid var(--t);font-size:.8rem;line-height:1.35;color:var(--ink)}
 .tf-note::after{content:"";position:absolute;left:-7px;bottom:-4px;width:11px;height:11px;border-radius:50%;background:var(--t);border:2px solid #1B1724}

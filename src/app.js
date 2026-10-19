@@ -418,9 +418,8 @@ function tripHTML(b){
   const list=`<ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>`;
   const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
   if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
-  const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
-    return `<div class="tf-b">${bb?`<div class="tf-note" style="--t:var(--${bb.tone})"><small><i aria-hidden="true">${k+1}</i>${X(bb.tag)}</small><span>${X(bb.h)}</span></div>`:''}</div>
-      <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done"><img src="${b.done.img}" alt="" loading="lazy" decoding="async"><div class="tf-ov" role="img" aria-label="${X(b.done.alt)}"><div class="tf-mod"><span class="tf-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${X(b.done.h)}</b><small>${X(b.done.t)}</small><i aria-hidden="true">${X(b.done.btn)}</i></div></div></div>`}
+  const flow=b.steps.map(([l,v],i)=>{ const img=b.flow[i];
+    return `<div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done"><img src="${b.done.img}" alt="" loading="lazy" decoding="async"><div class="tf-ov" role="img" aria-label="${X(b.done.alt)}"><div class="tf-mod"><span class="tf-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${X(b.done.h)}</b><small>${X(b.done.t)}</small><i aria-hidden="true">${X(b.done.btn)}</i></div></div></div>`}
       <span class="tf-l">${esc(tr(l).replace('\n',' '))} <b>·&nbsp;${Math.round(v/tot*100)}${S.lang==='es'?'&nbsp;%':'%'}</b></span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
       <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
