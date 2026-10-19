@@ -1,6 +1,6 @@
 # Instrucciones para Claude
 
-Lee primero `README.md`: dice dónde vive cada cosa, cómo publicar y qué está pendiente.
+Orden de lectura: este archivo → `README.md` (dónde vive cada cosa, cómo publicar, qué está pendiente) → `PLANTILLA-CASO.md` (cómo se estructura un caso) → `casos/` (material de partida de cada caso, solo en el Escritorio).
 
 ## Cómo trabajar con Blanca
 - Habla en español.
@@ -12,6 +12,7 @@ Lee primero `README.md`: dice dónde vive cada cosa, cómo publicar y qué está
 ## Reglas técnicas
 - Editar solo `src/` y `api/`; `index.html` y `dist/` se generan con `python3 build.py`.
 - Cada cambio se publica en los dos sitios: artifact y GitHub/Vercel. Y se guarda en el Escritorio (`portfolio-v3`).
+- Material nuevo de un caso → `casos/`; bocetos → `recursos/bocetos/`. Nada suelto en la raíz.
 - Nunca pedir, escribir ni guardar tokens o claves (`NOTION_TOKEN`, `RESEND_API_KEY`). Las variables las pone Blanca en Vercel.
 
 ## Mantener la documentación (obligatorio)

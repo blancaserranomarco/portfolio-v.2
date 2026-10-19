@@ -6,7 +6,7 @@ Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutal
 
 | Qué | Dónde |
 |---|---|
-| Copia de trabajo | Escritorio → `portfolio-v3` (incluye `brief/` y `propuestas/`, que no se suben a GitHub) |
+| Copia de trabajo | Escritorio → `portfolio-v3` (incluye `contexto/`, `casos/` y `recursos/`, que no se suben a GitHub) |
 | Código publicado | GitHub `blancaserranomarco/portfolio-v.2`, rama `main` |
 | Web pública | Vercel, proyecto `blanca-portfolio` → https://blancaserrano-portfolio.vercel.app. Cada push a `main` se publica solo |
 | Versión en Claude | Artifact https://claude.ai/artifact/TavqvXqGqCCcaePKcEo2xX |
@@ -14,19 +14,27 @@ Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutal
 
 ## Estructura
 
+Orden de lectura para una IA o una persona nueva: `CLAUDE.md` → `README.md` → `PLANTILLA-CASO.md` → `casos/`.
+
 ```
-src/            código fuente (lo único que se edita)
-  content.js    textos de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
-  app.js        interfaz, textos UI, mini test, carpetas de trabajo, feedback
-  styles.css    estilos
-  head.html, shell.html
-api/feedback.js función de Vercel: guarda el feedback en Notion (y email si se configura)
-api/event.js    función de Vercel: cuenta qué pregunta de «Pregúntame» se abre en cada caso (base «Preguntas más abiertas» en Notion)
-assets/         imágenes y vídeos de los casos (sacados del export de Notion; solo los que documentan, sin relleno)
-build.py        genera index.html (web) y dist/portfolio.html (artifact)
+CLAUDE.md          instrucciones de trabajo (lo primero que se lee)
+README.md          contexto: dónde vive cada cosa, cómo publicar, pendiente
 PLANTILLA-CASO.md  estructura y reglas de los casos (TaxDown es el de referencia)
-brief/          (solo local) histórico del descubrimiento inicial
-propuestas/     (solo local) bocetos de diseño ya decididos
+
+src/               código fuente (lo único que se edita)
+  content.js       textos publicados de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
+  app.js           interfaz, textos UI, mini test, carpetas de trabajo, feedback
+  styles.css       estilos
+  head.html, shell.html
+api/feedback.js    función de Vercel: guarda el feedback en Notion (y email si se configura)
+api/event.js       función de Vercel: cuenta qué pregunta de «Pregúntame» se abre en cada caso (base «Preguntas más abiertas» en Notion)
+assets/            imágenes y vídeos que usa la web
+build.py           genera index.html (web) y dist/portfolio.html (artifact)
+
+Solo en el Escritorio (no se suben a GitHub):
+contexto/          descubrimiento inicial: auditoría, inventario de proyectos, concepto, preguntas
+casos/             material de partida de cada caso (notas, datos); el texto publicado está en src/content.js
+recursos/          bocetos ya decididos (bocetos/) y export original de Notion (notion-export/)
 ```
 
 ## Cómo hacer un cambio
