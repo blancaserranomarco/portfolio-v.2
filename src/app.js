@@ -417,7 +417,7 @@ function tripHTML(b){
   const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
   if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
   const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
-    return `<div class="tf-b">${bb?`<div class="tf-bub" style="background:var(--${bb.tone})"><small>${k+1} · ${X(bb.tag)}</small><b>${X(bb.h)}</b></div>`:''}</div>
+    return `<div class="tf-b">${bb?`<div class="tf-note" style="--t:var(--${bb.tone})"><small><i aria-hidden="true">${k+1}</i>${X(bb.tag)}</small><span>${X(bb.h)}</span></div>`:''}</div>
       <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done" aria-hidden="true">✓</div>`}
       <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>

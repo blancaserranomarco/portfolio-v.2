@@ -1829,11 +1829,11 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .trip .jv-top{margin-bottom:4px}
 .tf-row{display:grid;grid-template-rows:auto auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:14px 16px;margin-top:14px}
 .tf-b{align-self:end}
-.tf-bub{position:relative;border:2px solid #1B1724;border-radius:14px;padding:10px 12px;margin-bottom:12px;color:#1B1724}
-.tf-bub::after{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:14px;background:inherit;border-right:2px solid #1B1724;border-bottom:2px solid #1B1724;transform:translateX(-50%) rotate(45deg)}
-.tf-bub small{display:block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.tf-bub b{display:block;font-family:var(--display);font-weight:500;font-size:1rem;line-height:1.2;margin:3px 0}
-.tf-bub span{display:block;font-size:.76rem;line-height:1.3;color:#3A3448}
+.tf-note{position:relative;padding:0 0 12px 12px;margin-bottom:8px;border-left:3px solid var(--t);font-size:.8rem;line-height:1.35;color:var(--ink)}
+.tf-note::after{content:"";position:absolute;left:-7px;bottom:-4px;width:11px;height:11px;border-radius:50%;background:var(--t);border:2px solid #1B1724}
+.tf-note small{display:flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.tf-note small i{font-style:normal;width:18px;height:18px;border-radius:50%;background:var(--t);border:1.5px solid #1B1724;color:#1B1724;display:grid;place-items:center;font-size:.68rem;letter-spacing:0}
+.tf-note span{display:block}
 .tf-s{display:flex;flex-direction:column;align-items:center;text-align:center}
 .tf-s img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--soft);cursor:zoom-in}
 .tf-done{width:100%;aspect-ratio:400/821;border-radius:14px;border:1px dashed var(--soft);display:grid;place-items:center;font-size:2.4rem;color:var(--ink);background:color-mix(in srgb,var(--sky) 45%,var(--surface))}
@@ -2979,7 +2979,7 @@ function tripHTML(b){
   const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
   if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
   const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
-    return `<div class="tf-b">${bb?`<div class="tf-bub" style="background:var(--${bb.tone})"><small>${k+1} · ${X(bb.tag)}</small><b>${X(bb.h)}</b></div>`:''}</div>
+    return `<div class="tf-b">${bb?`<div class="tf-note" style="--t:var(--${bb.tone})"><small><i aria-hidden="true">${k+1}</i>${X(bb.tag)}</small><span>${X(bb.h)}</span></div>`:''}</div>
       <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done" aria-hidden="true">✓</div>`}
       <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
