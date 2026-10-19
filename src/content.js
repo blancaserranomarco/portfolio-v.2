@@ -225,7 +225,7 @@ const PROJECTS = [
                  ['Explore relevant offers for different user profiles.','Explorar ofertas relevantes para distintos perfiles de usuario.'],
                  ['Add a satisfaction measure to complement the conversion data.','Incorporar una medida de satisfacción para complementar los datos de conversión.']]},
     {k:'impact', from:[['Product','Producto'],['+12.8 pp','+12,8 pp'],['purchase success in experiment 3 (+65.6% relative)','compra con éxito en el experimento 3 (+65,6 % relativo)']],
-      to:[['Business (estimate)','Negocio (estimación)'],['≈ +€98.8K','≈ +98.800 €'],['more GMV a year, conservative','más de GMV al año, conservador']], more:'impact'}
+      to:[['Business (estimate)','Negocio (estimación)'],['≈ +€98.8K','≈ +98.800 €'],['Conservative projection of purchase volume, not Cobee revenue.','Proyección conservadora del volumen de compras, no ingresos de Cobee.']], more:'impact'}
   ],
   ask:[
     {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['19.4% → 32.2%','19,4% → 32,2%'],['purchase success, experiment 3, significant','compra con éxito, experimento 3, significativo']],[['+13.19%','+13,19%'],['purchases with the information tab, 90% confidence','compras con la pestaña de información, 90 % de confianza']],[['+7.54%','+7,54%'],['entries to the amount step with the new button','entradas al importe con el nuevo botón']],[['≈ +€98.8K','≈ +98.800 €'],['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']]],
