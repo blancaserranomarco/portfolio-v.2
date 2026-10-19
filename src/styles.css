@@ -1690,3 +1690,9 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sum-pp{color:#7fe0b2} }
 :root[data-theme="dark"] .sum-pp{color:#7fe0b2}
 .sc-intro{font-size:.98rem;color:var(--muted);margin:-6px 0 16px;max-width:66ch}
+
+/* Result block as plain text section: white stat boxes, method note as a small footnote */
+.s-res{display:grid;gap:14px}
+.s-res .sc-split{margin-top:4px}
+.s-res .sc-split > div{background:var(--surface)}
+.s-foot{font-size:.82rem;color:var(--muted);margin-top:-2px}
