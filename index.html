@@ -1810,6 +1810,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-base{stroke:var(--ink);stroke-width:2}
 .tr-ln{stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:0}
 .tr-dot{fill:var(--surface);stroke:var(--ink);stroke-width:3}
+.tr-drop{font-family:var(--body);font-size:12px;font-weight:700;fill:#C4321F;text-anchor:middle}
 .tr-bub path{stroke:#1B1724;stroke-width:2;stroke-linejoin:round}
 .tr-lead{stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:0 7}
 .tr-bt{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.05em;fill:#1B1724;text-transform:uppercase}
@@ -2979,6 +2980,8 @@ function tripHTML(b){
         +tr(l).split('\n').map((t,j)=>`<text class="tr-lab" x="${x}" y="${base+(D?28:20)+j*15}"${D?'':' style="font-size:11px"'}>${esc(t)}</text>`).join(''); }).join('');
     o+=`<line class="tr-base" x1="${D?30:4}" y1="${base}" x2="${D?870:356}" y2="${base}"/>`;
     o+=pts.slice(1).map((q,i)=>`<line class="tr-ln" data-i="${i}" x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[i][0]}" y2="${pts[i][1]}"/>`).join('');
+    o+=pts.slice(1).map((q,i)=>{ const d=Math.round(b.steps[i][1]/tot*100)-Math.round(b.steps[i+1][1]/tot*100), mx=(pts[i][0]+q[0])/2, my=(pts[i][1]+q[1])/2;
+      return `<text class="tr-fx tr-drop" data-at="${i+1}" x="${mx}" y="${D?my+26:my-8}"${D?'':' style="font-size:9px"'}>−${d} pp</text>`; }).join('');
     o+=pts.map(([x,y],i)=>`<circle class="tr-dot tr-fx" data-at="${i}" cx="${x}" cy="${y}" r="${D?7:5}"/>`).join('');
     o+=b.bubbles.map((bb,k)=>{ const [px,py]=pts[bb.at];
       return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},84,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+72}">${X(bb.h)}</text></g>`
