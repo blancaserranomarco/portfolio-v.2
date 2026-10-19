@@ -9,7 +9,7 @@ Leyenda: **Fija** = va en todos los casos · **Si existe** = solo si hay materia
 | Pieza | Qué lleva | Ejemplo TaxDown |
 |---|---|---|
 | Tags | Tipo de trabajo y modelo | A/B testing · B2B |
-| Título | El insight en pocas palabras, con punto final | Mismo descuento, mejor momento. |
+| Título | El mismo de su tarjeta en la portada (`SELCARD.h`); sale de ahí automáticamente | Mismo descuento, mejor momento: convertir a usuarios de partners |
 | Entradilla | Una frase: qué tipo de trabajo y para qué | Una serie de iniciativas basadas en experimentos rápidos para… |
 | Datos | 3 columnas bajo una sola línea: **Mi rol · Periodo · Alcance**. Primera línea en negrita, segunda en gris | Senior Product Designer / Growth B2B |
 | 3 tarjetas | **El reto** (rosa) · **Mi aportación** (amarillo) · **Impacto** (verde). Blancas, borde negro, color solo en la etiqueta | Impacto: 14,5% → 21,5% · +7 pp |
@@ -117,4 +117,4 @@ Apuntarla durante el proyecto.
 
 ## Cómo se monta en `src/content.js`
 
-Un caso con `story:1` usa la cabecera (`h1`, `lede`, `facts`, `sum`), los bloques de `blocks` y `ask`. Bloques disponibles: `chap`, `p`, `h`, `goal` (con `main` o `q` para la pregunta), `journey`, `img`, `split` (resultado con `h`, `intro`, `meta`), `dots`, `lead`, `cmp`, `quiz`, `next`, `impact` (con `more` para enlazar al cálculo). TaxDown es el ejemplo completo.
+Un caso con `story:1` usa la cabecera (título de `SELCARD`, `lede`, `facts`, `sum`), los bloques de `blocks` y `ask`. Bloques disponibles: `chap`, `p`, `h`, `goal` (con `main` o `q` para la pregunta), `journey`, `img`, `split` (resultado con `h`, `intro`, `meta`), `dots`, `lead`, `cmp`, `quiz`, `next`, `impact` (con `more` para enlazar al cálculo), `trip` (recorrido del funnel con fricciones y vista «Flujo real»), `slide` (deslizador antes/después), `goal` con `note` (callout), `season` (franja del año) y `combo` (explorador de combinaciones). TaxDown y Descuentos son los ejemplos completos.

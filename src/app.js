@@ -384,7 +384,7 @@ function caseHTML(p){
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in" style="--tone:var(${p.tone})">
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}
-        <h1 id="case-title">${X(p.title)}</h1><p class="challenge">${X(p.challenge)}</p>
+        <h1 id="case-title">${caseTitle(p)}</h1><p class="challenge">${X(p.challenge)}</p>
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl></header>
       <div class="bignums">${p.nums.map(n=>`<div><strong>${esc(fmt(n.v))}</strong><span>${X(n.t)}</span></div>`).join('')}</div>
       <div class="hl-big"><b>${X(p.hl.label)}</b>${X(p.hl.text)}</div>
@@ -454,6 +454,8 @@ function tripRun(sv,instant){
 }
 /* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
+// Case title = the title of its card on the home page
+function caseTitle(p){ const c=SELCARD[p.id]; return c?esc(tr(c.h).join(' ')):X(p.title); }
 function sBlock(b,p,ids){
   switch(b.k){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
@@ -572,7 +574,7 @@ function storyCaseHTML(p){
   return `<div class="sheet-bar"><button class="icon-btn" data-act="close" aria-label="${u('close')}">${icon.x}</button><span class="meta">${p.company}, ${p.year} · ${X(p.short)}</span></div>
     <div class="case-wrap"><nav class="sec-nav" aria-label="${u('jump')}">${secs.map(([id,t,sn],k)=>`<a href="#${id}" data-jump="${id}" class="${k===0?'on':''}"><i aria-hidden="true"></i><span class="sec-pop"><b>${esc(t)}</b>${sn?`<small>${esc(cut(sn))}</small>`:''}</span></a>`).join('')}</nav>
     <article class="sheet-in story" style="--tone:var(${p.tone})">
-      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
+      <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${caseTitle(p)}</h1>
         ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).split('\n').map((l,j)=>`<span class="${j?'f2':'f1'}">${l}</span>`).join('')}</dd></div>`).join('')}</dl></header>
       <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`<b class="sum-pp">${X(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
