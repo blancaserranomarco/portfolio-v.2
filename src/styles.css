@@ -1874,3 +1874,5 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sl-hint{margin:0 0 16px;text-align:center;font-size:.86rem;color:var(--muted)}
 .sl-hint span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);color:var(--ink);font-size:.7rem;margin-right:4px}
 .ask-after{margin:16px 0 6px}
+.s-goal.note{background:var(--surface);color:var(--ink);border:1px solid var(--soft);border-left:4px solid var(--lilac);box-shadow:none}
+.s-goal.note p{font-family:var(--body);font-size:1rem;line-height:1.55}
