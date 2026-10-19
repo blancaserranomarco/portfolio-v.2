@@ -1327,6 +1327,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-fig img{display:block;width:100%;height:auto;cursor:zoom-in}
 .scene figcaption,.s-fig figcaption{font-size:.86rem;color:var(--muted);margin-top:14px}
 .s-fig figcaption{margin:0;padding:10px 14px;border-top:1px solid var(--soft)}
+.story .fig{margin:22px 0 4px;border:1px solid var(--soft);box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 6%,transparent)}
+.story .fig figcaption{border-top:1px solid var(--soft)}
 .sc-row{display:grid;grid-template-columns:150px 1fr 60px;gap:12px;align-items:center;margin:10px 0}
 .sc-row i{height:14px;border:1px solid var(--soft);border-radius:999px;overflow:hidden;background:var(--paper)}
 .sc-row em{display:block;height:100%;width:0;background:var(--sky);transition:width 1s cubic-bezier(.2,.7,.2,1)}
@@ -1929,73 +1931,122 @@ const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers t
   ['card',['Plan','Plan'],['Buys the plan to file the return','Compra el plan para presentar la declaración']]];
 const PROJECTS = [
 {
-  id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'+65.6%', t:['purchase success','compras con éxito']}, base:.6, recruiter:1,
+  id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'32.2%', t:['purchase success, from 19.4%','compras con éxito, desde 19,4%']}, base:.6, recruiter:1,
   w:{experimentation:3, systems:1, complex:1},
   tags:['abtest','b2c'],
   short:['Discount experiments','Experimentos en Descuentos'],
-  title:['Turning a design system migration into three growth experiments','Convertir una migración de design system en tres experimentos de growth'],
-  card:['Three sequential A/B tests, run with one developer, raised purchase success by 65.6%.','Tres A/B tests secuenciales, con un solo desarrollador, que subieron las compras con éxito un 65,6%.'],
-  hl:{label:['The moment it clicked','El momento clave'],
-      text:['Test 3 changed two screens: clearer amount instructions and a security message at payment. Completed purchases went from 19.4% to 32.2% of people who started.','El test 3 cambió dos pantallas: instrucciones claras en el importe y un mensaje de seguridad en el pago. Las compras completadas pasaron del 19,4% al 32,2% de quienes empezaban.']},
+  title:['The friction was two steps further down: three experiments in Discounts','La fricción estaba dos pasos más abajo: tres experimentos en Descuentos'],
+  card:['Three chained experiments, run with one developer during a design system migration, took purchase success from 19.4% to 32.2%.','Tres experimentos encadenados, con un solo desarrollador y en plena migración al design system, llevaron las compras con éxito del 19,4% al 32,2%.'],
+  hl:{label:['The finding','El hallazgo'],
+      text:['Getting more people into the flow didn’t sell more. The real friction was at the amount and payment steps: clear instructions and a security message took purchase success from 19.4% to 32.2%.','Meter a más gente en el flujo no vendía más. La fricción real estaba en el importe y el pago: instrucciones claras y un mensaje de seguridad llevaron las compras con éxito del 19,4% al 32,2%.']},
   challenge:['Discounts moved almost €1M in GMV a year across 846 companies, yet fewer than 2% of eligible employees used it. The flow also had to move from legacy components to our new design system.',
              'Descuentos movía casi 1M € de GMV al año en 846 empresas, pero menos del 2% de los empleados con acceso lo usaba. Además, el flujo tenía que pasar de componentes legacy al nuevo design system.'],
-  facts:[[['My role','Mi rol'],['Design-led initiative, I proposed and led it','Iniciativa de diseño, la propuse y lideré']],[['Team','Equipo'],['1 designer + 1 developer','1 diseñadora + 1 desarrollador']],[['Surface','Superficie'],['Employee app, B2C','App del empleado, B2C']],[['When','Cuándo'],['April – July 2024','Abril – julio 2024']]],
-  nums:[{v:'+65.6%',t:['purchase success, 19.4% → 32.2%','compras con éxito, 19,4% → 32,2%']},{v:'+€98.8K',t:['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']},{v:'3',t:['sequential A/B tests, 50/50, in Amplitude','A/B tests secuenciales, 50/50, en Amplitude']}],
+  h1:['The friction was two steps further down.','La fricción estaba dos pasos más abajo.'],
+  lede:['Three chained experiments, run during the migration to the new design system, to get more employees buying with their Discounts benefit.','Tres experimentos encadenados, aprovechando la migración al nuevo design system, para que más empleados compraran con su beneficio de Descuentos.'],
+  facts:[[['My role','Mi rol'],['Senior Product Designer\nB2B2C Benefits vertical','Senior Product Designer\nVertical de Beneficios B2B2C']],[['Period','Periodo'],['April – July 2024\n3 experiments in 4 months','Abril – julio de 2024\n3 experimentos en 4 meses']],[['Scope','Alcance'],['Employee app\nDetail, amount and payment','App del empleado\nDetalle, importe y pago']]],
+  story:1,
+  sum:[{k:['The challenge','El reto'], tone:'bad', t:['A benefit moving almost €1M a year, but used by fewer than 2% of eligible employees.','Un beneficio que movía casi 1M € al año, pero que usaba menos del 2 % de los empleados con acceso.']},
+       {k:['My contribution','Mi aportación'], t:['I turned a required migration into three experiments, one per funnel step, with a single developer.','Convertí una migración obligatoria en tres experimentos, uno por paso del funnel, con un solo desarrollador.']},
+       {k:['Impact','Impacto'], tone:'good', big:['19.4% → 32.2%','19,4% → 32,2%'], bigl:['From 19.4% to 32.2%','Del 19,4% al 32,2%'], t:['Purchase success in experiment 3','Compras con éxito en el experimento 3'], pp:['+12.8 pp','+12,8 pp']}],
+  nums:[{v:'32.2%',t:['purchase success, from 19.4%','compras con éxito, desde 19,4%']},{v:'+€98.8K',t:['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']},{v:'3',t:['chained A/B experiments, 50/50, in Amplitude','experimentos A/B encadenados, 50/50, en Amplitude']}],
   blocks:[
-    {k:'h', t:['Context','Contexto']},
-    {k:'p', t:['The Discount benefit already generated substantial GMV but reached very few employees, across companies of every size. The legacy interface had three clear frictions: confusing purchase steps, low perceived security when adding a card, and no explanation of how the benefit worked.',
-               'El beneficio de Descuentos ya generaba un GMV importante pero llegaba a muy pocos empleados, en empresas de todos los tamaños. La interfaz legacy tenía tres fricciones claras: pasos de compra confusos, poca sensación de seguridad al añadir la tarjeta y ninguna explicación de cómo funcionaba el beneficio.']},
-    {k:'call', t:['The migration was going to happen anyway. I saw a chance to improve the experience as we went: ship each step as a small, low-risk test, measure it, and let each result decide the next change.',
-                  'La migración iba a ocurrir igualmente. Vi la oportunidad de mejorar la experiencia por el camino: lanzar cada paso como un test pequeño y de bajo riesgo, medirlo y dejar que cada resultado decidiera el siguiente cambio.']},
-    {k:'h', t:['Hypotheses','Hipótesis']},
-    {k:'table', head:[['Goal','Objetivo'],['Hypothesis','Hipótesis'],['Success metric','Métrica de éxito']], rows:[
-      [['Explain how the benefit works','Explicar cómo funciona el beneficio'],['Clarity drives adoption','La claridad impulsa la adopción'],['More users starting the purchase','Más usuarios que empiezan la compra']],
-      [['Simplify the purchase flow','Simplificar el flujo de compra'],['Clarity drives adoption','La claridad impulsa la adopción'],['Conversion from amount to card entry','Conversión de importe a tarjeta']],
-      [['Improve trust at checkout','Dar confianza en el pago'],['Trust increases completion','La confianza aumenta la compra'],['Users completing payment','Usuarios que completan el pago']]
-    ], note:['Business metric: GMV, to measure the direct impact on revenue.','Métrica de negocio: GMV, para medir el impacto directo en ingresos.']},
-    {k:'h', t:['Where people dropped','Dónde se caía la gente']},
-    {k:'abc', unit:'%', rows:[[['Amount selection','Selección de importe'],100],[['Checkout and card page','Pago y tarjeta'],55.3],[['Confirm purchase button','Botón de confirmar'],31.4],[['Purchase confirmed','Compra confirmada'],30]],
-      cap:['Funnel before the tests: of 850 people who started, 255 finished. Almost half were lost between choosing an amount and reaching checkout.','Funnel antes de los tests: de 850 personas que empezaron, terminaron 255. Casi la mitad se perdía entre elegir importe y llegar al pago.']},
-    {k:'h', t:['Three experiments, one funnel step each','Tres experimentos, uno por paso del funnel']},
-    {k:'exp', items:[
-      {tag:['Test 1 · April 2024 · 19 days','Test 1 · abril 2024 · 19 días'], h:['Make the value clearer','Hacer el valor más claro'],
-       hyp:['A lower-commitment button, “Continue” instead of “Request discount coupon”, and a more visible discount will get more people to start.','Un botón con menos compromiso, “Continuar” en vez de “Solicitar cupón”, y un descuento más visible harán que más gente empiece.'],
-       res:['+7.54% moved to the amount screen, statistically significant. Purchases didn’t change (167 vs 147, not significant).','+7,54% avanzó a la pantalla de importe, con significancia. Las compras no cambiaron (167 vs 147, sin significancia).'],
-       learn:['A clearer entry brings people in but doesn’t make them buyers. The bottleneck was further down.','Una entrada más clara mete a gente en el flujo, pero no la convierte en compradora. El cuello de botella estaba más abajo.']},
-      {tag:['Test 2 · May 2024 · 22 days','Test 2 · mayo 2024 · 22 días'], h:['Explain how it works, without cluttering','Explicar cómo funciona, sin saturar'],
-       hyp:['Each coupon has different conditions. A separate “Information” tab will help the people who need it without slowing down those who don’t.','Cada cupón tiene condiciones distintas. Una pestaña aparte de “Información” ayudará a quien la necesite sin frenar a quien no.'],
-       res:['37.7% opened the tab. Purchases rose 13.19% with 90% confidence, while entries to the flow barely moved (+0.71%).','El 37,7% abrió la pestaña. Las compras subieron un 13,19% con un 90% de confianza, mientras que las entradas al flujo apenas cambiaron (+0,71%).'],
-       learn:['People look for an explanation only when they need it, and once they understand, they buy.','La gente busca la explicación solo cuando la necesita, y cuando entiende, compra.']},
-      {tag:['Test 3 · July 2024 · 7 days','Test 3 · julio 2024 · 7 días'], h:['Build trust at checkout','Dar confianza en el pago'],
-       hyp:['People didn’t know whether to type what they pay or what they receive, the screen was all grey with a disabled button, and nothing reassured them when entering card details.','La gente no sabía si escribir lo que paga o lo que recibe, la pantalla era toda gris con un botón deshabilitado y nada les tranquilizaba al meter la tarjeta.'],
-       res:['Clear instructions, a price breakdown and a security message. Continuing after the amount: 45.3% → 63.3%. Entering card details: 34.0% → 42.1%. Purchase success: +65.62%.','Instrucciones claras, desglose de precio y mensaje de seguridad. Continuar tras el importe: 45,3% → 63,3%. Introducir tarjeta: 34,0% → 42,1%. Compras con éxito: +65,62%.'],
-       learn:['Clarity and trust at the amount and payment steps had the biggest impact of the three tests.','La claridad y la confianza en el importe y el pago tuvieron el mayor impacto de los tres tests.']}
-    ]},
-    {k:'ba', n:2, items:[['assets/discount-t1-before.webp',['Before · “Request coupon”','Antes · “Solicitar cupón”']],['assets/discount-t1-after.webp',['After · “Continue”','Después · “Continuar”']]],
-      cap:['Test 1: a lower-commitment button and a more visible discount on the coupon detail.','Test 1: un botón con menos compromiso y un descuento más visible en el detalle del cupón.']},
+    {k:'chap', n:['1 · The context','1 · El contexto'], t:['A profitable benefit almost no one used','Un beneficio rentable que casi nadie usaba']},
+    {k:'p', t:['Discounts let employees of Cobee’s client companies buy brand coupons at a discount from the app. It moved almost €1M in GMV a year across 846 companies, but fewer than 2% of eligible employees used it, in companies of every size.',
+               'Descuentos permitía a los empleados de las empresas clientes de Cobee comprar cupones de marcas con descuento desde la app. Movía casi 1M € de GMV al año en 846 empresas, pero menos del 2 % de los empleados con acceso lo usaba, en empresas de todos los tamaños.']},
+    {k:'p', t:['On top of that, the flow had to move from legacy components to the new design system. The migration was going to happen anyway, and I saw a chance to improve the experience along the way.',
+               'Además, el flujo tenía que pasar de componentes legacy al nuevo design system. La migración iba a ocurrir igualmente, y vi la oportunidad de mejorar la experiencia por el camino.']},
+    {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Increase the share of employees who completed a purchase in Discounts, and with it, GMV.','Aumentar el porcentaje de empleados que completaban una compra en Descuentos y, con ello, el GMV.']},
+    {k:'bars', label:['Where people dropped before the experiments','Dónde se caía la gente antes de los experimentos'], rows:[[['Choose amount','Elegir importe'],100],[['Payment and card','Pago y tarjeta'],55.3],[['Confirm button','Botón de confirmar'],31.4],[['Purchase confirmed','Compra confirmada'],30,'mint']],
+      cap:['Of 850 people who started a purchase, 255 finished. Almost half were lost between choosing the amount and reaching payment.','De 850 personas que empezaron una compra, terminaron 255. Casi la mitad se perdía entre elegir el importe y llegar al pago.']},
+    {k:'p', t:['Session recordings and qualitative feedback pointed to three frictions: confusing purchase steps, little sense of security when adding a card, and little clarity about how the benefit worked.',
+               'Las grabaciones de sesión y el feedback cualitativo apuntaban a tres fricciones: pasos de compra confusos, poca sensación de seguridad al añadir la tarjeta y poca claridad sobre cómo funcionaba el beneficio.']},
+    {k:'p', t:['I proposed migrating the flow step by step and launching each change as a 50/50 A/B experiment in Amplitude: measure, learn, and let each result decide the next change.',
+               'Propuse migrar el flujo paso a paso y lanzar cada cambio como un experimento A/B 50/50 en Amplitude: medir, aprender y dejar que cada resultado decidiera el siguiente cambio.']},
+
+    {k:'chap', n:['2 · Experiment 1','2 · Experimento 1'], t:['More people came in, but no more bought','Más gente entraba, pero no compraba más']},
+    {k:'p', t:['Our hypothesis was that the “Request discount coupon” button sounded like a commitment too early, on the first screen of the flow. A button like “Continue” and a more visible discount would encourage more people to start.',
+               'Nuestra hipótesis era que el botón «Solicitar cupón de descuento» sonaba a compromiso demasiado pronto, en la primera pantalla del flujo. Un botón como «Continuar» y un descuento más visible animarían a más gente a empezar.']},
+    {k:'p', t:['**The opportunity:** if more employees started the flow, more of them would get as far as buying.','**La oportunidad:** si más empleados empezaban el flujo, más llegarían a comprar.']},
+    {k:'goal', q:1, label:['The question the experiment had to answer.','La pregunta que debía responder el experimento.'], t:['Would a lower-commitment button and a more visible discount get more employees to start the purchase, and to buy?','¿Un botón con menos compromiso y un descuento más visible conseguirían que más empleados empezaran la compra y compraran más?']},
+    {k:'h', t:['Same layout, less commitment','La misma estructura, menos compromiso']},
+    {k:'p', t:['I rebuilt the detail screen with the new design system, keeping the same structure so as not to change more than needed. I made the discount percentage more prominent and changed the button copy.',
+               'Rehíce la pantalla de detalle con el nuevo design system manteniendo la misma estructura, para no cambiar más de lo necesario. Di más protagonismo al porcentaje de descuento y cambié el texto del botón.']},
+    {k:'ba', n:2, items:[['assets/discount-t1-before.webp',['Before · “Request coupon”','Antes · «Solicitar cupón»']],['assets/discount-t1-after.webp',['After · “Continue”','Después · «Continuar»']]],
+      cap:['Experiment 1: a lower-commitment button and a more visible discount on the coupon detail.','Experimento 1: un botón con menos compromiso y un descuento más visible en el detalle del cupón.']},
+    {k:'split', meta:['11–29 April 2024 · A/B experiment, 50/50 · App users, excluding Cobee employees','11–29 de abril de 2024 · Experimento A/B 50/50 · Usuarios de la app, sin empleados de Cobee'],
+      h:['More entries, same purchases','Más entradas, mismas compras'],
+      intro:['We measured how many people moved from the detail to choosing an amount and, as a secondary metric, purchases.','Medimos cuánta gente pasaba del detalle a elegir el importe y, como métrica secundaria, las compras.'],
+      items:[[['Moving to the amount','Paso al importe'],['+7.54%','+7,54 %'],['Statistically significant.','Estadísticamente significativo.'],'up'],
+             [['Starting point','Punto de partida'],['74.8%','74,8 %'],['already tapped the button before the change.','ya pulsaba el botón antes del cambio.']],
+             [['Purchases','Compras'],['No change','Sin cambios'],['No significant difference.','Sin diferencia significativa.']]]},
+    {k:'p', t:['A clearer entry brought more people into the flow, but didn’t turn them into buyers. I rolled out the new version anyway, as it was already part of the migration, and looked for the blocker further down.',
+               'Una entrada más clara metía a más gente en el flujo, pero no la convertía en compradora. Lancé la nueva versión igualmente, porque ya formaba parte de la migración, y busqué el freno más abajo.']},
+
+    {k:'chap', n:['3 · Experiment 2','3 · Experimento 2'], t:['Explain how it works, only to those who need it','Explicar cómo funciona, solo a quien lo necesita']},
+    {k:'p', t:['Each coupon had different conditions: some could be refunded, others expired, and part of that information wasn’t in the app. Our hypothesis was that many didn’t buy because they didn’t understand how the benefit worked.',
+               'Cada cupón tenía condiciones distintas: algunos se podían devolver, otros caducaban, y parte de esa información no estaba en la app. Nuestra hipótesis era que muchos no compraban porque no entendían cómo funcionaba el beneficio.']},
+    {k:'p', t:['**The opportunity:** if they understood the benefit before starting, more would feel confident enough to buy.','**La oportunidad:** si entendían el beneficio antes de empezar, más se animarían a comprar.']},
+    {k:'goal', q:1, label:['The question the experiment had to answer.','La pregunta que debía responder el experimento.'], t:['Would explaining how the benefit works, without cluttering it for those who already knew, increase purchases?','¿Explicar cómo funciona el beneficio, sin saturar a quien ya lo conocía, aumentaría las compras?']},
+    {k:'p', t:['The most direct option was to add all that information to the discount view, but it cluttered the screen for those who already knew how it worked. Since most people only need to understand it once, I proposed a separate “Information” tab, one tap away, and kept “Discounts” as the main view.',
+               'La opción más directa era añadir toda esa información a la vista del descuento, pero saturaba la pantalla para quien ya sabía cómo funcionaba. Como la mayoría solo necesita entenderlo una vez, propuse una pestaña aparte de «Información», a un toque, y mantuve «Descuentos» como vista principal.']},
     {k:'ba', n:3, items:[['assets/discount-t2-before.webp',['Before · coupons only','Antes · solo cupones']],['assets/discount-t2-after-a.webp',['After · Discounts tab','Después · pestaña Descuentos']],['assets/discount-t2-after-b.webp',['After · Information tab','Después · pestaña Información']]],
-      cap:['Test 2: how the benefit works, in its own tab for whoever needs it.','Test 2: cómo funciona el beneficio, en su propia pestaña para quien lo necesite.']},
+      cap:['Experiment 2: how the benefit works, in its own tab for whoever needs it.','Experimento 2: cómo funciona el beneficio, en su propia pestaña para quien lo necesite.']},
+    {k:'split', meta:['30 April – 21 May 2024 · A/B experiment, 50/50 · 22 days · Excluding Cobee employees','30 de abril – 21 de mayo de 2024 · Experimento A/B 50/50 · 22 días · Sin empleados de Cobee'],
+      h:['Those who understood bought more','Quien entendía, compraba más'],
+      intro:['We measured how many opened the new tab and whether understanding the benefit turned into purchases.','Medimos cuántos abrían la nueva pestaña y si entender el beneficio se traducía en compras.'],
+      items:[[['Opened the tab','Abrieron la pestaña'],['37.7%','37,7 %'],['of users with the new version.','de los usuarios con la nueva versión.']],
+             [['Purchases','Compras'],['+13.19%','+13,19 %'],['With 90% confidence.','Con un 90 % de confianza.'],'up'],
+             [['Entries to the flow','Entradas al flujo'],['+0.71%','+0,71 %'],['Not significant: only those who needed it looked.','Sin significancia: solo la consultaba quien la necesitaba.']]]},
+    {k:'p', t:['Understanding the benefit helped people buy, but most were still dropping off at the amount and payment steps. The next experiment had to go there.',
+               'Entender el beneficio ayudaba a comprar, pero la mayoría seguía cayéndose en el importe y el pago. El siguiente experimento tenía que ir ahí.']},
+
+    {k:'chap', n:['4 · Experiment 3','4 · Experimento 3'], t:['Clarity and trust where people dropped','Claridad y confianza donde se caía la gente']},
+    {k:'p', t:['On the amount screen, people didn’t know whether to type what they’d pay or what they’d receive; everything was grey and the button was disabled. At payment, nothing reassured them when entering their card details. Our hypothesis was that clear instructions and a sense of security at those two steps would reduce drop-off.',
+               'En la pantalla del importe, la gente no sabía si escribir lo que pagaba o lo que recibía; todo era gris y el botón aparecía desactivado. En el pago, nada les tranquilizaba al meter los datos de la tarjeta. Nuestra hipótesis era que instrucciones claras y sensación de seguridad en esos dos pasos reducirían el abandono.']},
+    {k:'p', t:['**The opportunity:** win back part of the half who were lost before reaching payment.','**La oportunidad:** recuperar a parte de la mitad que se perdía antes de llegar al pago.']},
+    {k:'goal', q:1, label:['The question the experiment had to answer.','La pregunta que debía responder el experimento.'], t:['Would clear instructions at the amount step and a security message at payment get more people to complete the purchase?','¿Instrucciones claras en el importe y un mensaje de seguridad en el pago conseguirían que más gente completara la compra?']},
+    {k:'h', t:['What to type, what you’ll pay and why it’s safe','Qué escribir, cuánto pagarás y por qué es seguro']},
+    {k:'p', t:['On the amount screen I added clear instructions and the price breakdown, and removed the disabled button, which isn’t an accessible component either. At payment I kept the final price and the summary visible and added a security message.',
+               'En el importe añadí instrucciones claras y el desglose del precio, y quité el botón desactivado, que además no es un componente accesible. En el pago mantuve visibles el precio final y el resumen, y añadí un mensaje de seguridad.']},
     {k:'ba', n:4, items:[['assets/discount-t3-amount-before.webp',['Before · amount','Antes · importe']],['assets/discount-t3-amount-after.webp',['After · amount','Después · importe']],['assets/discount-t3-pay-before.webp',['Before · payment','Antes · pago']],['assets/discount-t3-pay-after.webp',['After · payment','Después · pago']]],
-      cap:['Test 3, the winning change: what to type and what you’ll pay, and a security message when entering the card.','Test 3, el cambio ganador: qué escribir y cuánto pagarás, y un mensaje de seguridad al meter la tarjeta.']},
-    {k:'img', src:'assets/discount-t3-amplitude.webp', cap:['Test 3 in Amplitude: purchase success went from 19.4% (A) to 32.2% (B).','Test 3 en Amplitude: las compras con éxito pasaron del 19,4% (A) al 32,2% (B).']},
-    {k:'h', t:['Estimating the business impact','Estimar el impacto en negocio']},
-    {k:'table', head:[['Estimated per year','Estimación anual'],['Before','Antes'],['After','Después'],['Change','Cambio']], rows:[
-      [['Purchase success rate','Tasa de compra con éxito'],'27.3%','45.2%','+65.62%'],
-      [['Successful purchases','Compras con éxito'],'1,507','2,495','+988'],
-      [['Annual GMV','GMV anual'],'€150,700','€249,500','+€98,800']
-    ], note:['Same relative uplift applied to a yearly baseline of 5,520 people reaching the amount step and a €100 average purchase. Conservative: traffic during the tests was higher.','Mismo incremento relativo aplicado a una base anual de 5.520 personas que llegan al importe y una compra media de 100 €. Conservador: el tráfico durante los tests fue mayor.']},
-    {k:'p', t:['Every change was first tested with 50% of users, so we only released what had proven to work. All three winning versions were rolled out to 100%, on the new design system.',
-               'Cada cambio se probó primero con el 50% de los usuarios, así que solo lanzamos lo que había demostrado funcionar. Las tres versiones ganadoras se desplegaron al 100%, ya en el nuevo design system.']},
-    {k:'learn', items:[
-      [['Clarity matters at checkout','La claridad importa en el pago'],['Clear instructions, transparent pricing and payment reassurance make the difference between dropping off and buying.','Instrucciones claras, precio transparente y seguridad en el pago marcan la diferencia entre abandonar y comprar.']],
-      [['Entry isn’t conversion','Entrar no es convertir'],['7.5% more people in the flow didn’t add a single significant purchase.','Un 7,5% más de gente en el flujo no añadió ni una compra significativa.']],
-      [['Small tests, lower risk','Tests pequeños, menos riesgo'],['With one developer we tested focused changes, learned fast and only shipped what worked.','Con un desarrollador probamos cambios acotados, aprendimos rápido y solo lanzamos lo que funcionó.']]
-    ]}
+      cap:['Experiment 3: what to type and what you’ll pay, and a security message when entering the card.','Experimento 3: qué escribir y cuánto pagarás, y un mensaje de seguridad al meter la tarjeta.']},
+    {k:'split', meta:['22–29 July 2024 · A/B experiment, 50/50 · 7 days · App version 5.200 or later, excluding demo users','22–29 de julio de 2024 · Experimento A/B 50/50 · 7 días · App 5.200 o posterior, sin usuarios demo'],
+      h:['Purchase success went from 19.4% to 32.2%','Las compras con éxito pasaron del 19,4 % al 32,2 %'],
+      intro:['We measured purchase success and how many people got through each of the two screens we changed.','Medimos las compras con éxito y cuánta gente superaba cada una de las dos pantallas que cambiamos.'],
+      items:[[['Purchase success','Compra con éxito'],['19.4% → 32.2%','19,4 % → 32,2 %'],['+65.6% relative, statistically significant.','+65,6 % relativo, estadísticamente significativo.'],'up'],
+             [['Continuing after the amount','Continuar tras el importe'],['45.3% → 63.3%','45,3 % → 63,3 %'],['The amount step stopped being the big drop.','El importe dejó de ser la gran caída.']],
+             [['Entering card details','Meter la tarjeta'],['34.0% → 42.1%','34,0 % → 42,1 %'],['More people trusted the payment.','Más gente confiaba en el pago.']]]},
+    {k:'img', src:'assets/discount-t3-amplitude.webp', cap:['Experiment 3 in Amplitude: purchase success went from 19.4% (A) to 32.2% (B).','Experimento 3 en Amplitude: las compras con éxito pasaron del 19,4 % (A) al 32,2 % (B).']},
+    {k:'p', t:['This was the change we were looking for: the real friction was at the amount and payment steps, two steps after the entry.',
+               'Era el cambio que buscábamos: la fricción real estaba en el importe y el pago, dos pasos después de la entrada.']},
+
+    {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Leaving the flow better than we found it','Dejar el flujo mejor de lo que lo encontramos']},
+    {k:'p', t:['All three winning versions were rolled out to 100%, already on the new design system. Since every change was first tested with half of the users, we only shipped what had proven to work.',
+               'Las tres versiones ganadoras se desplegaron al 100 %, ya en el nuevo design system. Como cada cambio se probó primero con la mitad de los usuarios, solo lanzamos lo que había demostrado funcionar.']},
+    {k:'next', h:['Next steps','Siguientes pasos'], t:[['Personalise the security message based on user behaviour.','Personalizar el mensaje de seguridad según el comportamiento del usuario.'],
+                 ['Test personalised discount offers.','Probar ofertas de descuento personalizadas.'],
+                 ['Measure satisfaction with the flow before and after (CSAT), to have a baseline for future changes.','Medir la satisfacción con el flujo antes y después (CSAT), para tener una base con la que comparar los siguientes cambios.']]},
+    {k:'impact', from:[['Product','Producto'],['+12.8 pp','+12,8 pp'],['purchase success in experiment 3 (+65.6% relative)','compra con éxito en el experimento 3 (+65,6 % relativo)']],
+      to:[['Business (estimate)','Negocio (estimación)'],['≈ +€98.8K','≈ +98.800 €'],['more GMV a year, conservative','más de GMV al año, conservador']], more:'impact'}
   ],
-  reasons:{experimentation:['Three sequential A/B tests, each shaped by the last, with the business impact calculated.','Tres A/B tests secuenciales, cada uno guiado por el anterior, con el impacto en negocio calculado.'],
+  ask:[
+    {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['19.4% → 32.2%','19,4% → 32,2%'],['purchase success, experiment 3, significant','compra con éxito, experimento 3, significativo']],[['+13.19%','+13,19%'],['purchases with the information tab, 90% confidence','compras con la pestaña de información, 90 % de confianza']],[['+7.54%','+7,54%'],['entries to the amount step with the new button','entradas al importe con el nuevo botón']],[['≈ +€98.8K','≈ +98.800 €'],['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']]],
+      note:['Estimated figure. How it’s calculated: we applied the same relative uplift (+65.6%) to a yearly baseline of 5,520 people reaching the amount step, with a 27.3% purchase rate and a €100 average purchase. That takes purchases from 1,507 to 2,495 a year: +988 purchases and +€98,800 in GMV. It’s conservative, because traffic during the experiments was higher.',
+            'Cifra estimada. Cómo se calcula: aplicamos la misma subida relativa (+65,6 %) a una base anual de 5.520 personas que llegaban al importe, con un 27,3 % de compra y una compra media de 100 €. Eso lleva las compras de 1.507 a 2.495 al año: +988 compras y +98.800 € de GMV. Es conservadora, porque durante los experimentos el tráfico fue mayor.']},
+    {id:'role', q:['What was my role?','¿Cuál fue mi papel?'], list:[['I proposed using the design system migration to launch each change as an experiment.','Propuse aprovechar la migración al design system para lanzar cada cambio como un experimento.'],['I analysed the funnel and the session recordings to decide what to test at each step.','Analicé el funnel y las grabaciones de sesión para decidir qué probar en cada paso.'],['I designed the three versions and defined the hypothesis and metrics of each experiment.','Diseñé las tres versiones y definí la hipótesis y las métricas de cada experimento.'],['I worked with one developer, who built and launched the experiments.','Trabajé con un desarrollador, que construyó y lanzó los experimentos.']]},
+    {id:'discarded', q:['What did I rule out?','¿Qué descarté?'], dec:[
+      [['All the information in the discount view','Toda la información en la vista del descuento'],'no',['It cluttered the screen for those who already knew how the benefit worked.','Saturaba la pantalla para quien ya sabía cómo funcionaba el beneficio.']]]},
+    {id:'wrong', q:['What went wrong?','¿Qué salió mal?'], draft:1},
+    {id:'learned', q:['What did I learn?','¿Qué aprendí?'], learn:[
+      [['Entry isn’t conversion','Entrar no es convertir'],['7.5% more people in the flow didn’t add a single significant purchase. The gain came where people actually dropped off.','Un 7,5 % más de gente en el flujo no añadió ni una compra significativa. La mejora llegó donde de verdad se caía la gente.']],
+      [['Clarity matters at payment','La claridad importa en el pago'],['Clear instructions, a transparent price and reassurance at payment make the difference between dropping off and buying.','Instrucciones claras, precio transparente y seguridad en el pago marcan la diferencia entre abandonar y comprar.']],
+      [['Small experiments, lower risk','Experimentos pequeños, menos riesgo'],['With one developer we tested focused changes on half the users, learned fast and only shipped what worked.','Con un desarrollador probamos cambios acotados con la mitad de los usuarios, aprendimos rápido y solo lanzamos lo que funcionó.']]]},
+    {id:'different', q:['What would I do differently today?','¿Qué haría distinto hoy?'], draft:1},
+    {id:'inspired', q:['What inspired me?','¿En qué me inspiré?'], draft:1}
+  ],
+  reasons:{experimentation:['Three chained A/B experiments, each shaped by the last, with the business impact calculated.','Tres experimentos A/B encadenados, cada uno guiado por el anterior, con el impacto en negocio calculado.'],
            systems:['Growth work done while migrating a flow to a new design system.','Trabajo de growth hecho mientras se migraba un flujo al nuevo design system.'],
-           complex:['Funnel data and recordings showed the real friction was two steps after the obvious one.','Los datos de funnel y las grabaciones mostraron que la fricción real estaba dos pasos después de la obvia.']},
-  notion:'https://app.notion.com/p/1239ce2bac8380cdb272decb907c9c61'
+           complex:['Funnel data and recordings showed the real friction was two steps after the obvious one.','Los datos de funnel y las grabaciones mostraron que la fricción real estaba dos pasos después de la obvia.']}
 },
 {
   id:'benefits', company:'Cobee', year:'2023', tone:'--lilac', img:'assets/benefits-cover.webp', cover:{v:'414', t:['unique benefits created','beneficios únicos creados']}, base:.5, recruiter:1,
@@ -2960,7 +3011,7 @@ function storyCaseHTML(p){
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
         ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).split('\n').map((l,j)=>`<span class="${j?'f2':'f1'}">${l}</span>`).join('')}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`&nbsp;<b class="sum-pp">·&nbsp;${esc(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`&nbsp;<b class="sum-pp">·&nbsp;${X(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}

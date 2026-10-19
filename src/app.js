@@ -503,7 +503,7 @@ function storyCaseHTML(p){
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
         ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).split('\n').map((l,j)=>`<span class="${j?'f2':'f1'}">${l}</span>`).join('')}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`&nbsp;<b class="sum-pp">·&nbsp;${esc(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`&nbsp;<b class="sum-pp">·&nbsp;${X(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}

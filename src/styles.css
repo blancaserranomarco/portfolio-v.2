@@ -1316,6 +1316,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-fig img{display:block;width:100%;height:auto;cursor:zoom-in}
 .scene figcaption,.s-fig figcaption{font-size:.86rem;color:var(--muted);margin-top:14px}
 .s-fig figcaption{margin:0;padding:10px 14px;border-top:1px solid var(--soft)}
+.story .fig{margin:22px 0 4px;border:1px solid var(--soft);box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 6%,transparent)}
+.story .fig figcaption{border-top:1px solid var(--soft)}
 .sc-row{display:grid;grid-template-columns:150px 1fr 60px;gap:12px;align-items:center;margin:10px 0}
 .sc-row i{height:14px;border:1px solid var(--soft);border-radius:999px;overflow:hidden;background:var(--paper)}
 .sc-row em{display:block;height:100%;width:0;background:var(--sky);transition:width 1s cubic-bezier(.2,.7,.2,1)}
