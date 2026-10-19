@@ -457,7 +457,7 @@ function sBlock(b,p,ids){
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
         <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>
           <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
-        <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p><figcaption>${X(b.cap)}</figcaption></figure>`;
+        <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1-(b.items.slice(0,i).some(x=>x[2])?1:0)}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
         <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
