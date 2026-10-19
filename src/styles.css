@@ -1718,3 +1718,28 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-segs{margin:0}
 .s-segs .sgc{background:var(--surface)}
 .s-segs figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+/* Comparison table (experiment 2A vs 2B); stacked blocks on mobile */
+.s-cmp{margin:0}
+.cmp-t{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1.5px solid var(--soft);border-radius:16px;overflow:hidden;font-size:.97rem}
+.cmp-t th,.cmp-t td{padding:12px 16px;text-align:left;vertical-align:top;border-top:1px solid var(--soft)}
+.cmp-t thead td,.cmp-t thead th{border-top:0;background:color-mix(in srgb,var(--ink) 3%,var(--surface))}
+.cmp-t tbody th{color:var(--muted);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;width:120px;padding-top:15px}
+.cmp-h{display:block;font-family:var(--display);font-weight:500;font-size:1.1rem;margin-top:8px;line-height:1.25}
+.cmp-tag{display:inline-block;white-space:nowrap;font-size:.72rem;font-weight:700;color:var(--sticker-ink);border:2px solid var(--sticker-ink);border-radius:999px;padding:2px 10px}
+.cmp-tag.dashed{border-style:dashed;color:var(--ink);border-color:var(--ink)}
+.cmp-win{color:#1f7a50;font-weight:700}
+.cmp-lose{color:var(--muted)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .cmp-win{color:#7fe0b2} }
+:root[data-theme="dark"] .cmp-win{color:#7fe0b2}
+.s-cmp figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+.cmp-m{display:none}
+@media (max-width:640px){
+  .cmp-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .cmp-m{display:grid;gap:12px}
+  .cmp-c{background:var(--surface);border:1.5px solid var(--soft);border-radius:16px;padding:16px 18px}
+  .cmp-c dl{margin:12px 0 0;border-top:1px solid var(--soft);padding-top:10px}
+  .cmp-c dt{color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+  .cmp-c dt:first-child{margin-top:0}
+  .cmp-c dd{margin:2px 0 0}
+}

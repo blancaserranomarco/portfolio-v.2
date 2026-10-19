@@ -398,6 +398,11 @@ function sBlock(b,p,ids){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
     case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
+    case 'cmp': { const tag=c=>`<span class="cmp-tag${c.dashed?' dashed':''}" style="background:var(--${c.tone})">${X(c.tag)}</span>`;
+      const val=(r,j)=>r[3]?`<span class="${j?'cmp-lose':'cmp-win'}">${X(r[j+1])}</span>`:X(r[j+1]);
+      return `<figure class="s-cmp"><table class="cmp-t"><thead><tr><td></td>${b.cols.map(c=>`<th scope="col">${tag(c)}<span class="cmp-h">${X(c.h)}</span></th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr><th scope="row">${X(r[0])}</th>${b.cols.map((c,j)=>`<td>${val(r,j)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        <div class="cmp-m" aria-hidden="true">${b.cols.map((c,j)=>`<div class="cmp-c">${tag(c)}<span class="cmp-h">${X(c.h)}</span><dl>${b.rows.map(r=>`<dt>${X(r[0])}</dt><dd>${val(r,j)}</dd>`).join('')}</dl></div>`).join('')}</div>
+        ${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="s-segs">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'goal': if(b.q) return `<div class="s-q"><p class="q-t">${X(b.t)}</p><p class="q-s">${X(b.label)}</p></div>`;

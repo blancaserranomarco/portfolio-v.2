@@ -1723,6 +1723,31 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-segs{margin:0}
 .s-segs .sgc{background:var(--surface)}
 .s-segs figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+/* Comparison table (experiment 2A vs 2B); stacked blocks on mobile */
+.s-cmp{margin:0}
+.cmp-t{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1.5px solid var(--soft);border-radius:16px;overflow:hidden;font-size:.97rem}
+.cmp-t th,.cmp-t td{padding:12px 16px;text-align:left;vertical-align:top;border-top:1px solid var(--soft)}
+.cmp-t thead td,.cmp-t thead th{border-top:0;background:color-mix(in srgb,var(--ink) 3%,var(--surface))}
+.cmp-t tbody th{color:var(--muted);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;width:120px;padding-top:15px}
+.cmp-h{display:block;font-family:var(--display);font-weight:500;font-size:1.1rem;margin-top:8px;line-height:1.25}
+.cmp-tag{display:inline-block;white-space:nowrap;font-size:.72rem;font-weight:700;color:var(--sticker-ink);border:2px solid var(--sticker-ink);border-radius:999px;padding:2px 10px}
+.cmp-tag.dashed{border-style:dashed;color:var(--ink);border-color:var(--ink)}
+.cmp-win{color:#1f7a50;font-weight:700}
+.cmp-lose{color:var(--muted)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .cmp-win{color:#7fe0b2} }
+:root[data-theme="dark"] .cmp-win{color:#7fe0b2}
+.s-cmp figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+.cmp-m{display:none}
+@media (max-width:640px){
+  .cmp-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .cmp-m{display:grid;gap:12px}
+  .cmp-c{background:var(--surface);border:1.5px solid var(--soft);border-radius:16px;padding:16px 18px}
+  .cmp-c dl{margin:12px 0 0;border-top:1px solid var(--soft);padding-top:10px}
+  .cmp-c dt{color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+  .cmp-c dt:first-child{margin-top:0}
+  .cmp-c dd{margin:2px 0 0}
+}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2127,13 +2152,12 @@ const PROJECTS = [
       t2b:{tag:['Experiment 2B · Cold','Experimento 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
       cap:['The friction was right before paying: many no longer remembered their discount well. 2A reminds them in the flow; 2B, for those who left, brings them back with an email.','La fricción estaba justo antes de pagar: muchos ya no recordaban bien su descuento. El 2A se lo recuerda en el flujo; el 2B, a quien se fue, le trae de vuelta con un email.']},
     {k:'p', t:['We tested two ways of reaching users over the same 12 days:','Probamos dos formas de llegar a los usuarios durante los mismos 12 días:']},
-    {k:'segs',
-      items:[{tag:'2A', tone:'mint', icon:'phone', h:['Still in the flow','Seguían en el flujo'],
-              d:['They saw the modal inside the app, right after checking their result.','Veían la modal dentro de la app, justo después de consultar su resultado.'],
-              res:['Result: purchases went up','Resultado: subieron las compras'], win:1},
-             {tag:'2B', tone:'dot', icon:'mail', h:['Had left without buying','Se habían marchado sin comprar'],
-              d:['They got an email four days later that took them back to the modal.','Recibían un email cuatro días después que los llevaba de vuelta a la modal.'],
-              res:['Barely opened. Our hypothesis: CRM and Marketing already sent plenty of follow-ups. We closed it.','Apenas se abría. Nuestra hipótesis: CRM y Marketing ya enviaban muchos seguimientos. Lo cerramos.']}],
+    {k:'cmp', cols:[{tag:['Experiment 2A','Experimento 2A'], tone:'pink', h:['Still in the flow','Seguían en el flujo']},{tag:['Experiment 2B','Experimento 2B'], tone:'dot', dashed:1, h:['Had left without buying','Se habían marchado sin comprar']}],
+      rows:[[['Who','Quiénes'],['Partner users still in the app after seeing their result','Usuarios de partners que seguían en la app tras ver su resultado'],['Partner users who saw their result and left without buying','Usuarios de partners que vieron su resultado y salieron sin comprar']],
+            [['Where','Dónde'],['Inside the app','Dentro de la app'],['Outside the app, by email','Fuera de la app, por email']],
+            [['When','Cuándo'],['Right after seeing the result','Justo tras ver el resultado'],['4 days after the result','4 días después del resultado']],
+            [['What','Qué'],['Modal with the discount and a button to checkout','Modal con el descuento y botón al checkout'],['Email that took them back to the modal','Email que llevaba de vuelta a la modal']],
+            [['Result','Resultado'],['Purchases went up','Subieron las compras'],['Barely opened. CRM and Marketing were already sending plenty of follow-ups; we closed it.','Apenas se abrió. CRM y Marketing ya enviaban muchos seguimientos; lo cerramos.'],1]],
       cap:['The reminder has to reach users where they already are: inside the flow, not in one more email.','El recordatorio tiene que llegar donde ya está el usuario: dentro del flujo, no en un email más.']},
     {k:'p', t:['One question remained: which brand should go first? My hypothesis was that another brand in the middle of a payment could feel like an ad. We tested it with around 5,000 users from 3 top partners.',
                'Quedaba una duda: ¿qué marca debía ir primero? Mi hipótesis era que otra marca en mitad de un pago podía parecer publicidad. Lo probamos con unos 5.000 usuarios de 3 partners top.']},
@@ -2768,6 +2792,11 @@ function sBlock(b,p,ids){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
     case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
+    case 'cmp': { const tag=c=>`<span class="cmp-tag${c.dashed?' dashed':''}" style="background:var(--${c.tone})">${X(c.tag)}</span>`;
+      const val=(r,j)=>r[3]?`<span class="${j?'cmp-lose':'cmp-win'}">${X(r[j+1])}</span>`:X(r[j+1]);
+      return `<figure class="s-cmp"><table class="cmp-t"><thead><tr><td></td>${b.cols.map(c=>`<th scope="col">${tag(c)}<span class="cmp-h">${X(c.h)}</span></th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr><th scope="row">${X(r[0])}</th>${b.cols.map((c,j)=>`<td>${val(r,j)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+        <div class="cmp-m" aria-hidden="true">${b.cols.map((c,j)=>`<div class="cmp-c">${tag(c)}<span class="cmp-h">${X(c.h)}</span><dl>${b.rows.map(r=>`<dt>${X(r[0])}</dt><dd>${val(r,j)}</dd>`).join('')}</dl></div>`).join('')}</div>
+        ${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="s-segs">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'goal': if(b.q) return `<div class="s-q"><p class="q-t">${X(b.t)}</p><p class="q-s">${X(b.label)}</p></div>`;
