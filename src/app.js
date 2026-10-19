@@ -480,7 +480,7 @@ function sBlock(b,p,ids){
 }
 function askPanel(a){
   if(a.draft) return `<p class="ph">${u('draft')}</p>`;
-  if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(v)}</span>`:esc(fmt(v))}</strong><span>${X(t)}</span></div>`).join('')}</div>`;
+  if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(tr(v))}</span>`:esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>`;
   if(a.learn) return `<div class="learns ask-l">${a.learn.map(([h,t])=>`<div class="lr"><h3>${X(h)}</h3><p>${X(t)}</p></div>`).join('')}</div>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec) return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th><th scope="col">${u('th_dec')}</th><th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th><td><span class="dec-pill ${d}">${u('d_'+d)}</span></td><td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`;
