@@ -1764,3 +1764,11 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (prefers-reduced-motion: reduce){ .quiz.done .qz-opt.is-win::after{animation:none} }
 .quiz.done .qz-go{display:none}
 .qz-head{position:relative;display:inline-block}
+
+/* Quiz v2 (option B): lilac block with ink border, A/B letter stickers, black filled buttons */
+.story .quiz{background:color-mix(in srgb,var(--lilac) 45%,var(--surface));border:2px solid var(--line);border-radius:20px}
+.qz-opt.qz-img{border:2px solid var(--line);box-shadow:4px 4px 0 var(--shadow);overflow:visible}
+.qz-letter{position:absolute;top:-13px;left:-13px;width:34px;height:34px;border-radius:50%;background:var(--butter);color:var(--sticker-ink);border:2px solid var(--sticker-ink);display:grid;place-items:center;font-weight:700;font-family:var(--display);font-size:1.05rem;z-index:2}
+.qz-opt.qz-img .qz-go{align-self:stretch;text-align:center;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 14px;margin-top:auto;font-size:.92rem}
+.qz-opt.qz-img:hover .qz-go{background:color-mix(in srgb,var(--ink) 85%,var(--lilac))}
+.story .quiz .qz-lock i{background:var(--surface)}
