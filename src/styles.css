@@ -1753,3 +1753,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .cmp-h{display:flex;align-items:center;gap:8px;margin-top:0}
 .cmp-dot{flex:none;width:12px;height:12px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--ink) 35%,transparent)}
 .s-cmp,.s-segs{margin:22px 0 4px}
+.quiz.done .qz-opt.is-win{border:3px solid #00A86B;box-shadow:5px 5px 0 #00A86B;outline:0;background:color-mix(in srgb,#00C27A 10%,var(--surface))}
