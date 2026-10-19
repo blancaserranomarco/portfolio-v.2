@@ -1711,6 +1711,13 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 [data-anim="dots"] .sc-cnt .tot small{font-size:.86rem}
 [data-anim="dots"] .sc-cnt .grp{font-size:.9rem;gap:6px}
 [data-anim="dots"] .sc-cnt .grp b{font-size:1.3rem}
+/* Mobile: faces become plain grey/green dots, like bullets */
+@media (max-width:620px){
+  .sc-dots i.yes,.sc-dots i.no,.sc-cnt .sw.yes,.sc-cnt .sw.no{background-image:none}
+  .sc-dots{gap:5px}
+  .sc-dots i.no{background:var(--soft);opacity:1}
+  .sc-cnt .sw.no{background:var(--soft)}
+}
 </style>
 <header class="top">
   <div class="wrap">
