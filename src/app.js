@@ -466,11 +466,11 @@ function sBlock(b,p,ids){
         <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1-(b.items.slice(0,i).some(x=>x[2])?1:0)}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
-        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
+        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt${o.img?' qz-img':''}" data-pick="${o.id}" aria-pressed="false">${o.img?`<img src="${o.img}" alt="" loading="lazy">`:`<span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong>`}<span class="qz-t">${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
         <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
-          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}</div></div>`;
+          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
       return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div></figure>`; }
   }
@@ -541,6 +541,7 @@ document.addEventListener('click',e=>{
   const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
   const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
+  qz.classList.add('done'); qz.querySelectorAll('[data-pick]').forEach(x=>x.classList.toggle('is-win',x.dataset.pick===v.dataset.win));
   res.hidden=false; const lk=qz.querySelector('.qz-lock'); if(lk) lk.remove(); v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
   requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
 });

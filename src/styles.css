@@ -1743,3 +1743,10 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .cmp-c dt:first-child{margin-top:0}
   .cmp-c dd{margin:2px 0 0}
 }
+
+/* Quiz with the real modals: image card, small caption, winner gets a green frame after choosing */
+.qz-opt.qz-img{padding:12px;gap:10px;background:var(--surface)}
+.qz-opt.qz-img img{display:block;width:100%;height:auto;border-radius:10px;background:#F7F7F9}
+.qz-opt .qz-t{font-size:.85rem;color:var(--muted);line-height:1.4}
+.quiz.done .qz-opt.is-win{border-color:#1f8a5b;box-shadow:4px 4px 0 #1f8a5b;outline:3px solid color-mix(in srgb,var(--mint) 70%,transparent);outline-offset:0}
+.qz-note{font-size:.82rem;color:var(--muted);margin-top:10px}

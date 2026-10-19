@@ -1748,6 +1748,13 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .cmp-c dt:first-child{margin-top:0}
   .cmp-c dd{margin:2px 0 0}
 }
+
+/* Quiz with the real modals: image card, small caption, winner gets a green frame after choosing */
+.qz-opt.qz-img{padding:12px;gap:10px;background:var(--surface)}
+.qz-opt.qz-img img{display:block;width:100%;height:auto;border-radius:10px;background:#F7F7F9}
+.qz-opt .qz-t{font-size:.85rem;color:var(--muted);line-height:1.4}
+.quiz.done .qz-opt.is-win{border-color:#1f8a5b;box-shadow:4px 4px 0 #1f8a5b;outline:3px solid color-mix(in srgb,var(--mint) 70%,transparent);outline-offset:0}
+.qz-note{font-size:.82rem;color:var(--muted);margin-top:10px}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2165,12 +2172,12 @@ const PROJECTS = [
     {k:'p', t:['So we validated it with one last experiment, launched to around 5,000 users from 3 top partners. Inside the flow, we compared a control with no modal against two versions: one led by the partner and one led by TaxDown.',
                'Así que lo validamos con un último experimento, lanzado a unos 5.000 usuarios de 3 partners top. Dentro del flujo, comparamos un control sin modal con dos versiones: una liderada por el partner y otra por TaxDown.']},
     {k:'quiz', q:['Which one do you think sold more?','¿Cuál crees que vendió más?'], sub:['Same discount, same moment. Only the brand that goes first changes.','Mismo descuento, mismo momento. Solo cambia qué marca va primero.'],
-      opts:[{id:'a',mock:'a',h:['Partner brand','Marca del partner'],t:['The bank the user knows, front and centre.','El banco que el usuario conoce, en grande.']},
-            {id:'b',mock:'b',h:['TaxDown brand','Marca TaxDown'],t:['Our brand first, the partner as reinforcement.','Nuestra marca primero, el partner como refuerzo.']}],
+      opts:[{id:'a',img:'assets/taxdown-modal-partner.webp',t:['Modal led by the partner: the bank the user knows, front and centre.','Modal liderada por el partner: el banco que el usuario conoce, en grande.']},
+            {id:'b',img:'assets/taxdown-modal-taxdown.webp',t:['Modal led by TaxDown: our brand first, the partner as backing.','Modal liderada por TaxDown: nuestra marca primero, el partner como respaldo.']}],
       win:'b', rows:[[['No modal','Sin modal'],14.5],[['Partner brand','Marca partner'],17],[['TaxDown brand','Marca TaxDown'],21.5,'mint']], unit:'%',
       ok:['Well spotted. TaxDown’s brand won by 4.5 points: inside a payment, our brand reads as part of the flow, not as an ad.','Bien visto. Ganó la marca TaxDown por 4,5 puntos: dentro de un pago, nuestra marca se lee como parte del flujo y no como publicidad.'],
       ko:['It seems logical, but TaxDown’s brand won by 4.5 points: another brand in the middle of a payment reads as an ad.','Parece lo lógico, pero ganó la marca TaxDown por 4,5 puntos: otra marca en mitad de un pago se lee como publicidad.'],
-      img:'assets/taxdown-modals.webp', imgcap:['The two modals, with BBVA as the example. Purchase after seeing the result, statistically significant.','Las dos modales, con BBVA como ejemplo. Compra tras ver el resultado, estadísticamente significativo.']},
+      note:['BBVA shown as the example. Purchase after seeing the result, statistically significant.','BBVA como ejemplo. Compra tras ver el resultado, estadísticamente significativo.']},
 
     {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Same discount, better timing','Mismo descuento, mejor momento']},
     {k:'p', t:['The season ended before we could roll it out, so the plan was to launch the TaxDown-brand modal in the next one and stop adapting each modal to each partner: a single piece, cheaper to maintain and converting more.',
@@ -2863,11 +2870,11 @@ function sBlock(b,p,ids){
         <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1-(b.items.slice(0,i).some(x=>x[2])?1:0)}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
-        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt" data-pick="${o.id}" aria-pressed="false"><span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong><span>${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
+        <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt${o.img?' qz-img':''}" data-pick="${o.id}" aria-pressed="false">${o.img?`<img src="${o.img}" alt="" loading="lazy">`:`<span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong>`}<span class="qz-t">${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
         <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
-          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}</div></div>`;
+          ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
       return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div></figure>`; }
   }
@@ -2938,6 +2945,7 @@ document.addEventListener('click',e=>{
   const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
   const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
+  qz.classList.add('done'); qz.querySelectorAll('[data-pick]').forEach(x=>x.classList.toggle('is-win',x.dataset.pick===v.dataset.win));
   res.hidden=false; const lk=qz.querySelector('.qz-lock'); if(lk) lk.remove(); v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
   requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
 });
