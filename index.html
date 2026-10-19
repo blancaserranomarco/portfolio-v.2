@@ -1888,6 +1888,35 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-goal.note{background:var(--surface);color:var(--ink);border:1px solid var(--soft);border-left:4px solid var(--lilac);box-shadow:none}
 .s-goal.note p{font-family:var(--body);font-size:1rem;line-height:1.55}
 .sum-c .sum-pp{display:block;margin-top:4px}
+/* Season strip (renewals) */
+.se-m{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.se-m li{position:relative;height:56px;border:1.5px solid var(--hair);border-radius:8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font-size:.78rem;color:var(--muted)}
+.se-m li.hot{background:var(--pink);border:2px solid var(--line);color:var(--sticker-ink);font-weight:700;height:96px}
+.se-m{align-items:end}
+.se-m li.ln::after{content:"";position:absolute;top:6px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--mint);border:2px solid var(--line);transform:translateX(-50%)}
+.se-k{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:.86rem}
+.se-l{display:inline-flex;align-items:center;gap:6px}
+.se-l i{width:12px;height:12px;border-radius:3px;border:1.5px solid var(--line)}
+.se-l i.hot{background:var(--pink)}.se-l i.ln{background:var(--mint);border-radius:50%}
+@media (max-width:620px){.se-m{gap:2px}.se-m li{font-size:.66rem;height:44px;border-radius:6px}.se-m li.hot{height:76px}}
+/* Combination explorer (renewals) */
+.cb{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;align-items:start}
+.cb fieldset{border:0;padding:0;margin:0}.cb fieldset+fieldset{margin-top:16px}
+.cb-ch{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cb-ch button{font:inherit;font-size:.85rem;font-weight:600;text-align:left;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer}
+.cb-ch button[aria-pressed="true"]{background:var(--ink);color:var(--paper);box-shadow:2px 2px 0 var(--shadow)}
+.cb-out{display:flex;flex-direction:column;gap:8px}
+.cb-n{font-size:.8rem;color:var(--muted)}.cb-n b{color:var(--ink)}
+.cb-card{background:var(--lilac);color:var(--sticker-ink);border:2px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:4px 4px 0 var(--shadow);min-height:190px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.cb-o b{display:block;font-family:var(--display);font-size:1.25rem;font-weight:500;line-height:1.2}
+.cb-o p{margin:6px 0 0;font-size:.92rem;line-height:1.45}
+.cb-who{margin:0;padding-top:10px;border-top:1.5px solid color-mix(in srgb,var(--sticker-ink) 30%,transparent);font-size:.82rem;font-weight:700}
+.cb-rule,.cb figcaption{grid-column:1/-1}
+.cb-rule{margin:0;font-size:.9rem;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--butter) 60%,var(--surface));border:1.5px solid var(--hair)}
+@media (max-width:720px){.cb{grid-template-columns:1fr}}
+.sum-c .sum-pp{white-space:normal}
+.story .b-quote{margin-top:28px}
+.story .b-table.n2 table{min-width:0}
 </style>
 </head>
 <body>
@@ -2238,50 +2267,111 @@ const PROJECTS = [
       text:['89% of 351 people said renewing felt simple, asked in-app right after they renewed. Incidents halved and there were zero critical blockers in the biggest revenue window of the year.','El 89% de 351 personas dijo que renovar fue sencillo, preguntado in-app justo después de renovar. Las incidencias bajaron a la mitad y no hubo ningún blocker crítico en la ventana de ingresos más importante del año.']},
   challenge:['Health insurance grew from about 30,000 to 63,000 active employees in a year, and around 90% of them would renew or switch plans between December and January. Once shipped, the flow couldn’t be iterated until the next year.',
              'El seguro de salud pasó de unos 30.000 a 63.000 empleados activos en un año, y cerca del 90% iba a renovar o cambiar de plan entre diciembre y enero. Una vez lanzado, el flujo no se podía iterar hasta el año siguiente.'],
-  facts:[[['My role','Mi rol'],['Senior product designer','Senior product designer']],[['Surfaces','Superficies'],['App, admin dashboard, backoffice','App, dashboard de admin, backoffice']],[['Worked with','Con'],['Operations, engineering, users','Operaciones, ingeniería, usuarios']],[['Window','Ventana'],['Dec 2025 – Jan 2026','Dic 2025 – Ene 2026']]],
+  h1:['One chance a year.','Una sola oportunidad al año.'],
+  lede:['I redesigned Health Insurance renewals as a system: four member scenarios and four outcomes, solved with a single experience that had to work from the first day of peak season.',
+        'Rediseñé las renovaciones del Seguro de Salud como un sistema: cuatro escenarios de miembros y cuatro resultados, resueltos con una sola experiencia que tenía que funcionar desde el primer día de la temporada alta.'],
+  facts:[[['My role','Mi rol'],['Senior Product Designer\nHealth Insurance','Senior Product Designer\nSeguro de Salud']],[['Period','Periodo'],['December 2024 – January 2026\nLaunched in November 2025','Diciembre de 2024 – enero de 2026\nLanzamiento en noviembre de 2025']],[['Scope','Alcance'],['App, admin dashboard and backoffice\nRenewals and replacements','App, dashboard de admin y backoffice\nRenovaciones y sustituciones']]],
+  story:1,
+  sum:[{k:['The challenge','El reto'], tone:'bad', t:['About 63,000 insured employees, 90% of them renewing in two months, on a solution that took up 28% of the squad in 2024.','Unos 63.000 empleados asegurados, el 90 % renovando en dos meses, sobre una solución que en 2024 ocupó el 28 % del squad.']},
+       {k:['My contribution','Mi aportación'], t:['I turned 16 scenario–outcome combinations into one predictable structure, validated with Operations, Engineering and users.','Convertí 16 combinaciones de escenario y resultado en una sola estructura predecible, validada con Operaciones, Ingeniería y usuarios.']},
+       {k:['Impact','Impacto'], tone:'good', big:['−50%','−50%'], bigl:['Half the incidents','La mitad de incidencias'], t:['CX and operations incidents vs. the 2024 renewals','Incidencias de CX y operaciones frente a las renovaciones de 2024'], pp:['89% positive feedback','89 % de feedback positivo']}],
   nums:[{v:'89%',t:['positive in-app feedback, 351 answers','feedback positivo in-app, 351 respuestas']},{v:'−50%',t:['CX and operations incidents vs. 2024','incidencias de CX y operaciones vs. 2024']},{v:'682',t:['companies renewed of ~1,000, no critical blockers','empresas renovadas de ~1.000, sin blockers críticos']}],
   blocks:[
-    {k:'h', t:['Context','Contexto']},
-    {k:'p', t:['After launching health insurance in Spain, Portugal and Mexico, the product entered its second chapter: moving from launch to long-term sustainability. Renewals stopped being a support feature and became a core product moment, with direct impact on retention, revenue and operational cost.',
-               'Tras lanzar el seguro de salud en España, Portugal y México, el producto entró en su segundo capítulo: pasar del lanzamiento a la sostenibilidad. Las renovaciones dejaron de ser una funcionalidad de soporte y se convirtieron en un momento core del producto, con impacto directo en retención, ingresos y coste operativo.']},
-    {k:'call', t:['In the 2024 campaign, 28% of the squad’s capacity went to fixing renewal issues, with 20+ tickets in two months. Renewals were built on unstable solutions that weren’t designed for high-volume annual cycles.',
-                  'En la campaña de 2024, el 28% de la capacidad del squad se fue en arreglar problemas de renovación, con más de 20 tickets en dos meses. Las renovaciones se apoyaban en soluciones inestables, no pensadas para ciclos anuales de alto volumen.']},
-    {k:'h', t:['Hypotheses','Hipótesis']},
-    {k:'table', head:[['Hypothesis','Hipótesis'],['Goal','Objetivo'],['Success metric','Métrica de éxito']], rows:[
-      [['Renewals are built on unstable solutions','Las renovaciones se apoyan en soluciones inestables'],['Reduce incidents in peak season','Reducir incidencias en temporada alta'],['↓ renewal incidents','↓ incidencias de renovación']],
-      [['The experience doesn’t support growth','La experiencia no aguanta el crecimiento'],['A robust renewal and replacement system','Un sistema robusto de renovación y sustitución'],['No critical blockers in peak','Sin blockers críticos en el pico']],
-      [['Engineering time is lost on fixes','Se pierde tiempo de ingeniería en arreglos'],['Protect squad capacity','Proteger la capacidad del squad'],['↓ % engineering time on renewals','↓ % de tiempo de ingeniería en renovaciones']],
-      [['Renewals are critical for revenue','Las renovaciones son críticas para los ingresos'],['Uninterrupted coverage and retention','Cobertura y retención sin cortes'],['Stable MRR during renewals','MRR estable durante las renovaciones']],
-      [['Other benefits will need the same logic','Otros beneficios necesitarán la misma lógica'],['Reusable renewal machinery','Maquinaria de renovación reutilizable'],['Reuse across insurance benefits','Reutilización en otros seguros']]
+    {k:'chap', n:['1 · The context','1 · El contexto'], t:['A critical moment that only happens once a year','Un momento crítico que solo ocurre una vez al año']},
+    {k:'p', t:['After launching Health Insurance as a benefit in Spain, Portugal and Mexico, the product entered its second chapter: moving from launch to long-term sustainability. By 2025, renewals and replacements had become one of the most critical moments in its lifecycle.',
+               'Tras lanzar el Seguro de Salud como beneficio en España, Portugal y México, el producto entró en su segundo capítulo: pasar del lanzamiento a la sostenibilidad a largo plazo. En 2025, las renovaciones y sustituciones se habían convertido en uno de los momentos más críticos de su ciclo de vida.']},
+    {k:'p', t:['The benefit grew from about 30,000 active employees in December 2024 to about 63,000 in November 2025, and around 90% of them would go through a renewal or a replacement. Almost all of it happened between December and January.',
+               'El beneficio pasó de unos 30.000 empleados activos en diciembre de 2024 a unos 63.000 en noviembre de 2025, y cerca del 90 % iba a pasar por una renovación o una sustitución. Casi todo ocurría entre diciembre y enero.']},
+    {k:'season', label:['When renewals happen','Cuándo ocurren las renovaciones'],
+      months:[['Jul','Jul'],['Aug','Ago'],['Sep','Sep'],['Oct','Oct'],['Nov','Nov'],['Dec','Dic'],['Jan','Ene'],['Feb','Feb'],['Mar','Mar'],['Apr','Abr'],['May','May'],['Jun','Jun']], hot:[5,6], launch:4,
+      hotl:['Peak season: ~90% of ~63,000 employees renew or switch plans','Temporada alta: ~90 % de ~63.000 empleados renueva o cambia de plan'], launchl:['Launch, November 2025','Lanzamiento, noviembre de 2025'],
+      cap:['Once shipped, the experience couldn’t be iterated until the following year.','Una vez lanzada, la experiencia no se podía iterar hasta el año siguiente.']},
+    {k:'p', t:['That made renewals a core product moment, with a direct impact on retention, revenue and operating costs, and strategic weight for international expansion.',
+               'Eso convertía las renovaciones en un momento clave del producto, con impacto directo en la retención, los ingresos y el coste operativo, y con peso estratégico para la expansión internacional.']},
+    {k:'goal', note:1, label:['What 2024 cost','Lo que costó 2024'], t:['During the 2024 campaign, 28% of the squad’s capacity went to fixing renewal issues, with more than 20 tickets in two months. Renewals relied on unstable solutions that weren’t designed for high-volume annual cycles.',
+                  'Durante la campaña de 2024, el 28 % de la capacidad del squad se dedicó a resolver problemas de renovación, con más de 20 tickets en dos meses. Las renovaciones se apoyaban en soluciones inestables, no pensadas para ciclos anuales de alto volumen.']},
+    {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Ensure a scalable, reliable renewal model for a highly seasonal benefit.','Asegurar un modelo de renovación escalable y fiable para un beneficio muy estacional.']},
+
+    {k:'chap', n:['2 · The approach','2 · El enfoque'], t:['A system problem, not a set of flows','Un problema de sistema, no de flujos']},
+    {k:'p', t:['Our hypothesis was that renewals failed because they relied on solutions built for isolated cases, not for a high-volume annual cycle. Every new case added a patch, and every patch added incidents.',
+               'Nuestra hipótesis era que las renovaciones fallaban porque se apoyaban en soluciones pensadas para casos sueltos, no para un ciclo anual de alto volumen. Cada caso nuevo sumaba un parche, y cada parche, incidencias.']},
+    {k:'p', t:['**The opportunity:** a robust, reusable renewal system would reduce incidents, protect the squad’s capacity and serve future insurance benefits.','**La oportunidad:** un sistema de renovación robusto y reutilizable reduciría las incidencias, protegería la capacidad del squad y serviría para futuros seguros.']},
+    {k:'goal', q:1, label:['The question the project had to answer.','La pregunta que debía responder el proyecto.'], t:['Could one predictable experience cover every real renewal case, with no critical blockers at peak?','¿Podía una sola experiencia predecible cubrir todos los casos reales de renovación, sin blockers críticos en el pico?']},
+    {k:'h', t:['How we would know it worked','Cómo sabríamos que funcionaba']},
+    {k:'table', head:[['Goal','Objetivo'],['Success metric','Métrica de éxito']], rows:[
+      [['Reduce incidents in peak season','Reducir incidencias en temporada alta'],['↓ renewal incidents','↓ incidencias de renovación']],
+      [['A robust renewal and replacement system','Un sistema robusto de renovación y sustitución'],['No critical blockers in peak','Sin blockers críticos en el pico']],
+      [['Protect squad capacity','Proteger la capacidad del squad'],['↓ % engineering time on renewals','↓ % de tiempo de ingeniería en renovaciones']],
+      [['Uninterrupted coverage and retention','Cobertura y retención sin cortes'],['Stable MRR during renewals','MRR estable durante las renovaciones']],
+      [['Reusable renewal machinery','Maquinaria de renovación reutilizable'],['Reuse across insurance benefits','Reutilización en otros seguros']]
     ]},
-    {k:'h', t:['A system design problem','Un problema de diseño de sistemas']},
-    {k:'p', t:['I mapped two dimensions and designed every combination case by case.','Mapeé dos dimensiones y diseñé cada combinación caso a caso.']},
-    {k:'steps', items:[
-      [['Four member scenarios','Cuatro escenarios de miembros'],['Based on the relationship between the employee and their family members. Family members can’t keep coverage if the employee doesn’t renew, so every scenario had to stay logically consistent, including cancellations.','Según la relación entre el empleado y sus familiares. Los familiares no pueden mantener la cobertura si el empleado no renueva, así que cada escenario tenía que ser coherente, incluidas las cancelaciones.']],
-      [['Four renewal outcomes','Cuatro resultados de renovación'],['Automatic renewal, contracting a new plan, replacement, or no coverage available for the next period.','Renovación automática, contratar un plan nuevo, sustitución o sin cobertura disponible para el siguiente periodo.']],
-      [['One mental model for all of them','Un único modelo mental para todos'],['Clear, explicit outcomes and the same structure everywhere, reducing technical edge cases through product logic instead of exposing internal complexity. Errors, missing data, emails and notifications were mapped too.','Resultados claros y explícitos y la misma estructura en todas partes, resolviendo casos límite con lógica de producto en vez de mostrar la complejidad interna. También mapeamos errores, datos que faltan, emails y notificaciones.']],
-      [['Validated with everyone who carries the risk','Validado con quien asume el riesgo'],['Reviewed with Operations to cover real cases, scoped early with Engineering, and tested with users for clarity and confidence.','Revisado con Operaciones para cubrir casos reales, acotado pronto con Ingeniería y testado con usuarios para comprobar claridad y confianza.']]
-    ]},
-    {k:'img', src:'assets/renewals-members.webp', cap:['The four member scenarios: who acts on whose coverage, the employee alone or with family members.','Los cuatro escenarios de miembros: quién actúa sobre la cobertura de quién, el empleado solo o con familiares.']},
-    {k:'img', src:'assets/renewals-types.webp', cap:['The four renewal outcomes, each with its own explicit message.','Los cuatro resultados de renovación, cada uno con su mensaje explícito.']},
+
+    {k:'chap', n:['3 · The design','3 · El diseño'], t:['Sixteen combinations, one structure','Dieciséis combinaciones, una sola estructura']},
+    {k:'p', t:['I mapped two dimensions. On one side, four member scenarios, depending on the relationship between the employee and their family members. On the other, four possible outcomes for the next period. Each scenario could lead to any outcome: 16 valid combinations that had to keep business rules intact and stay understandable.',
+               'Mapeé dos dimensiones. Por un lado, cuatro escenarios de miembros, según la relación entre el empleado y sus familiares. Por otro, cuatro resultados posibles para el siguiente periodo. Cada escenario podía acabar en cualquier resultado: 16 combinaciones válidas que debían respetar las reglas de negocio y seguir siendo comprensibles.']},
+    {k:'combo', sl:['Who is involved?','¿Quién está implicado?'], ol:['What happens next period?','¿Qué pasa el siguiente periodo?'], nl:['Combination','Combinación'],
+      sc:[[['Employee only','Solo el empleado'],['Applies to: the employee','Afecta a: el empleado']],
+          [['Employee + family · on the employee','Empleado + familiar · sobre el empleado'],['Applies to: the employee, with family members on the policy','Afecta a: el empleado, con familiares en la póliza']],
+          [['Employee + family · on the family member','Empleado + familiar · sobre el familiar'],['Applies to: the family member','Afecta a: el familiar']],
+          [['Employee + family · on both','Empleado + familiar · sobre ambos'],['Applies to: the employee and the family member','Afecta a: el empleado y el familiar']]],
+      oc:[[['Automatic renewal','Renovación automática'],['No action required. The plan will be renewed automatically for the next period.','No hace falta hacer nada. El plan se renovará automáticamente para el siguiente periodo.']],
+          [['Contract a new plan','Contratar un plan nuevo'],['Automatic renewal isn’t available: the current plan is no longer offered, or automatic renewal isn’t enabled for it.','La renovación automática no está disponible: el plan actual ya no se ofrece o no tiene activada la renovación automática.']],
+          [['Replacement','Sustitución'],['A new plan was selected, because the previous one wasn’t eligible for automatic renewal or because the person decided to change their coverage.','Se ha elegido un plan nuevo, porque el anterior no admitía la renovación automática o porque la persona decidió cambiar su cobertura.']],
+          [['No coverage available','Sin cobertura disponible'],['No plan can be selected: the company no longer offers Health Insurance, or its configuration doesn’t allow any plan for the next period.','No se puede elegir ningún plan: la empresa ya no ofrece el Seguro de Salud o su configuración no permite ningún plan para el siguiente periodo.']]],
+      rule:['Rule that crossed every case: family members can’t keep Health Insurance if the employee doesn’t renew or contract it first.','Regla que cruzaba todos los casos: los familiares no pueden mantener el Seguro de Salud si el empleado no renueva o lo contrata antes.'],
+      cap:['Diagram: the same message structure for every combination. The texts come from the outcome definitions.','Esquema: la misma estructura de mensaje para cada combinación. Los textos salen de la definición de cada resultado.']},
+    {k:'h', t:['One mental model for every case','Un único modelo mental para todos los casos']},
+    {k:'p', t:['Instead of a flow per combination, I designed each case on the same structure, prioritising coherence over the number of flows:','En lugar de un flujo por combinación, diseñé cada caso sobre la misma estructura, priorizando la coherencia frente al número de flujos:']},
+    {k:'list', t:[['Clear, explicit outcomes: the person always knows what will happen to their coverage.','Resultados claros y explícitos: la persona sabe siempre qué pasará con su cobertura.'],
+                  ['The same mental model in every scenario.','El mismo modelo mental en todos los escenarios.'],
+                  ['Fewer technical edge cases, solved with product logic.','Menos casos límite técnicos, resueltos con lógica de producto.'],
+                  ['Each result understandable without exposing internal complexity.','Cada resultado comprensible sin mostrar la complejidad interna.']]},
     {k:'vid', src:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', max:300, cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
-    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases inside it, including errors, missing data, emails and notifications.','Todos los flujos organizados por tema y los casos que incluye, también errores, datos que faltan, emails y notificaciones.']},
-    {k:'h', t:['Measuring at the moment of truth','Medir en el momento clave']},
-    {k:'p', t:['Right after renewing, an in-app notification asked whether the experience felt simple. We tracked it per company, so we could contact the companies that struggled and learn why, and in which scenarios. Product and Operations tracked incidents jointly against the previous year.',
-               'Justo después de renovar, una notificación in-app preguntaba si la experiencia había sido sencilla. Lo medimos por empresa, para poder contactar a las que tuvieron problemas y entender por qué y en qué escenarios. Producto y Operaciones siguieron juntos las incidencias frente al año anterior.']},
-    {k:'img', src:'assets/renewals-feedback.webp', max:760, cap:['The in-app question right after renewing, and the thank-you state.','La pregunta in-app justo después de renovar y el estado de agradecimiento.']},
-    {k:'table', head:[['Type','Tipo'],['Answers','Respuestas'],['Positive','Positivas'],['% positive','% positivo']], rows:[
-      ['Total','351','331','89.2%'],[['Renewal','Renovación'],'272','250','91.9%'],[['Replacement','Sustitución'],'79','63','79.7%']
+    {k:'p', t:['I also mapped system errors, required emails and notifications, missing user data and other edge cases, and organised the flows by subject and the cases each one included.',
+               'También mapeé los errores del sistema, los emails y notificaciones necesarios, los datos que podían faltar y otros casos límite, y organicé los flujos por tema y los casos que incluía cada uno.']},
+    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']},
+    {k:'h', t:['Validated with whoever carried the risk','Validado con quien asumía el riesgo']},
+    {k:'steps', items:[
+      [['Operations','Operaciones'],['We reviewed the solution with Operations and key stakeholders to make sure every real case was covered.','Revisamos la solución con Operaciones y otros equipos clave para asegurar que cubría todos los casos reales.']],
+      [['Engineering','Ingeniería'],['We aligned early on technical feasibility and scope.','Nos alineamos pronto sobre la viabilidad técnica y el alcance.']],
+      [['Users','Usuarios'],['We tested comprehension, clarity and confidence in each outcome.','Testamos la comprensión, la claridad y la confianza en cada resultado.']]
     ]},
+
+    {k:'chap', n:['4 · The result','4 · El resultado'], t:['Measuring right after renewing','Medir justo después de renovar']},
+    {k:'p', t:['With so much at stake, deciding how to measure was part of the solution. We needed two views: operational efficiency, through incidents and manual work, and user perception, through clarity, confidence and ease of use.',
+               'Con tanto en juego, decidir cómo medir formaba parte de la solución. Necesitábamos dos miradas: la eficiencia operativa, con las incidencias y el trabajo manual, y la percepción de los usuarios, con la claridad, la confianza y la facilidad de uso.']},
+    {k:'p', t:['Right after renewing, an in-app notification asked whether the experience had felt simple. We tracked answers per company, so we could contact those who reported friction and understand why and in which scenarios. Product and Operations tracked incidents together against the previous year.',
+               'Justo después de renovar, una notificación in-app preguntaba si la experiencia había sido sencilla. Seguimos las respuestas por empresa, para contactar con quienes tuvieron problemas y entender por qué y en qué escenarios. Producto y Operaciones siguieron juntos las incidencias frente al año anterior.']},
+    {k:'img', src:'assets/renewals-feedback.webp', cap:['The in-app question right after renewing, and the thank-you state.','La pregunta in-app justo después de renovar y el estado de agradecimiento.']},
+    {k:'split', meta:['December 2025 – January 2026 · In-app question right after renewing · 351 answers','Diciembre de 2025 – enero de 2026 · Pregunta in-app justo después de renovar · 351 respuestas'],
+      h:['Simpler for users, calmer for the team','Más sencillo para los usuarios, más tranquilo para el equipo'],
+      intro:['We measured user perception and incidents during the renewal window.','Medimos la percepción de los usuarios y las incidencias durante la ventana de renovación.'],
+      items:[[['Positive feedback','Feedback positivo'],['89%','89 %'],['331 of 351 answers said renewing felt simple.','331 de 351 respuestas dijeron que renovar fue sencillo.'],'up'],
+             [['Incidents','Incidencias'],['−50%','−50 %'],['CX and operations incidents vs. the previous renewals.','Incidencias de CX y operaciones frente a las renovaciones anteriores.'],'up'],
+             [['Companies renewed','Empresas renovadas'],['682','682'],['Of ~1,000 with the benefit, with no critical blockers.','De ~1.000 con el beneficio, sin blockers críticos.']]]},
+    {k:'bars', label:['Positive feedback by type','Feedback positivo por tipo'], rows:[[['Renewal (272)','Renovación (272)'],91.9],[['Replacement (79)','Sustitución (79)'],79.7]],
+      cap:['Answers in brackets. Replacements, where the plan changes, got less positive feedback than renewals.','Entre paréntesis, las respuestas. Las sustituciones, en las que cambia el plan, tuvieron menos feedback positivo que las renovaciones.']},
     {k:'quote', t:['The new renewal experience is widely perceived as clearer, more intuitive and better structured. It significantly reduced operational friction.','La nueva experiencia de renovación se percibe como más clara, intuitiva y mejor estructurada. Ha reducido mucho la fricción operativa.'], by:['Operations team','Equipo de Operaciones']},
-    {k:'learn', items:[
-      [['Seasonality forces better decisions','La estacionalidad obliga a decidir mejor'],['With one high-risk window a year, priorities got sharper and solutions simpler. When you can’t iterate, clarity and robustness matter more than feature depth.','Con una única ventana de alto riesgo al año, las prioridades se afinaron y las soluciones se simplificaron. Si no puedes iterar, la claridad y la robustez importan más que la profundidad.']],
-      [['Measuring unlocks long-term value','Medir desbloquea valor a largo plazo'],['Company-level feedback let us reach the exact companies and users with problems and understand the cause.','El feedback por empresa nos permitió llegar a las empresas y usuarios con problemas y entender la causa.']]
-    ]}
+
+    {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Renewals as core product logic','Las renovaciones, como lógica de producto']},
+    {k:'p', t:['The new experience held up during the most critical revenue window of the year, with no critical blockers. The renewal machinery was designed as reusable components, ready for other insurance benefits such as Life and Pension Insurance.',
+               'La nueva experiencia aguantó la ventana de ingresos más crítica del año sin blockers críticos. La maquinaria de renovación se diseñó como componentes reutilizables, preparados para otros seguros como el de Vida y el de Pensiones.']},
+    {k:'impact', from:[['User','Usuario'],['89%','89 %'],['positive feedback right after renewing','de feedback positivo justo después de renovar']],
+      to:[['Operations','Operación'],['−50%','−50 %'],['CX and operations incidents vs. 2024','incidencias de CX y operaciones frente a 2024']]}
+  ],
+  ask:[
+    {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['682 / ~1,000','682 / ~1.000'],['companies renewed with the new experience by January 2026','empresas renovadas con la nueva experiencia en enero de 2026']],[['−50%','−50%'],['CX and operations incidents vs. the previous renewals','incidencias de CX y operaciones frente a las renovaciones anteriores']],[['89%','89%'],['positive feedback, 351 answers','feedback positivo, 351 respuestas']],[['0','0'],['critical blockers in the peak revenue window','blockers críticos en la ventana de ingresos']]]},
+    {id:'role', q:['What was my role?','¿Cuál fue mi papel?'], list:[['I mapped the member scenarios and renewal outcomes and designed every combination case by case.','Mapeé los escenarios de miembros y los resultados de renovación, y diseñé cada combinación caso a caso.'],['I reviewed the solution with Operations, aligned scope with Engineering and tested it with users.','Revisé la solución con Operaciones, acoté el alcance con Ingeniería y la testé con usuarios.'],['I defined how to measure success: the in-app question per company and incident tracking with Operations.','Definí cómo medir el éxito: la pregunta in-app por empresa y el seguimiento de incidencias con Operaciones.']]},
+    {id:'discarded', q:['What did I rule out?','¿Qué descarté?'], draft:1},
+    {id:'wrong', q:['What didn’t go as I expected?','¿Qué no salió como esperaba?'], draft:1},
+    {id:'learned', q:['What did I learn?','¿Qué aprendí?'], learn:[
+      [['Seasonality forces better decisions','La estacionalidad obliga a decidir mejor'],['With a single high-risk window a year, priorities got sharper and solutions simpler. When you can’t iterate, clarity and robustness matter more than feature depth.','Con una única ventana de alto riesgo al año, las prioridades se afinaron y las soluciones se simplificaron. Cuando no puedes iterar, la claridad y la robustez importan más que la cantidad de funcionalidades.']],
+      [['Measuring unlocks long-term value','Medir desbloquea valor a largo plazo'],['Clear success metrics showed what worked and what to improve next. Company-level feedback let us reach the exact companies and users with problems and understand the cause.','Unas métricas de éxito claras mostraron qué funcionaba y qué mejorar después. El feedback por empresa nos permitió llegar a las empresas y usuarios con problemas y entender la causa.']]]},
+    {id:'different', q:['What would I do differently today?','¿Qué haría distinto hoy?'], draft:1},
+    {id:'inspired', q:['What inspired me?','¿En qué me inspiré?'], draft:1}
   ],
   reasons:{complex:['16 scenario–outcome combinations turned into one predictable experience.','16 combinaciones de escenario y resultado convertidas en una experiencia predecible.'],
-           systems:['Renewal logic built as reusable machinery for life and pension insurance.','La lógica de renovación, construida como maquinaria reutilizable para seguros de vida y pensiones.']},
-  notion:'https://app.notion.com/p/2e89ce2bac83800b8a9eda5ac8dab94f'
+           systems:['Renewal logic built as reusable machinery for life and pension insurance.','La lógica de renovación, construida como maquinaria reutilizable para seguros de vida y pensiones.']}
 },
 {
   id:'taxdown', company:'TaxDown', year:'2026', tone:'--sky', img:'assets/taxdown-cover.webp', cover:{v:'21.5%', t:['purchase conversion, from 14.5%','conversión a compra, desde 14,5%']}, base:.4, recruiter:1,
@@ -2978,7 +3068,7 @@ function block(b, p, ids){
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
     case 'list': return `<ul class="b-list">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
-    case 'table': return `<div class="b-table"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
+    case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
@@ -3159,6 +3249,15 @@ function sBlock(b,p,ids){
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
+    case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span>${X(m)}</span></li>`).join('')}</ol>
+      <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
+      <div class="cb-ctl"><fieldset><legend class="sc-k">${X(b.sl)}</legend><div class="cb-ch">${b.sc.map((x,i)=>`<button type="button" data-cb-s="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset>
+      <fieldset><legend class="sc-k">${X(b.ol)}</legend><div class="cb-ch">${b.oc.map((x,i)=>`<button type="button" data-cb-o="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset></div>
+      <div class="cb-out" aria-live="polite"><span class="cb-n">${X(b.nl)} <b>1</b>/16</span>
+        <div class="cb-card">${b.oc.map((x,i)=>`<div class="cb-o" data-o="${i}"${i?' hidden':''}><b>${X(x[0])}</b><p>${X(x[1])}</p></div>`).join('')}
+        <p class="cb-who">${b.sc.map((x,i)=>`<span data-s="${i}"${i?' hidden':''}>${X(x[1])}</span>`).join('')}</p></div></div>
+      ${b.rule?`<p class="cb-rule">${X(b.rule)}</p>`:''}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
       return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div>${b.more?`<p class="imp-more"><a href="#s-${p.id}-ask" data-ask-open="${b.more}">${u('see_calc')} →</a></p>`:''}</figure>`; }
   }
@@ -3257,6 +3356,10 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const cbb=e.target.closest('[data-cb-s],[data-cb-o]'); if(cbb){ const f=cbb.closest('.cb'), k=cbb.hasAttribute('data-cb-s')?'s':'o';
+    f.querySelectorAll(`[data-cb-${k}]`).forEach(x=>x.setAttribute('aria-pressed',x===cbb)); f.dataset[k]=cbb.getAttribute(`data-cb-${k}`);
+    f.querySelectorAll('.cb-o').forEach(x=>x.hidden=x.dataset.o!==f.dataset.o); f.querySelectorAll('.cb-who [data-s]').forEach(x=>x.hidden=x.dataset.s!==f.dataset.s);
+    f.querySelector('.cb-n b').textContent=(+f.dataset.s)*4+(+f.dataset.o)+1; return; }
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
     const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
     if(!box.classList.contains('jv-flow')) return;

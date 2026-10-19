@@ -354,7 +354,7 @@ function block(b, p, ids){
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
     case 'list': return `<ul class="b-list">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
-    case 'table': return `<div class="b-table"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
+    case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
@@ -535,6 +535,15 @@ function sBlock(b,p,ids){
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
+    case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span>${X(m)}</span></li>`).join('')}</ol>
+      <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
+      <div class="cb-ctl"><fieldset><legend class="sc-k">${X(b.sl)}</legend><div class="cb-ch">${b.sc.map((x,i)=>`<button type="button" data-cb-s="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset>
+      <fieldset><legend class="sc-k">${X(b.ol)}</legend><div class="cb-ch">${b.oc.map((x,i)=>`<button type="button" data-cb-o="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset></div>
+      <div class="cb-out" aria-live="polite"><span class="cb-n">${X(b.nl)} <b>1</b>/16</span>
+        <div class="cb-card">${b.oc.map((x,i)=>`<div class="cb-o" data-o="${i}"${i?' hidden':''}><b>${X(x[0])}</b><p>${X(x[1])}</p></div>`).join('')}
+        <p class="cb-who">${b.sc.map((x,i)=>`<span data-s="${i}"${i?' hidden':''}>${X(x[1])}</span>`).join('')}</p></div></div>
+      ${b.rule?`<p class="cb-rule">${X(b.rule)}</p>`:''}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
       return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div>${b.more?`<p class="imp-more"><a href="#s-${p.id}-ask" data-ask-open="${b.more}">${u('see_calc')} →</a></p>`:''}</figure>`; }
   }
@@ -633,6 +642,10 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const cbb=e.target.closest('[data-cb-s],[data-cb-o]'); if(cbb){ const f=cbb.closest('.cb'), k=cbb.hasAttribute('data-cb-s')?'s':'o';
+    f.querySelectorAll(`[data-cb-${k}]`).forEach(x=>x.setAttribute('aria-pressed',x===cbb)); f.dataset[k]=cbb.getAttribute(`data-cb-${k}`);
+    f.querySelectorAll('.cb-o').forEach(x=>x.hidden=x.dataset.o!==f.dataset.o); f.querySelectorAll('.cb-who [data-s]').forEach(x=>x.hidden=x.dataset.s!==f.dataset.s);
+    f.querySelector('.cb-n b').textContent=(+f.dataset.s)*4+(+f.dataset.o)+1; return; }
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
     const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
     if(!box.classList.contains('jv-flow')) return;

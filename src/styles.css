@@ -1877,3 +1877,32 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-goal.note{background:var(--surface);color:var(--ink);border:1px solid var(--soft);border-left:4px solid var(--lilac);box-shadow:none}
 .s-goal.note p{font-family:var(--body);font-size:1rem;line-height:1.55}
 .sum-c .sum-pp{display:block;margin-top:4px}
+/* Season strip (renewals) */
+.se-m{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.se-m li{position:relative;height:56px;border:1.5px solid var(--hair);border-radius:8px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font-size:.78rem;color:var(--muted)}
+.se-m li.hot{background:var(--pink);border:2px solid var(--line);color:var(--sticker-ink);font-weight:700;height:96px}
+.se-m{align-items:end}
+.se-m li.ln::after{content:"";position:absolute;top:6px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--mint);border:2px solid var(--line);transform:translateX(-50%)}
+.se-k{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:.86rem}
+.se-l{display:inline-flex;align-items:center;gap:6px}
+.se-l i{width:12px;height:12px;border-radius:3px;border:1.5px solid var(--line)}
+.se-l i.hot{background:var(--pink)}.se-l i.ln{background:var(--mint);border-radius:50%}
+@media (max-width:620px){.se-m{gap:2px}.se-m li{font-size:.66rem;height:44px;border-radius:6px}.se-m li.hot{height:76px}}
+/* Combination explorer (renewals) */
+.cb{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;align-items:start}
+.cb fieldset{border:0;padding:0;margin:0}.cb fieldset+fieldset{margin-top:16px}
+.cb-ch{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cb-ch button{font:inherit;font-size:.85rem;font-weight:600;text-align:left;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer}
+.cb-ch button[aria-pressed="true"]{background:var(--ink);color:var(--paper);box-shadow:2px 2px 0 var(--shadow)}
+.cb-out{display:flex;flex-direction:column;gap:8px}
+.cb-n{font-size:.8rem;color:var(--muted)}.cb-n b{color:var(--ink)}
+.cb-card{background:var(--lilac);color:var(--sticker-ink);border:2px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:4px 4px 0 var(--shadow);min-height:190px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.cb-o b{display:block;font-family:var(--display);font-size:1.25rem;font-weight:500;line-height:1.2}
+.cb-o p{margin:6px 0 0;font-size:.92rem;line-height:1.45}
+.cb-who{margin:0;padding-top:10px;border-top:1.5px solid color-mix(in srgb,var(--sticker-ink) 30%,transparent);font-size:.82rem;font-weight:700}
+.cb-rule,.cb figcaption{grid-column:1/-1}
+.cb-rule{margin:0;font-size:.9rem;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--butter) 60%,var(--surface));border:1.5px solid var(--hair)}
+@media (max-width:720px){.cb{grid-template-columns:1fr}}
+.sum-c .sum-pp{white-space:normal}
+.story .b-quote{margin-top:28px}
+.story .b-table.n2 table{min-width:0}
