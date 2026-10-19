@@ -358,7 +358,7 @@ function block(b, p, ids){
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
-    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c,tap])=>Array.isArray(s)?`<div><div class="ba-sw" style="--x:${tap.x}%;--y:${tap.y}%"><img src="${s[0]}" alt="${X(c)}" loading="lazy"><img class="ba-b" src="${s[1]}" alt="" loading="lazy"><i class="ba-tap" aria-hidden="true"></i></div><span>${X(c)}</span></div>`:`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
@@ -393,6 +393,65 @@ function caseHTML(p){
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
     </article></div>`;
 }
+/* Funnel trip: vertical bars, a line over their tops walked by a face, friction bubbles anchored to points */
+const TRIP_MOOD=['<circle class="tf" r="17"/><circle class="te" cx="-5" cy="-3" r="1.8"/><circle class="te" cx="5" cy="-3" r="1.8"/><path d="M-7 4q7 8 14 0"/>',
+ '<circle class="tf" r="17"/><circle class="te" cx="-5" cy="-3" r="1.8"/><circle class="te" cx="5" cy="-3" r="1.8"/><path d="M-6 7h12"/>',
+ '<circle class="tf" r="17"/><path d="M-9 -9l6 2M9 -9l-6 2"/><circle class="te" cx="-5" cy="-2" r="1.8"/><circle class="te" cx="5" cy="-2" r="1.8"/><path d="M-6 8q3-3 6 0t6 0"/><text class="tq" x="14" y="-11">?</text>',
+ '<circle class="tf" r="17"/><path d="M-9 -7l6 3M9 -7l-6 3"/><circle class="te" cx="-5" cy="-1" r="1.8"/><circle class="te" cx="5" cy="-1" r="1.8"/><path d="M-6 10q6-6 12 0"/><path class="tr-red" d="M13 -18q3 -4 6 0t6 0"/><text class="tq tr-redt" x="15" y="-4">!</text>'];
+function tripHTML(b){
+  const tot=b.steps[0][1], pc=n=>Math.round(n/tot*100)+(S.lang==='es'?' %':'%');
+  const svg=D=>{ const base=D?490:330, H=D?270:220, n=b.steps.length, gap=D?(680/(n-1)):(288/(n-1)), x0=D?110:36, w=D?120:56;
+    const pts=b.steps.map(([,v],i)=>[Math.round(x0+i*gap),Math.round(base-H*v/tot)]);
+    let o=b.steps.map(([l,v],i)=>{ const [x,y]=pts[i];
+      return `<rect class="tr-bar" x="${x-w/2}" y="${y}" width="${w}" height="${base-y}" rx="${D?10:7}" style="transition-delay:${i*.1}s"/><text class="tr-pct" x="${x}" y="${y+(D?40:26)}"${D?'':' style="font-size:15px"'}>${pc(v)}</text><text class="tr-tot" x="${x}" y="${y+(D?60:40)}"${D?'':' style="font-size:10px"'}>${D?`${v} ${esc(tr(['people','personas']))}`:v}</text>`
+        +tr(l).split('\n').map((t,j)=>`<text class="tr-lab" x="${x}" y="${base+(D?28:20)+j*15}"${D?'':' style="font-size:11px"'}>${esc(t)}</text>`).join(''); }).join('');
+    o+=`<line class="tr-base" x1="${D?30:4}" y1="${base}" x2="${D?870:356}" y2="${base}"/>`;
+    o+=pts.slice(1).map((q,i)=>`<line class="tr-ln" data-i="${i}" x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[i][0]}" y2="${pts[i][1]}"/>`).join('');
+    o+=pts.slice(1).map((q,i)=>{ const d=Math.round(b.steps[i][1]/tot*100)-Math.round(b.steps[i+1][1]/tot*100), mx=(pts[i][0]+q[0])/2, my=(pts[i][1]+q[1])/2;
+      return `<text class="tr-fx tr-drop" data-at="${i+1}" x="${mx}" y="${D?my+26:my-8}"${D?'':' style="font-size:9px"'}>−${d} pp</text>`; }).join('');
+    o+=pts.map(([x,y],i)=>`<circle class="tr-dot tr-fx" data-at="${i}" cx="${x}" cy="${y}" r="${D?7:5}"/>`).join('');
+    o+=b.bubbles.map((bb,k)=>{ const [px,py]=pts[bb.at];
+      return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},92,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+78}">${X(bb.h)}</text></g>`
+               :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
+    o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
+    return `<svg class="tr-${D?'d':'m'}" viewBox="${D?'0 30 900 520':'0 24 360 376'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
+  const list=`<ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>`;
+  const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
+  if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
+  const flow=b.steps.map(([l,v],i)=>{ const img=b.flow[i];
+    return `<div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done"><img src="${b.done.img}" alt="" loading="lazy" decoding="async"><div class="tf-ov" role="img" aria-label="${X(b.done.alt)}"><div class="tf-mod"><span class="tf-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${X(b.done.h)}</b><small>${X(b.done.t)}</small><i aria-hidden="true">${X(b.done.btn)}</i></div></div></div>`}
+      <span class="tf-l">${esc(tr(l).replace('\n',' '))} <b>·&nbsp;${Math.round(v/tot*100)}${S.lang==='es'?'&nbsp;%':'%'}</b></span></div>`; }).join('');
+  return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
+      <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
+    <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</div>
+    <div class="tr-flow" hidden><div class="tf-row">${flow}</div><p class="tf-hint">${esc(tr(['Swipe to see every screen →','Desliza para ver todas las pantallas →']))}</p></div></figure>`;
+}
+function tripInit(f,instant){
+  f.classList.add('on');
+  f.querySelectorAll('svg[data-pts]').forEach(sv=>{ if(!sv.getBoundingClientRect().width) { tripRun(sv,true); return; } tripRun(sv,instant); });
+}
+function tripSize(sv){ sv.querySelectorAll('.tr-bub').forEach(g=>{ let [x,y,w,h,tx,ty]=g.dataset.box.split(',').map(Number); const ts=[...g.querySelectorAll('text')];
+  try{ w=Math.max(w,...ts.map(t=>t.getComputedTextLength()+44)); }catch(e){}
+  if(x+w>890){ const dx=x+w-890; x-=dx; ts.forEach(t=>t.setAttribute('x',+t.getAttribute('x')-dx)); }
+  const r=16, B=y+h, bx=Math.min(Math.max(tx,x+r+4),x+w-r-4);
+  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`);
+  let ld=g.querySelector('.tr-lead'); if(!ld){ ld=document.createElementNS('http://www.w3.org/2000/svg','line'); ld.setAttribute('class','tr-lead'); g.insertBefore(ld,g.firstChild); }
+  ld.setAttribute('x1',bx); ld.setAttribute('y1',B+6); ld.setAttribute('x2',tx); ld.setAttribute('y2',ty); }); }
+function tripRun(sv,instant){
+  tripSize(sv); const pts=JSON.parse(sv.dataset.pts), n=pts.length-1, segs=[...sv.querySelectorAll('.tr-ln')], f=sv.querySelector('.tr-face'), lift=+f.dataset.lift, sc=+f.dataset.sc;
+  const mood=i=>{ i=Math.min(i,3); if(f.dataset.m!==String(i)){ f.dataset.m=i; f.innerHTML=TRIP_MOOD[i]; } };
+  const at=(x,y)=>f.setAttribute('transform',`translate(${x} ${y-lift}) scale(${sc})`);
+  const show=i=>sv.querySelectorAll(`.tr-fx[data-at="${i}"]`).forEach(e=>e.classList.add('in'));
+  const seg=(i,x,y)=>{ segs[i].style.opacity=1; segs[i].setAttribute('x2',x); segs[i].setAttribute('y2',y); };
+  if(instant){ segs.forEach((s,i)=>seg(i,...pts[i+1])); for(let i=0;i<=n;i++) show(i); at(...pts[n]); mood(n); return; }
+  at(...pts[0]); mood(0); show(0); const T0=performance.now()+500, walk=800, pause=600, end=pause+n*(walk+pause);
+  const step=now=>{ const t=now-T0;
+    for(let i=0;i<n;i++){ const s=pause+i*(walk+pause), k=Math.min(1,Math.max(0,(t-s)/walk));
+      if(t>=s&&k<1){ const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2, x=pts[i][0]+(pts[i+1][0]-pts[i][0])*e, y=pts[i][1]+(pts[i+1][1]-pts[i][1])*e; at(x,y); seg(i,x,y); mood(k>=.5?i+1:i); }
+      if(k>=1){ seg(i,...pts[i+1]); show(i+1); if(t<s+walk+pause) at(...pts[i+1]); } }
+    if(t<end) requestAnimationFrame(step); else { at(...pts[n]); mood(n); } };
+  requestAnimationFrame(step);
+}
 /* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
 function sBlock(b,p,ids){
@@ -408,7 +467,7 @@ function sBlock(b,p,ids){
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="s-segs">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'goal': if(b.q) return `<div class="s-q"><p class="q-t">${X(b.t)}</p><p class="q-s">${X(b.label)}</p></div>`;
-      return `<div class="s-goal${b.main?' main':''}"><b>${X(b.label)}</b><p>${X(b.t)}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}</div>`;
+      return `<div class="s-goal${b.main?' main':''}${b.note?' note':''}"><b>${X(b.label)}</b><p>${X(b.t)}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}</div>`;
     case 'journey': {
       const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6zM9 10h6M9 13.5h6M9 17h3.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 14.5h5"/>',mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>'};
       const face=(x,y)=>`<g class="jface" transform="translate(${x} ${y})"><circle r="17"/><circle cx="-5" cy="-3" r="1.8"/><circle cx="5" cy="-3" r="1.8"/><path d="M-6 7q3-3 6 0t6 0"/><text class="jq" x="14" y="-11">?</text></g>`;
@@ -456,6 +515,9 @@ function sBlock(b,p,ids){
             <figcaption>${X(F.cap)}</figcaption></div></figure>`; }
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
         <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
+    case 'trip': return tripHTML(b);
+    case 'slide': return `<figure class="scene s-slide">${b.cap?`<p class="sl-hint"><span aria-hidden="true">⇆</span> ${X(b.cap)}</p>`:''}<div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
+      <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div></figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -481,10 +543,11 @@ function sBlock(b,p,ids){
 function askPanel(a){
   if(a.draft) return `<p class="ph">${u('draft')}</p>`;
   if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(tr(v))}</span>`:esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${a.note?`<p class="ask-note">${X(a.note)}</p>`:''}`;
+  if(a.after && !a.dec) return `<p>${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`;
   if(a.learn) return `<ul class="b-list ask-lb">${a.learn.map(([h,t])=>`<li><b>${X(h)}.</b> ${X(t)}</li>`).join('')}</ul>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
-    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`; }
+    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>${a.after?`<p class="ask-after">${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`:''}`; }
   return a.t?`<p>${X(a.t)}</p>`:'';
 }
 function askHTML(p){
@@ -503,7 +566,7 @@ function storyCaseHTML(p){
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${X(p.h1||p.title)}</h1>
         ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).split('\n').map((l,j)=>`<span class="${j?'f2':'f1'}">${l}</span>`).join('')}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`&nbsp;<b class="sum-pp">·&nbsp;${esc(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`<b class="sum-pp">${X(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
@@ -523,6 +586,7 @@ function initStory(sheet){
   }));
   sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(instant) return; q.classList.add('nudge');
     const h=q.querySelector('.qz-head'); if(h && !h.querySelector('.h1-sparks')) h.insertAdjacentHTML('beforeend',quizSparks()); }));
+  sheet.querySelectorAll('[data-anim="trip"]').forEach(f=>once(f,instant=>tripInit(f,instant)));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
   sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
     const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
@@ -540,6 +604,7 @@ function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
   try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
 function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
   S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('input',e=>{ const r=e.target.closest&&e.target.closest('.sl-cmp input'); if(r) r.parentNode.style.setProperty('--p',r.value+'%'); });
 document.addEventListener('toggle',e=>{ const d=e.target; if(d.matches&&d.matches('details.ask-i')&&d.open&&S.openId) track(S.openId,d.dataset.ask); },true);
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-ask-open]'); if(!a) return; e.preventDefault();
   const sh=a.closest('.sheet-in')||document; const d=sh.querySelector(`.ask-i[data-ask="${a.dataset.askOpen}"]`); if(!d) return;
@@ -569,7 +634,8 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
-    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    if(!box.classList.contains('jv-flow')) return;
     if(flow){ flGo(box,+box.dataset.i||0); flPlay(box,!reduce); } else flPlay(box,false); return; }
   const st=e.target.closest('[data-fl]'); if(st){ const box=st.closest('.jv-flow'); flPlay(box,false); flGo(box,+st.dataset.fl); return; }
   const pp=e.target.closest('[data-flpp]'); if(pp){ const box=pp.closest('.jv-flow'); flPlay(box,!box.classList.contains('playing')); }
