@@ -1686,3 +1686,6 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .story .s-sum.n3 .sum-c .sc-k{display:inline-block;color:var(--sticker-ink)!important;background:var(--butter);border:2px solid var(--sticker-ink);border-radius:999px;padding:2px 10px;font-size:.72rem;margin-bottom:14px}
 .story .s-sum.n3 .sum-c.bad .sc-k{background:var(--pink)}
 .story .s-sum.n3 .sum-c.good .sc-k{background:var(--mint)}
+.sum-pp{color:#1f7a50;font-weight:700;white-space:nowrap}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sum-pp{color:#7fe0b2} }
+:root[data-theme="dark"] .sum-pp{color:#7fe0b2}

@@ -313,7 +313,7 @@ const PROJECTS = [
   story:1,
   sum:[{k:['The challenge','El reto'], tone:'bad', t:['A channel that brought in around 40% of revenue, but converted less than organic.','Un canal que aportaba cerca del 40% de los ingresos, pero convertía menos que el orgánico.']},
        {k:['My contribution','Mi aportación'], t:['Two experiments and a survey to identify where to intervene and what to test next.','Dos experimentos y una encuesta para identificar dónde intervenir y qué probar después.']},
-       {k:['Impact','Impacto'], tone:'good', big:['14.5% → 21.5%','14,5% → 21,5%'], bigl:['From 14.5% to 21.5%','Del 14,5% al 21,5%'], t:['Purchase conversion after seeing the result','Conversión a compra tras ver el resultado'], note:['+7 percentage points in the experiment','+7 puntos porcentuales en el experimento']}],
+       {k:['Impact','Impacto'], tone:'good', big:['14.5% → 21.5%','14,5% → 21,5%'], bigl:['From 14.5% to 21.5%','Del 14,5% al 21,5%'], t:['Purchase conversion after seeing the result','Conversión a compra tras ver el resultado'], pp:'+7 pp'}],
   nums:[{k:['Business','Negocio'],v:'+48%',t:['more purchases in the experiment, in the channel behind ~40% of revenue','más compras en el experimento, en el canal que aporta ~40% de la facturación']},
         {k:['User','Usuario'],v:'~55%',t:['had forgotten their discount by the time they saw their result','había olvidado su descuento al ver el resultado']},
         {k:['Experiment','Experimento'],v:'A/B/C',t:['~5,000 users from 3 top partners, significant','~5.000 usuarios de 3 partners top, significativo']}],
