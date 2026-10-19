@@ -1763,3 +1763,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @keyframes cf{0%{opacity:1;transform:translate(0,0) rotate(0)}80%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 80px)) rotate(var(--r))}}
 @media (prefers-reduced-motion: reduce){ .quiz.done .qz-opt.is-win::after{animation:none} }
 .quiz.done .qz-go{display:none}
+.qz-head{position:relative;display:inline-block}

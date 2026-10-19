@@ -78,6 +78,8 @@ const icon = {
 };
 
 /* ---------- Page ---------- */
+const quizSparks=()=>{ const P=[[-3,-30,20,'--butter',0],[22,-46,13,'--lilac',120],[48,-28,18,'--mint',220],[70,-40,14,'--pink',300],[101,52,16,'--sky',380],[-5,78,14,'--pink',460]];
+  return `<span class="h1-sparks" aria-hidden="true">${P.map(([x,y,sz,c,d])=>`<svg class="h1-sp" viewBox="0 0 24 24" style="--x:${x}%;--y:${y}%;--s:${sz}px;--d:${d}ms"><path d="M12 1.5l2.3 7.2 7.2 2.3-7.2 2.3L12 20.5l-2.3-7.2L2.5 11l7.2-2.3z" style="fill:var(${c})" stroke="#1B1724" stroke-width="1.4" stroke-linejoin="round"/></svg>`).join('')}</span>`; };
 const nameSparks=()=>{ const P=[[-8,-34,24,'--butter',0],[ 40,-52,15,'--lilac',90],[ 88,-36,26,'--mint',180],[103, 30,16,'--pink',260],[ 34, 70,14,'--sky',330],[-16, 40,18,'--butter',420]];
   return `<span class="h1-sparks" aria-hidden="true">${P.map(([x,y,sz,c,d])=>`<svg class="h1-sp" viewBox="0 0 24 24" style="--x:${x}%;--y:${y}%;--s:${sz}px;--d:${d}ms"><path d="M12 1.5l2.3 7.2 7.2 2.3-7.2 2.3L12 20.5l-2.3-7.2L2.5 11l7.2-2.3z" style="fill:var(${c})" stroke="#1B1724" stroke-width="1.4" stroke-linejoin="round"/></svg>`).join('')}</span>`; };
 function heroHTML(){
@@ -465,7 +467,7 @@ function sBlock(b,p,ids){
           <span class="grp"><i class="sw yes"></i><b data-n="yes">0</b> ${X(b.l_yes)}</span><span class="grp"><i class="sw no"></i><b data-n="no">0</b> ${X(b.l_no)}</span></div>
         <div class="sc-dots" aria-hidden="true">${'<i></i>'.repeat(b.total)}</div><p class="sr">${X(b.sr)}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'tl': return `<figure class="scene"><ol class="sc-tl">${b.items.map(([h,t,hit],i)=>`<li class="${hit?'hit':''}"><span class="c" aria-hidden="true">${hit?'★':i+1-(b.items.slice(0,i).some(x=>x[2])?1:0)}</span><b>${X(h)}</b>${t?`<em>${X(t)}</em>`:''}</li>`).join('')}</ol><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3><p class="muted">${X(b.sub)}</p>
+    case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><div class="qz-head"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3></div><p class="muted">${X(b.sub)}</p>
         <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt${o.img?' qz-img':''}" data-pick="${o.id}" aria-pressed="false">${o.img?`<img src="${o.img}" alt="" decoding="async">`:`<span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong>`}<span class="qz-t">${X(o.t)}</span><span class="qz-go">${u('qz_pick')} →</span></button>`).join('')}</div>
         <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
@@ -518,7 +520,8 @@ function initStory(sheet){
     if(instant){ set(4); return; }
     let t0=null; const dur=2600; const st=ts=>{ if(!t0) t0=ts; const k=Math.min(1,(ts-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; set(e*4); if(k<1) requestAnimationFrame(st); }; set(0); requestAnimationFrame(st);
   }));
-  sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(!instant) q.classList.add('nudge'); }));
+  sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(instant) return; q.classList.add('nudge');
+    const h=q.querySelector('.qz-head'); if(h && !h.querySelector('.h1-sparks')) h.insertAdjacentHTML('beforeend',quizSparks()); }));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
   sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
     const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
