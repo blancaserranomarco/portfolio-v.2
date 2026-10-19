@@ -74,6 +74,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 - Aplicar `casos/_PLANTILLA.md` al resto de casos (empezando por Descuentos, Renovaciones y Salud).
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
+- Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).
 - Avisos por email del feedback (Resend o automatización de Notion).
 - Dominio propio, favicon, Open Graph.
