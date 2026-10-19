@@ -1809,7 +1809,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-lead{stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:0 7}
 .tr-bt{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.05em;fill:#1B1724;text-transform:uppercase}
 .tr-bq{font-family:var(--display);font-size:19px;fill:#1B1724}
-.tr-bh{font-family:var(--body);font-size:13px;fill:#3A3448}
+.tr-bh{font-family:var(--body);font-size:16px;fill:#3A3448}
 .tr-pin circle{stroke:#1B1724;stroke-width:2}.tr-pin text{fill:#1B1724;font-family:var(--body);font-size:13px;font-weight:700;text-anchor:middle}
 .tr-fx{opacity:0;transition:opacity .35s}.tr-fx.in{opacity:1}
 .tr-face .tf{fill:var(--butter);stroke:#1B1724;stroke-width:2}
@@ -2015,8 +2015,8 @@ const PROJECTS = [
     {k:'trip', label:['The purchase journey before the experiments','El recorrido de compra antes de los experimentos'],
       steps:[[['Coupons','Cupones'],553],[['Detail','Detalle'],412],[['Amount','Importe'],308],[['Summary\nand payment','Resumen\ny pago'],242],[['Purchase\ndone','Compra\nhecha'],167]],
       bubbles:[{at:1,x:110,y:60,w:262,tone:'butter',tag:['On the detail','En el detalle'],q:['“How does this work?”','«¿Cómo funciona esto?»'],h:['Little clarity about the benefit','Poca claridad sobre el beneficio'],long:['On the detail: little clarity about how the benefit worked.','En el detalle: poca claridad sobre cómo funcionaba el beneficio.']},
-               {at:2,x:400,y:150,w:320,tone:'pink',tag:['On the amount','En el importe'],q:['“Do I type what I pay or what I get?”','«¿Pongo lo que pago o lo que recibo?»'],h:['Doubts when entering the amount','Dudas al introducir el importe'],long:['On the amount: doubts when entering the amount.','En el importe: dudas al introducir el importe.']},
-               {at:3,x:600,y:254,w:290,tone:'lilac',tag:['At payment','En el pago'],q:['“Is it safe to enter my card?”','«¿Es seguro meter mi tarjeta?»'],h:['Distrust when adding the card','Desconfianza al añadir la tarjeta'],long:['At payment: distrust when adding the card.','En el pago: desconfianza al añadir la tarjeta.']}],
+               {at:2,x:400,y:138,w:320,tone:'pink',tag:['On the amount','En el importe'],q:['“Do I type what I pay or what I get?”','«¿Pongo lo que pago o lo que recibo?»'],h:['Doubts when entering the amount','Dudas al introducir el importe'],long:['On the amount: doubts when entering the amount.','En el importe: dudas al introducir el importe.']},
+               {at:3,x:600,y:246,w:290,tone:'lilac',tag:['At payment','En el pago'],q:['“Is it safe to enter my card?”','«¿Es seguro meter mi tarjeta?»'],h:['Distrust when adding the card','Desconfianza al añadir la tarjeta'],long:['At payment: distrust when adding the card.','En el pago: desconfianza al añadir la tarjeta.']}],
       flow:[['assets/discount-t2-before.webp',['Coupons screen','Pantalla de cupones']],['assets/discount-t1-before-framed.webp',['Discount detail screen','Pantalla de detalle del descuento']],['assets/discount-t3-amount-before.webp',['Amount screen','Pantalla de importe']],['assets/discount-t3-pay-before.webp',['Summary and payment screen','Pantalla de resumen y pago']],null],
       done:{img:'assets/discount-t3-pay-before.webp',h:['Purchase done!','¡Compra hecha!'],t:['Your coupon is ready in Benefits.','Tu cupón ya está en Beneficios.'],btn:['OK','Aceptar'],alt:['Illustration: success message after completing the purchase','Ilustración: mensaje de éxito al completar la compra']},
       sr:['Of 553 people who saw the coupons, 75% opened a discount’s detail, 56% reached the amount, 44% reached the summary and payment and 30% completed the purchase. Frictions: little clarity about how the benefit worked, doubts at the amount step, and little sense of security when entering the card.','De 553 personas que vieron los cupones, el 75 % abrió el detalle de un descuento, el 56 % llegó al importe, el 44 % al resumen y pago y el 30 % completó la compra. Fricciones: poca claridad sobre cómo funcionaba el beneficio, dudas en el importe y poca seguridad al meter la tarjeta.'],
@@ -2982,7 +2982,7 @@ function tripHTML(b){
       return `<text class="tr-fx tr-drop" data-at="${i+1}" x="${mx}" y="${D?my+26:my-8}"${D?'':' style="font-size:9px"'}>−${d} pp</text>`; }).join('');
     o+=pts.map(([x,y],i)=>`<circle class="tr-dot tr-fx" data-at="${i}" cx="${x}" cy="${y}" r="${D?7:5}"/>`).join('');
     o+=b.bubbles.map((bb,k)=>{ const [px,py]=pts[bb.at];
-      return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},84,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+72}">${X(bb.h)}</text></g>`
+      return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},92,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+78}">${X(bb.h)}</text></g>`
                :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
     o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
     return `<svg class="tr-${D?'d':'m'}" viewBox="${D?'0 30 900 520':'0 24 360 376'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };

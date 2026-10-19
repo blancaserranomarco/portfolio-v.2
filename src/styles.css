@@ -1804,7 +1804,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-lead{stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:0 7}
 .tr-bt{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.05em;fill:#1B1724;text-transform:uppercase}
 .tr-bq{font-family:var(--display);font-size:19px;fill:#1B1724}
-.tr-bh{font-family:var(--body);font-size:13px;fill:#3A3448}
+.tr-bh{font-family:var(--body);font-size:16px;fill:#3A3448}
 .tr-pin circle{stroke:#1B1724;stroke-width:2}.tr-pin text{fill:#1B1724;font-family:var(--body);font-size:13px;font-weight:700;text-anchor:middle}
 .tr-fx{opacity:0;transition:opacity .35s}.tr-fx.in{opacity:1}
 .tr-face .tf{fill:var(--butter);stroke:#1B1724;stroke-width:2}
