@@ -1837,7 +1837,15 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tf-note span{display:block}
 .tf-s{display:flex;flex-direction:column;align-items:center;text-align:center}
 .tf-s img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--soft);cursor:zoom-in}
-.tf-done{width:100%;aspect-ratio:400/821;border-radius:14px;border:1px dashed var(--soft);display:grid;place-items:center;font-size:2.4rem;color:var(--ink);background:color-mix(in srgb,var(--sky) 45%,var(--surface))}
+.tf-done{position:relative;width:100%}
+.tf-done img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--soft)}
+.tf-ov{position:absolute;left:4.6%;right:4.6%;top:2.1%;bottom:2.7%;border-radius:8%/3.9%;background:rgba(27,23,36,.55);display:grid;place-items:center}
+.tf-mod{width:84%;background:#fff;border-radius:12px;padding:12px 8px 10px;text-align:center;color:#1B1724;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.tf-ck{width:30px;height:30px;border-radius:50%;background:#A8EBCC;display:grid;place-items:center;margin-bottom:2px}
+.tf-ck svg{width:18px;height:18px;fill:none;stroke:#1B1724;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tf-mod b{font-size:.78rem;line-height:1.2}
+.tf-mod small{font-size:.62rem;line-height:1.25;color:#5B5568}
+.tf-mod i{font-style:normal;font-size:.6rem;font-weight:700;background:#6CF0B4;border-radius:999px;padding:4px 10px;margin-top:5px}
 .tf-n{font-family:var(--display);font-weight:500;font-size:1.5rem;margin-top:10px;line-height:1}
 .tf-p{font-size:.8rem;color:var(--muted);margin-top:2px}
 .tf-l{font-weight:700;font-size:.88rem;margin-top:4px}
@@ -2013,6 +2021,7 @@ const PROJECTS = [
                {at:2,x:400,y:150,w:320,tone:'pink',tag:['On the amount','En el importe'],q:['“Do I type what I pay or what I get?”','«¿Pongo lo que pago o lo que recibo?»'],h:['Confusing purchase steps','Pasos de compra confusos'],long:['On the amount: confusing purchase steps.','En el importe: pasos de compra confusos.']},
                {at:3,x:600,y:254,w:290,tone:'lilac',tag:['At payment','En el pago'],q:['“Is it safe to enter my card?”','«¿Es seguro meter mi tarjeta?»'],h:['Little security when adding the card','Poca seguridad al añadir la tarjeta'],long:['At payment: little sense of security when adding the card.','En el pago: poca sensación de seguridad al añadir la tarjeta.']}],
       flow:[['assets/discount-t2-before.webp',['Coupons screen','Pantalla de cupones']],['assets/discount-t1-before-framed.webp',['Discount detail screen','Pantalla de detalle del descuento']],['assets/discount-t3-amount-before.webp',['Amount screen','Pantalla de importe']],['assets/discount-t3-pay-before.webp',['Summary and payment screen','Pantalla de resumen y pago']],null],
+      done:{img:'assets/discount-t3-pay-before.webp',h:['Purchase done!','¡Compra hecha!'],t:['Your coupon is ready in Benefits.','Tu cupón ya está en Beneficios.'],btn:['See coupon','Ver cupón'],alt:['Illustration: success message after completing the purchase','Ilustración: mensaje de éxito al completar la compra']},
       sr:['Of 553 people who saw the coupons, 75% opened a discount’s detail, 56% reached the amount, 44% reached the summary and payment and 30% completed the purchase. Frictions: little clarity about how the benefit worked, doubts at the amount step, and little sense of security when entering the card.','De 553 personas que vieron los cupones, el 75 % abrió el detalle de un descuento, el 56 % llegó al importe, el 44 % al resumen y pago y el 30 % completó la compra. Fricciones: poca claridad sobre cómo funcionaba el beneficio, dudas en el importe y poca seguridad al meter la tarjeta.'],
       cap:['Of 553 people who saw the coupons, 167 bought. Control group of experiment 1 · 11–29 April 2024 · Amplitude.','De 553 personas que vieron los cupones, 167 compraron. Grupo de control del experimento 1 · 11–29 de abril de 2024 · Amplitude.']},
     {k:'p', t:['I proposed migrating the flow step by step and launching each change as a 50/50 A/B experiment in Amplitude: measure, learn, and let each result decide the next change.',
@@ -2981,7 +2990,7 @@ function tripHTML(b){
   if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
   const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
     return `<div class="tf-b">${bb?`<div class="tf-note" style="--t:var(--${bb.tone})"><small><i aria-hidden="true">${k+1}</i>${X(bb.tag)}</small><span>${X(bb.h)}</span></div>`:''}</div>
-      <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done" aria-hidden="true">✓</div>`}
+      <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done"><img src="${b.done.img}" alt="" loading="lazy" decoding="async"><div class="tf-ov" role="img" aria-label="${X(b.done.alt)}"><div class="tf-mod"><span class="tf-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${X(b.done.h)}</b><small>${X(b.done.t)}</small><i aria-hidden="true">${X(b.done.btn)}</i></div></div></div>`}
       <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
       <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
@@ -2990,7 +2999,7 @@ function tripHTML(b){
 }
 function tripInit(f,instant){
   f.classList.add('on');
-  f.querySelectorAll('svg').forEach(sv=>{ if(!sv.getBoundingClientRect().width) { tripRun(sv,true); return; } tripRun(sv,instant); });
+  f.querySelectorAll('svg[data-pts]').forEach(sv=>{ if(!sv.getBoundingClientRect().width) { tripRun(sv,true); return; } tripRun(sv,instant); });
 }
 function tripSize(sv){ sv.querySelectorAll('.tr-bub').forEach(g=>{ let [x,y,w,h,tx,ty]=g.dataset.box.split(',').map(Number); const ts=[...g.querySelectorAll('text')];
   try{ w=Math.max(w,...ts.map(t=>t.getComputedTextLength()+44)); }catch(e){}
