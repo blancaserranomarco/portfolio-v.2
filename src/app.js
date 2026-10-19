@@ -408,8 +408,8 @@ function sBlock(b,p,ids){
       const wrap=(t,n)=>{ const w=tr(t).split(' '), L=[]; let c=''; w.forEach(x=>{ if((c+' '+x).trim().length>n){ L.push(c.trim()); c=x; } else c+=' '+x; }); if(c.trim()) L.push(c.trim()); return L; };
       const tsp=(L,x,y,lh)=>L.map((l,i)=>`<tspan x="${x}" y="${y+i*lh}">${esc(l)}</tspan>`).join('');
       const node=(ic,x,y,i,cls='')=>`<g class="jn ${cls}" data-p="${i}" transform="translate(${x} ${y})"><circle r="24"/><g class="ji" transform="translate(-12 -12)">${I[ic]}</g></g>`;
-      const stick=(t,cx,y,w,tone,cls,n)=>{ const HL=wrap(t.h,Math.floor((w-28)/8.6)), L=t.q?wrap(t.q,n||40):[], qy=42+(HL.length-1)*20+22, h=qy-14+(t.q?L.length*17+6:-8)+(t.q?0:0);
-        return `<g class="js ${cls}" transform="translate(${cx} ${y})"><rect x="${-w/2}" y="0" width="${w}" height="${t.q?qy+L.length*17-6:qy-8}" rx="12" style="fill:var(--${tone})"/><text class="jt" x="${-w/2+14}" y="21">${X(t.tag)}</text><text class="jh">${tsp(HL,-w/2+14,42,20)}</text>${t.q?`<text class="jqt">${tsp(L,-w/2+14,qy,17)}</text>`:''}</g>`; };
+      const stick=(t,cx,y,w,tone,cls,n)=>{ const o=t.tag?0:-16, HL=wrap(t.h,Math.floor((w-28)/8.6)), L=t.q?wrap(t.q,n||40):[], qy=42+o+(HL.length-1)*20+22;
+        return `<g class="js ${cls}" transform="translate(${cx} ${y-o})"><rect x="${-w/2}" y="0" width="${w}" height="${t.q?qy+L.length*17-6:qy-8}" rx="12" style="fill:var(--${tone})"/>${t.tag?`<text class="jt" x="${-w/2+14}" y="21">${X(t.tag)}</text>`:''}<text class="jh">${tsp(HL,-w/2+14,42+o,20)}</text>${t.q?`<text class="jqt">${tsp(L,-w/2+14,qy,17)}</text>`:''}</g>`; };
       const labelsH=(xs,ry)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" text-anchor="middle" x="${xs[i]}" y="${ry+46}">${X(h)}</text><text class="jdesc" text-anchor="middle">${tsp(wrap(t,20),xs[i],ry+66,16)}</text>`).join('');
       const labelsV=(ys,rx)=>b.steps.map(([ic,h,t],i)=>`<text class="jt jlab" x="${rx+38}" y="${ys[i]-2}">${X(h)}</text><text class="jdesc">${tsp(wrap(t,24),rx+38,ys[i]+21,20)}</text>`).join('');
       const xs=[60,255,450,645,840], rx=34; let H='', V='';
