@@ -393,6 +393,54 @@ function caseHTML(p){
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
     </article></div>`;
 }
+/* Funnel trip: vertical bars, a line over their tops walked by a face, friction bubbles anchored to points */
+const TRIP_MOOD=['<circle class="tf" r="17"/><circle class="te" cx="-5" cy="-3" r="1.8"/><circle class="te" cx="5" cy="-3" r="1.8"/><path d="M-7 4q7 8 14 0"/>',
+ '<circle class="tf" r="17"/><circle class="te" cx="-5" cy="-3" r="1.8"/><circle class="te" cx="5" cy="-3" r="1.8"/><path d="M-6 7h12"/>',
+ '<circle class="tf" r="17"/><path d="M-9 -9l6 2M9 -9l-6 2"/><circle class="te" cx="-5" cy="-2" r="1.8"/><circle class="te" cx="5" cy="-2" r="1.8"/><path d="M-6 8q3-3 6 0t6 0"/><text class="tq" x="14" y="-11">?</text>',
+ '<circle class="tf" r="17"/><path d="M-9 -7l6 3M9 -7l-6 3"/><circle class="te" cx="-5" cy="-1" r="1.8"/><circle class="te" cx="5" cy="-1" r="1.8"/><path d="M-6 10q6-6 12 0"/><path class="tr-red" d="M13 -18q3 -4 6 0t6 0"/><text class="tq tr-redt" x="15" y="-4">!</text>'];
+function tripHTML(b){
+  const tot=b.steps[0][1], pc=n=>Math.round(n/tot*100)+(S.lang==='es'?' %':'%');
+  const svg=D=>{ const base=D?490:330, H=D?270:220, n=b.steps.length, gap=D?(680/(n-1)):(288/(n-1)), x0=D?110:36, w=D?120:56;
+    const pts=b.steps.map(([,v],i)=>[Math.round(x0+i*gap),Math.round(base-H*v/tot)]);
+    let o=b.steps.map(([l,v],i)=>{ const [x,y]=pts[i];
+      return `<rect class="tr-bar" x="${x-w/2}" y="${y}" width="${w}" height="${base-y}" rx="${D?10:7}" style="transition-delay:${i*.1}s"/><text class="tr-pct" x="${x}" y="${y+(D?40:26)}"${D?'':' style="font-size:15px"'}>${pc(v)}</text><text class="tr-tot" x="${x}" y="${y+(D?60:40)}"${D?'':' style="font-size:10px"'}>${D?`${v} ${esc(tr(['people','personas']))}`:v}</text>`
+        +tr(l).split('\n').map((t,j)=>`<text class="tr-lab" x="${x}" y="${base+(D?28:20)+j*15}"${D?'':' style="font-size:11px"'}>${esc(t)}</text>`).join(''); }).join('');
+    o+=`<line class="tr-base" x1="${D?30:4}" y1="${base}" x2="${D?870:356}" y2="${base}"/>`;
+    o+=pts.slice(1).map((q,i)=>`<line class="tr-ln" data-i="${i}" x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[i][0]}" y2="${pts[i][1]}"/>`).join('');
+    o+=pts.map(([x,y],i)=>`<circle class="tr-dot tr-fx" data-at="${i}" cx="${x}" cy="${y}" r="${D?7:5}"/>`).join('');
+    o+=b.bubbles.map((bb,k)=>{ const [px,py]=pts[bb.at];
+      return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},84,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+72}">${X(bb.h)}</text></g>`
+               :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
+    o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
+    return `<svg class="tr-${D?'d':'m'}" viewBox="0 0 ${D?'900 550':'360 400'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
+  return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>
+    <ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>
+    ${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+}
+function tripInit(f,instant){
+  f.classList.add('on');
+  f.querySelectorAll('svg').forEach(sv=>{ if(!sv.getBoundingClientRect().width) { tripRun(sv,true); return; } tripRun(sv,instant); });
+}
+function tripSize(sv){ sv.querySelectorAll('.tr-bub').forEach(g=>{ let [x,y,w,h,tx,ty]=g.dataset.box.split(',').map(Number); const ts=[...g.querySelectorAll('text')];
+  try{ w=Math.max(w,...ts.map(t=>t.getComputedTextLength()+44)); }catch(e){}
+  if(x+w>890){ const dx=x+w-890; x-=dx; ts.forEach(t=>t.setAttribute('x',+t.getAttribute('x')-dx)); }
+  const r=18, B=y+h, bx=Math.min(Math.max(tx-8,x+r+6),x+w-r-22);
+  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${bx+16}L${tx} ${ty}L${bx} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`); }); }
+function tripRun(sv,instant){
+  tripSize(sv); const pts=JSON.parse(sv.dataset.pts), n=pts.length-1, segs=[...sv.querySelectorAll('.tr-ln')], f=sv.querySelector('.tr-face'), lift=+f.dataset.lift, sc=+f.dataset.sc;
+  const mood=i=>{ i=Math.min(i,3); if(f.dataset.m!==String(i)){ f.dataset.m=i; f.innerHTML=TRIP_MOOD[i]; } };
+  const at=(x,y)=>f.setAttribute('transform',`translate(${x} ${y-lift}) scale(${sc})`);
+  const show=i=>sv.querySelectorAll(`.tr-fx[data-at="${i}"]`).forEach(e=>e.classList.add('in'));
+  const seg=(i,x,y)=>{ segs[i].style.opacity=1; segs[i].setAttribute('x2',x); segs[i].setAttribute('y2',y); };
+  if(instant){ segs.forEach((s,i)=>seg(i,...pts[i+1])); for(let i=0;i<=n;i++) show(i); at(...pts[n]); mood(n); return; }
+  at(...pts[0]); mood(0); show(0); const T0=performance.now()+500, walk=800, pause=600, end=pause+n*(walk+pause);
+  const step=now=>{ const t=now-T0;
+    for(let i=0;i<n;i++){ const s=pause+i*(walk+pause), k=Math.min(1,Math.max(0,(t-s)/walk));
+      if(t>=s&&k<1){ const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2, x=pts[i][0]+(pts[i+1][0]-pts[i][0])*e, y=pts[i][1]+(pts[i+1][1]-pts[i][1])*e; at(x,y); seg(i,x,y); mood(k>=.5?i+1:i); }
+      if(k>=1){ seg(i,...pts[i+1]); show(i+1); if(t<s+walk+pause) at(...pts[i+1]); } }
+    if(t<end) requestAnimationFrame(step); else { at(...pts[n]); mood(n); } };
+  requestAnimationFrame(step);
+}
 /* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
 function sBlock(b,p,ids){
@@ -456,6 +504,7 @@ function sBlock(b,p,ids){
             <figcaption>${X(F.cap)}</figcaption></div></figure>`; }
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
         <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
+    case 'trip': return tripHTML(b);
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -523,6 +572,7 @@ function initStory(sheet){
   }));
   sheet.querySelectorAll('[data-quiz]').forEach(q=>once(q,instant=>{ if(instant) return; q.classList.add('nudge');
     const h=q.querySelector('.qz-head'); if(h && !h.querySelector('.h1-sparks')) h.insertAdjacentHTML('beforeend',quizSparks()); }));
+  sheet.querySelectorAll('[data-anim="trip"]').forEach(f=>once(f,instant=>tripInit(f,instant)));
   sheet.querySelectorAll('[data-anim="bars"]').forEach(f=>once(f,()=>f.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%')));
   sheet.querySelectorAll('[data-anim="dots"]').forEach(f=>once(f,instant=>{
     const d=[...f.querySelectorAll('.sc-dots i')], T=+f.dataset.total, N=+f.dataset.no, n=k=>f.querySelector(`[data-n="${k}"]`), cnt=f.querySelector('.sc-cnt');
