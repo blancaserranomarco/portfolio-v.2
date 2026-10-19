@@ -2980,7 +2980,7 @@ function tripHTML(b){
       return D?`<g class="tr-fx tr-bub" data-at="${bb.at}" data-box="${bb.x},${bb.y},${bb.w},84,${px},${py-14}"><path style="fill:var(--${bb.tone})"/><text class="tr-bt" x="${bb.x+20}" y="${bb.y+26}">${k+1} · ${X(bb.tag)}</text><text class="tr-bq" x="${bb.x+20}" y="${bb.y+52}">${X(bb.q)}</text><text class="tr-bh" x="${bb.x+20}" y="${bb.y+72}">${X(bb.h)}</text></g>`
                :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
     o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
-    return `<svg class="tr-${D?'d':'m'}" viewBox="0 0 ${D?'900 550':'360 400'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
+    return `<svg class="tr-${D?'d':'m'}" viewBox="${D?'0 30 900 520':'0 24 360 376'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
   const list=`<ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>`;
   const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
   if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
