@@ -516,6 +516,8 @@ function sBlock(b,p,ids){
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
         <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'trip': return tripHTML(b);
+    case 'slide': return `<figure class="scene s-slide"><div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
+      <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -601,6 +603,7 @@ function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
   try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
 function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
   S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('input',e=>{ const r=e.target.closest&&e.target.closest('.sl-cmp input'); if(r) r.parentNode.style.setProperty('--p',r.value+'%'); });
 document.addEventListener('toggle',e=>{ const d=e.target; if(d.matches&&d.matches('details.ask-i')&&d.open&&S.openId) track(S.openId,d.dataset.ask); },true);
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-ask-open]'); if(!a) return; e.preventDefault();
   const sh=a.closest('.sheet-in')||document; const d=sh.querySelector(`.ask-i[data-ask="${a.dataset.askOpen}"]`); if(!d) return;

@@ -1865,6 +1865,23 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @keyframes baSw{0%,42%{opacity:0}48%,92%{opacity:1}98%,100%{opacity:0}}
 @keyframes baTap{0%,30%{opacity:0;transform:scale(.6)}36%{opacity:1;transform:scale(1)}44%{opacity:0;transform:scale(1.5)}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.ba-sw .ba-b{animation:none;opacity:1}.ba-tap{display:none}}
+
+/* Before/after slider */
+.sl-pair{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.sl-cmp{position:relative;max-width:250px;margin:0 auto;border-radius:16px;overflow:hidden;user-select:none}
+.sl-cmp img{display:block;width:100%;height:auto}
+.sl-cmp .sl-af{position:absolute;inset:0;clip-path:inset(0 0 0 var(--p))}
+.sl-ln{position:absolute;top:0;bottom:0;left:var(--p);width:2px;background:#1B1724;transform:translateX(-1px);pointer-events:none}
+.sl-kn{position:absolute;top:50%;left:var(--p);width:38px;height:38px;border-radius:50%;background:#fff;color:#1B1724;border:2px solid #1B1724;transform:translate(-50%,-50%);display:grid;place-items:center;font-size:.85rem;font-weight:700;box-shadow:2px 2px 0 #1B1724;pointer-events:none}
+.sl-cmp input{position:absolute;inset:0;opacity:0;cursor:ew-resize;width:100%;height:100%;margin:0}
+.sl-cmp:focus-within .sl-kn{outline:3px solid #5B3DF5;outline-offset:3px}
+.sl-tg{position:absolute;top:10px;font-size:.7rem;font-weight:700;border-radius:999px;padding:2px 8px;pointer-events:none}
+.sl-tg.l{left:10px;background:#1B1724;color:#fff}.sl-tg.r{right:10px;background:var(--mint);color:#1B1724}
+.sl-h{font-family:var(--body);font-weight:700;font-size:1rem;text-align:center;margin:14px 0 8px}
+.sl-ch{list-style:none;padding:0;margin:0 auto;width:fit-content;font-size:.92rem;color:var(--muted)}
+.sl-ch li{padding-left:22px;position:relative;margin:3px 0}
+.sl-ch li::before{content:"✓";position:absolute;left:0;color:var(--green,#1f7a50);font-weight:700}
+@media (max-width:640px){.sl-pair{grid-template-columns:1fr;gap:30px}}
 </style>
 </head>
 <body>
@@ -2092,8 +2109,12 @@ const PROJECTS = [
                '**Importe:** aclaré qué cantidad introducir, mostré el descuento y el precio final, y sustituí el botón inicialmente desactivado.']},
     {k:'p', t:['**Payment:** I kept the purchase summary visible and added instructions and a security message next to the card field.',
                '**Pago:** mantuve visible el resumen de compra y añadí instrucciones y un mensaje de seguridad junto al campo de la tarjeta.']},
-    {k:'ba', n:4, items:[['assets/discount-t3-amount-before.webp',['Before · amount','Antes · importe']],['assets/discount-t3-amount-after.webp',['After · amount','Después · importe']],['assets/discount-t3-pay-before.webp',['Before · payment','Antes · pago']],['assets/discount-t3-pay-after.webp',['After · payment','Después · pago']]],
-      cap:['Experiment 3: what to type and what you’ll pay, and a security message when entering the card.','Experimento 3: qué escribir y cuánto pagarás, y un mensaje de seguridad al meter la tarjeta.']},
+    {k:'slide', items:[
+      {before:'assets/discount-t3-amount-before.webp', after:'assets/discount-t3-amount-after.webp', h:['Amount','Importe'], alt_b:['Amount screen before','Pantalla de importe antes'], alt_a:['Amount screen after','Pantalla de importe después'],
+       checks:[['Which amount to enter','Qué cantidad introducir'],['Discount and final price','Descuento y precio final'],['Button always active','Botón siempre activo']]},
+      {before:'assets/discount-t3-pay-before.webp', after:'assets/discount-t3-pay-after.webp', h:['Payment','Pago'], alt_b:['Payment screen before','Pantalla de pago antes'], alt_a:['Payment screen after','Pantalla de pago después'],
+       checks:[['Purchase summary visible','Resumen de compra visible'],['Instructions next to the card','Instrucciones junto a la tarjeta'],['Security message','Mensaje de seguridad']]}],
+      cap:['Drag the line to compare before and after.','Arrastra la línea para comparar el antes y el después.']},
     {k:'split', meta:['22–29 July 2024 · A/B experiment, 50/50 · 7 days · App version 5.200 or later, excluding demo users','22–29 de julio de 2024 · Experimento A/B 50/50 · 7 días · App 5.200 o posterior, sin usuarios demo'],
       h:['Purchase success went from 19.4% to 32.2%','Las compras con éxito pasaron del 19,4 % al 32,2 %'],
       intro:['We measured purchase success and how many people got through each of the two screens we changed.','Medimos las compras con éxito y cuánta gente superaba cada una de las dos pantallas que cambiamos.'],
@@ -3108,6 +3129,8 @@ function sBlock(b,p,ids){
       return `<figure class="scene jr2 m-${b.mode}" data-anim="journey" data-mode="${b.mode}"><span class="sc-k">${X(b.label)}</span>${H}${V}
         <p class="sr">${b.steps.map(([ic,h])=>X(h)).join(' → ')}. ${sr}</p>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`; }
     case 'trip': return tripHTML(b);
+    case 'slide': return `<figure class="scene s-slide"><div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
+      <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -3193,6 +3216,7 @@ function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
   try{ fetch('/api/event',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({c,q,lang:S.lang,focus:curF()})}).catch(()=>{}); }catch(e){} }
 function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
   S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
+document.addEventListener('input',e=>{ const r=e.target.closest&&e.target.closest('.sl-cmp input'); if(r) r.parentNode.style.setProperty('--p',r.value+'%'); });
 document.addEventListener('toggle',e=>{ const d=e.target; if(d.matches&&d.matches('details.ask-i')&&d.open&&S.openId) track(S.openId,d.dataset.ask); },true);
 document.addEventListener('click',e=>{ const a=e.target.closest('[data-ask-open]'); if(!a) return; e.preventDefault();
   const sh=a.closest('.sheet-in')||document; const d=sh.querySelector(`.ask-i[data-ask="${a.dataset.askOpen}"]`); if(!d) return;
