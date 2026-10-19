@@ -1700,3 +1700,9 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 [data-anim="dots"] .sc-cnt{flex-wrap:nowrap;gap:10px 26px;white-space:nowrap}
 [data-anim="dots"] .sc-cnt .grp{font-size:1rem}
 @media (max-width:620px){ [data-anim="dots"] .sc-cnt{flex-wrap:wrap;white-space:normal} }
+[data-anim="dots"] .sc-cnt{flex-wrap:wrap;white-space:normal;gap:8px 18px}
+[data-anim="dots"] .sc-cnt > *{white-space:nowrap}
+[data-anim="dots"] .sc-cnt .tot{font-size:2rem}
+[data-anim="dots"] .sc-cnt .tot small{font-size:.86rem}
+[data-anim="dots"] .sc-cnt .grp{font-size:.9rem;gap:6px}
+[data-anim="dots"] .sc-cnt .grp b{font-size:1.3rem}
