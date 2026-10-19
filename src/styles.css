@@ -1714,3 +1714,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .sc-cnt .sw.no{background:var(--soft)}
 }
 .sgc-d{margin:6px 0 0;font-size:.98rem;line-height:1.45}
+/* Segments without the outer box: white cards, caption as small text */
+.s-segs{margin:0}
+.s-segs .sgc{background:var(--surface)}
+.s-segs figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}

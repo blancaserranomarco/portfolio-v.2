@@ -1719,6 +1719,10 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .sc-cnt .sw.no{background:var(--soft)}
 }
 .sgc-d{margin:6px 0 0;font-size:.98rem;line-height:1.45}
+/* Segments without the outer box: white cards, caption as small text */
+.s-segs{margin:0}
+.s-segs .sgc{background:var(--surface)}
+.s-segs figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2126,7 +2130,7 @@ const PROJECTS = [
     {k:'segs',
       items:[{tag:'2A', tone:'mint', icon:'phone', h:['Still in the flow','Seguían en el flujo'],
               d:['They saw the modal inside the app, right after checking their result.','Veían la modal dentro de la app, justo después de consultar su resultado.'],
-              res:['Moved purchases: we tested which brand worked best ↓','Movió las compras: probamos qué marca funcionaba mejor ↓'], win:1},
+              res:['Result: purchases went up','Resultado: subieron las compras'], win:1},
              {tag:'2B', tone:'dot', icon:'mail', h:['Had left without buying','Se habían marchado sin comprar'],
               d:['They got an email four days later that took them back to the modal.','Recibían un email cuatro días después que los llevaba de vuelta a la modal.'],
               res:['Barely opened. Our hypothesis: CRM and Marketing already sent plenty of follow-ups. We closed it.','Apenas se abría. Nuestra hipótesis: CRM y Marketing ya enviaban muchos seguimientos. Lo cerramos.']}],
@@ -2765,7 +2769,7 @@ function sBlock(b,p,ids){
     case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
-      return `<figure class="scene">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
+      return `<figure class="s-segs">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'goal': if(b.q) return `<div class="s-q"><p class="q-t">${X(b.t)}</p><p class="q-s">${X(b.label)}</p></div>`;
       return `<div class="s-goal${b.main?' main':''}"><b>${X(b.label)}</b><p>${X(b.t)}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}</div>`;
     case 'journey': {

@@ -385,7 +385,7 @@ const PROJECTS = [
     {k:'segs',
       items:[{tag:'2A', tone:'mint', icon:'phone', h:['Still in the flow','Seguían en el flujo'],
               d:['They saw the modal inside the app, right after checking their result.','Veían la modal dentro de la app, justo después de consultar su resultado.'],
-              res:['Moved purchases: we tested which brand worked best ↓','Movió las compras: probamos qué marca funcionaba mejor ↓'], win:1},
+              res:['Result: purchases went up','Resultado: subieron las compras'], win:1},
              {tag:'2B', tone:'dot', icon:'mail', h:['Had left without buying','Se habían marchado sin comprar'],
               d:['They got an email four days later that took them back to the modal.','Recibían un email cuatro días después que los llevaba de vuelta a la modal.'],
               res:['Barely opened. Our hypothesis: CRM and Marketing already sent plenty of follow-ups. We closed it.','Apenas se abría. Nuestra hipótesis: CRM y Marketing ya enviaban muchos seguimientos. Lo cerramos.']}],
