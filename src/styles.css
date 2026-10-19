@@ -1773,3 +1773,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .qz-opt.qz-img:hover .qz-go{background:color-mix(in srgb,var(--ink) 85%,var(--lilac))}
 .story .quiz .qz-lock i{background:var(--surface)}
 .qz-v{font-weight:700;font-size:1.02rem}
+.ask-note{font-size:.85rem;color:var(--muted);margin-top:12px;max-width:70ch}
