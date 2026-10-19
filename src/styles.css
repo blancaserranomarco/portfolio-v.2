@@ -1845,3 +1845,12 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .tf-row{grid-auto-columns:150px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-right:-4px}.tf-s,.tf-b{scroll-snap-align:start}.tf-hint{display:block}}
 @media (prefers-reduced-motion:reduce){.tr-bar,.tr-fx{transition:none}}
 .story .ba{background:var(--surface)}
+
+/* Before/after: one "after" image that switches tabs */
+.ba-sw{position:relative}
+.ba-sw img{display:block;width:100%;height:auto}
+.ba-sw .ba-b{position:absolute;inset:0;opacity:0;animation:baSw 6s infinite}
+.ba-tap{position:absolute;left:var(--x);top:var(--y);width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(91,61,245,.35);border:2px solid #5B3DF5;opacity:0;animation:baTap 6s infinite}
+@keyframes baSw{0%,42%{opacity:0}48%,92%{opacity:1}98%,100%{opacity:0}}
+@keyframes baTap{0%,30%{opacity:0;transform:scale(.6)}36%{opacity:1;transform:scale(1)}44%{opacity:0;transform:scale(1.5)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.ba-sw .ba-b{animation:none;opacity:1}.ba-tap{display:none}}

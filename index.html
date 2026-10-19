@@ -1856,6 +1856,15 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   .tf-row{grid-auto-columns:150px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-right:-4px}.tf-s,.tf-b{scroll-snap-align:start}.tf-hint{display:block}}
 @media (prefers-reduced-motion:reduce){.tr-bar,.tr-fx{transition:none}}
 .story .ba{background:var(--surface)}
+
+/* Before/after: one "after" image that switches tabs */
+.ba-sw{position:relative}
+.ba-sw img{display:block;width:100%;height:auto}
+.ba-sw .ba-b{position:absolute;inset:0;opacity:0;animation:baSw 6s infinite}
+.ba-tap{position:absolute;left:var(--x);top:var(--y);width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:rgba(91,61,245,.35);border:2px solid #5B3DF5;opacity:0;animation:baTap 6s infinite}
+@keyframes baSw{0%,42%{opacity:0}48%,92%{opacity:1}98%,100%{opacity:0}}
+@keyframes baTap{0%,30%{opacity:0;transform:scale(.6)}36%{opacity:1;transform:scale(1)}44%{opacity:0;transform:scale(1.5)}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.ba-sw .ba-b{animation:none;opacity:1}.ba-tap{display:none}}
 </style>
 </head>
 <body>
@@ -2062,7 +2071,7 @@ const PROJECTS = [
     {k:'goal', q:1, label:['The question the experiment had to answer.','La pregunta que debía responder el experimento.'], t:['Would explaining how the benefit works, without cluttering it for those who already knew, increase purchases?','¿Explicar cómo funciona el beneficio, sin saturar a quien ya lo conocía, aumentaría las compras?']},
     {k:'p', t:['The most direct option was to add all that information to the discount view, but it cluttered the screen for those who already knew how it worked. Since most people only need to understand it once, I proposed a separate “Information” tab, one tap away, and kept “Discounts” as the main view.',
                'La opción más directa era añadir toda esa información a la vista del descuento, pero saturaba la pantalla para quien ya sabía cómo funcionaba. Como la mayoría solo necesita entenderlo una vez, propuse una pestaña aparte de «Información», a un toque, y mantuve «Descuentos» como vista principal.']},
-    {k:'ba', n:3, items:[['assets/discount-t2-before.webp',['Before · coupons only','Antes · solo cupones']],['assets/discount-t2-after-a.webp',['After · Discounts tab','Después · pestaña Descuentos']],['assets/discount-t2-after-b.webp',['After · Information tab','Después · pestaña Información']]],
+    {k:'ba', n:2, items:[['assets/discount-t2-before.webp',['Before · coupons only','Antes · solo cupones']],[['assets/discount-t2-after-a.webp','assets/discount-t2-after-b.webp'],['After · Discounts and Information tabs','Después · pestañas Descuentos e Información'],{x:72,y:41}]],
       cap:['Experiment 2: how the benefit works, in its own tab for whoever needs it.','Experimento 2: cómo funciona el beneficio, en su propia pestaña para quien lo necesite.']},
     {k:'split', meta:['30 April – 21 May 2024 · A/B experiment, 50/50 · 22 days · Excluding Cobee employees','30 de abril – 21 de mayo de 2024 · Experimento A/B 50/50 · 22 días · Sin empleados de Cobee'],
       h:['Those who understood bought more','Quien entendía, compraba más'],
@@ -2939,7 +2948,7 @@ function block(b, p, ids){
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
-    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c])=>`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c,tap])=>Array.isArray(s)?`<div><div class="ba-sw" style="--x:${tap.x}%;--y:${tap.y}%"><img src="${s[0]}" alt="${X(c)}" loading="lazy"><img class="ba-b" src="${s[1]}" alt="" loading="lazy"><i class="ba-tap" aria-hidden="true"></i></div><span>${X(c)}</span></div>`:`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
