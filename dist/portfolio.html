@@ -2990,8 +2990,8 @@ function tripHTML(b){
       <span class="tf-l">${esc(tr(l).replace('\n',' '))} <b>·&nbsp;${Math.round(v/tot*100)}${S.lang==='es'?'&nbsp;%':'%'}</b></span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
       <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
-    <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}</div>
-    <div class="tr-flow" hidden><div class="tf-row">${flow}</div><p class="tf-hint">${esc(tr(['Swipe to see every screen →','Desliza para ver todas las pantallas →']))}</p></div>${cap}</figure>`;
+    <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</div>
+    <div class="tr-flow" hidden><div class="tf-row">${flow}</div><p class="tf-hint">${esc(tr(['Swipe to see every screen →','Desliza para ver todas las pantallas →']))}</p></div></figure>`;
 }
 function tripInit(f,instant){
   f.classList.add('on');
