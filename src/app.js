@@ -543,6 +543,7 @@ function sBlock(b,p,ids){
 function askPanel(a){
   if(a.draft) return `<p class="ph">${u('draft')}</p>`;
   if(a.m) return `<div class="ask-m">${a.m.map(([v,t,d])=>`<div><strong>${d?`<span class="ph">${esc(tr(v))}</span>`:esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${a.note?`<p class="ask-note">${X(a.note)}</p>`:''}`;
+  if(a.after && !a.dec) return `<p>${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`;
   if(a.learn) return `<ul class="b-list ask-lb">${a.learn.map(([h,t])=>`<li><b>${X(h)}.</b> ${X(t)}</li>`).join('')}</ul>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
