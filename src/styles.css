@@ -1696,3 +1696,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-res .sc-split{margin-top:4px}
 .s-res .sc-split > div{background:var(--surface)}
 .s-foot{font-size:.82rem;color:var(--muted);margin-top:-2px}
+/* Survey counter: one line on desktop, wraps on small screens */
+[data-anim="dots"] .sc-cnt{flex-wrap:nowrap;gap:10px 26px;white-space:nowrap}
+[data-anim="dots"] .sc-cnt .grp{font-size:1rem}
+@media (max-width:620px){ [data-anim="dots"] .sc-cnt{flex-wrap:wrap;white-space:normal} }
