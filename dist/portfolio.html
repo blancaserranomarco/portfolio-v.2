@@ -1694,6 +1694,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-pp{color:#1f7a50;font-weight:700;white-space:nowrap}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sum-pp{color:#7fe0b2} }
 :root[data-theme="dark"] .sum-pp{color:#7fe0b2}
+.sc-intro{font-size:.98rem;color:var(--muted);margin:-6px 0 16px;max-width:66ch}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2071,12 +2072,12 @@ const PROJECTS = [
     {k:'img', src:'assets/taxdown-stepper.webp', cap:['The four-step onboarding, with the authorisation at the end.','El onboarding de cuatro pasos, con el apoderamiento al final.']},
     {k:'split', meta:['1–15 June 2026 · A/B experiment with an 80/20 split · New partner users on mobile','1–15 de junio de 2026 · Experimento A/B con reparto 80/20 · Nuevos usuarios de partners en móvil'],
       h:['More connections, no improvement in purchases','Más conexiones, sin mejora en compras'],
+      intro:['We measured the onboarding for two weeks to see whether it got more users to connect their data and whether that improvement turned into purchases. We also tracked completion, to check how much drop-off the new steps introduced.','Medimos el onboarding durante dos semanas para ver si conseguía que más usuarios conectaran sus datos y si esa mejora se traducía en compras. También vigilamos su finalización para comprobar cuánto abandono introducían los nuevos pasos.'],
       items:[[['Connection with the AEAT','Conexión con la AEAT'],['+5.3 pp','+5,3 pp'],['Statistically significant improvement.','Mejora estadísticamente significativa.'],'up'],
              [['Onboarding completion','Finalización del onboarding'],'96%',['Among those who started it.','Entre quienes lo empezaron.']],
              [['Purchase conversion','Conversión a compra'],['No change','Sin cambios'],['They connected more, but didn’t buy more.','Conectaban más, pero no compraban más.']]]},
-    {k:'p', t:['The experiment supported the first part of our hypothesis: giving context helped people connect their data. But that improvement didn’t turn into more purchases. I kept the onboarding and decided to investigate what was holding back those who had already connected, before iterating further on the same solution.',
-               'El experimento apoyaba la primera parte de nuestra hipótesis: dar contexto ayudaba a conectar los datos. Pero esa mejora no se tradujo en más compras. Mantuve el onboarding y decidí investigar qué frenaba a quienes ya habían conectado, antes de seguir iterando sobre la misma solución.']},
-
+    {k:'p', t:['The onboarding made connecting easier, but it wasn’t enough to increase purchases. I kept it and decided to investigate what was still holding back the purchase decision.',
+               'El onboarding facilitó la conexión, pero no bastó para aumentar las compras. Lo mantuve y decidí investigar qué seguía frenando la decisión de compra.']},
     {k:'chap', n:['3 · The turn','3 · El giro'], t:['Before changing the hypothesis, ask why','Antes de cambiar la hipótesis, preguntar por qué']},
     {k:'p', t:['Instead of polishing the stepper, we asked the people who connected but didn’t buy. We surveyed 96 users from four groups, and the answer changed the problem.',
                'En vez de pulir el stepper, preguntamos a quienes conectaban y no compraban. Encuestamos a 96 usuarios de cuatro grupos, y la respuesta cambió el problema.']},
@@ -2787,7 +2788,7 @@ function sBlock(b,p,ids){
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+    case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
         <div class="sc-cnt" aria-hidden="true"><div class="tot"><span data-n="tot">0</span><small>${X(b.l_tot)}</small></div>

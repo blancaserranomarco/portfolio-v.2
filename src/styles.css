@@ -1689,3 +1689,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-pp{color:#1f7a50;font-weight:700;white-space:nowrap}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .sum-pp{color:#7fe0b2} }
 :root[data-theme="dark"] .sum-pp{color:#7fe0b2}
+.sc-intro{font-size:.98rem;color:var(--muted);margin:-6px 0 16px;max-width:66ch}
