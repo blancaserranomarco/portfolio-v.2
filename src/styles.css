@@ -1844,3 +1844,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:640px){.trip .tr-d{display:none}.trip .tr-m{display:block}.trip .tr-list{display:grid}
   .tf-row{grid-auto-columns:150px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-right:-4px}.tf-s,.tf-b{scroll-snap-align:start}.tf-hint{display:block}}
 @media (prefers-reduced-motion:reduce){.tr-bar,.tr-fx{transition:none}}
+.story .ba{background:var(--surface)}
