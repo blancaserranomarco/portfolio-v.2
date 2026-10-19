@@ -432,8 +432,10 @@ function tripInit(f,instant){
 function tripSize(sv){ sv.querySelectorAll('.tr-bub').forEach(g=>{ let [x,y,w,h,tx,ty]=g.dataset.box.split(',').map(Number); const ts=[...g.querySelectorAll('text')];
   try{ w=Math.max(w,...ts.map(t=>t.getComputedTextLength()+44)); }catch(e){}
   if(x+w>890){ const dx=x+w-890; x-=dx; ts.forEach(t=>t.setAttribute('x',+t.getAttribute('x')-dx)); }
-  const r=18, B=y+h, bx=Math.min(Math.max(tx-8,x+r+6),x+w-r-22);
-  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${bx+16}L${tx} ${ty}L${bx} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`); }); }
+  const r=16, B=y+h, bx=Math.min(Math.max(tx,x+r+4),x+w-r-4);
+  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`);
+  let ld=g.querySelector('.tr-lead'); if(!ld){ ld=document.createElementNS('http://www.w3.org/2000/svg','line'); ld.setAttribute('class','tr-lead'); g.insertBefore(ld,g.firstChild); }
+  ld.setAttribute('x1',bx); ld.setAttribute('y1',B+6); ld.setAttribute('x2',tx); ld.setAttribute('y2',ty); }); }
 function tripRun(sv,instant){
   tripSize(sv); const pts=JSON.parse(sv.dataset.pts), n=pts.length-1, segs=[...sv.querySelectorAll('.tr-ln')], f=sv.querySelector('.tr-face'), lift=+f.dataset.lift, sc=+f.dataset.sc;
   const mood=i=>{ i=Math.min(i,3); if(f.dataset.m!==String(i)){ f.dataset.m=i; f.innerHTML=TRIP_MOOD[i]; } };

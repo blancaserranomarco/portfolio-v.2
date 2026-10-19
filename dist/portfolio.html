@@ -1805,6 +1805,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-ln{stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:0}
 .tr-dot{fill:var(--surface);stroke:var(--ink);stroke-width:3}
 .tr-bub path{stroke:#1B1724;stroke-width:2;stroke-linejoin:round}
+.tr-lead{stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:0 7}
 .tr-bt{font-family:var(--body);font-size:12px;font-weight:700;letter-spacing:.05em;fill:#1B1724;text-transform:uppercase}
 .tr-bq{font-family:var(--display);font-size:19px;fill:#1B1724}
 .tr-bh{font-family:var(--body);font-size:13px;fill:#3A3448}
@@ -2986,8 +2987,10 @@ function tripInit(f,instant){
 function tripSize(sv){ sv.querySelectorAll('.tr-bub').forEach(g=>{ let [x,y,w,h,tx,ty]=g.dataset.box.split(',').map(Number); const ts=[...g.querySelectorAll('text')];
   try{ w=Math.max(w,...ts.map(t=>t.getComputedTextLength()+44)); }catch(e){}
   if(x+w>890){ const dx=x+w-890; x-=dx; ts.forEach(t=>t.setAttribute('x',+t.getAttribute('x')-dx)); }
-  const r=18, B=y+h, bx=Math.min(Math.max(tx-8,x+r+6),x+w-r-22);
-  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${bx+16}L${tx} ${ty}L${bx} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`); }); }
+  const r=16, B=y+h, bx=Math.min(Math.max(tx,x+r+4),x+w-r-4);
+  g.querySelector('path').setAttribute('d',`M${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${B-r}Q${x+w} ${B} ${x+w-r} ${B}H${x+r}Q${x} ${B} ${x} ${B-r}V${y+r}Q${x} ${y} ${x+r} ${y}Z`);
+  let ld=g.querySelector('.tr-lead'); if(!ld){ ld=document.createElementNS('http://www.w3.org/2000/svg','line'); ld.setAttribute('class','tr-lead'); g.insertBefore(ld,g.firstChild); }
+  ld.setAttribute('x1',bx); ld.setAttribute('y1',B+6); ld.setAttribute('x2',tx); ld.setAttribute('y2',ty); }); }
 function tripRun(sv,instant){
   tripSize(sv); const pts=JSON.parse(sv.dataset.pts), n=pts.length-1, segs=[...sv.querySelectorAll('.tr-ln')], f=sv.querySelector('.tr-face'), lift=+f.dataset.lift, sc=+f.dataset.sc;
   const mood=i=>{ i=Math.min(i,3); if(f.dataset.m!==String(i)){ f.dataset.m=i; f.innerHTML=TRIP_MOOD[i]; } };
