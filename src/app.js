@@ -537,11 +537,18 @@ function track(c,q){ const k=c+'|'+q; if(tracked.has(k)) return; tracked.add(k);
 function selAsk(t,focus){ const box=t.closest('.ask'); box.querySelectorAll('[role="tab"]').forEach(x=>{ const on=x===t; x.setAttribute('aria-selected',on); x.tabIndex=on?0:-1; box.querySelector('#'+x.getAttribute('aria-controls')).hidden=!on; });
   S.askTab=t.dataset.ask; if(focus) t.focus(); if(S.openId) track(S.openId,t.dataset.ask); }
 document.addEventListener('toggle',e=>{ const d=e.target; if(d.matches&&d.matches('details.ask-i')&&d.open&&S.openId) track(S.openId,d.dataset.ask); },true);
+/* Small confetti burst from the chosen card (only on a correct pick, skipped with reduced motion) */
+function confetti(el){ const box=document.createElement('span'); box.className='cf'; box.setAttribute('aria-hidden','true');
+  const cols=['#00A86B','#FFC6E3','#FFE7A1','#CDBFFF','#C2E2FF'];
+  for(let k=0;k<28;k++){ const c=document.createElement('i'); const a=Math.random()*Math.PI*2, d=60+Math.random()*90;
+    c.style.cssText=`--x:${Math.cos(a)*d}px;--y:${Math.sin(a)*d-40}px;--r:${Math.random()*540-270}deg;background:${cols[k%cols.length]};animation-delay:${Math.random()*80}ms`; box.appendChild(c); }
+  el.appendChild(box); setTimeout(()=>box.remove(),1300); }
 document.addEventListener('click',e=>{
   const o=e.target.closest('[data-quiz] [data-pick]'); if(!o) return;
   const qz=o.closest('[data-quiz]'), res=qz.querySelector('.qz-res'), v=qz.querySelector('.qz-v');
   qz.querySelectorAll('[data-pick]').forEach(x=>x.setAttribute('aria-pressed',x===o));
   qz.classList.add('done'); qz.querySelectorAll('[data-pick]').forEach(x=>x.classList.toggle('is-win',x.dataset.pick===v.dataset.win));
+  if(o.dataset.pick===v.dataset.win && !matchMedia('(prefers-reduced-motion: reduce)').matches) confetti(o);
   res.hidden=false; const lk=qz.querySelector('.qz-lock'); if(lk) lk.remove(); v.textContent=o.dataset.pick===v.dataset.win?v.dataset.ok:v.dataset.ko;
   requestAnimationFrame(()=>res.querySelectorAll('em').forEach(e=>e.style.width=e.dataset.w+'%'));
 });
