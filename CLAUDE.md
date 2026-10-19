@@ -1,6 +1,6 @@
 # Instrucciones para Claude
 
-Orden de lectura: este archivo → `README.md` (dónde vive cada cosa, cómo publicar, qué está pendiente) → `PLANTILLA-CASO.md` (cómo se estructura un caso) → `casos/` (material de partida de cada caso, solo en el Escritorio).
+Orden de lectura: este archivo → `README.md` (dónde vive cada cosa, cómo publicar, qué está pendiente) → `casos/_PLANTILLA.md` (cómo se estructura un caso) → resto de `casos/` (material de partida de cada caso, solo en el Escritorio).
 
 ## Cómo trabajar con Blanca
 - Habla en español.

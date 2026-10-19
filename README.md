@@ -14,12 +14,12 @@ Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutal
 
 ## Estructura
 
-Orden de lectura para una IA o una persona nueva: `CLAUDE.md` → `README.md` → `PLANTILLA-CASO.md` → `casos/`.
+Orden de lectura para una IA o una persona nueva: `CLAUDE.md` → `README.md` → `casos/_PLANTILLA.md` → resto de `casos/`.
 
 ```
 CLAUDE.md          instrucciones de trabajo (lo primero que se lee)
 README.md          contexto: dónde vive cada cosa, cómo publicar, pendiente
-PLANTILLA-CASO.md  estructura y reglas de los casos (TaxDown es el de referencia)
+casos/_PLANTILLA.md  estructura y reglas de los casos (TaxDown es el de referencia)
 
 src/               código fuente (lo único que se edita)
   content.js       textos publicados de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
@@ -28,12 +28,12 @@ src/               código fuente (lo único que se edita)
   head.html, shell.html
 api/feedback.js    función de Vercel: guarda el feedback en Notion (y email si se configura)
 api/event.js       función de Vercel: cuenta qué pregunta de «Pregúntame» se abre en cada caso (base «Preguntas más abiertas» en Notion)
-assets/            imágenes y vídeos que usa la web
+assets/            imágenes y vídeos que muestra la web (parte del código; no mover a recursos/)
 build.py           genera index.html (web) y dist/portfolio.html (artifact)
 
 Solo en el Escritorio (no se suben a GitHub):
 contexto/          descubrimiento inicial: auditoría, inventario de proyectos, concepto, preguntas
-casos/             material de partida de cada caso (notas, datos); el texto publicado está en src/content.js
+casos/*.md         material de partida de cada caso (notas, datos); el texto publicado está en src/content.js
 recursos/          bocetos ya decididos (bocetos/) y export original de Notion (notion-export/)
 ```
 
@@ -72,7 +72,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar `PLANTILLA-CASO.md` al resto de casos (empezando por Descuentos, Renovaciones y Salud).
+- Aplicar `casos/_PLANTILLA.md` al resto de casos (empezando por Descuentos, Renovaciones y Salud).
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - "Modo 1 minuto" (aplazado).
 - Avisos por email del feedback (Resend o automatización de Notion).
@@ -82,8 +82,8 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
-- 2026-10-19 · Carpeta del Escritorio ordenada: instrucciones en la raíz, `contexto/`, `casos/` y `recursos/`; fuera `brief/`, `propuestas/` y `_to_delete/`.
-- 2026-10-19 · Caso TaxDown con la nueva estructura (cabecera con reto · aportación · impacto, capítulos por experimento, encuesta, tabla 2A/2B, quiz con las modales reales, «Pregúntame» con 7 preguntas y registro anónimo de las preguntas abiertas en Notion vía `/api/event`). Sin enlace a Notion. Plantilla de casos en `PLANTILLA-CASO.md`.
+- 2026-10-19 · Carpeta del Escritorio ordenada: solo `CLAUDE.md` y `README.md` en la raíz; plantilla y material en `casos/`, más `contexto/` y `recursos/`; fuera `brief/`, `propuestas/` y `_to_delete/`.
+- 2026-10-19 · Caso TaxDown con la nueva estructura (cabecera con reto · aportación · impacto, capítulos por experimento, encuesta, tabla 2A/2B, quiz con las modales reales, «Pregúntame» con 7 preguntas y registro anónimo de las preguntas abiertas en Notion vía `/api/event`). Sin enlace a Notion. Plantilla de casos en `casos/_PLANTILLA.md`.
 - 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.
 - 2026-10-12 · Casos: recursos visuales del Notion (pantallas HD, diagramas, vídeos) en Descuentos, Beneficios, Renovaciones, Salud y Banners; fuera las imágenes de relleno.
 - 2026-10-12 · Casos: se quita "Lectura rápida / Historia completa" y el botón "Siguiente caso" de abajo; índice lateral de secciones.
