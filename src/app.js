@@ -546,7 +546,7 @@ function askPanel(a){
   if(a.learn) return `<ul class="b-list ask-lb">${a.learn.map(([h,t])=>`<li><b>${X(h)}.</b> ${X(t)}</li>`).join('')}</ul>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
-    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`; }
+    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>${a.after?`<p class="ask-after">${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`:''}`; }
   return a.t?`<p>${X(a.t)}</p>`:'';
 }
 function askHTML(p){

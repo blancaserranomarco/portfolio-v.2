@@ -1873,3 +1873,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:640px){.sl-pair{grid-template-columns:1fr;gap:30px}}
 .sl-hint{margin:0 0 16px;text-align:center;font-size:.86rem;color:var(--muted)}
 .sl-hint span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);color:var(--ink);font-size:.7rem;margin-right:4px}
+.ask-after{margin:16px 0 6px}

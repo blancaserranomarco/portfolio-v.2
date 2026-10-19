@@ -1878,6 +1878,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:640px){.sl-pair{grid-template-columns:1fr;gap:30px}}
 .sl-hint{margin:0 0 16px;text-align:center;font-size:.86rem;color:var(--muted)}
 .sl-hint span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink);color:var(--ink);font-size:.7rem;margin-right:4px}
+.ask-after{margin:16px 0 6px}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2133,7 +2134,10 @@ const PROJECTS = [
             'Cifra estimada. Cómo se calcula: aplicamos la misma subida relativa (+65,6 %) a una base anual de 5.520 personas que llegaban al importe, con un 27,3 % de compra y una compra media de 100 €. Eso lleva las compras de 1.507 a 2.495 al año: +988 compras y +98.800 € de GMV. Es conservadora, porque durante los experimentos el tráfico fue mayor.']},
     {id:'role', q:['What was my role?','¿Cuál fue mi papel?'], list:[['I drove experimentation as part of the migration to the new design system.','Impulsé la experimentación como parte de la migración al nuevo sistema de diseño.'],['I analysed the journey and the sessions, defined the hypotheses and metrics, designed the variants and interpreted the results.','Analicé el recorrido y las sesiones, definí las hipótesis y métricas, diseñé las variantes e interpreté los resultados.'],['I worked with a developer, who was responsible for implementing and launching the tests.','Trabajé con un desarrollador, responsable de implementar y lanzar las pruebas.']]},
     {id:'discarded', q:['What did I rule out?','¿Qué descarté?'], dec:[
-      [['All the information in the discount view','Toda la información en la vista del descuento'],'no',['It cluttered the screen for those who already knew how the benefit worked.','Saturaba la pantalla para quien ya sabía cómo funcionaba el beneficio.']]]},
+      [['All the information in the discount view','Toda la información en la vista del descuento'],'no',['It cluttered the screen for those who already knew how the benefit worked.','Saturaba la pantalla para quien ya sabía cómo funcionaba el beneficio.']]],
+      after:{t:['After improving conversion, the team moved its focus to other priorities and we closed the initiative. These were left as possible next steps:','Tras mejorar la conversión, el equipo trasladó el foco a otras prioridades y cerramos la iniciativa. Quedaron como posibles siguientes pasos:'],
+             list:[['Test security messages adapted to each user.','Probar mensajes de seguridad adaptados al usuario.'],['Explore personalised offers.','Explorar ofertas personalizadas.'],['Measure satisfaction with the flow.','Medir la satisfacción con el flujo.']],
+             end:['We didn’t get to develop or validate those proposals.','No llegamos a desarrollar ni validar esas propuestas.']}},
     {id:'wrong', q:['What went wrong?','¿Qué salió mal?'], draft:1},
     {id:'learned', q:['What did I learn?','¿Qué aprendí?'], learn:[
       [['Entry isn’t conversion','Entrar no es convertir'],['7.5% more people in the flow didn’t add a single significant purchase. The gain came where people actually dropped off.','Un 7,5 % más de gente en el flujo no añadió ni una compra significativa. La mejora llegó donde de verdad se caía la gente.']],
@@ -3152,7 +3156,7 @@ function askPanel(a){
   if(a.learn) return `<ul class="b-list ask-lb">${a.learn.map(([h,t])=>`<li><b>${X(h)}.</b> ${X(t)}</li>`).join('')}</ul>`;
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
-    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>`; }
+    return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>${a.after?`<p class="ask-after">${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`:''}`; }
   return a.t?`<p>${X(a.t)}</p>`:'';
 }
 function askHTML(p){
