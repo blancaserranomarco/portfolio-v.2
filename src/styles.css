@@ -1681,3 +1681,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-sum.n3 .sum-c{box-shadow:0 1px 2px rgba(27,23,36,.06),0 10px 24px -8px rgba(27,23,36,.16)}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .s-sum.n3 .sum-c{box-shadow:0 10px 24px -8px rgba(0,0,0,.55)} }
 :root[data-theme="dark"] .s-sum.n3 .sum-c{box-shadow:0 10px 24px -8px rgba(0,0,0,.55)}
+/* Summary cards v3 (option D): white cards, ink border + hard shadow, colour only on the sticker label */
+.story .s-sum.n3 .sum-c,.story .s-sum.n3 .sum-c.bad,.story .s-sum.n3 .sum-c.good{background:var(--surface);border:2px solid var(--line);box-shadow:4px 4px 0 var(--shadow)}
+.story .s-sum.n3 .sum-c .sc-k{display:inline-block;color:var(--sticker-ink)!important;background:var(--butter);border:2px solid var(--sticker-ink);border-radius:999px;padding:2px 10px;font-size:.72rem;margin-bottom:14px}
+.story .s-sum.n3 .sum-c.bad .sc-k{background:var(--pink)}
+.story .s-sum.n3 .sum-c.good .sc-k{background:var(--mint)}
