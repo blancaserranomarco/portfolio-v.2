@@ -1780,6 +1780,16 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .qz-v{font-weight:700;font-size:1.02rem}
 .ask-note{font-size:.85rem;color:var(--muted);margin-top:12px;max-width:70ch}
 .imp-more{margin:12px 0 0;text-align:right;font-size:.88rem}.imp-more a{font-weight:700;color:var(--ink)}
+
+/* Mobile fixes: no sideways drift in the case sheet; survey counter left-aligned; bold row labels */
+.sheet{overflow-x:hidden}
+.sheet-in,.case-wrap{overflow-x:clip}
+@media (max-width:620px){
+  [data-anim="dots"] .sc-cnt{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:6px}
+  [data-anim="dots"] .sc-dots{margin-inline:0}
+}
+.cmp-t tbody th,.cmp-c dt{color:var(--ink);font-weight:800}
+@media (max-width:820px){ .sheet{touch-action:pan-y pinch-zoom;overscroll-behavior-x:none} }
 </style>
 <header class="top">
   <div class="wrap">
@@ -2148,13 +2158,13 @@ const PROJECTS = [
     {k:'h', t:['Four steps to give context','Cuatro pasos para dar contexto']},
     {k:'p', t:['I designed a short introduction: who we are → how it works → your discount → connecting with the AEAT.',
                'Diseñé una introducción breve: quiénes somos → cómo funciona → tu descuento → conexión con la AEAT.']},
+    {k:'img', src:'assets/taxdown-stepper.webp', cap:['The four-step onboarding, with the authorisation at the end.','El onboarding de cuatro pasos, con el apoderamiento al final.']},
     {k:'p', t:['My intention was to give information little by little, guiding users along the way. We already knew that putting all of it on the landing overwhelmed them and converted worse, and that the no-scroll version had worked better. So I moved those explanations to a more receptive moment: the onboarding at the start of the process, where users expect to be told how things work.',
                'Mi intención fue dar la información poco a poco, acompañando al usuario en su recorrido. Ya sabíamos que ponerla toda en la landing les abrumaba y convertía peor, y que la versión sin scroll había funcionado mejor. Así que llevé esas explicaciones a un momento más receptivo: el onboarding, al empezar el proceso, que es donde el usuario espera que le expliquen cómo funciona.']},
     {k:'p', t:['The authorisation came at the end, after explaining why we needed the data. I decided the flow couldn’t be skipped, since the authorisation was required to continue. That decision also brought a risk: adding steps could increase drop-off, so we measured onboarding completion.',
                'El apoderamiento quedaba al final, después de explicar para qué necesitábamos los datos. Decidí que el flujo no pudiera saltarse, ya que el apoderamiento era necesario para continuar. Esa decisión también introducía un riesgo: añadir pasos podía aumentar el abandono, así que medimos la finalización del onboarding.']},
     {k:'p', t:['Before launching it, we validated comprehension with users and reviewed the proposal with the internal teams responsible for approving the authorisation.',
                'Antes de lanzarlo, validamos la comprensión con usuarios y revisamos la propuesta con los equipos internos responsables de aprobar el apoderamiento.']},
-    {k:'img', src:'assets/taxdown-stepper.webp', cap:['The four-step onboarding, with the authorisation at the end.','El onboarding de cuatro pasos, con el apoderamiento al final.']},
     {k:'split', meta:['1–15 June 2026 · A/B experiment with an 80/20 split · New partner users on mobile','1–15 de junio de 2026 · Experimento A/B con reparto 80/20 · Nuevos usuarios de partners en móvil'],
       h:['More connections, no improvement in purchases','Más conexiones, sin mejora en compras'],
       intro:['We measured the onboarding for two weeks to see whether it got more users to connect their data and whether that improvement turned into purchases. We also tracked completion, to check how much drop-off the new steps introduced.','Medimos el onboarding durante dos semanas para ver si conseguía que más usuarios conectaran sus datos y si esa mejora se traducía en compras. También vigilamos su finalización para comprobar cuánto abandono introducían los nuevos pasos.'],
@@ -2184,7 +2194,7 @@ const PROJECTS = [
       t2b:{tag:['Cold · 2B','Cold · 2B'], h:['Email → back to the modal','Email → vuelve a la modal']},
       cap:['The friction was right before paying: many no longer remembered their discount well. 2A reminds them in the flow; 2B, for those who left, brings them back with an email.','La fricción estaba justo antes de pagar: muchos ya no recordaban bien su descuento. El 2A se lo recuerda en el flujo; el 2B, a quien se fue, le trae de vuelta con un email.']},
     {k:'p', t:['We tested two ways of reaching users over the same 12 days:','Probamos dos formas de llegar a los usuarios durante los mismos 12 días:']},
-    {k:'cmp', cols:[{id:'2A', tone:'pink', h:['Still in the flow','Seguían en el flujo']},{id:'2B', tone:'dot', h:['Had left without buying','Se habían marchado sin comprar']}],
+    {k:'cmp', cols:[{id:'2A', tone:'pink', h:['Hot','Hot']},{id:'2B', tone:'dot', h:['Cold','Cold']}],
       rows:[[['Who','Quiénes'],['Partner users still in the app after seeing their result','Usuarios de partners que seguían en la app tras ver su resultado'],['Partner users who saw their result and left without buying','Usuarios de partners que vieron su resultado y salieron sin comprar']],
             [['Where','Dónde'],['Inside the app','Dentro de la app'],['Outside the app, by email','Fuera de la app, por email']],
             [['When','Cuándo'],['Right after seeing the result','Justo tras ver el resultado'],['4 days after the result','4 días después del resultado']],
