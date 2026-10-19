@@ -413,9 +413,17 @@ function tripHTML(b){
                :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
     o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
     return `<svg class="tr-${D?'d':'m'}" viewBox="0 0 ${D?'900 550':'360 400'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
-  return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>
-    <ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>
-    ${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+  const list=`<ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>`;
+  const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
+  if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
+  const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
+    return `<div class="tf-b">${bb?`<div class="tf-bub" style="background:var(--${bb.tone})"><small>${k+1} · ${X(bb.tag)}</small><b>${X(bb.h)}</b></div>`:''}</div>
+      <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done" aria-hidden="true">✓</div>`}
+      <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
+  return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
+      <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
+    <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}</div>
+    <div class="tr-flow" hidden><div class="tf-row">${flow}</div><p class="tf-hint">${esc(tr(['Swipe to see every screen →','Desliza para ver todas las pantallas →']))}</p></div>${cap}</figure>`;
 }
 function tripInit(f,instant){
   f.classList.add('on');
@@ -619,7 +627,8 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
-    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    if(!box.classList.contains('jv-flow')) return;
     if(flow){ flGo(box,+box.dataset.i||0); flPlay(box,!reduce); } else flPlay(box,false); return; }
   const st=e.target.closest('[data-fl]'); if(st){ const box=st.closest('.jv-flow'); flPlay(box,false); flGo(box,+st.dataset.fl); return; }
   const pp=e.target.closest('[data-flpp]'); if(pp){ const box=pp.closest('.jv-flow'); flPlay(box,!box.classList.contains('playing')); }

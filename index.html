@@ -1825,7 +1825,24 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tr-list li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;font-size:.92rem}
 .tr-list li span{width:24px;height:24px;border-radius:50%;border:2px solid #1B1724;color:#1B1724;display:grid;place-items:center;font-size:.8rem;font-weight:700}
 .tr-list b{display:block}
-@media (max-width:640px){.trip .tr-d{display:none}.trip .tr-m{display:block}.trip .tr-list{display:grid}}
+/* Funnel trip · real flow */
+.trip .jv-top{margin-bottom:4px}
+.tf-row{display:grid;grid-template-rows:auto auto;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:14px 16px;margin-top:14px}
+.tf-b{align-self:end}
+.tf-bub{position:relative;border:2px solid #1B1724;border-radius:14px;padding:10px 12px;margin-bottom:12px;color:#1B1724}
+.tf-bub::after{content:"";position:absolute;left:50%;bottom:-9px;width:14px;height:14px;background:inherit;border-right:2px solid #1B1724;border-bottom:2px solid #1B1724;transform:translateX(-50%) rotate(45deg)}
+.tf-bub small{display:block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.tf-bub b{display:block;font-family:var(--display);font-weight:500;font-size:1rem;line-height:1.2;margin:3px 0}
+.tf-bub span{display:block;font-size:.76rem;line-height:1.3;color:#3A3448}
+.tf-s{display:flex;flex-direction:column;align-items:center;text-align:center}
+.tf-s img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--soft);cursor:zoom-in}
+.tf-done{width:100%;aspect-ratio:400/821;border-radius:14px;border:1px dashed var(--soft);display:grid;place-items:center;font-size:2.4rem;color:var(--ink);background:color-mix(in srgb,var(--sky) 45%,var(--surface))}
+.tf-n{font-family:var(--display);font-weight:500;font-size:1.5rem;margin-top:10px;line-height:1}
+.tf-p{font-size:.8rem;color:var(--muted);margin-top:2px}
+.tf-l{font-weight:700;font-size:.88rem;margin-top:4px}
+.tf-hint{display:none;font-size:.82rem;color:var(--muted);margin:8px 0 0}
+@media (max-width:640px){.trip .tr-d{display:none}.trip .tr-m{display:block}.trip .tr-list{display:grid}
+  .tf-row{grid-auto-columns:150px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-right:-4px}.tf-s,.tf-b{scroll-snap-align:start}.tf-hint{display:block}}
 @media (prefers-reduced-motion:reduce){.tr-bar,.tr-fx{transition:none}}
 </style>
 </head>
@@ -1994,6 +2011,7 @@ const PROJECTS = [
       bubbles:[{at:1,x:110,y:60,w:262,tone:'butter',tag:['On the detail','En el detalle'],q:['“How does this work?”','«¿Cómo funciona esto?»'],h:['Little clarity about the benefit','Poca claridad sobre el beneficio'],long:['On the detail: little clarity about how the benefit worked.','En el detalle: poca claridad sobre cómo funcionaba el beneficio.']},
                {at:2,x:400,y:150,w:320,tone:'pink',tag:['On the amount','En el importe'],q:['“Do I type what I pay or what I get?”','«¿Pongo lo que pago o lo que recibo?»'],h:['Confusing purchase steps','Pasos de compra confusos'],long:['On the amount: confusing purchase steps.','En el importe: pasos de compra confusos.']},
                {at:3,x:600,y:254,w:290,tone:'lilac',tag:['At payment','En el pago'],q:['“Is it safe to enter my card?”','«¿Es seguro meter mi tarjeta?»'],h:['Little security when adding the card','Poca seguridad al añadir la tarjeta'],long:['At payment: little sense of security when adding the card.','En el pago: poca sensación de seguridad al añadir la tarjeta.']}],
+      flow:[['assets/discount-t2-before.webp',['Coupons screen','Pantalla de cupones']],['assets/discount-t1-before.webp',['Discount detail screen','Pantalla de detalle del descuento']],['assets/discount-t3-amount-before.webp',['Amount screen','Pantalla de importe']],['assets/discount-t3-pay-before.webp',['Summary and payment screen','Pantalla de resumen y pago']],null],
       sr:['Of 553 people who saw the coupons, 75% opened a discount’s detail, 56% reached the amount, 44% reached the summary and payment and 30% completed the purchase. Frictions: little clarity about how the benefit worked, doubts at the amount step, and little sense of security when entering the card.','De 553 personas que vieron los cupones, el 75 % abrió el detalle de un descuento, el 56 % llegó al importe, el 44 % al resumen y pago y el 30 % completó la compra. Fricciones: poca claridad sobre cómo funcionaba el beneficio, dudas en el importe y poca seguridad al meter la tarjeta.'],
       cap:['Of 553 people who saw the coupons, 167 bought. Control group of experiment 1 · 11–29 April 2024 · Amplitude.','De 553 personas que vieron los cupones, 167 compraron. Grupo de control del experimento 1 · 11–29 de abril de 2024 · Amplitude.']},
     {k:'p', t:['I proposed migrating the flow step by step and launching each change as a 50/50 A/B experiment in Amplitude: measure, learn, and let each result decide the next change.',
@@ -2957,9 +2975,17 @@ function tripHTML(b){
                :`<g class="tr-fx tr-pin" data-at="${bb.at}" transform="translate(${px} ${py-48})"><circle r="11" style="fill:var(--${bb.tone})"/><text y="4.5">${k+1}</text></g>`; }).join('');
     o+=`<g class="tr-face" data-lift="${D?30:22}" data-sc="${D?1:.75}"></g>`;
     return `<svg class="tr-${D?'d':'m'}" viewBox="0 0 ${D?'900 550':'360 400'}" data-pts='${JSON.stringify(pts)}' aria-hidden="true">${o}</svg>`; };
-  return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>
-    <ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>
-    ${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+  const list=`<ol class="tr-list">${b.bubbles.map((bb,k)=>`<li><span style="background:var(--${bb.tone})">${k+1}</span><div><b>${X(bb.q)}</b>${X(bb.long||bb.h)}</div></li>`).join('')}</ol>`;
+  const cap=b.cap?`<figcaption>${X(b.cap)}</figcaption>`:'';
+  if(!b.flow) return `<figure class="scene trip" data-anim="trip"><span class="sc-k">${X(b.label)}</span>${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}${cap}</figure>`;
+  const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
+    return `<div class="tf-b">${bb?`<div class="tf-bub" style="background:var(--${bb.tone})"><small>${k+1} · ${X(bb.tag)}</small><b>${X(bb.h)}</b></div>`:''}</div>
+      <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done" aria-hidden="true">✓</div>`}
+      <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
+  return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
+      <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
+    <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}</div>
+    <div class="tr-flow" hidden><div class="tf-row">${flow}</div><p class="tf-hint">${esc(tr(['Swipe to see every screen →','Desliza para ver todas las pantallas →']))}</p></div>${cap}</figure>`;
 }
 function tripInit(f,instant){
   f.classList.add('on');
@@ -3163,7 +3189,8 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
-    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
+    if(!box.classList.contains('jv-flow')) return;
     if(flow){ flGo(box,+box.dataset.i||0); flPlay(box,!reduce); } else flPlay(box,false); return; }
   const st=e.target.closest('[data-fl]'); if(st){ const box=st.closest('.jv-flow'); flPlay(box,false); flGo(box,+st.dataset.fl); return; }
   const pp=e.target.closest('[data-flpp]'); if(pp){ const box=pp.closest('.jv-flow'); flPlay(box,!box.classList.contains('playing')); }
