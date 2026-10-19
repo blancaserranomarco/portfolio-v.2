@@ -82,6 +82,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-19 · Carpeta del Escritorio ordenada: instrucciones en la raíz, `contexto/`, `casos/` y `recursos/`; fuera `brief/`, `propuestas/` y `_to_delete/`.
 - 2026-10-19 · Caso TaxDown con la nueva estructura (cabecera con reto · aportación · impacto, capítulos por experimento, encuesta, tabla 2A/2B, quiz con las modales reales, «Pregúntame» con 7 preguntas y registro anónimo de las preguntas abiertas en Notion vía `/api/event`). Sin enlace a Notion. Plantilla de casos en `PLANTILLA-CASO.md`.
 - 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.
 - 2026-10-12 · Casos: recursos visuales del Notion (pantallas HD, diagramas, vídeos) en Descuentos, Beneficios, Renovaciones, Salud y Banners; fuera las imágenes de relleno.
