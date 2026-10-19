@@ -1750,3 +1750,5 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .qz-opt .qz-t{font-size:.85rem;color:var(--muted);line-height:1.4}
 .quiz.done .qz-opt.is-win{border-color:#1f8a5b;box-shadow:4px 4px 0 #1f8a5b;outline:3px solid color-mix(in srgb,var(--mint) 70%,transparent);outline-offset:0}
 .qz-note{font-size:.82rem;color:var(--muted);margin-top:10px}
+.cmp-h{display:flex;align-items:center;gap:8px;margin-top:0}
+.cmp-dot{flex:none;width:12px;height:12px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--ink) 35%,transparent)}

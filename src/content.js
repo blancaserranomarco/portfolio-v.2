@@ -382,7 +382,7 @@ const PROJECTS = [
       t2b:{tag:['Experiment 2B · Cold','Experimento 2B · Cold'], h:['Email → back to the modal','Email → vuelve a la modal']},
       cap:['The friction was right before paying: many no longer remembered their discount well. 2A reminds them in the flow; 2B, for those who left, brings them back with an email.','La fricción estaba justo antes de pagar: muchos ya no recordaban bien su descuento. El 2A se lo recuerda en el flujo; el 2B, a quien se fue, le trae de vuelta con un email.']},
     {k:'p', t:['We tested two ways of reaching users over the same 12 days:','Probamos dos formas de llegar a los usuarios durante los mismos 12 días:']},
-    {k:'cmp', cols:[{tag:['Experiment 2A','Experimento 2A'], tone:'pink', h:['Still in the flow','Seguían en el flujo']},{tag:['Experiment 2B','Experimento 2B'], tone:'dot', dashed:1, h:['Had left without buying','Se habían marchado sin comprar']}],
+    {k:'cmp', cols:[{id:'2A', tone:'pink', h:['Still in the flow','Seguían en el flujo']},{id:'2B', tone:'dot', h:['Had left without buying','Se habían marchado sin comprar']}],
       rows:[[['Who','Quiénes'],['Partner users still in the app after seeing their result','Usuarios de partners que seguían en la app tras ver su resultado'],['Partner users who saw their result and left without buying','Usuarios de partners que vieron su resultado y salieron sin comprar']],
             [['Where','Dónde'],['Inside the app','Dentro de la app'],['Outside the app, by email','Fuera de la app, por email']],
             [['When','Cuándo'],['Right after seeing the result','Justo tras ver el resultado'],['4 days after the result','4 días después del resultado']],
