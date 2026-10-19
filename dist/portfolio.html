@@ -1843,7 +1843,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tf-mod i{font-style:normal;font-size:.6rem;font-weight:700;background:#6CF0B4;border-radius:999px;padding:4px 10px;margin-top:5px}
 .tf-n{font-family:var(--display);font-weight:500;font-size:1.5rem;margin-top:10px;line-height:1}
 .tf-p{font-size:.8rem;color:var(--muted);margin-top:2px}
-.tf-l{font-weight:700;font-size:.88rem;margin-top:4px}
+.tf-l{font-size:.78rem;margin-top:10px;color:var(--ink);white-space:nowrap}
+.tf-l b{font-weight:700;white-space:nowrap}
 .tf-hint{display:none;font-size:.82rem;color:var(--muted);margin:8px 0 0}
 @media (max-width:640px){.trip .tr-d{display:none}.trip .tr-m{display:block}.trip .tr-list{display:grid}
   .tf-row{grid-auto-columns:150px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;margin-right:-4px}.tf-s,.tf-b{scroll-snap-align:start}.tf-hint{display:block}}
@@ -2986,7 +2987,7 @@ function tripHTML(b){
   const flow=b.steps.map(([l,v],i)=>{ const k=b.bubbles.findIndex(bb=>bb.at===i), bb=b.bubbles[k], img=b.flow[i];
     return `<div class="tf-b">${bb?`<div class="tf-note" style="--t:var(--${bb.tone})"><small><i aria-hidden="true">${k+1}</i>${X(bb.tag)}</small><span>${X(bb.h)}</span></div>`:''}</div>
       <div class="tf-s">${img?`<img src="${img[0]}" alt="${X(img[1])}" loading="lazy" decoding="async" tabindex="0" data-zoom>`:`<div class="tf-done"><img src="${b.done.img}" alt="" loading="lazy" decoding="async"><div class="tf-ov" role="img" aria-label="${X(b.done.alt)}"><div class="tf-mod"><span class="tf-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><b>${X(b.done.h)}</b><small>${X(b.done.t)}</small><i aria-hidden="true">${X(b.done.btn)}</i></div></div></div>`}
-      <strong class="tf-n">${Math.round(v/tot*100)}${S.lang==='es'?' %':'%'}</strong><span class="tf-p">${v} ${esc(tr(['people','personas']))}</span><span class="tf-l">${esc(tr(l).replace('\n',' '))}</span></div>`; }).join('');
+      <span class="tf-l">${esc(tr(l).replace('\n',' '))} <b>·&nbsp;${Math.round(v/tot*100)}${S.lang==='es'?'&nbsp;%':'%'}</b></span></div>`; }).join('');
   return `<figure class="scene trip" data-anim="trip"><div class="jv-top"><span class="sc-k">${X(b.label)}</span>
       <div class="jv-sw" role="group" aria-label="${u('v_label')}"><button type="button" data-view="schema" aria-pressed="true">${u('v_schema')}</button><button type="button" data-view="flow" aria-pressed="false">${u('v_flow')}</button></div></div>
     <div class="jv-schema">${svg(1)}${svg(0)}<p class="sr">${X(b.sr)}</p>${list}</div>
