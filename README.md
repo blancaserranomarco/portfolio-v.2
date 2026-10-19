@@ -72,7 +72,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar `casos/_PLANTILLA.md` al resto de casos (empezando por Descuentos, Renovaciones y Salud).
+- Aplicar `casos/_PLANTILLA.md` al resto de casos (siguientes: Renovaciones y Salud). Añadir a la plantilla los bloques nuevos de Descuentos (recorrido `trip`, deslizador `slide`, callout `note`).
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).
@@ -83,6 +83,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-19 · Caso Descuentos con la nueva estructura: recorrido del funnel con fricciones y vista «Flujo real», tres capítulos de experimento, deslizador antes/después en el tercero, callout de restricciones y «Pregúntame». Datos de Amplitude (553 → 167).
 - 2026-10-19 · Carpeta del Escritorio ordenada: solo `CLAUDE.md` y `README.md` en la raíz; plantilla y material en `casos/`, más `contexto/` y `recursos/`; fuera `brief/`, `propuestas/` y `_to_delete/`.
 - 2026-10-19 · Caso TaxDown con la nueva estructura (cabecera con reto · aportación · impacto, capítulos por experimento, encuesta, tabla 2A/2B, quiz con las modales reales, «Pregúntame» con 7 preguntas y registro anónimo de las preguntas abiertas en Notion vía `/api/event`). Sin enlace a Notion. Plantilla de casos en `casos/_PLANTILLA.md`.
 - 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.

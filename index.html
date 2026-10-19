@@ -2021,14 +2021,14 @@ const TD_STEPS = [['web',['Partner landing','Landing del partner'],['Discovers t
   ['card',['Plan','Plan'],['Buys the plan to file the return','Compra el plan para presentar la declaración']]];
 const PROJECTS = [
 {
-  id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'32.2%', t:['purchase success, from 19.4%','compras con éxito, desde 19,4%']}, base:.6, recruiter:1,
+  id:'discount', company:'Cobee', year:'2024', tone:'--mint', img:'assets/discount-cover.webp', cover:{v:'32.2%', t:['completed purchases, from 19.4%','compras completadas, desde 19,4%']}, base:.6, recruiter:1,
   w:{experimentation:3, systems:1, complex:1},
   tags:['abtest','b2c'],
   short:['Discount experiments','Experimentos en Descuentos'],
   title:['The friction was two steps further down: three experiments in Discounts','La fricción estaba dos pasos más abajo: tres experimentos en Descuentos'],
-  card:['Three chained experiments, run with one developer during a design system migration, took purchase success from 19.4% to 32.2%.','Tres experimentos encadenados, con un solo desarrollador y en plena migración al design system, llevaron las compras con éxito del 19,4% al 32,2%.'],
+  card:['Three chained experiments, run with one developer during a design system migration, took completed purchases from 19.4% to 32.2%.','Tres experimentos encadenados, con un solo desarrollador y en plena migración al design system, llevaron las compras completadas del 19,4% al 32,2%.'],
   hl:{label:['The finding','El hallazgo'],
-      text:['Getting more people into the flow didn’t sell more. The real friction was at the amount and payment steps: clear instructions and a security message took purchase success from 19.4% to 32.2%.','Meter a más gente en el flujo no vendía más. La fricción real estaba en el importe y el pago: instrucciones claras y un mensaje de seguridad llevaron las compras con éxito del 19,4% al 32,2%.']},
+      text:['Getting more people into the flow didn’t sell more. The real friction was at the amount and payment steps: resolving those doubts within the flow took completed purchases from 19.4% to 32.2%.','Meter a más gente en el flujo no vendía más. La fricción real estaba en el importe y el pago: resolver esas dudas dentro del flujo llevó las compras completadas del 19,4% al 32,2%.']},
   challenge:['Discounts moved almost €1M in GMV a year across 846 companies, yet fewer than 2% of eligible employees used it. The flow also had to move from legacy components to our new design system.',
              'Descuentos movía casi 1M € de GMV al año en 846 empresas, pero menos del 2% de los empleados con acceso lo usaba. Además, el flujo tenía que pasar de componentes legacy al nuevo design system.'],
   h1:['The friction was two steps further down.','La fricción estaba dos pasos más abajo.'],
@@ -2038,7 +2038,7 @@ const PROJECTS = [
   sum:[{k:['The challenge','El reto'], tone:'bad', t:['A benefit moving almost €1M a year, but used by fewer than 2% of eligible employees.','Un beneficio que movía casi 1M € al año, pero que usaba menos del 2 % de los empleados con acceso.']},
        {k:['My contribution','Mi aportación'], t:['I turned a required migration into three experiments, one per funnel step, with a single developer.','Convertí una migración obligatoria en tres experimentos, uno por paso del funnel, con un solo desarrollador.']},
        {k:['Impact','Impacto'], tone:'good', big:['19.4% → 32.2%','19,4% → 32,2%'], bigl:['From 19.4% to 32.2%','Del 19,4% al 32,2%'], t:['Completed purchases in experiment 3','Compras completadas en el experimento 3'], pp:['+12.8 pp','+12,8 pp']}],
-  nums:[{v:'32.2%',t:['purchase success, from 19.4%','compras con éxito, desde 19,4%']},{v:'+€98.8K',t:['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']},{v:'3',t:['chained A/B experiments, 50/50, in Amplitude','experimentos A/B encadenados, 50/50, en Amplitude']}],
+  nums:[{v:'32.2%',t:['completed purchases, from 19.4%','compras completadas, desde 19,4%']},{v:'+€98.8K',t:['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']},{v:'3',t:['chained A/B experiments, 50/50, in Amplitude','experimentos A/B encadenados, 50/50, en Amplitude']}],
   blocks:[
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A profitable benefit almost no one used','Un beneficio rentable que casi nadie usaba']},
     {k:'p', t:['The Discounts benefit let employees buy brand coupons at a reduced price from the Cobee app. It was available in 846 companies and generated almost €1M a year in purchase volume (GMV), yet fewer than 2% of eligible employees used it.',
@@ -2125,7 +2125,7 @@ const PROJECTS = [
       cap:['Drag the line to compare before and after.','Arrastra la línea para comparar el antes y el después.']},
     {k:'split', meta:['22–29 July 2024 · A/B experiment, 50/50 · 7 days · App version 5.200 or later, excluding demo users','22–29 de julio de 2024 · Experimento A/B 50/50 · 7 días · App 5.200 o posterior, sin usuarios demo'],
       h:['Conversion went from 19.4% to 32.2%','La conversión pasó del 19,4 % al 32,2 %'],
-      intro:['We measured purchase success and how many people got through each of the two screens we changed.','Medimos las compras con éxito y cuánta gente superaba cada una de las dos pantallas que cambiamos.'],
+      intro:['We measured completed purchases and how many people got through each of the two screens we changed.','Medimos las compras completadas y cuánta gente superaba cada una de las dos pantallas que cambiamos.'],
       items:[[['Completed purchases','Compras completadas'],['+12.8 pp','+12,8 pp'],['19.4% → 32.2%. Statistically significant.','19,4 % → 32,2 %. Estadísticamente significativo.'],'up'],
              [['Continuing after the amount','Continuar tras el importe'],['+18 pp','+18 pp'],['45.3% → 63.3%. The amount step stopped being the big drop.','45,3 % → 63,3 %. El importe dejó de ser la gran caída.'],'up'],
              [['Entering the card','Introducir tarjeta'],['+8.1 pp','+8,1 pp'],['34.0% → 42.1%. More people trusted the payment.','34,0 % → 42,1 %. Más gente confiaba en el pago.'],'up']]},
@@ -2138,11 +2138,11 @@ const PROJECTS = [
     {k:'next', h:['What I would test next','Qué probaría después'], t:[['Evaluate which security messages help most at payment.','Evaluar qué mensajes de seguridad ayudan más en el pago.'],
                  ['Explore relevant offers for different user profiles.','Explorar ofertas relevantes para distintos perfiles de usuario.'],
                  ['Add a satisfaction measure to complement the conversion data.','Incorporar una medida de satisfacción para complementar los datos de conversión.']]},
-    {k:'impact', from:[['Product','Producto'],['+12.8 pp','+12,8 pp'],['purchase success in experiment 3 (+65.6% relative)','compra con éxito en el experimento 3 (+65,6 % relativo)']],
+    {k:'impact', from:[['Product','Producto'],['+12.8 pp','+12,8 pp'],['completed purchases in experiment\u00a03','compras completadas en el experimento\u00a03']],
       to:[['Business (estimate)','Negocio (estimación)'],['≈ +€98.8K','≈ +98.800 €'],['Conservative projection of purchase volume, not Cobee revenue.','Proyección conservadora del volumen de compras, no ingresos de Cobee.']], more:'impact'}
   ],
   ask:[
-    {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['19.4% → 32.2%','19,4% → 32,2%'],['purchase success, experiment 3, significant','compra con éxito, experimento 3, significativo']],[['+13.19%','+13,19%'],['purchases with the information tab, 90% confidence','compras con la pestaña de información, 90 % de confianza']],[['+7.54%','+7,54%'],['entries to the amount step with the new button','entradas al importe con el nuevo botón']],[['≈ +€98.8K','≈ +98.800 €'],['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']]],
+    {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['19.4% → 32.2%','19,4% → 32,2%'],['completed purchases, experiment 3, significant','compras completadas, experimento 3, significativo']],[['+13.19%','+13,19%'],['purchases with the information tab, 90% confidence','compras con la pestaña de información, 90 % de confianza']],[['+7.54%','+7,54%'],['entries to the amount step with the new button','entradas al importe con el nuevo botón']],[['≈ +€98.8K','≈ +98.800 €'],['estimated extra GMV a year, conservative','GMV anual extra estimado, conservador']]],
       note:['Estimated figure. How it’s calculated: we applied the same relative uplift (+65.6%) to a yearly baseline of 5,520 people reaching the amount step, with a 27.3% purchase rate and a €100 average purchase. That takes purchases from 1,507 to 2,495 a year: +988 purchases and +€98,800 in GMV. It’s conservative, because traffic during the experiments was higher.',
             'Cifra estimada. Cómo se calcula: aplicamos la misma subida relativa (+65,6 %) a una base anual de 5.520 personas que llegaban al importe, con un 27,3 % de compra y una compra media de 100 €. Eso lleva las compras de 1.507 a 2.495 al año: +988 compras y +98.800 € de GMV. Es conservadora, porque durante los experimentos el tráfico fue mayor.']},
     {id:'role', q:['What was my role?','¿Cuál fue mi papel?'], list:[['I drove experimentation as part of the migration to the new design system.','Impulsé la experimentación como parte de la migración al nuevo sistema de diseño.'],['I analysed the journey and the sessions, defined the hypotheses and metrics, designed the variants and interpreted the results.','Analicé el recorrido y las sesiones, definí las hipótesis y métricas, diseñé las variantes e interpreté los resultados.'],['I worked with a developer, who was responsible for implementing and launching the tests.','Trabajé con un desarrollador, responsable de implementar y lanzar las pruebas.']]},
@@ -2592,9 +2592,9 @@ const PROJECTS = [
 
 /* Selected work cards: header label, headline metric, two-line title, short text and "Why open this case". */
 const SELCARD = {
-  discount:{kick:['Discounts','Descuentos'], m:'+65.6%', ml:['purchase success, 19.4% → 32.2%','compras con éxito, 19,4% → 32,2%'],
+  discount:{kick:['Discounts','Descuentos'], m:'19.4 → 32.2%', ml:['completed purchases','compras completadas'],
     eb:['Optimising the purchase journey','Optimizar el proceso de compra'], h:[['Three experiments','that improved conversion.'],['Tres experimentos','que mejoraron la conversión.']],
-    p:['An opportunistic initiative of three experiments that **lifted completed purchases by 65.6%**.','Una iniciativa oportunista de tres experimentos que **aumentaron un 65,6% las compras completadas**.'],
+    p:['An opportunistic initiative of three experiments that **took completed purchases from 19.4% to 32.2%**.','Una iniciativa oportunista de tres experimentos que **llevaron las compras completadas del 19,4% al 32,2%**.'],
     why:['See how I spotted an opportunity inside a migration task and turned it into experiments with impact.','Encontrarás cómo detecté una oportunidad dentro de una tarea de migración y la convertí en experimentos con impacto.']},
   taxdown:{kick:['Partner conversion','Conversión de partners'], m:'14.5 → 21.5%', ml:['purchase conversion','conversión a compra'],
     eb:['B2B growth · Tax season','Growth B2B · Campaña de la renta'], h:[['Same discount, better timing:','converting partner users'],['Mismo descuento, mejor momento:','convertir a usuarios de partners']],
