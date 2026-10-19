@@ -21,8 +21,10 @@ src/            código fuente (lo único que se edita)
   styles.css    estilos
   head.html, shell.html
 api/feedback.js función de Vercel: guarda el feedback en Notion (y email si se configura)
+api/event.js    función de Vercel: cuenta qué pregunta de «Pregúntame» se abre en cada caso (base «Preguntas más abiertas» en Notion)
 assets/         imágenes y vídeos de los casos (sacados del export de Notion; solo los que documentan, sin relleno)
 build.py        genera index.html (web) y dist/portfolio.html (artifact)
+PLANTILLA-CASO.md  estructura y reglas de los casos (TaxDown es el de referencia)
 brief/          (solo local) histórico del descubrimiento inicial
 propuestas/     (solo local) bocetos de diseño ya decididos
 ```
@@ -62,8 +64,8 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar la nueva estructura de casos (historia con escenas + «Pregúntame») a los 7 casos; boceto v2 en https://claude.ai/artifact/Sj39t3A8b88CfMHsezcCVZ, pendiente de ok y de los datos que faltan. Cuando esté cerrada, crear la plantilla de casos a partir de ella (borrador en `propuestas/plantilla-caso-borrador.md`).
-- Métricas / eventos.
+- Aplicar `PLANTILLA-CASO.md` al resto de casos (empezando por Descuentos, Renovaciones y Salud).
+- Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - "Modo 1 minuto" (aplazado).
 - Avisos por email del feedback (Resend o automatización de Notion).
 - Dominio propio, favicon, Open Graph.
@@ -72,6 +74,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-19 · Caso TaxDown con la nueva estructura (cabecera con reto · aportación · impacto, capítulos por experimento, encuesta, tabla 2A/2B, quiz con las modales reales, «Pregúntame» con 7 preguntas y registro anónimo de las preguntas abiertas en Notion vía `/api/event`). Sin enlace a Notion. Plantilla de casos en `PLANTILLA-CASO.md`.
 - 2026-10-18 · Caso TaxDown reescrito como dos experimentos encadenados (stepper → encuesta → modal; base 14,5%), con enlace al caso en Notion y nuevas imágenes simplificadas.
 - 2026-10-12 · Casos: recursos visuales del Notion (pantallas HD, diagramas, vídeos) en Descuentos, Beneficios, Renovaciones, Salud y Banners; fuera las imágenes de relleno.
 - 2026-10-12 · Casos: se quita "Lectura rápida / Historia completa" y el botón "Siguiente caso" de abajo; índice lateral de secciones.
