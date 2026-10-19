@@ -190,8 +190,10 @@ const PROJECTS = [
       items:[[['Checked the information','Consultaron la información'],['37.7%','37,7 %'],['of users with the new version.','de los usuarios con la nueva versión.']],
              [['Completed purchases','Compras completadas'],['+13.19%','+13,19 %'],['With a 90% confidence level.','Con un nivel de confianza del 90 %.'],'up'],
              [['Purchase starts','Inicio de compra'],['+0.71%','+0,71 %'],['No significant difference.','Sin diferencia significativa.']]]},
-    {k:'p', t:['Understanding the benefit helped people buy, but most were still dropping off at the amount and payment steps. The next experiment had to go there.',
-               'Entender el beneficio ayudaba a comprar, pero la mayoría seguía cayéndose en el importe y el pago. El siguiente experimento tenía que ir ahí.']},
+    {k:'p', t:['The new version didn’t get more users to start the purchase, but it did get more of them to complete it. The result suggested that having the information could help clear up doubts before paying.',
+               'La nueva versión no consiguió que más usuarios empezaran la compra, pero sí que más la completaran. El resultado apuntaba a que disponer de la información podía ayudar a resolver dudas antes de pagar.']},
+    {k:'p', t:['Even so, most people were still dropping off at the amount and payment steps. The next experiment had to go there.',
+               'Aun así, la mayoría seguía cayéndose en el importe y el pago. El siguiente experimento tenía que ir ahí.']},
 
     {k:'chap', n:['4 · Experiment 3','4 · Experimento 3'], t:['Clarity and trust where people dropped','Claridad y confianza donde se caía la gente']},
     {k:'p', t:['On the amount screen, people didn’t know whether to type what they’d pay or what they’d receive; everything was grey and the button was disabled. At payment, nothing reassured them when entering their card details. Our hypothesis was that clear instructions and a sense of security at those two steps would reduce drop-off.',
