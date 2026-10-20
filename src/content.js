@@ -403,7 +403,7 @@ const PROJECTS = [
              [['Fewer incidents','Menos incidencias'],['50%','50 %'],['CX and Operations incidents, compared with the previous experience.','De CX y Operaciones frente a la experiencia anterior.'],'up'],
              [['Companies renewed','Empresas renovadas'],['682','682'],['Up to January 2026, with no critical blockers during the campaign.','Hasta enero de 2026, sin bloqueos críticos durante la campaña.']]]},
     {k:'bars', label:['Positive feedback by type','Feedback positivo por tipo'], rows:[[['Renewal (272)','Renovación (272)'],91.9],[['Replacement (79)','Reemplazo (79)'],79.7]],
-      cap:['Answers in brackets. Replacements, where the plan changes, got less positive feedback than renewals.','Entre paréntesis, las respuestas. Los reemplazos, en los que cambia el plan, tuvieron menos feedback positivo que las renovaciones.']},
+      cap:['Answers in brackets. Replacements, where the plan changes, got less positive feedback than renewals. This difference showed where to investigate the remaining difficulties.','Entre paréntesis, las respuestas. Los reemplazos, en los que cambia el plan, tuvieron menos feedback positivo que las renovaciones. Esta diferencia señaló dónde investigar las dificultades restantes.']},
     {k:'quote', t:['The new renewal experience is widely perceived as clearer, more intuitive and better structured. It significantly reduced operational friction.','La nueva experiencia de renovación se percibe como más clara, intuitiva y mejor estructurada. Ha reducido mucho la fricción operativa.'], by:['Operations team','Equipo de Operaciones']},
 
     {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Renewals as core product logic','Las renovaciones, como lógica de producto']},
