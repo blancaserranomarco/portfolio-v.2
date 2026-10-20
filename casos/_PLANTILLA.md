@@ -16,6 +16,7 @@ Leyenda: **Fija** = va en todos los casos · **Si existe** = solo si hay materia
 
 - El reto une negocio y usuario en una frase.
 - Mi aportación: qué hice yo, sin repetir la entradilla.
+- El texto de las tarjetas va al mismo tamaño que la primera línea de los datos (p. ej. «Senior Product Designer»).
 - Impacto: siempre **antes → después** y la variación al lado. Si no hay métrica final, el resultado más fuerte que sí sea real.
 
 ## 2. Historia en capítulos (fija)
