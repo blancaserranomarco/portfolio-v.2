@@ -33,6 +33,7 @@ Hay cuatro niveles de cifra, siempre con la misma estructura: **etiqueta → cif
 | Barras | `bars` | Fraunces 600, 16 px | Etiqueta DM Sans 16 px tinta | — |
 
 Reglas:
+- **Un solo verde por caja.** Si la caja lleva variación («+6,9 puntos porcentuales», «+188 %»), la cifra grande va en tinta y la variación en verde. Si no lleva variación, la cifra grande va en verde cuando es el resultado.
 - **Verde = mejora o resultado positivo.** Un resultado neutro («Sin cambios», «96 %») va en tinta. Hay un solo verde para texto (`--win`) y se ajusta solo en modo oscuro.
 - En las cajas, la cifra final va grande y la base va en el texto de debajo. No se usa «antes → después» en grande, que se parte en dos líneas.
 - Máximo 3 cajas por fila. Las etiquetas caben en una línea; si no caben, se acortan.
