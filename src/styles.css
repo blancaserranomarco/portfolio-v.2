@@ -1906,3 +1906,6 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-c .sum-pp{white-space:normal}
 .story .b-quote{margin-top:28px}
 .story .b-table.n2 table{min-width:0}
+.se-i{display:none}
+@media (max-width:620px){.se-m li{font-size:.78rem}.se-i{display:inline}.se-f{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+@media (max-width:620px){.scene.se{padding-left:12px;padding-right:12px}.se-m{gap:3px}.se-m li{border-width:1.5px}}
