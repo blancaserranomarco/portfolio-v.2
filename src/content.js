@@ -654,9 +654,9 @@ const PROJECTS = [
     {k:'p', t:['I defined a base journey to request the insurance, choose a plan, review the conditions and confirm the hiring. Adding family members brought its own conditions within that structure.',
                'Definí un recorrido base para solicitar el seguro, elegir modalidad, revisar las condiciones y confirmar la contratación. La incorporación de familiares añadía sus propias condiciones dentro de esa estructura.']},
     {k:'flow', label:['The employee’s main flow','El flujo principal del empleado'], steps:[
-      {h:['Choose the Health Insurance benefit','Elegir el beneficio de Seguro de Salud']},
-      {h:['Request the insurance','Solicitar el seguro']},
-      {h:['Choose the plan','Elegir la modalidad'], sub:['Add family members','Añadir familiares']},
+      {h:['Open Health Insurance','Entrar en el Seguro de Salud'], sub:{h:['Add family members','Añadir familiares'], t:['Their insurance can only be taken out once the employee has requested their own.','Solo se les puede contratar el seguro una vez el empleado ha solicitado el suyo.']}},
+      {h:['Request your insurance','Solicitar tu seguro']},
+      {h:['Choose the plan','Elegir la modalidad']},
       {h:['Complete the hiring','Completar la contratación']},
       {h:['Receive the confirmation email','Recibir el email de confirmación']}],
       cap:['Documented for the first time: the base journey and where family members are added.','Documentado por primera vez: el recorrido base y dónde se añaden los familiares.']},
