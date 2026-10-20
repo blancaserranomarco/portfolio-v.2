@@ -34,7 +34,7 @@ Hay cuatro niveles de cifra, siempre con la misma estructura: **etiqueta → cif
 
 Reglas:
 - **Un solo verde por caja.** Si la caja lleva variación («+6,9 puntos porcentuales», «+188 %»), la cifra grande va en tinta y la variación en verde. Si no lleva variación, la cifra grande va en verde cuando es el resultado.
-- **Verde = mejora o resultado positivo.** Un resultado neutro («Sin cambios», «96 %») va en tinta. Hay un solo verde para texto (`--win`) y se ajusta solo en modo oscuro.
+- **Verde = mejora o resultado positivo.** Solo va en verde una cifra que mejora frente a una base («+12,8 pp», «−50 % de incidencias») o que mide algo positivo («89 % de respuestas positivas»). Un nivel o un recuento sin comparación («26 % hizo clic», «414 beneficios», «3 países») y un resultado neutro («Sin cambios», «96 %») van en tinta. Hay un solo verde para texto (`--win`) y se ajusta solo en modo oscuro.
 - En las cajas, la cifra final va grande y la base va en el texto de debajo. No se usa «antes → después» en grande, que se parte en dos líneas.
 - Máximo 3 cajas por fila. Las etiquetas caben en una línea; si no caben, se acortan.
 - Formato en español: coma decimal, punto de miles y **espacio antes de %** («29,2 %»). El código lo pone solo (`fmt` y `X`), así que en el contenido se puede escribir con o sin espacio.
