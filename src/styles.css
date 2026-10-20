@@ -2033,3 +2033,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-rel-b:focus-visible{outline:3px solid #5B3DF5;outline-offset:3px}
 .vw{container-type:inline-size}
 @container (max-width:520px){ .vw .jv-sw{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:14px} .vw .jv-sw button{padding:8px 10px} }
+.s-goal.note.good{border-left-color:#1f8a5b;background:color-mix(in srgb,var(--mint) 22%,var(--surface))}
+.s-goal.note.good > b{font-size:1.05rem}
+.s-foot-b{margin-top:14px}
+.sc-split > div > span.sc-d{display:block;margin-top:6px}

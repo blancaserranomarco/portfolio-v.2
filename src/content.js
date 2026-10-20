@@ -702,13 +702,11 @@ const PROJECTS = [
                'La nueva experiencia se lanzó en México y se actualizó en España en noviembre de 2023. Junto con Portugal, el Seguro de Salud pasó a funcionar sobre una estructura común en los tres mercados.']},
     {k:'p', t:['After launch, Operations saw a reduction in manual work, and we recorded no negative NPS responses in the follow-up.',
                'Tras el lanzamiento, Operaciones observó una reducción del trabajo manual y no registramos respuestas negativas de NPS en el seguimiento realizado.']},
-    {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
-      meta:['Comparison between March 2023 and November 2025. These figures reflect the benefit’s evolution, not the isolated effect of the redesign.','Comparación entre marzo de 2023 y noviembre de 2025. Estas cifras reflejan la evolución del beneficio, no el efecto aislado del rediseño.'], items:[
-      [['Companies offering it','Empresas con el seguro'],['1,007','1.007'],['From 250 in March 2023 (+303%).','Desde 250 en marzo de 2023 (+303\u00a0%).'],'up'],
-      [['Adoption among companies','Adopción en empresas'],['29.2%','29,2\u00a0%'],['From 22.3% (+6.9 percentage points).','Desde 22,3\u00a0% (+6,9 puntos porcentuales).'],'up'],
-      [['Active subscriptions','Suscripciones activas'],['63K','63K'],['From 22K (+188%).','Desde 22K (+188\u00a0%).'],'up']]},
-    {k:'p', t:['Health Insurance grew faster than Cobee’s client base: the share of companies offering it went from 22.3% to 29.2%.',
-               'El Seguro de Salud creció más rápido que la base de clientes de Cobee: la proporción de empresas que lo ofrecían pasó del 22,3\u00a0% al 29,2\u00a0%.']},
+    {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'], items:[
+      [['Companies offering the insurance','Empresas que ofrecen el seguro'],['29.2%','29,2\u00a0%'],['Compared with 22.3% in March 2023.','Frente al 22,3\u00a0% en marzo de 2023.'],'up',['+6.9 percentage points','+6,9 puntos porcentuales']],
+      [['Active subscriptions','Suscripciones activas'],['63,268','63.268'],['Compared with about 22,000 in March 2023.','Frente a unas 22.000 en marzo de 2023.'],'up',['+188%','+188\u00a0%']]]},
+    {k:'goal', note:1, good:1, label:['Health Insurance gained weight within Cobee.','El Seguro de Salud ganó peso dentro de Cobee.'], t:['The share of companies offering it grew even while the client base was growing.','La proporción de empresas que lo ofrecían aumentó incluso mientras crecía la base de clientes.']},
+    {k:'foot', t:['March 2023 → November 2025. Observed evolution of the benefit; it doesn’t represent the isolated effect of the redesign.','Marzo de 2023 → noviembre de 2025. Evolución observada del beneficio; no representa el efecto aislado del rediseño.']},
     {k:'h', t:['Scaling the experience didn’t guarantee its adoption','Escalar la experiencia no garantizaba su adopción']},
     {k:'p', t:['Adoption was different in each market: 29.2% in Spain, 6.5% in Portugal and 1.7% in Mexico.',
                'La adopción fue distinta en cada mercado: 29,2 % en España, 6,5 % en Portugal y 1,7 % en México.']},

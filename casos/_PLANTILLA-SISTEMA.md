@@ -28,7 +28,7 @@ Para casos en los que el trabajo es entender un problema complejo y resolverlo c
 ### 4 · El resultado (fijo)
 1. Cómo se midió y por qué así (p. ej. una pregunta in-app justo después de la acción, el seguimiento de incidencias).
 2. La pieza de medición si existe (p. ej. la notificación animada con el toque y el agradecimiento).
-3. **Las cifras**: subtítulo, 3 cajas con su base (antes → después y la variación) y la **ficha** debajo (fechas, despliegue, muestra, cómo se calcula).
+3. **Las cifras**: subtítulo, 2–3 cajas (etiqueta, cifra final en verde, «Frente a…» con la base y, si hay, la variación en verde) y la **ficha** debajo (fechas, despliegue, muestra, cómo se calcula). Si hay una lectura clave, va en un callout verde entre las cajas y la ficha (`goal` con `note` y `good`, nota con `foot`).
 4. El desglose que señala dónde investigar (p. ej. renovaciones frente a reemplazos, adopción por país).
 5. **Feedback cualitativo** como comentario (avatar, equipo, etiqueta y texto) y lo que destacó.
 
