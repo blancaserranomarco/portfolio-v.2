@@ -2294,19 +2294,15 @@ const PROJECTS = [
 
     {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Let employees and their family members renew their coverage clearly and reliably, reducing incidents and manual intervention during the campaign.','Permitir que empleados y familiares renovaran su cobertura de forma clara y fiable, reduciendo las incidencias y la intervención manual durante la campaña.']},
 
-    {k:'chap', n:['2 · The approach','2 · El enfoque'], t:['A system problem, not a set of flows','Un problema de sistema, no de flujos']},
-    {k:'p', t:['Our hypothesis was that renewals failed because they relied on solutions built for isolated cases, not for a high-volume annual cycle. Every new case added a patch, and every patch added incidents.',
-               'Nuestra hipótesis era que las renovaciones fallaban porque se apoyaban en soluciones pensadas para casos sueltos, no para un ciclo anual de alto volumen. Cada caso nuevo sumaba un parche, y cada parche, incidencias.']},
-    {k:'p', t:['**The opportunity:** a robust, reusable renewal system would reduce incidents, protect the squad’s capacity and serve future insurance benefits.','**La oportunidad:** un sistema de renovación robusto y reutilizable reduciría las incidencias, protegería la capacidad del squad y serviría para futuros seguros.']},
-    {k:'goal', q:1, label:['The question the project had to answer.','La pregunta que debía responder el proyecto.'], t:['Could one predictable experience cover every real renewal case, with no critical blockers at peak?','¿Podía una sola experiencia predecible cubrir todos los casos reales de renovación, sin blockers críticos en el pico?']},
-    {k:'h', t:['How we would know it worked','Cómo sabríamos que funcionaba']},
-    {k:'table', head:[['Goal','Objetivo'],['Success metric','Métrica de éxito']], rows:[
-      [['Reduce incidents in peak season','Reducir incidencias en temporada alta'],['↓ renewal incidents','↓ incidencias de renovación']],
-      [['A robust renewal and replacement system','Un sistema robusto de renovación y sustitución'],['No critical blockers in peak','Sin blockers críticos en el pico']],
-      [['Protect squad capacity','Proteger la capacidad del squad'],['↓ % engineering time on renewals','↓ % de tiempo de ingeniería en renovaciones']],
-      [['Uninterrupted coverage and retention','Cobertura y retención sin cortes'],['Stable MRR during renewals','MRR estable durante las renovaciones']],
-      [['Reusable renewal machinery','Maquinaria de renovación reutilizable'],['Reuse across insurance benefits','Reutilización en otros seguros']]
-    ]},
+    {k:'chap', n:['2 · The approach','2 · El enfoque'], t:['Defining the rules before designing the screens','Definir las reglas antes de diseñar las pantallas']},
+    {k:'p', t:['The existing solution had grown by solving situations one by one. To prepare for the next campaign, we needed to identify which rules they shared and how to respond to their differences.',
+               'La solución existente había crecido resolviendo situaciones por separado. Para preparar la siguiente campaña, necesitábamos identificar qué reglas compartían y cómo responder a sus diferencias.']},
+    {k:'p', t:['We proposed a common renewal and replacement model that would reduce incidents, make operational work easier and adapt to future insurance benefits.',
+               'Planteamos un modelo común de renovación y sustitución que redujera las incidencias, facilitara el trabajo operativo y pudiera adaptarse a futuros seguros.']},
+    {k:'h', t:['How we would evaluate the result','Cómo evaluaríamos el resultado']},
+    {k:'list', t:[['Renewal incidents compared with the previous campaign.','Incidencias de renovación frente a la campaña anterior.'],
+                  ['Critical blockers during December and January.','Bloqueos críticos durante diciembre y enero.'],
+                  ['Perceived ease of use when completing the process.','Percepción de facilidad de uso al completar el proceso.']]},
 
     {k:'chap', n:['3 · The design','3 · El diseño'], t:['Sixteen combinations, one structure','Dieciséis combinaciones, una sola estructura']},
     {k:'p', t:['I mapped two dimensions. On one side, four member scenarios, depending on the relationship between the employee and their family members. On the other, four possible outcomes for the next period. Each scenario could lead to any outcome: 16 valid combinations that had to keep business rules intact and stay understandable.',
