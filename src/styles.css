@@ -1989,3 +1989,47 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-c .sum-it b{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .sum-c .sum-it span{display:block;margin-top:2px}
 .story .s-sum .sum-big.sum-big-w{white-space:normal}
+
+/* Flujo en pasos (flow) */
+.s-flow{container-type:inline-size}
+.s-flow .fw{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
+.s-flow .fw-s{position:relative}
+.s-flow .fw-c{position:relative;z-index:1;border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);padding:12px 12px 14px;min-height:96px;display:flex;flex-direction:column;gap:8px}
+.s-flow .fw-n{display:inline-grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
+.s-flow .fw-c b{font-weight:600;font-size:.88rem;line-height:1.3}
+.s-flow .fw-s:not(:last-child)::after{content:'→';position:absolute;top:36px;right:-20px;font-size:1rem;line-height:1;color:var(--ink)}
+.s-flow .fw-sub{position:relative;list-style:none;margin:22px 0 0;padding:0;width:calc(var(--n) * 100% + (var(--n) - 1) * 24px);display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
+.s-flow .fw-sub::before{content:'';position:absolute;top:-21px;left:24px;width:0;height:18px;border-left:1.5px dashed var(--muted)}
+.s-flow .fw-sb{position:relative;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;background:var(--surface);display:flex;flex-direction:column;gap:6px;font-size:.84rem;line-height:1.3}
+.s-flow .fw-sb b{font-weight:600}
+.s-flow .fw-sb small{color:var(--muted);font-size:.8rem;line-height:1.35}
+.s-flow .fw-sb:not(:last-child)::after{content:'→';position:absolute;top:12px;right:-20px;font-size:1rem;color:var(--ink)}
+@container (max-width:720px){
+  .s-flow .fw{grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-c{min-height:0;flex-direction:row;align-items:center;gap:12px}
+  .s-flow .fw-s:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
+  .s-flow .fw-s.has-sub::before{content:'';position:absolute;left:23px;top:20px;bottom:-4px;border-left:1.5px solid var(--ink)}
+  .s-flow .fw-sub{margin:22px 0 0 48px;width:auto;grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-sub::before{left:-24px;top:22px;width:22px;height:0;border-left:0;border-top:1.5px dashed var(--muted)}
+  .s-flow .fw-sb:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
+}
+/* Barras con etiquetas en una línea; en pantallas estrechas, solo texto y % */
+.b-tk .sc-row{grid-template-columns:240px 1fr 60px}
+.b-tk .sc-row > span{white-space:nowrap}
+@media (max-width:560px){ .b-tk .sc-row{grid-template-columns:1fr auto} .b-tk .sc-row i{display:none} }
+.sl-pair:has(> .sl-item:only-child){grid-template-columns:minmax(0,420px);justify-content:center}
+.sc-split > div > span.sc-d{color:#1f8a5b;font-weight:600}
+/* Enlaces entre casos */
+.s-lk{all:unset;cursor:pointer;color:inherit;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;text-decoration-color:var(--shadow)}
+.s-lk:hover{text-decoration-thickness:2.5px}
+.s-lk:focus-visible{outline:3px solid #5B3DF5;outline-offset:2px;border-radius:3px}
+.s-rel{margin-top:36px}
+.s-rel .sc-k{display:block;margin-bottom:8px}
+.s-rel-b{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;width:100%;padding:18px 20px;border:1.5px solid var(--ink);border-radius:14px;background:var(--surface);box-shadow:4px 4px 0 var(--shadow)}
+.s-rel-b b{font-family:var(--display);font-weight:500;font-size:1.25rem;line-height:1.2}
+.s-rel-b span{grid-column:1;color:var(--muted);font-size:.95rem}
+.s-rel-b i{grid-row:1/span 2;grid-column:2;font-style:normal;font-size:1.4rem}
+.s-rel-b:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow)}
+.s-rel-b:focus-visible{outline:3px solid #5B3DF5;outline-offset:3px}
+.vw{container-type:inline-size}
+@container (max-width:520px){ .vw .jv-sw{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:14px} .vw .jv-sw button{padding:8px 10px} }

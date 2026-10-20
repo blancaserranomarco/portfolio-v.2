@@ -25,7 +25,9 @@ Leyenda: **Fija** = va en todos los casos · **Si existe** = solo si hay materia
 
 Hay dos plantillas según el tipo de caso:
 - **Experimentación** (`_PLANTILLA-EXPERIMENTOS.md`): el caso se cuenta como una serie de experimentos medidos. Ejemplos: TaxDown y Descuentos.
-- **Sistema o end-to-end** (`_PLANTILLA-SISTEMA.md`): un problema complejo resuelto con un modelo o sistema, sin A/B. Ejemplo: Seguro de Salud II · Renovaciones.
+- **Sistema o end-to-end** (`_PLANTILLA-SISTEMA.md`): un problema complejo resuelto con un modelo o sistema, sin A/B. Ejemplos: Seguro de Salud I y II.
+
+**Casos relacionados (si existe):** si un caso continúa o se apoya en otro (p. ej. Seguro de Salud I y II, Beneficios personalizados), se enlaza en el texto donde se menciona (`[[texto|id]]`) y, al final de la historia, con la tarjeta «Primera parte» / «Segunda parte» (`rel`).
 
 ## 3. Pregúntame (fija)
 
@@ -33,9 +35,9 @@ Siempre estas 7 preguntas, en primera persona y en este orden. Si una no tiene r
 
 | Pregunta | Formato |
 |---|---|
-| ¿Qué impacto tuvo en negocio? | Cifras en cajas + pie con el cálculo y si es estimado |
+| ¿Qué impacto tuvo en negocio? | Cifras en cajas + pie con el cálculo y si es estimado. Si las cifras no aíslan el efecto del diseño, la pregunta es «¿Qué impacto tuvo?» y el pie lo dice |
 | ¿Cuál fue mi papel? | Bullets: qué propuse, qué diseñé, con quién |
-| ¿Qué descarté? | Tabla Opción · Por qué, o un párrafo si es un solo descarte. Solo descartes; si se probó, se dice en el porqué |
+| ¿Qué descarté? | Tabla Opción · Por qué, o un párrafo si es un solo descarte. Solo descartes; si se probó, se dice en el porqué. En casos de sistema puede ser «¿Cómo priorizamos el alcance?»: qué fue primero, qué se dejó para otra fase y por qué |
 | ¿Qué no salió como esperaba? | Hechos concretos, sin repetir los aprendizajes |
 | ¿Qué aprendí? | 2–3 bullets: título en negrita + explicación |
 | ¿Qué haría distinto hoy? | 1–2 bullets con el mismo formato |

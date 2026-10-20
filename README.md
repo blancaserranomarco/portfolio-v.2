@@ -21,7 +21,7 @@ CLAUDE.md          instrucciones de trabajo (lo primero que se lee)
 README.md          contexto: dónde vive cada cosa, cómo publicar, pendiente
 casos/_PLANTILLA.md  partes comunes de los casos (cabecera, Pregúntame, coherencia, montaje)
 casos/_PLANTILLA-EXPERIMENTOS.md  historia de casos de experimentación (TaxDown, Descuentos)
-casos/_PLANTILLA-SISTEMA.md  historia de casos de sistema o end-to-end (Seguro de Salud II · Renovaciones)
+casos/_PLANTILLA-SISTEMA.md  historia de casos de sistema o end-to-end (Seguro de Salud I y II)
 
 src/               código fuente (lo único que se edita)
   content.js       textos publicados de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
@@ -74,7 +74,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar las plantillas al resto de casos. Siguiente: Seguro de Salud I, con la plantilla de sistema, para ajustarla.
+- Aplicar las plantillas al resto de casos (Beneficios personalizados, Banners, Playtomic). Seguro de Salud I: confirmar fechas y si se tapa la aseguradora mexicana en los vídeos.
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).
@@ -85,6 +85,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-20 · Caso Seguro de Salud I con la plantilla de sistema: cajas por país, tickets en barras, flujo en pasos con rama del familiar (`flow`), regla de avisos, vídeos con selector, cifras con la estructura de Renovaciones, giro de México. Enlaces entre casos (`[[texto|id]]` y tarjeta `rel`) entre Salud I, Renovaciones y Beneficios personalizados. Títulos de caso al mismo tamaño en todos. Rol Product Designer en Salud I y Descuentos.
 - 2026-10-20 · Caso Seguro de Salud II · Renovaciones con la nueva estructura: franja de temporada, explorador de combinaciones con las fichas reales y tabla, prototipo y flujos con selector, notificación animada, feedback de Operaciones como comentario. Datos de enero de 2026 (702 respuestas). Plantillas separadas: común, experimentación y sistema.
 - 2026-10-20 · Casos: panel a 2/3 de la pantalla en escritorio y una sola columna centrada de 840 px para texto y bloques; texto de las tarjetas de cabecera al tamaño de los datos.
 - 2026-10-19 · El título de cada caso sale de su tarjeta de la portada (`SELCARD.h`); se quita `h1` de los casos.

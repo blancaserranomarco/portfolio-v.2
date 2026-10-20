@@ -352,7 +352,7 @@ function block(b, p, ids){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
     case 'p': return `<p class="b-p">${X(b.t)}</p>`;
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
-    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</${t}>`; }
+    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</li>`).join('')}</${t}>`; }
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
     case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
@@ -487,11 +487,13 @@ function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
   f.querySelector('.rn-md').hidden=e!=='repl';
 }
 // Case title = the title of its card on the home page
+const lk = h => h.replace(/\[\[(.+?)\|([a-z]+)\]\]/g,'<button type="button" class="s-lk" data-open="$2">$1</button>');
 function caseTitle(p){ const c=SELCARD[p.id]; return c?esc(tr(c.h).join(' ')):X(p.title); }
 function sBlock(b,p,ids){
   switch(b.k){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
-    case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
+    case 'p': return `<p class="s-p">${lk(X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'))}</p>`;
+    case 'rel': { const q=P.find(x=>x.id===b.id); if(!q) return ''; return `<aside class="s-rel"><span class="sc-k">${X(b.label)}</span><button type="button" class="s-rel-b" data-open="${q.id}"><b>${caseTitle(q)}</b><span>${X(b.t)}</span><i aria-hidden="true">→</i></button></aside>`; }
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'cmp': { const tag=c=>`<span class="cmp-dot" style="background:var(--${c.tone})" aria-hidden="true"></span>`;
       const val=(r,j)=>r[3]?`<span class="${j?'cmp-lose':'cmp-win'}">${X(r[j+1])}</span>`:X(r[j+1]);
@@ -553,9 +555,10 @@ function sBlock(b,p,ids){
     case 'slide': return `<figure class="scene s-slide">${b.cap?`<p class="sl-hint"><span aria-hidden="true">⇆</span> ${X(b.cap)}</p>`:''}<div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
       <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div></figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
+    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s${st.sub?' has-sub':''}"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map((h,j,A)=>`<li class="fw-sb"><b>${X(h)}</b>${j===A.length-1&&st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</li>`).join('')}</ol>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'split': if(b.h) return `<div class="s-res"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
+    case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'split': if(b.h) return `<div class="s-res${b.cls?' '+b.cls:''}"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
     case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
@@ -611,7 +614,7 @@ function askPanel(a){
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
     return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>${a.after?`<p class="ask-after">${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`:''}`; }
-  return a.t?X(a.t).split('\n\n').map(t=>`<p>${t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>`).join(''):'';
+  return a.t?X(a.t).split('\n\n').map(t=>`<p>${lk(t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>'))}</p>`).join(''):'';
 }
 function askHTML(p){
   return `<section class="ask" id="s-${p.id}-ask" aria-labelledby="ask-h-${p.id}"><h2 id="ask-h-${p.id}">${u('ask_h')}</h2><p class="muted">${u('ask_sub')}</p>
