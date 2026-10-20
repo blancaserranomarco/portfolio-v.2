@@ -1981,6 +1981,9 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .rn-bn.end{background:#EEEEF1;color:#3F3F49}.rn-bn.end svg{stroke:#5F5F6B}
 .rn-r.none{background:#EEEEF1;color:#1F1F2B}
 .s-goal .g-ol{margin:10px 0 0;padding-left:1.4em;display:grid;gap:6px}.s-goal .g-ol li::marker{font-weight:700}
+/* Story cases: one column for text and blocks, so everything starts and ends on the same line (~78 characters per line) */
+.sheet-in.story > *{max-width:840px}
+.story .s-p,.story .s-lead,.story .s-body > .b-list,.story .s-q,.story .fb,.story .s-next ol,.story .sc-intro,.story .s-lede,.story .steps p,.story .b-p,.story .ask-p > p,.story .ask-p li,.story .ask-note{max-width:none}
 </style>
 <header class="top">
   <div class="wrap">
