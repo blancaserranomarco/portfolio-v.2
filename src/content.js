@@ -407,6 +407,7 @@ const PROJECTS = [
       {l:['Prototype','Prototipo'], vid:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
       {l:['Flow design','Diseño de flujos'], img:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']}]},
     {k:'h', t:['Validating from three perspectives','Validar desde tres perspectivas']},
+    {k:'p', t:['To validate the proposal before launch, we combined reviews with internal teams and prototype tests with users. Each perspective helped us check a different aspect of the solution:','Para validar la propuesta antes del lanzamiento, combinamos la revisión con los equipos internos y las pruebas del prototipo con usuarios. Cada perspectiva nos ayudó a comprobar un aspecto distinto de la solución:']},
     {k:'steps', items:[
       [['Operations','Operaciones'],['We checked the scenarios against the cases they handled in practice.','Contrastamos los escenarios con los casos que gestionaban en la práctica.']],
       [['Engineering','Ingeniería'],['We reviewed technical feasibility and scope from the start.','Revisamos la viabilidad técnica y el alcance desde el inicio.']],
