@@ -269,7 +269,7 @@ const PROJECTS = [
   sum:[{k:['The challenge','El reto'], tone:'bad', t:['Companies wanted to offer benefits the catalogue didn’t cover, without depending on Engineering or waiting for custom development.','Las empresas querían ofrecer beneficios que el catálogo no cubría, sin depender de Tecnología ni esperar desarrollos a medida.']},
        {k:['My contribution','Mi aportación'], t:['I led research, design and strategy: I validated demand with a fake door and designed a modular system of templates and payment pieces.','Lideré el research, el diseño y la estrategia: validé la demanda con un fake door y diseñé un sistema modular de plantillas y piezas de pago.']},
        {k:['Impact','Impacto'], tone:'good', big:['414','414'], bigl:['414 unique benefits','414 beneficios únicos'], t:['Unique benefits created in two years, with more than 5,300 active instances in companies.','Beneficios únicos creados en dos años, con más de 5.300 instancias activas en empresas.'], pp:['70% faster to market','70 % más rápido al mercado']}],
-  nums:[{v:'414',t:['unique benefits created in two years','beneficios únicos creados en dos años']},{v:'5,300+',t:['active company–benefit instances','instancias activas empresa–beneficio']},{v:'70%',t:['faster time to market, months to days','más rápido al mercado, de meses a días']}],
+  nums:[{v:'414',t:['unique benefits created in two years','beneficios únicos creados en dos años']},{v:'+5,300',t:['active company–benefit instances','instancias activas empresa–beneficio']},{v:'70%',t:['faster time to market, months to days','más rápido al mercado, de meses a días']}],
   blocks:[
     {k:'chap', n:['1 · The context','1 · El contexto'], t:['A catalogue that didn’t cover what companies offered','Un catálogo que no cubría lo que ofrecían las empresas']},
     {k:'p', t:['Cobee is a B2B2C platform that helps companies manage and distribute employee benefits. HR teams needed more flexibility to offer their own perks, without relying on tech teams or waiting for custom development.',
@@ -326,7 +326,7 @@ const PROJECTS = [
                'En los tres primeros meses, la adopción entre los administradores de RRHH fue alta. También se convirtió en un impulsor de ventas: ayudó a cerrar acuerdos con grandes empresas que querían incluir sus propios beneficios.']},
     {k:'split', h:['The system two years later','El sistema dos años después'], meta:['2023 – 2025. One benefit active in one company counts as one instance.','2023 – 2025. Un beneficio activo en una empresa cuenta como una instancia.'], items:[
       [['Unique benefits','Beneficios únicos'],['414','414'],['Created since launch.','Creados desde el lanzamiento.']],
-      [['Active instances','Instancias activas'],['5,300+','5.300+'],['Benefits active across companies.','Beneficios activos en empresas.']],
+      [['Active instances','Instancias activas'],['+5,300','+5.300'],['Benefits active across companies.','Beneficios activos en empresas.']],
       [['Countries','Países'],['3','3'],['Spain, Mexico and Portugal.','España, México y Portugal.']]]},
     {k:'table', head:[['Year','Año'],'Plain',['Card','Tarjeta'],['Reimbursement','Reembolso']], rows:[
       [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
@@ -346,12 +346,11 @@ const PROJECTS = [
                'Beneficios personalizados hizo algo más que crear beneficios: se convirtió en una forma rápida y de bajo riesgo de probar la demanda en cada mercado antes de invertir en soluciones más complejas.']},
     {k:'p', t:['In Mexico, we used it to launch **Meeting Doctors, Meeting Pros’ medical assistance service**, which was offered by more companies than [[Health Insurance|health]]. From then on, new benefits were validated with it first.',
                'En México lo usamos para lanzar **Meeting Doctors, el servicio de asistencia médica de Meeting Pros**, que llegó a más empresas que el [[Seguro de Salud|health]]. A partir de entonces, los beneficios nuevos se validaron primero con él.']},
-    {k:'rel', id:'health', label:['See a related project','Consulta un proyecto relacionado'], t:['How we built the common hiring structure for Spain, Mexico and Portugal, and what Mexico taught us.','Cómo construimos la estructura común de contratación para España, México y Portugal, y qué nos enseñó México.']}
   ],
   ask:[
     {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[
       [['414','414'],['unique benefits created in two years.','beneficios únicos creados en dos años.']],
-      [['5,300+','5.300+'],['active instances: one benefit active in one company.','instancias activas: un beneficio activo en una empresa.']],
+      [['+5,300','+5.300'],['active instances: one benefit active in one company.','instancias activas: un beneficio activo en una empresa.']],
       [['70%','70 %'],['faster to market: launches went from months to days.','más rápido al mercado: los lanzamientos pasaron de meses a días.']],
       [['3 countries','3 países'],['Spain, Mexico and Portugal on the same system.','España, México y Portugal sobre el mismo sistema.']]],
       note:['2023 – 2025. Sales also confirmed it as a deal-closing differentiator.','2023 – 2025. Ventas también lo confirmó como un diferencial para cerrar acuerdos.']},
