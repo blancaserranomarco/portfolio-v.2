@@ -1920,6 +1920,13 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .se-i{display:none}
 @media (max-width:620px){.se-m li{font-size:.78rem}.se-i{display:inline}.se-f{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 @media (max-width:620px){.scene.se{padding-left:12px;padding-right:12px}.se-m{gap:3px}.se-m li{border-width:1.5px}}
+/* Feedback comment (quote with fb) */
+.fb{display:flex;gap:12px;align-items:flex-start;margin:28px 0 0;max-width:62ch}
+.fb-av{flex:none;width:40px;height:40px;border-radius:50%;background:var(--sky);color:var(--sticker-ink);border:2px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.fb-b{flex:1;background:var(--surface);border:1.5px solid var(--line);border-radius:4px 16px 16px 16px;padding:12px 16px;box-shadow:3px 3px 0 var(--shadow)}
+.fb figcaption{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:.86rem;margin:0}
+.fb figcaption span{color:var(--muted);font-size:.8rem}
+.fb blockquote{margin:6px 0 0}.fb blockquote p{margin:0;font-size:1rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -2348,7 +2355,7 @@ const PROJECTS = [
              [['Companies renewed','Empresas renovadas'],['682','682'],['Up to January 2026, with no critical blockers during the campaign.','Hasta enero de 2026, sin bloqueos críticos durante la campaña.']]]},
     {k:'bars', label:['Positive feedback by type','Feedback positivo por tipo'], rows:[[['Renewal (272)','Renovación (272)'],91.9],[['Replacement (79)','Reemplazo (79)'],79.7]],
       cap:['Answers in brackets. Replacements, where the plan changes, got less positive feedback than renewals. This difference showed where to investigate the remaining difficulties.','Entre paréntesis, las respuestas. Los reemplazos, en los que cambia el plan, tuvieron menos feedback positivo que las renovaciones. Esta diferencia señaló dónde investigar las dificultades restantes.']},
-    {k:'quote', t:['The new renewal experience is widely perceived as clearer, more intuitive and better structured. It significantly reduced operational friction.','La nueva experiencia de renovación se percibe como más clara, intuitiva y mejor estructurada. Ha reducido mucho la fricción operativa.'], by:['Operations team','Equipo de Operaciones']},
+    {k:'quote', av:'Op', fb:['Internal feedback','Feedback interno'], t:['The new renewal experience is widely perceived as clearer, more intuitive and better structured. It significantly reduced operational friction.','La nueva experiencia de renovación se percibe como más clara, intuitiva y mejor estructurada. Ha reducido mucho la fricción operativa.'], by:['Operations team','Equipo de Operaciones']},
 
     {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Renewals as core product logic','Las renovaciones, como lógica de producto']},
     {k:'p', t:['The new experience held up during the most critical revenue window of the year, with no critical blockers. The renewal machinery was designed as reusable components, ready for other insurance benefits such as Life and Pension Insurance.',
@@ -3247,6 +3254,8 @@ function sBlock(b,p,ids){
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
+    case 'quote': if(!b.fb) break;
+      return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
