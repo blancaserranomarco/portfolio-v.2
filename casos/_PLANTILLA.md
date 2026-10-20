@@ -9,7 +9,7 @@ Leyenda: **Fija** = va en todos los casos · **Si existe** = solo si hay materia
 | Pieza | Qué lleva | Ejemplo TaxDown |
 |---|---|---|
 | Tags | Tipo de trabajo y modelo | A/B testing · B2B |
-| Título | El mismo de su tarjeta en la portada (`SELCARD.h`); sale de ahí automáticamente | Mismo descuento, mejor momento: convertir a usuarios de partners |
+| Título | El mismo de su tarjeta en la portada (`SELCARD.h`); sale de ahí automáticamente. Mismo tamaño en todos los casos | Mismo descuento, mejor momento: convertir a usuarios de partners |
 | Entradilla | Una frase: qué tipo de trabajo y para qué | Una serie de iniciativas basadas en experimentos rápidos para… |
 | Datos | 3 columnas bajo una sola línea: **Mi rol · Periodo · Alcance**. Primera línea en negrita, segunda en gris | Senior Product Designer / Growth B2B |
 | 3 tarjetas | **El reto** (rosa) · **Mi aportación** (amarillo) · **Impacto** (verde). Blancas, borde negro, color solo en la etiqueta | Impacto: 14,5% → 21,5% · +7 pp |
