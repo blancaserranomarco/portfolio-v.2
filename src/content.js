@@ -281,12 +281,10 @@ const PROJECTS = [
     {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Expand Cobee’s catalogue and reach more companies by letting them offer their own benefits, without custom-building each one or adding complexity to the experience.','Ampliar el catálogo de Cobee y llegar a más empresas, permitiéndoles ofrecer sus propios beneficios sin desarrollar cada uno a medida ni añadir complejidad a la experiencia.']},
 
     {k:'chap', n:['2 · The approach','2 · El enfoque'], t:['Validating demand before building','Validar la demanda antes de construir']},
-    {k:'p', t:['Our hypothesis was that, if companies could add and manage their own benefits inside Cobee, everyone would gain:','Nuestra hipótesis era que, si las empresas podían añadir y gestionar sus propios beneficios en Cobee, todos ganaban:']},
-    {k:'list', t:[['**Admins:** more autonomy and perceived value.','**Administradores:** más autonomía y valor percibido.'],
-                  ['**Employees:** more awareness and satisfaction, with everything in one place.','**Empleados:** más conocimiento y satisfacción, con todo en un mismo sitio.'],
-                  ['**Cobee:** less dependence on development teams and faster launches in every market.','**Cobee:** menos dependencia de Desarrollo y lanzamientos más rápidos en cada mercado.']]},
-    {k:'p', t:['To measure real intent before building, we added a “Create your own benefit” entry to the admin dashboard for a feature that didn’t exist yet: a fake door test.',
-               'Para medir la intención real antes de construir, añadimos en el dashboard de admin una entrada «Crea tu propio beneficio» para una funcionalidad que aún no existía: un fake door test.']},
+    {k:'p', t:['We proposed that centralising companies’ own benefits would help HR communicate them and employees discover them. For Cobee, it would expand the offer without building a different solution for each proposal.',
+               'Planteamos que centralizar los beneficios propios ayudaría a RRHH a comunicarlos y a los empleados a descubrirlos. Para Cobee, permitiría ampliar la oferta sin construir una solución distinta para cada propuesta.']},
+    {k:'p', t:['Before building the system, we added “Create your own benefit” to the admin dashboard. The feature didn’t exist yet, but with this experiment we measured clicks and willingness to leave an email to join the beta.',
+               'Antes de desarrollar el sistema, añadimos «Crea tu propio beneficio» al panel de administración. La funcionalidad aún no existía, pero con este experimento medimos los clics y la disposición a dejar un email para participar en la beta.']},
     {k:'split', h:['What the fake door showed','Lo que mostró el fake door'], meta:['Fake door test in the admin dashboard · 2023','Fake door test en el dashboard de admin · 2023'], items:[
       [['Clicked','Hicieron clic'],['26%','26 %'],['Of the admins who saw the entry clicked “Create your own benefit”.','De los administradores que vieron la entrada pulsaron «Crea tu propio beneficio».']],
       [['Showed interest','Mostraron interés'],['16%','16 %'],['Of those who clicked completed the flow and left their email for the beta.','De quienes hicieron clic completaron el flujo y dejaron su email para la beta.']]]},
