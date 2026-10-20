@@ -298,6 +298,8 @@ const PROJECTS = [
     {k:'chap', n:['3 · The design','3 · El diseño'], t:['One template for any benefit','Una plantilla para cualquier beneficio']},
     {k:'p', t:['I started with Plain Benefits, the simplest version: a text-based template, with image, title, description and link, to publish any perk without development.',
                'Empecé por Plain Benefits, la versión más sencilla: una plantilla de texto, con imagen, título, descripción y enlace, para publicar cualquier beneficio sin desarrollo.']},
+    {k:'p', t:['In the first MVP, an agent filled in the backoffice form. The content fed the views in the admin dashboard and the app, with information adapted to each audience.',
+               'En el primer MVP, un agente completaba el formulario del backoffice. El contenido alimentaba las vistas del panel de administración y de la app, con información adaptada a cada público.']},
     {k:'goal', note:1, label:['The rule that lets the system scale','La regla que hace escalar el sistema'], t:['**Every benefit is the same template with pieces added to it.** First information; then, only where needed, a way to pay.','**Cada beneficio es la misma plantilla con piezas que se añaden.** Primero la información; después, solo donde hace falta, una forma de pago.'],
       list:[['**One form:** an agent fills it in the backoffice and the benefit appears in the app and in the admin dashboard.','**Un formulario:** un agente lo rellena en el backoffice y el beneficio aparece en la app y en el dashboard de admin.'],
             ['**By country:** available in every country by default, or only in the selected ones.','**Por país:** disponible en todos los países por defecto o solo en los elegidos.'],
