@@ -2002,26 +2002,33 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .story .s-sum .sum-big.sum-big-w{white-space:normal}
 
 /* Flujo en pasos (flow) */
+.s-flow{container-type:inline-size}
 .s-flow .fw{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
 .s-flow .fw-s{position:relative}
-.s-flow .fw-c{border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);padding:12px 12px 14px;min-height:96px;display:flex;flex-direction:column;gap:8px}
-.s-flow .fw-n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
+.s-flow .fw-c{position:relative;z-index:1;border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);padding:12px 12px 14px;min-height:96px;display:flex;flex-direction:column;gap:8px}
+.s-flow .fw-n{display:inline-grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
 .s-flow .fw-c b{font-weight:600;font-size:.95rem;line-height:1.3}
 .s-flow .fw-s:not(:last-child)::after{content:'→';position:absolute;top:36px;right:-20px;font-size:1rem;line-height:1;color:var(--ink)}
 .s-flow .fw-sub{position:relative;list-style:none;margin:22px 0 0;padding:0;width:calc(var(--n) * 100% + (var(--n) - 1) * 24px);display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
 .s-flow .fw-sub::before{content:'';position:absolute;top:-21px;left:24px;width:0;height:18px;border-left:1.5px dashed var(--muted)}
 .s-flow .fw-sb{position:relative;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;background:var(--surface);display:flex;flex-direction:column;gap:6px;font-size:.9rem;line-height:1.3}
 .s-flow .fw-sb b{font-weight:600}
+.s-flow .fw-sb small{color:var(--muted);font-size:.85rem;line-height:1.35}
 .s-flow .fw-sb:not(:last-child)::after{content:'→';position:absolute;top:12px;right:-20px;font-size:1rem;color:var(--ink)}
-@media (max-width:640px){
+@container (max-width:720px){
   .s-flow .fw{grid-template-columns:1fr;gap:22px}
   .s-flow .fw-c{min-height:0;flex-direction:row;align-items:center;gap:12px}
   .s-flow .fw-s:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
-  .s-flow .fw-sub{margin:22px 0 0 36px;width:auto;grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-s.has-sub::before{content:'';position:absolute;left:23px;top:20px;bottom:-4px;border-left:1.5px solid var(--ink)}
+  .s-flow .fw-sub{margin:22px 0 0 48px;width:auto;grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-sub::before{left:-24px;top:22px;width:22px;height:0;border-left:0;border-top:1.5px dashed var(--muted)}
   .s-flow .fw-sb:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
 }
-.s-flow .fw-note{margin:8px 0 0;width:calc(200% + 24px);color:var(--muted);font-size:.85rem;line-height:1.35}
-@media (max-width:640px){ .s-flow .fw-note{width:auto;margin-left:36px} }
+/* Barras con etiquetas en una línea; en pantallas estrechas, solo texto y % */
+.b-tk .sc-row{grid-template-columns:max-content 1fr 60px}
+.b-tk .sc-row > span{white-space:nowrap}
+@media (max-width:560px){ .b-tk .sc-row{grid-template-columns:1fr auto} .b-tk .sc-row i{display:none} }
+.sl-pair:has(> .sl-item:only-child){grid-template-columns:minmax(0,420px);justify-content:center}
 </style>
 </head>
 <body>
@@ -2674,7 +2681,7 @@ const PROJECTS = [
                'El desafío era definir una base común que se adaptara a las aseguradoras, la regulación y las formas de pago de cada país.']},
     {k:'goal', note:1, label:['The Spanish experience was already showing its limits','La experiencia de España ya mostraba los límites'], t:['It was the benefit with the most incidents. Of 79 CX tickets about benefits analysed, 30 were about health insurance, mostly about taking it out: payroll errors, errors when hiring in the app, billing and doubts about the process. Operations also solved a lot of it by hand, and the journeys weren’t documented.',
                'Era el beneficio con más incidencias. De 79 tickets de CX analizados sobre beneficios, 30 eran de seguro de salud, sobre todo de la contratación: errores de nómina, errores al contratar en la app, facturación y dudas sobre el proceso. Además, Operaciones resolvía mucho a mano y los recorridos no estaban documentados.']},
-    {k:'bars', label:['Health insurance tickets by reason (30 tickets)','Tickets de seguro de salud por motivo (30 tickets)'], max:25, rows:[[['Payroll error','Error de nómina'],20,'peach'],[['Hiring error in the app','Error al contratar en la app'],17,'peach'],[['Billing error','Error de facturación'],13,'peach'],[['Doubts about hiring','Dudas sobre la contratación'],13,'peach'],[['Hiring errors','Errores de contratación'],10,'peach']],
+    {k:'bars', cls:'b-tk', label:['Health insurance tickets by reason (30 tickets)','Tickets de seguro de salud por motivo (30 tickets)'], max:25, rows:[[['Payroll error','Error de nómina'],20,'peach'],[['Hiring error in the app','Error al contratar en la app'],17,'peach'],[['Billing error','Error de facturación'],13,'peach'],[['Doubts about hiring','Dudas sobre la contratación'],13,'peach'],[['Hiring errors','Errores de contratación'],10,'peach']],
       cap:['Approximate share of the 30 health insurance tickets by reason: hiring concentrated the errors and doubts.','Porcentaje aproximado de los 30 tickets de seguro de salud por motivo: la contratación concentraba los errores y las dudas.']},
     {k:'quote', av:'CX', by:['Customer Experience team','Equipo de Atención al cliente'], fb:['Ticket analysis','Análisis de tickets'], t:['The main reason users contact us is that they don’t know how the benefit works or how to take it out.','La principal razón por la que nos contactan los usuarios es porque no saben cómo funciona el beneficio ni cómo hacer la contratación.']},
     {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Drive adoption and make it easier to take out Health Insurance through a scalable model for three countries, reducing errors and manual work.','Impulsar la adopción y facilitar la contratación del Seguro de Salud mediante un modelo escalable para tres países, reduciendo errores y gestiones manuales.']},
@@ -2706,65 +2713,74 @@ const PROJECTS = [
       {h:['Complete the hiring','Completar la contratación']},
       {h:['Receive the confirmation email','Recibir el email de confirmación']}],
       cap:['The flow we proposed, documented for the first time: the employee’s journey and the family member branch.','El flujo que propusimos, documentado por primera vez: el recorrido del empleado y la rama del familiar.']},
-    {k:'p', t:['On top of that flow, each case depended on several conditions: who pays for the insurance (the company, the employee through Flexible Pay, or both), who the company lets them insure, whether the employee already has their own insurance and whether their profile is complete.',
-               'Sobre ese flujo, cada caso dependía de varias condiciones: quién paga el seguro (la empresa, el empleado con Retribución Flexible o un pago mixto), a quién permite asegurar la empresa, si el empleado ya tiene su seguro y si su perfil está completo.']},
-    {k:'p', t:['Combined, they produced too many possible alerts. With Engineering, the challenge was to prioritise them so each person only saw the one they needed.',
-               'Combinadas, generaban demasiados avisos posibles. Con Ingeniería, el reto fue priorizarlos para que cada persona viera solo el que necesitaba.']},
-    {k:'goal', note:1, label:['The rule that orders the alerts','La regla que ordena los avisos'], t:['**The alert that stops you from moving forward comes first.** If something is missing to be able to hire, that alert appears alone; the rest inform without blocking.','**Primero se muestra el aviso que impide avanzar.** Si falta algo para poder contratar, ese aviso aparece solo; el resto informa sin bloquear.'],
-      list:[['**Incomplete profile:** “Some details in your profile are missing before you can request the insurance.” It leads to the profile and is the only alert.','**Perfil incompleto:** «Faltan datos por completar en tu perfil para poder solicitar el seguro.» Lleva al perfil y es el único aviso.'],
-            ['**Employee without insurance:** “You need to take out your own insurance first to be able to insure your family members.” It’s the only alert.','**Empleado sin seguro:** «Tienes que contratar primero tu propio seguro para poder contratar el de tus familiares.» Es el único aviso.'],
-            ['**Employee only:** “Your company only offers insurance to you as an employee.”','**Solo el empleado:** «Tu empresa solo te ofrece seguro a ti como colaborador.»'],
-            ['**Some family members only:** “Your company only lets you include… in the insurance”, with the type of family member.','**Solo algunos familiares:** «Tu empresa solo permite incluir en el seguro a…», con el tipo de familiar.']]},
+    {k:'p', t:['The experience varied depending on who paid for the insurance, which family members the company allowed, whether the employee was already insured and whether they had completed their details. The challenge was to turn those conditions into clear instructions, without showing every alert at once.',
+               'La experiencia variaba según quién pagaba el seguro, qué familiares admitía la empresa, si el empleado ya estaba asegurado y si había completado sus datos. El reto era traducir esas condiciones en instrucciones claras, sin mostrar todos los avisos a la vez.']},
+    {k:'p', t:['With Engineering, we prioritised the alerts in two ways: the order in which they were shown and the moment they appeared, so as not to overwhelm users and to unlock the path step by step.',
+               'Con Ingeniería, priorizamos los avisos en dos sentidos: el orden en que se mostraban y el momento en que aparecían, para no abrumar al usuario y desbloquear el camino poco a poco.']},
+    {k:'goal', note:1, label:['The rule that orders the alerts','La regla que ordena los avisos'], t:['**Alerts that stopped you from continuing were shown first and on their own.** The rest added information without blocking the hiring.','**Los avisos que impedían continuar se mostraban de forma prioritaria y exclusiva.** Los demás aportaban información sin bloquear la contratación.'],
+      list:[['If profile details were missing, we showed that alert with direct access to complete them.','Si faltaban datos del perfil, mostrábamos ese aviso con acceso directo para completarlos.'],
+            ['If the employee didn’t have insurance yet, we explained they had to take it out before insuring their family members.','Si el empleado aún no tenía seguro, explicábamos que debía contratarlo antes de asegurar a sus familiares.'],
+            ['The company’s coverage restrictions indicated who could be included.','Las restricciones de cobertura de la empresa indicaban a quién se podía incluir.']]},
     {k:'img', src:'assets/health-alerts.webp', cap:['Part of the alerts table: the conditions, the text, the action and whether the alert is shown alone.','Parte de la tabla de avisos: las condiciones, el texto, la acción y si el aviso se muestra solo.']},
     {k:'h', t:['Showing who is covered and who pays','Mostrar quién está cubierto y quién paga']},
-    {k:'p', t:['In the insurance screen, I separated the people already insured from those still to insure, with a direct action to add a new family member. Before confirming, the summary shows the payment method and how much the company pays and how much is deducted from payroll.',
-               'En la pantalla del seguro, separé a los asegurados de los que quedan por asegurar, con una acción directa para añadir un familiar nuevo. Antes de confirmar, el resumen muestra la forma de pago y cuánto paga la empresa y cuánto se descuenta de la nómina.']},
-    {k:'p', t:['The benefit information moved to a separate tab, so taking out the insurance didn’t require reading it first. The same structure was adapted to each country’s insurers and texts.',
-               'La información del beneficio pasó a una pestaña aparte, para que contratar no exigiera leerla primero. La misma estructura se adaptó a las aseguradoras y los textos de cada país.']},
+    {k:'p', t:['I separated the insured people from those pending hiring and added a direct action to add family members.',
+               'Separé a las personas aseguradas de las pendientes de contratación e incorporé una acción directa para añadir familiares.']},
+    {k:'p', t:['Before confirming, the summary showed which insurance was being requested, for whom and how much the company and the employee paid. The general explanation of the benefit moved to a separate tab, available when needed.',
+               'Antes de confirmar, el resumen mostraba qué seguro se solicitaba, para quién y cuánto pagaban la empresa y el empleado. La explicación general del beneficio quedó en una pestaña independiente, accesible cuando fuera necesaria.']},
+    {k:'slide', items:[
+      {before:'assets/health-info-before.webp', after:'assets/health-info-after.webp', h:['Benefit information','Información del beneficio'], alt_b:['Benefit information screen before','Pantalla de información del beneficio antes'], alt_a:['Benefit information screen after, in its own tab','Pantalla de información del beneficio después, en su propia pestaña'],
+       checks:[['Its own tab, separate from hiring','Pestaña propia, separada de la contratación'],['Short sections with clear titles','Apartados cortos con títulos claros'],['Key points in bold','Lo importante en negrita']]}],
+      cap:['Drag the line to compare before and after.','Arrastra la línea para comparar el antes y el después.']},
+    {k:'p', t:['This structure was adapted to each country’s insurers and content.',
+               'Esta estructura se adaptó a las aseguradoras y los contenidos de cada país.']},
     {k:'views', label:['The final product','El producto final'], items:[
       {l:['For yourself','Para ti'], vid:'assets/health-hire-employee.mp4', poster:'assets/health-hire-employee-poster.webp', cap:['Taking out the insurance for yourself.','Contratar el seguro para ti.']},
       {l:['For a family member','Para un familiar'], vid:'assets/health-hire-family.mp4', poster:'assets/health-hire-family-poster.webp', cap:['Taking out the insurance for a family member who is already added.','Contratar el seguro para un familiar ya añadido.']},
       {l:['New family member','Nuevo familiar'], vid:'assets/health-add-family.mp4', poster:'assets/health-add-family-poster.webp', cap:['Adding a new family member.','Añadir un familiar nuevo.']},
       {l:['All screens','Todas las pantallas'], img:'assets/health-screens.webp', cap:['The high-fidelity map of this first scope, organised by section and case.','El mapa en alta fidelidad de este primer alcance, ordenado por sección y caso.']}]},
     {k:'h', t:['A master document of states','Un documento maestro de estados']},
-    {k:'p', t:['To keep every benefit consistent, I created a document with all the possible states. I started with health insurance because it had the most variations, and it became the reference for Design and other departments.',
-               'Para que todos los beneficios fueran coherentes, creé un documento con todos los estados posibles. Empecé por el seguro de salud porque era el que más variantes tenía, y se convirtió en la referencia para Diseño y otros departamentos.']},
+    {k:'p', t:['I created a master document that linked the actions in the process with the states the app had to show. I started with Health Insurance, which had the most variants, and extended the reference to other benefits.',
+               'Creé un documento maestro que relacionaba las acciones del proceso con los estados que debía mostrar la app. Empecé por Seguro de Salud, que reunía más variantes, y extendí la referencia a otros beneficios.']},
+    {k:'p', t:['That way, Design and the other teams could check a common criterion to represent each situation.',
+               'Así, Diseño y los demás equipos podían consultar un criterio común para representar cada situación.']},
     {k:'img', src:'assets/health-states.webp', cap:['The master document of benefit states.','El documento maestro de estados de los beneficios.']},
-    {k:'h', t:['Validating with employees and teams','Validar con empleados y equipos']},
-    {k:'p', t:['I ran iterative tests and reviews before development. Each perspective helped us check a different part of the solution:','Hice tests y revisiones iterativas antes del desarrollo. Cada perspectiva ayudó a comprobar una parte distinta de la solución:']},
+    {k:'h', t:['Validating before development','Validar antes del desarrollo']},
+    {k:'p', t:['We combined prototype tests with employees and reviews with the internal teams. Each perspective let us check a part of the solution:','Combinamos pruebas del prototipo con empleados y revisiones con los equipos internos. Cada perspectiva permitió comprobar una parte de la solución:']},
     {k:'steps', items:[
-      [['Employees','Empleados'],['Tests to check they understood the benefit and completed the hiring.','Tests para comprobar que entendían el beneficio y completaban la contratación.']],
-      [['CX and Operations','CX y Operaciones'],['Review of the cases that caused tickets and manual work.','Revisión de los casos que generaban tickets y trabajo manual.']],
-      [['Engineering','Ingeniería'],['Alert priority and rules, so the combinations didn’t multiply.','Prioridad de avisos y reglas, para que las combinaciones no se dispararan.']]
+      [['Users','Usuarios'],['Understanding of the benefit and ability to complete the hiring.','Comprensión del beneficio y capacidad para completar la contratación.']],
+      [['CX and Operations','CX y Operaciones'],['Coverage of the cases that caused queries and manual work.','Cobertura de los casos que generaban consultas y gestiones manuales.']],
+      [['Engineering','Ingeniería'],['Feasibility of the rules and priority of the alerts.','Viabilidad de las reglas y prioridad de los avisos.']]
     ]},
 
-    {k:'chap', n:['4 · The result','4 · El resultado'], t:['A global benefit that kept growing in Spain','Un beneficio global que siguió creciendo en España']},
-    {k:'p', t:['We launched the new experience in Mexico and updated it in Spain in November 2023. With Portugal, it became Cobee’s first truly global benefit.',
-               'Lanzamos la nueva experiencia en México y la actualizamos en España en noviembre de 2023. Con Portugal, se convirtió en el primer beneficio realmente global de Cobee.']},
-    {k:'p', t:['After launch there were no negative NPS responses, and Operations significantly reduced its manual work. In Portugal, it became a key benefit for partnerships.',
-               'Tras el lanzamiento no hubo respuestas de NPS negativas y Operaciones redujo de forma notable el trabajo manual. En Portugal, se convirtió en un beneficio clave para los acuerdos con partners.']},
-    {k:'p', t:['In November 2025, while preparing the renewals campaign, we reviewed how the benefit had evolved since this redesign. It helped us understand the context and set what we expected from the next improvement.',
-               'En noviembre de 2025, al preparar la campaña de renovaciones, revisamos cómo había evolucionado el beneficio desde este rediseño. Nos sirvió para entender el contexto y fijar qué esperábamos de la siguiente mejora.']},
-    {k:'split', h:['Two years later, in Spain','Dos años después, en España'], meta:['March 2023 (before launch) → November 2025 · Adoption: companies offering the insurance out of all active companies','Marzo de 2023 (antes del lanzamiento) → noviembre de 2025 · Adopción: empresas que ofrecen el seguro sobre el total de empresas activas'], items:[
-      [['Companies offering it','Empresas que lo ofrecen'],['250 → 1,007','250 → 1.007'],['+303%','+303\u00a0%'],1],
-      [['Adoption','Adopción'],['22.3 → 29.2%','22,3 → 29,2\u00a0%'],['+31%','+31\u00a0%'],1],
-      [['Active subscriptions','Suscripciones activas'],['22,000 → 63,268','22.000 → 63.268'],['+188%','+188\u00a0%'],1]]},
-    {k:'p', t:['The insurance grew faster than the company: the companies offering it increased by 303%, compared with 207% for all clients.',
-               'El seguro creció más rápido que la empresa: las empresas que lo ofrecían aumentaron un 303\u00a0%, frente al 207\u00a0% del total de clientes.']},
+    {k:'chap', n:['4 · The result','4 · El resultado'], t:['A common foundation for three countries, with different adoption','Una base común para tres países, con distinta adopción']},
+    {k:'p', t:['The new experience launched in Mexico and was updated in Spain in November 2023. Together with Portugal, Health Insurance came to run on a common structure in all three markets.',
+               'La nueva experiencia se lanzó en México y se actualizó en España en noviembre de 2023. Junto con Portugal, el Seguro de Salud pasó a funcionar sobre una estructura común en los tres mercados.']},
+    {k:'p', t:['After launch, Operations saw a reduction in manual work, and we recorded no negative NPS responses in the follow-up.',
+               'Tras el lanzamiento, Operaciones observó una reducción del trabajo manual y no registramos respuestas negativas de NPS en el seguimiento realizado.']},
+    {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
+      meta:['Comparison between March 2023 and November 2025. These figures reflect the benefit’s evolution, not the isolated effect of the redesign.','Comparación entre marzo de 2023 y noviembre de 2025. Estas cifras reflejan la evolución del beneficio, no el efecto aislado del rediseño.'], items:[
+      [['Companies offering the insurance','Empresas que ofrecían el seguro'],['250 → 1,007','250 → 1.007'],['+303%','+303 %'],1],
+      [['Adoption among active companies','Adopción entre empresas activas'],['22.3 → 29.2%','22,3 → 29,2 %'],['+6.9 percentage points','+6,9 puntos porcentuales'],1],
+      [['Active subscriptions','Suscripciones activas'],['22,000 → 63,268','22.000 → 63.268'],['+188%','+188 %'],1]]},
+    {k:'p', t:['The share of companies offering the insurance grew even while Cobee’s client base was growing.',
+               'La proporción de empresas que ofrecían el seguro aumentó incluso mientras crecía la base de clientes de Cobee.']},
+    {k:'h', t:['Scaling the experience didn’t guarantee its adoption','Escalar la experiencia no garantizaba su adopción']},
+    {k:'p', t:['Adoption was different in each market: 29.2% in Spain, 6.5% in Portugal and 1.7% in Mexico.',
+               'La adopción fue distinta en cada mercado: 29,2 % en España, 6,5 % en Portugal y 1,7 % en México.']},
     {k:'bars', label:['Adoption by country in 2025','Adopción por país en 2025'], max:40, rows:[[['🇪🇸 Spain','🇪🇸 España'],29.2,'mint'],[['🇵🇹 Portugal','🇵🇹 Portugal'],6.5],[['🇲🇽 Mexico','🇲🇽 México'],1.7,'peach']],
       cap:['Companies offering the insurance out of all companies in each country, November 2025.','Empresas que ofrecen el seguro sobre el total de empresas de cada país, noviembre de 2025.']},
-    {k:'p', t:['In Mexico, adoption stayed at 1.7%. The experience scaled, but the benefit wasn’t being adopted.',
-               'En México, la adopción se quedó en el 1,7\u00a0%. La experiencia escalaba, pero el beneficio no se adoptaba.']},
+    {k:'p', t:['The model could be rolled out in all three countries, but take-up outside Spain stayed below expectations. That difference led us to research local needs before expanding the solution further.',
+               'El modelo pudo desplegarse en los tres países, pero la contratación fuera de España quedó por debajo de lo esperado. Esa diferencia nos llevó a investigar las necesidades locales antes de seguir ampliando la solución.']},
 
-    {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['Scaling isn’t the same as being adopted','Escalar no es lo mismo que ser adoptado']},
-    {k:'p', t:['Before investing further in Mexico, we validated local motivations and barriers. It wasn’t a usability problem but a market one: the substitute for the insurance in Mexico was a medical assistance service, launched with the Custom Benefits system I also designed.',
-               'Antes de seguir invirtiendo en México, validamos las motivaciones y barreras locales. No era un problema de usabilidad, sino de mercado: el sustituto del seguro en México era un servicio de asistencia médica, lanzado con el sistema de Beneficios personalizados que también diseñé.']},
-    {k:'bars', label:['Mexican companies offering each benefit, 2025','Empresas mexicanas que ofrecen cada beneficio, 2025'], max:40, rows:[[['Medical assistance service','Servicio de asistencia médica'],34,'mint'],[['Health insurance','Seguro de salud'],1.7,'peach']],
-      cap:['161 of 474 companies offered the medical assistance service, compared with 8 offering health insurance: 20 times more.','161 de 474 empresas ofrecían el servicio de asistencia médica, frente a 8 con seguro de salud: 20 veces más.']},
-    {k:'p', t:['That finding changed the global approach: instead of building complex structures upfront, we started testing demand with Custom Benefits that were quick to launch, and only scaled what proved adoption.',
-               'Este hallazgo cambió el enfoque global: en lugar de construir estructuras complejas de entrada, empezamos a validar la demanda con Beneficios personalizados rápidos de lanzar y a escalar solo lo que demostraba adopción.']},
-    {k:'p', t:['The structure was reused for Life Insurance and Pension Plans, and it was the basis for the renewals I designed later.',
-               'La estructura se reutilizó para los seguros de vida y los planes de pensiones, y fue la base de las renovaciones que diseñé después.']}
+    {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['A scalable experience doesn’t guarantee demand','Una experiencia escalable no garantiza la demanda']},
+    {k:'p', t:['The model made it possible to roll out Health Insurance in three countries, but its adoption was very different. In Mexico we found an alternative with a bigger presence: **Meeting Doctors, Meeting Pros’ medical assistance service**, offered through the Custom Benefits system I also designed.',
+               'El modelo permitió desplegar el Seguro de Salud en tres países, pero su adopción fue muy distinta. En México encontramos una alternativa con mayor presencia: **Meeting Doctors, el servicio de asistencia médica de Meeting Pros**, ofrecido mediante el sistema de Beneficios personalizados que también diseñé.']},
+    {k:'bars', label:['162 of 474 companies offered Meeting Doctors','162 de 474 empresas ofrecían Meeting Doctors'], max:40, rows:[[['Meeting Doctors','Meeting Doctors'],34.2,'mint'],[['Health Insurance','Seguro de Salud'],1.7,'peach']],
+      cap:['Compared with 8 offering Health Insurance, in November 2025.','Frente a 8 que ofrecían Seguro de Salud, en noviembre de 2025.']},
+    {k:'p', t:['That difference led us to review which proposal best met local needs. The lesson was to validate demand with benefits that are simpler to launch before investing in more complex, specific solutions.',
+               'Esta diferencia nos llevó a revisar qué propuesta respondía mejor a las necesidades locales. El aprendizaje fue validar la demanda con beneficios más sencillos de lanzar antes de invertir en soluciones específicas más complejas.']},
+    {k:'p', t:['The Health Insurance structure kept adding value: it was reused for Life and Pensions and served as the basis for the renewals project.',
+               'La estructura del Seguro de Salud siguió aportando valor: se reutilizó para Vida y Pensiones y sirvió de base para el proyecto de renovaciones.']}
   ],
   ask:[
     {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[[['+31%','+31\u00a0%'],['adoption in Spain between March 2023 and November 2025 (22.3% → 29.2% of companies)','adopción en España entre marzo de 2023 y noviembre de 2025 (22,3\u00a0% → 29,2\u00a0% de empresas)']],[['+188%','+188\u00a0%'],['active subscriptions in Spain (22,000 → 63,268)','suscripciones activas en España (22.000 → 63.268)']],[['3','3'],['countries with the same experience: Spain, Mexico and Portugal','países con la misma experiencia: España, México y Portugal']],[['0','0'],['negative NPS responses after launch','respuestas de NPS negativas tras el lanzamiento']]]},
@@ -3472,9 +3488,9 @@ function sBlock(b,p,ids){
     case 'slide': return `<figure class="scene s-slide">${b.cap?`<p class="sl-hint"><span aria-hidden="true">⇆</span> ${X(b.cap)}</p>`:''}<div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
       <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div></figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
-    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map(h=>`<li class="fw-sb"><b>${X(h)}</b></li>`).join('')}</ol>${st.sub.t?`<p class="fw-note">${X(st.sub.t)}</p>`:''}`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s${st.sub?' has-sub':''}"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map((h,j,A)=>`<li class="fw-sb"><b>${X(h)}</b>${j===A.length-1&&st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</li>`).join('')}</ol>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'split': if(b.h) return `<div class="s-res"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
     case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
