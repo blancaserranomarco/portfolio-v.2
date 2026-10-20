@@ -14,12 +14,14 @@ Portfolio bilingüe (EN/ES) de Blanca, senior product designer. Estilo neobrutal
 
 ## Estructura
 
-Orden de lectura para una IA o una persona nueva: `CLAUDE.md` → `README.md` → `casos/_PLANTILLA.md` → resto de `casos/`.
+Orden de lectura para una IA o una persona nueva: `CLAUDE.md` → `README.md` → `casos/_PLANTILLA.md` y la plantilla del tipo de caso → resto de `casos/`.
 
 ```
 CLAUDE.md          instrucciones de trabajo (lo primero que se lee)
 README.md          contexto: dónde vive cada cosa, cómo publicar, pendiente
-casos/_PLANTILLA.md  estructura y reglas de los casos (TaxDown es el de referencia)
+casos/_PLANTILLA.md  partes comunes de los casos (cabecera, Pregúntame, coherencia, montaje)
+casos/_PLANTILLA-EXPERIMENTOS.md  historia de casos de experimentación (TaxDown, Descuentos)
+casos/_PLANTILLA-SISTEMA.md  historia de casos de sistema o end-to-end (Seguro de Salud II · Renovaciones)
 
 src/               código fuente (lo único que se edita)
   content.js       textos publicados de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
@@ -72,7 +74,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar `casos/_PLANTILLA.md` al resto de casos (siguientes: Renovaciones y Salud).
+- Aplicar las plantillas al resto de casos. Siguiente: Seguro de Salud I, con la plantilla de sistema, para ajustarla.
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).
@@ -83,6 +85,8 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-20 · Caso Seguro de Salud II · Renovaciones con la nueva estructura: franja de temporada, explorador de combinaciones con las fichas reales y tabla, prototipo y flujos con selector, notificación animada, feedback de Operaciones como comentario. Datos de enero de 2026 (702 respuestas). Plantillas separadas: común, experimentación y sistema.
+- 2026-10-20 · Casos: panel a 2/3 de la pantalla en escritorio y una sola columna centrada de 840 px para texto y bloques; texto de las tarjetas de cabecera al tamaño de los datos.
 - 2026-10-19 · El título de cada caso sale de su tarjeta de la portada (`SELCARD.h`); se quita `h1` de los casos.
 - 2026-10-19 · Caso Descuentos con la nueva estructura: recorrido del funnel con fricciones y vista «Flujo real», tres capítulos de experimento, deslizador antes/después en el tercero, callout de restricciones y «Pregúntame». Datos de Amplitude (553 → 167).
 - 2026-10-19 · Carpeta del Escritorio ordenada: solo `CLAUDE.md` y `README.md` en la raíz; plantilla y material en `casos/`, más `contexto/` y `recursos/`; fuera `brief/`, `propuestas/` y `_to_delete/`.

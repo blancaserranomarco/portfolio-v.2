@@ -352,13 +352,13 @@ function block(b, p, ids){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
     case 'p': return `<p class="b-p">${X(b.t)}</p>`;
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
-    case 'list': return `<ul class="b-list">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
+    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</${t}>`; }
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
-    case 'table': return `<div class="b-table"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
+    case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
     case 'exp': return `<div class="exps">${b.items.map(e=>`<article class="exp"><span class="exp-tag">${X(e.tag)}</span><h3>${X(e.h)}</h3>
         <dl><div><dt>${u('hyp')}</dt><dd>${X(e.hyp)}</dd></div><div><dt>${u('res')}</dt><dd>${X(e.res)}</dd></div><div><dt>${u('lrn')}</dt><dd>${X(e.learn)}</dd></div></dl></article>`).join('')}</div>`;
-    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}">${b.items.map(([s,c,tap])=>Array.isArray(s)?`<div><div class="ba-sw" style="--x:${tap.x}%;--y:${tap.y}%"><img src="${s[0]}" alt="${X(c)}" loading="lazy"><img class="ba-b" src="${s[1]}" alt="" loading="lazy"><i class="ba-tap" aria-hidden="true"></i></div><span>${X(c)}</span></div>`:`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'ba': return `<figure class="fig"><div class="ba" style="--n:${b.n}${b.max?`;max-width:${b.max}px;margin-inline:auto`:''}">${b.items.map(([s,c,tap])=>Array.isArray(s)?`<div><div class="ba-sw" style="--x:${tap.x}%;--y:${tap.y}%"><img src="${s[0]}" alt="${X(c)}" loading="lazy"><img class="ba-b" src="${s[1]}" alt="" loading="lazy"><i class="ba-tap" aria-hidden="true"></i></div><span>${X(c)}</span></div>`:`<div>${/\.mp4$/.test(s)?vidTag(s,s.replace('.mp4','-poster.webp'),c):`<img src="${s}" alt="${X(c)}" loading="lazy" tabindex="0" data-zoom>`}<span>${X(c)}</span></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
@@ -454,6 +454,38 @@ function tripRun(sv,instant){
 }
 /* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
+const RN_IC={
+ lg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ auto:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.3-4.5M4 4v3.5h3.5"/><path d="M4 13a8 8 0 0 0 14.3 4.5M20 20v-3.5h-3.5"/><path d="M9 12.5l2 2 4-4"/></svg>',
+ repl:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15l-3.5-3.5M20 16H5l3.5 3.5"/></svg>',
+ man:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.5h.01"/></svg>',
+ off:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>',
+ info:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'};
+function rnEff(e,f){ return f==='off'?'off' : e==='none'?'none' : (e==='repl'||e==='man')?'man' : f; }
+function rnGrid(b){ const lab=Object.fromEntries([...b.eo,...b.fo]), ic=RN_IC;
+  const row=(who,st)=>`<span class="rn-r ${st}">${ic[st==='none'?'off':st]}<span><b>${X(who)}</b> ${X(lab[st]||lab.none)}</span></span>`;
+  let h=`<div class="rn-g" role="table" aria-label="${X(b.gl)}"><span role="columnheader"></span>${b.fo.map(o=>`<span class="rn-gh" role="columnheader">${X(b.fl)}: ${X(o[1])}</span>`).join('')}`;
+  for(const [e,el] of b.eo){ h+=`<span class="rn-gr" role="rowheader">${X(b.el)}: ${X(el)}</span>`;
+    for(const [f,fl] of b.fo){ const ef=rnEff(e,f);
+      h+=`<button type="button" class="rn-cell" data-ge="${e}" data-gf="${f}" data-fl="${X(b.fl)}: ${X(fl)}">${row(b.short[0],e)}${row(b.short[1],ef)}</button>`; } }
+  h+=`<span class="rn-gr" role="rowheader">${X(b.solo)}</span>`+b.eo.map(([e,el])=>`<button type="button" class="rn-cell solo" data-ge="${e}" data-gf="solo" data-fl="${X(el)}">${row(b.short[0],e)}</button>`).join('');
+  return h+'</div>'; }
+// Renewal explorer rules: the family card follows the employee when the employee replaces, renews manually or loses the insurance
+function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
+  const solo=fm==='solo', ef = solo?'':rnEff(e,fm);
+  f.querySelector('.rn-c[data-who="f"]').hidden=solo;
+  const set=(who,st)=>f.querySelectorAll(`.rn-c[data-who="${who}"] .rn-u`).forEach(u=>u.hidden=u.dataset.st!==st);
+  set('e',e); set('f',ef);
+  f.querySelectorAll('.rn-why [data-w]').forEach(x=>x.hidden=x.dataset.w!==w);
+  f.querySelector('.rn-wf').hidden=fm!=='off';
+  f.querySelectorAll('[data-xe]').forEach(x=>x.hidden=x.dataset.xe!==e);
+  f.querySelectorAll('[data-xf]').forEach(x=>x.hidden=x.dataset.xf!==((e==='repl'||e==='man')&&fm!=='off'?(e==='repl'?'reset_':'manr_')+fm:ef));
+  f.querySelectorAll('[data-xf]').forEach(x=>x.closest('p').hidden=solo);
+  f.querySelectorAll('.rn-cell').forEach(c=>c.setAttribute('aria-pressed',c.dataset.ge===e&&c.dataset.gf===fm));
+  const note = (solo||fm==='off')?'' : e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
+  f.querySelectorAll('.rn-note').forEach(n=>n.hidden=n.dataset.n!==note);
+  f.querySelector('.rn-md').hidden=e!=='repl';
+}
 // Case title = the title of its card on the home page
 function caseTitle(p){ const c=SELCARD[p.id]; return c?esc(tr(c.h).join(' ')):X(p.title); }
 function sBlock(b,p,ids){
@@ -469,7 +501,7 @@ function sBlock(b,p,ids){
     case 'segs': { const ic={phone:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg>',mail:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>'};
       return `<figure class="s-segs">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<div class="sc-segs">${b.items.map(it=>`<div class="sgc ${it.win?'win':'lose'}"><div class="sgc-top"><span class="sgc-ic">${ic[it.icon]}</span><span class="sgc-tag" style="background:var(--${it.tone})">${esc(it.tag)}</span></div><h3>${X(it.h)}</h3>${it.d?`<p class="sgc-d">${X(it.d)}</p>`:`<dl>${it.rows.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v)}</dd></div>`).join('')}</dl>`}<p class="sgc-res">${X(it.res)}</p></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'goal': if(b.q) return `<div class="s-q"><p class="q-t">${X(b.t)}</p><p class="q-s">${X(b.label)}</p></div>`;
-      return `<div class="s-goal${b.main?' main':''}${b.note?' note':''}"><b>${X(b.label)}</b><p>${X(b.t)}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}</div>`;
+      return `<div class="s-goal${b.main?' main':''}${b.note?' note':''}"><b>${X(b.label)}</b><p>${X(b.t).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>${b.sub?`<p class="g-sub">${X(b.sub)}</p>`:''}${b.list?`<ul class="g-ol">${b.list.map(x=>`<li>${X(x).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</li>`).join('')}</ul>`:''}</div>`;
     case 'journey': {
       const I={web:'<rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M3 8.5h18M6 15.5l3-3 2.5 2.5 2-2 3.5 3.5"/>',user:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 19.5c.8-3.5 3.4-5.5 6.5-5.5 1.3 0 2.5.3 3.5 1M18 14v6M15 17h6"/>',bank:'<path d="M3.5 9.5L12 4.5l8.5 5M5 10v7M9.5 10v7M14.5 10v7M19 10v7M3.5 19.5h17"/>',doc:'<path d="M6 3.5h8.5l3.5 3.5v13.5H6zM9 10h6M9 13.5h6M9 17h3.5"/>',card:'<rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 9.5h19M6 14.5h5"/>',mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>'};
       const face=(x,y)=>`<g class="jface" transform="translate(${x} ${y})"><circle r="17"/><circle cx="-5" cy="-3" r="1.8"/><circle cx="5" cy="-3" r="1.8"/><path d="M-6 7q3-3 6 0t6 0"/><text class="jq" x="14" y="-11">?</text></g>`;
@@ -537,6 +569,35 @@ function sBlock(b,p,ids){
         <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
+    case 'quote': if(!b.fb) break;
+      return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
+    case 'views': return `<figure class="scene vw"><div class="jv-top vw-hd"><span class="sc-k">${X(b.label)}</span><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
+      ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
+    case 'renew': { const m=b.msg, ic=RN_IC;
+      const card=(who,i)=>`<div class="rn-c" data-who="${who}">${['auto','repl','man'].map(st=>`<div class="rn-u" data-st="${st}"${st==='auto'?'':' hidden'}><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn ${st}">${ic[st]}<span>${X(m[st]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}</span></div></div>`).join('')}
+        <div class="rn-u off" data-st="off" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span class="rn-why">${b.why.map((w,j)=>`<span data-w="${j}"${j?' hidden':''}>${X(w)}</span>`).join('')}</span></div></div>
+        <div class="rn-u" data-st="none" hidden><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn end">${ic.off}<span>${X(m.none).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}</span></div></div></div>`;
+      const grp=(g,opts)=>`<div class="cb-ch" data-rn="${g}">${opts.map((o,i)=>`<button type="button" data-v="${o[0]}" aria-pressed="${i===0}">${X(o[1])}</button>`).join('')}</div>`;
+      return `<figure class="scene rn" data-e="auto" data-f="auto" data-w="0">
+      <div class="rn-ctl"><fieldset><legend class="sc-k">${X(b.el)}</legend>${grp('e',b.eo)}</fieldset>
+        <fieldset><legend class="sc-k">${X(b.fl)}</legend>${grp('f',b.fo)}</fieldset>
+        <fieldset class="rn-wf" hidden><legend class="sc-k">${X(b.wl)}</legend>${grp('w',b.wo)}</fieldset>
+        <div class="rn-exp" aria-live="polite"><p><b>${X(b.el)}:</b> ${Object.entries(b.exp).map(([k,t])=>`<span data-xe="${k}"${k==='auto'?'':' hidden'}>${X(t)}</span>`).join('')}</p>
+          <p><b>${X(b.fl)}:</b> ${Object.entries(b.exp).map(([k,t])=>`<span data-xf="${k}"${k==='auto'?'':' hidden'}>${X(t)}</span>`).join('')}</p></div>
+        ${Object.entries(b.notes).map(([k,t])=>`<p class="rn-note" data-n="${k}" hidden>${X(t)}</p>`).join('')}</div>
+      <div class="rn-out"><div class="rn-ph" aria-live="polite"><p class="rn-t">${X(b.title)}</p><p class="rn-s">${X(b.sub)}</p>${card('e',0)}${card('f',1)}</div>
+        <div class="rn-md" hidden><b>${X(b.modal[0])}</b><p>${X(b.modal[1]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p><div class="rn-inf">${ic.info}<span>${X(b.modal[2])}</span></div><div class="rn-bt"><span>${X(b.modal[3])}</span><span>${X(b.modal[4])}</span></div></div></div>
+      <div class="rn-gw"><span class="sc-k">${X(b.gl)}</span><p class="rn-gi">${X(b.gi)}</p>${rnGrid(b)}</div>
+      <figcaption>${X(b.cap)}</figcaption></figure>`; }
+    case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
+      <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
+      <div class="cb-ctl"><fieldset><legend class="sc-k">${X(b.sl)}</legend><div class="cb-ch">${b.sc.map((x,i)=>`<button type="button" data-cb-s="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset>
+      <fieldset><legend class="sc-k">${X(b.ol)}</legend><div class="cb-ch">${b.oc.map((x,i)=>`<button type="button" data-cb-o="${i}" aria-pressed="${i===0}">${X(x[0])}</button>`).join('')}</div></fieldset></div>
+      <div class="cb-out" aria-live="polite"><span class="cb-n">${X(b.nl)} <b>1</b>/16</span>
+        <div class="cb-card">${b.oc.map((x,i)=>`<div class="cb-o" data-o="${i}"${i?' hidden':''}><b>${X(x[0])}</b><p>${X(x[1])}</p></div>`).join('')}
+        <p class="cb-who">${b.sc.map((x,i)=>`<span data-s="${i}"${i?' hidden':''}>${X(x[1])}</span>`).join('')}</p></div></div>
+      ${b.rule?`<p class="cb-rule">${X(b.rule)}</p>`:''}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'impact': { const c=([k,v,t,d])=>`<div><span class="sc-k">${X(k)}</span><strong>${ph(tr(v))}</strong><span>${d?`<span class="ph">${X(t)}</span>`:X(t)}</span></div>`;
       return `<figure class="scene"><div class="sc-imp">${c(b.from)}<span class="ar" aria-hidden="true">→</span>${c(b.to)}</div>${b.more?`<p class="imp-more"><a href="#s-${p.id}-ask" data-ask-open="${b.more}">${u('see_calc')} →</a></p>`:''}</figure>`; }
   }
@@ -550,7 +611,7 @@ function askPanel(a){
   if(a.list) return `<ul class="b-list">${a.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
   if(a.dec){ const pills=a.dec.some(([,d])=>d!=='no');
     return `<div class="ask-t"><table><thead><tr><th scope="col">${u('th_opt')}</th>${pills?`<th scope="col">${u('th_dec')}</th>`:''}<th scope="col">${u('th_why')}</th></tr></thead><tbody>${a.dec.map(([o,d,w])=>`<tr><th scope="row">${X(o)}</th>${pills?`<td><span class="dec-pill ${d}">${u('d_'+d)}</span></td>`:''}<td>${X(w)}</td></tr>`).join('')}</tbody></table></div>${a.after?`<p class="ask-after">${X(a.after.t)}</p><ul class="b-list">${a.after.list.map(x=>`<li>${X(x)}</li>`).join('')}</ul>${a.after.end?`<p class="ask-after">${X(a.after.end)}</p>`:''}`:''}`; }
-  return a.t?`<p>${X(a.t)}</p>`:'';
+  return a.t?X(a.t).split('\n\n').map(t=>`<p>${t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</p>`).join(''):'';
 }
 function askHTML(p){
   return `<section class="ask" id="s-${p.id}-ask" aria-labelledby="ask-h-${p.id}"><h2 id="ask-h-${p.id}">${u('ask_h')}</h2><p class="muted">${u('ask_sub')}</p>
@@ -568,7 +629,7 @@ function storyCaseHTML(p){
       <header class="case-h" id="case-top-${p.id}">${tagsHTML(p)}<h1 id="case-title">${caseTitle(p)}</h1>
         ${p.lede?`<p class="s-lede">${X(p.lede)}</p>`:''}
         <dl class="facts">${p.facts.map(([k,v])=>`<div><dt>${X(k)}</dt><dd>${X(v).split('\n').map((l,j)=>`<span class="${j?'f2':'f1'}">${l}</span>`).join('')}</dd></div>`).join('')}</dl></header>
-      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`<b class="sum-pp">${X(c.pp)}</b>`:''}</p>${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
+      <section class="s-sum n${p.sum.length}" aria-label="${u('overview')}">${p.sum.map(c=>`<div class="sum-c ${c.tone||''}"><span class="sc-k">${X(c.k)}</span>${c.big?`<p class="sum-big${c.wrap?' sum-big-w':''}"><span aria-hidden="true">${X(c.big)}</span><span class="sr">${X(c.bigl)}</span></p>`:''}${c.items?c.items.map(([h,t])=>`<p class="sum-it"><b>${X(h)}</b><span>${X(t)}</span></p>`).join(''):`<p>${X(c.t).replace(/\[\[(.+?)\]\]/,'<b class="sum-n">$1</b>')}${c.pp?`<b class="sum-pp">${X(c.pp)}</b>`:''}</p>`}${c.chip?`<span class="sum-chip">${X(c.chip)}</span>`:''}${c.note?`<p class="sum-note">${X(c.note)}</p>`:''}</div>`).join('')}</section>
       <div class="s-body">${body}</div>
       ${askHTML(p)}
       ${p.notion?`<footer class="sheet-foot"><a class="link" href="${p.notion}" target="_blank" rel="noopener">${u('full')}</a></footer>`:''}
@@ -635,6 +696,19 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const rnc=e.target.closest('.rn-cell'); if(rnc){ const f=rnc.closest('.rn'); f.dataset.e=rnc.dataset.ge; f.dataset.f=rnc.dataset.gf;
+    f.querySelectorAll('[data-rn="e"] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===f.dataset.e));
+    f.querySelectorAll('[data-rn="f"] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===f.dataset.f));
+    rnApply(f); f.querySelector('.rn-ph').scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'}); return; }
+  const rnb=e.target.closest('[data-rn] button'); if(rnb){ const g=rnb.parentNode, f=g.closest('.rn');
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===rnb)); f.dataset[g.dataset.rn]=rnb.dataset.v; rnApply(f); return; }
+  const vwb=e.target.closest('[data-vw]'); if(vwb){ const f=vwb.closest('.vw'), i=vwb.dataset.vw;
+    f.querySelectorAll('[data-vw]').forEach(x=>x.setAttribute('aria-pressed',x===vwb));
+    f.querySelectorAll('.vw-p').forEach(x=>{ const on=x.dataset.p===i; x.hidden=!on; const v=x.querySelector('video'); if(v){ if(on){ if(!reduce) v.play().catch(()=>{}); } else v.pause(); } }); return; }
+  const cbb=e.target.closest('[data-cb-s],[data-cb-o]'); if(cbb){ const f=cbb.closest('.cb'), k=cbb.hasAttribute('data-cb-s')?'s':'o';
+    f.querySelectorAll(`[data-cb-${k}]`).forEach(x=>x.setAttribute('aria-pressed',x===cbb)); f.dataset[k]=cbb.getAttribute(`data-cb-${k}`);
+    f.querySelectorAll('.cb-o').forEach(x=>x.hidden=x.dataset.o!==f.dataset.o); f.querySelectorAll('.cb-who [data-s]').forEach(x=>x.hidden=x.dataset.s!==f.dataset.s);
+    f.querySelector('.cb-n b').textContent=(+f.dataset.s)*4+(+f.dataset.o)+1; return; }
   const v=e.target.closest('[data-view]'); if(v){ const f=v.closest('figure'); f.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed',x===v));
     const flow=v.dataset.view==='flow', box=f.querySelector('.jv-flow,.tr-flow'); f.querySelector('.jv-schema').hidden=flow; box.hidden=!flow;
     if(!box.classList.contains('jv-flow')) return;
