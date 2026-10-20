@@ -1984,3 +1984,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sheet-in.story{width:100%;max-width:calc(840px + 2 * clamp(20px,4vw,44px));justify-self:center}
 .s-goal p strong{font-weight:700}
 .s-goal .g-ol strong{font-weight:700}
+.story .s-sum.n3 .sum-c p:not(.sum-big):not(.sum-note){font-size:1.12rem;line-height:1.45}
