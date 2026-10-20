@@ -487,11 +487,13 @@ function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
   f.querySelector('.rn-md').hidden=e!=='repl';
 }
 // Case title = the title of its card on the home page
+const lk = h => h.replace(/\[\[(.+?)\|([a-z]+)\]\]/g,'<button type="button" class="s-lk" data-open="$2">$1</button>');
 function caseTitle(p){ const c=SELCARD[p.id]; return c?esc(tr(c.h).join(' ')):X(p.title); }
 function sBlock(b,p,ids){
   switch(b.k){
     case 'chap': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.n),tr(b.t)]); return `<header class="chap" id="${id}"><span class="chap-n">${X(b.n)}</span><h2>${X(b.t)}</h2></header>`; }
-    case 'p': return `<p class="s-p">${X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`;
+    case 'p': return `<p class="s-p">${lk(X(b.t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>'))}</p>`;
+    case 'rel': { const q=P.find(x=>x.id===b.id); if(!q) return ''; return `<aside class="s-rel"><span class="sc-k">${X(b.label)}</span><button type="button" class="s-rel-b" data-open="${q.id}"><b>${caseTitle(q)}</b><span>${X(b.t)}</span><i aria-hidden="true">→</i></button></aside>`; }
     case 'next': return `<div class="s-next"><span class="sc-k">${X(b.h)}</span><ol>${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ol></div>`;
     case 'cmp': { const tag=c=>`<span class="cmp-dot" style="background:var(--${c.tone})" aria-hidden="true"></span>`;
       const val=(r,j)=>r[3]?`<span class="${j?'cmp-lose':'cmp-win'}">${X(r[j+1])}</span>`:X(r[j+1]);

@@ -27,6 +27,8 @@ Hay dos plantillas según el tipo de caso:
 - **Experimentación** (`_PLANTILLA-EXPERIMENTOS.md`): el caso se cuenta como una serie de experimentos medidos. Ejemplos: TaxDown y Descuentos.
 - **Sistema o end-to-end** (`_PLANTILLA-SISTEMA.md`): un problema complejo resuelto con un modelo o sistema, sin A/B. Ejemplos: Seguro de Salud I y II.
 
+**Casos relacionados (si existe):** si un caso continúa o se apoya en otro (p. ej. Seguro de Salud I y II, Beneficios personalizados), se enlaza en el texto donde se menciona (`[[texto|id]]`) y, al final de la historia, con la tarjeta «Primera parte» / «Segunda parte» (`rel`).
+
 ## 3. Pregúntame (fija)
 
 Siempre estas 7 preguntas, en primera persona y en este orden. Si una no tiene respuesta real, se queda como «Pendiente de completar» hasta tenerla.
