@@ -345,8 +345,9 @@ const PROJECTS = [
       cap:['Once shipped, the experience couldn’t be iterated until the following year.','Una vez lanzada, la experiencia no se podía iterar hasta el año siguiente.']},
     {k:'p', t:['That made renewals a core product moment, with a direct impact on retention, revenue and operating costs, and strategic weight for international expansion.',
                'Eso convertía las renovaciones en un momento clave del producto, con impacto directo en la retención, los ingresos y el coste operativo, y con peso estratégico para la expansión internacional.']},
-    {k:'goal', note:1, label:['What 2024 cost','Lo que costó 2024'], t:['During the 2024 campaign, 28% of the squad’s capacity went to fixing renewal issues, with more than 20 tickets in two months. Renewals relied on unstable solutions that weren’t designed for high-volume annual cycles.',
-                  'Durante la campaña de 2024, el 28 % de la capacidad del squad se dedicó a resolver problemas de renovación, con más de 20 tickets en dos meses. Las renovaciones se apoyaban en soluciones inestables, no pensadas para ciclos anuales de alto volumen.']},
+    {k:'goal', note:1, label:['The previous campaign had already shown the limits','La campaña anterior ya mostraba los límites'], t:['In 2024, solving renewal problems had taken up 28% of the team’s capacity, with more than 20 tickets in two months. The existing solution generated incidents and manual work, and wasn’t ready to take on that growth.',
+                  'En 2024, resolver problemas de renovación había consumido el 28 % de la capacidad del equipo, con más de 20 tickets en dos meses. La solución existente generaba incidencias y trabajo manual, y no estaba preparada para asumir ese crecimiento.']},
+
     {k:'goal', main:1, label:['Main goal','Objetivo principal'], t:['Ensure a scalable, reliable renewal model for a highly seasonal benefit.','Asegurar un modelo de renovación escalable y fiable para un beneficio muy estacional.']},
 
     {k:'chap', n:['2 · The approach','2 · El enfoque'], t:['A system problem, not a set of flows','Un problema de sistema, no de flujos']},
