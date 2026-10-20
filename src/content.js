@@ -420,7 +420,7 @@ const PROJECTS = [
                'Combinamos el seguimiento de incidencias con una pregunta en la app justo después de renovar: «¿Te ha parecido sencilla la experiencia?»']},
     {k:'p', t:['We analysed the answers by company and type of process to see where to dig deeper. In parallel, Product and Operations logged incidents and compared them with the previous campaign.',
                'Analizamos las respuestas por empresa y tipo de proceso para identificar dónde profundizar. En paralelo, Producto y Operaciones registraron las incidencias y las compararon con la campaña anterior.']},
-    {k:'ba', n:1, max:560, items:[[['assets/renewals-feedback-a.webp','assets/renewals-feedback-b.webp'],'',{x:35,y:68}]], cap:['The in-app question right after renewing and, after answering, the thank-you state.','La pregunta in-app justo después de renovar y, al responder, el estado de agradecimiento.']},
+    {k:'ba', n:1, max:560, items:[[['assets/renewals-feedback-a.webp','assets/renewals-feedback-b.webp'],'',{x:36,y:75}]], cap:['The in-app question right after renewing and, after answering, the thank-you state.','La pregunta in-app justo después de renovar y, al responder, el estado de agradecimiento.']},
     {k:'split', meta:['Gradual rollout: 144 companies in December 2025, 682 by 1 January 2026 · In-app question right after renewing · 702 answers','Lanzamiento progresivo: 144 empresas en diciembre de 2025 y 682 a 1 de enero de 2026 · Pregunta in-app justo después de renovar · 702 respuestas'],
       h:['The campaign in figures','La campaña en cifras'],
       items:[[['Positive answers','Respuestas positivas'],['89%','89 %'],['626 of 702 answers.','626 de 702 respuestas.'],'up'],
