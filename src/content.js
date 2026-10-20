@@ -310,16 +310,16 @@ const PROJECTS = [
                'La estructura debía admitir propuestas distintas manteniendo una presentación coherente en Cobee.']},
     {k:'img', src:'assets/benefits-howto.webp', cap:['How it works: one guided flow to create a benefit and publish it in the chosen countries.','Cómo funciona: un único flujo guiado para crear un beneficio y publicarlo en los países elegidos.']},
     {k:'h', t:['From information to payment pieces','De la información a las piezas de pago']},
-    {k:'p', t:['Once Plain Benefits proved demand, we extended the same structure with payment pieces that could be attached to a benefit, instead of building each payment benefit from scratch.',
-               'Cuando Plain Benefits demostró la demanda, ampliamos la misma estructura con piezas de pago que se podían añadir a un beneficio, en lugar de construir cada beneficio de pago desde cero.']},
+    {k:'p', t:['After launching the informational version, we extended the system by reusing the creation flow and templates:',
+               'Tras lanzar la versión informativa, ampliamos el sistema reutilizando el flujo de creación y las plantillas:']},
     {k:'steps', items:[
-      [['Level 1 · Plain, 2023','Nivel 1 · Plain, 2023'],['Information and a link. Launched in Spain, then Mexico and Portugal.','Información y un enlace. Lanzado en España, después en México y Portugal.']],
-      [['Level 2 · Card payment, 2024','Nivel 2 · Pago con tarjeta, 2024'],['The benefit is linked to the Cobee card, so employees pay directly at the provider, like the company canteen.','El beneficio se vincula a la tarjeta Cobee y el empleado paga directamente en el proveedor, como el comedor de la empresa.']],
-      [['Level 3 · Reimbursement, 2024','Nivel 3 · Reembolso, 2024'],['Employees upload their receipt in the app and the company reimburses it. Key for Portugal.','El empleado sube el ticket en la app y la empresa se lo reembolsa. Clave para Portugal.']],
-      [['Level 4 · Multi-payment, next','Nivel 4 · Multipago, siguiente'],['Combining payment methods under one benefit.','Combinar métodos de pago en un mismo beneficio.']]
+      [['Information and link · 2023','Información y enlace · 2023'],['Launched in Spain, followed by Mexico and Portugal.','Lanzamiento en España, seguido de México y Portugal.']],
+      [['Card payment · 2024','Pago con tarjeta · 2024'],['Linked to the Cobee card to pay at the provider.','Vinculación con la tarjeta Cobee para pagar en el proveedor.']],
+      [['Reimbursement · 2024','Reembolso · 2024'],['Employees send the receipt from the app to request reimbursement.','Envío del justificante desde la app para solicitar el reembolso.']],
+      [['Multi-payment · Next phase','Multipago · Siguiente fase'],['Combining methods within one benefit.','Combinación de métodos dentro de un mismo beneficio.']]
     ]},
-    {k:'p', t:['Each piece reused the same creation flow and templates, so it became available to every benefit in its group instead of being rebuilt one by one.',
-               'Cada pieza reutilizaba el mismo flujo de creación y las mismas plantillas, así que quedaba disponible para todos los beneficios de su grupo en lugar de construirse uno a uno.']},
+    {k:'p', t:['Each new capability could be reused in other compatible benefits, without rebuilding them one by one.',
+               'Cada nueva capacidad podía reutilizarse en otros beneficios compatibles, sin reconstruirlos uno a uno.']},
 
     {k:'chap', n:['4 · The result','4 · El resultado'], t:['From MVP to a core system in two years','Del MVP a un sistema central en dos años']},
     {k:'p', t:['In the first three months, adoption among HR admins was high. It also became a sales driver: it helped close enterprise deals and onboard large clients that wanted to include their own benefits.',
