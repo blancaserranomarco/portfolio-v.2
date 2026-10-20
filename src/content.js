@@ -650,9 +650,9 @@ const PROJECTS = [
                   ['**Operations:** CX tickets and billing mismatches.','**Operación:** tickets de CX y desajustes de facturación.'],
                   ['**Scalability:** the ability to adapt the common structure to the three countries.','**Escalabilidad:** capacidad de adaptar la estructura común a los tres países.']]},
 
-    {k:'chap', n:['3 · The design','3 · El diseño'], t:['One structure to take out insurance, whatever the situation','Una sola estructura para contratar, sea cual sea la situación']},
-    {k:'p', t:['The main flow had five steps: choose the benefit, request it, pick the plan, complete the hiring and add family members.',
-               'El flujo principal tenía cinco pasos: elegir el beneficio, solicitarlo, escoger la modalidad, completar la contratación y añadir familiares.']},
+    {k:'chap', n:['3 · The design','3 · El diseño'], t:['A common structure, adapted to each situation','Una estructura común, adaptada a cada situación']},
+    {k:'p', t:['I defined a base journey to request the insurance, choose a plan, review the conditions and confirm the hiring. Adding family members brought its own conditions within that structure.',
+               'Definí un recorrido base para solicitar el seguro, elegir modalidad, revisar las condiciones y confirmar la contratación. La incorporación de familiares añadía sus propias condiciones dentro de esa estructura.']},
     {k:'img', src:'assets/health-happyflow.webp', cap:['The main employee flow, documented for the first time.','El flujo principal del empleado, documentado por primera vez.']},
     {k:'p', t:['On top of that flow, each case depended on several conditions: who pays for the insurance (the company, the employee through Flexible Pay, or both), who the company lets them insure, whether the employee already has their own insurance and whether their profile is complete.',
                'Sobre ese flujo, cada caso dependía de varias condiciones: quién paga el seguro (la empresa, el empleado con Retribución Flexible o un pago mixto), a quién permite asegurar la empresa, si el empleado ya tiene su seguro y si su perfil está completo.']},
