@@ -75,7 +75,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar las plantillas al resto de casos (Beneficios personalizados, Banners, Playtomic). Seguro de Salud I: confirmar fechas y si se tapa la aseguradora mexicana en los vídeos.
+- Aplicar las plantillas al resto de casos (Banners, Playtomic). Beneficios personalizados, en borrador (rama `borrador/beneficios`): faltan «¿Qué no salió como esperaba?» y «¿Qué haría distinto hoy?». Seguro de Salud I: confirmar fechas y si se tapa la aseguradora mexicana en los vídeos.
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).

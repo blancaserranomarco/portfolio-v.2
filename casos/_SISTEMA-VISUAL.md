@@ -50,6 +50,7 @@ Reglas:
 | Callout | `goal note` | 1 px suave + filete de 4 px lila · 16 | — | Lo que fallaba, la regla del sistema |
 | Callout de lectura clave | `goal note good` | Filete verde, fondo verde muy claro · 16 | — | La conclusión de unas cifras |
 | Pregunta del experimento | `goal q` | Filete amarillo | — | Solo en casos de experimentación |
+| Tabla | `table` | 1 px suave · 16; cabecera en mayúsculas gris sobre fondo papel | — | Datos por año o tipo. Máximo 4 columnas para que quepa en móvil sin desplazar |
 | Escena / figura | `scene`, `img`, `views`, `bars`, `flow` | 1 px suave · 16 | Muy suave (1 px) | Todo lo que se lee o se mira |
 | Tarjeta interna | Cajas de cifras, pasos del flujo, cajas por país | 1 px suave · 12 | — | Dentro de una escena |
 | Comentario | `quote` con `fb` | 1 px tinta | Dura 3 px | Feedback de un equipo. Excepción, porque imita un comentario |
@@ -84,7 +85,7 @@ El espaciado lo pone `styles.css` («Espaciado vertical de la historia»). Un bl
 
 - Los componentes con columnas pasan a una sola columna según su propio ancho (container queries), no según la pantalla: el panel ocupa 2/3 en escritorio y su ancho cambia.
 - El flujo en pasos pasa a vertical bajo 720 px, con una línea continua entre pasos y la rama hacia un lado.
-- Los selectores con más de 2 pestañas pasan a una rejilla de 2 columnas bajo 520 px.
+- Los selectores con más de 2 pestañas pasan a una rejilla de 2 columnas bajo 520 px; si quedan impares, la última ocupa toda la fila.
 - En móvil las barras de una lista larga pueden ocultarse y dejar solo el texto y el % (`cls:'b-tk'`).
 
 ## 7. Antes de dar un caso por terminado

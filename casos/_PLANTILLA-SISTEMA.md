@@ -1,6 +1,6 @@
 # Plantilla de caso · Sistema o end-to-end
 
-Para casos en los que el trabajo es entender un problema complejo y resolverlo con un modelo o sistema, sin A/B. Ejemplos: Seguro de Salud I (un beneficio en tres países) y Seguro de Salud II · Renovaciones. La cabecera, «Pregúntame», la coherencia y el montaje están en `_PLANTILLA.md`.
+Para casos en los que el trabajo es entender un problema complejo y resolverlo con un modelo o sistema, sin A/B. Ejemplos: Seguro de Salud I (un beneficio en tres países), Seguro de Salud II · Renovaciones y Beneficios personalizados (validado antes con un fake door). La cabecera, «Pregúntame», la coherencia y el montaje están en `_PLANTILLA.md`.
 
 ## Historia en capítulos (fija)
 
@@ -14,7 +14,8 @@ Para casos en los que el trabajo es entender un problema complejo y resolverlo c
 ### 2 · El enfoque (fijo)
 1. Qué había que resolver antes de diseñar pantallas (p. ej. «Definir las reglas antes de diseñar las pantallas», «Entender el flujo antes de rediseñarlo») y, si existe, la pantalla del estado anterior.
 2. El modelo o el MVP que se planteó y qué debía conseguir (si son varios objetivos, en pasos).
-3. **Cómo evaluaríamos el resultado**: 2–4 métricas en lista.
+3. Si hubo una validación antes de construir (p. ej. un fake door test), va aquí: la hipótesis en viñetas, la prueba, sus cifras en cajas y la decisión que se tomó.
+4. **Cómo evaluaríamos el resultado**: 2–4 métricas en lista.
 
 ### 3 · El diseño (fijo)
 1. El flujo principal si ayuda (diagrama) y las dimensiones o condiciones del problema (quién, quién paga, qué permite la empresa, qué ocurre) y por qué se multiplican los casos.
