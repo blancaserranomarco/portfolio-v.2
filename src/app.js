@@ -461,14 +461,28 @@ const RN_IC={
  man:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.5h.01"/></svg>',
  off:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>',
  info:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'};
+function rnEff(e,f){ return e==='none'?'none' : f==='off'?'off' : (e==='repl'||e==='man')?'man' : f; }
+function rnGrid(b){ const lab=Object.fromEntries([...b.eo,...b.fo]), ic=RN_IC;
+  const row=(who,st)=>`<span class="rn-r ${st}">${ic[st==='none'?'off':st]}<span><b>${X(who)}</b> ${X(lab[st]||lab.none)}</span></span>`;
+  let h=`<div class="rn-g" role="table" aria-label="${X(b.gl)}"><span role="columnheader"></span>${b.fo.map(o=>`<span class="rn-gh" role="columnheader">${X(b.fl)}: ${X(o[1])}</span>`).join('')}`;
+  for(const [e,el] of b.eo){ h+=`<span class="rn-gr" role="rowheader">${X(b.el)}: ${X(el)}</span>`;
+    for(const [f,fl] of b.fo){ const ef=rnEff(e,f);
+      h+=`<button type="button" class="rn-cell${ef!==f?' rule':''}" data-ge="${e}" data-gf="${f}" data-fl="${X(b.fl)}: ${X(fl)}">${ef!==f?`<span class="rn-tg">${X(b.rl)}</span>`:''}${row(b.short[0],e)}${row(b.short[1],ef)}</button>`; } }
+  h+=`<span class="rn-gr" role="rowheader">${X(b.solo)}</span>`+b.eo.map(([e,el])=>`<button type="button" class="rn-cell solo" data-ge="${e}" data-gf="solo" data-fl="${X(el)}">${row(b.short[0],e)}</button>`).join('');
+  return h+'</div>'; }
 // Renewal explorer rules: the family card follows the employee when the employee replaces, renews manually or loses the insurance
 function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
-  const ef = e==='none'?'none' : fm==='off'?'off' : (e==='repl'||e==='man')?'man' : fm;
+  const solo=fm==='solo', ef = solo?'':rnEff(e,fm);
+  f.querySelector('.rn-c[data-who="f"]').hidden=solo;
   const set=(who,st)=>f.querySelectorAll(`.rn-c[data-who="${who}"] .rn-u`).forEach(u=>u.hidden=u.dataset.st!==st);
   set('e',e); set('f',ef);
   f.querySelectorAll('.rn-why [data-w]').forEach(x=>x.hidden=x.dataset.w!==w);
   f.querySelector('.rn-wf').hidden=fm!=='off'||e==='none';
-  const note = e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
+  f.querySelectorAll('[data-xe]').forEach(x=>x.hidden=x.dataset.xe!==e);
+  f.querySelectorAll('[data-xf]').forEach(x=>x.hidden=x.dataset.xf!==(ef==='man'&&fm!=='man'?'reset':ef));
+  f.querySelectorAll('[data-xf]').forEach(x=>x.closest('p').hidden=solo);
+  f.querySelectorAll('.rn-cell').forEach(c=>c.setAttribute('aria-pressed',c.dataset.ge===e&&c.dataset.gf===fm));
+  const note = solo?'' : e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
   f.querySelectorAll('.rn-note').forEach(n=>n.hidden=n.dataset.n!==note);
   f.querySelector('.rn-md').hidden=e!=='repl';
 }
@@ -568,9 +582,12 @@ function sBlock(b,p,ids){
       <div class="rn-ctl"><fieldset><legend class="sc-k">${X(b.el)}</legend>${grp('e',b.eo)}</fieldset>
         <fieldset><legend class="sc-k">${X(b.fl)}</legend>${grp('f',b.fo)}</fieldset>
         <fieldset class="rn-wf" hidden><legend class="sc-k">${X(b.wl)}</legend>${grp('w',b.wo)}</fieldset>
+        <div class="rn-exp" aria-live="polite"><p><b>${X(b.el)}:</b> ${Object.entries(b.exp).map(([k,t])=>`<span data-xe="${k}"${k==='auto'?'':' hidden'}>${X(t)}</span>`).join('')}</p>
+          <p><b>${X(b.fl)}:</b> ${Object.entries(b.exp).map(([k,t])=>`<span data-xf="${k}"${k==='auto'?'':' hidden'}>${X(t)}</span>`).join('')}</p></div>
         ${Object.entries(b.notes).map(([k,t])=>`<p class="rn-note" data-n="${k}" hidden>${X(t)}</p>`).join('')}</div>
       <div class="rn-out"><div class="rn-ph" aria-live="polite"><p class="rn-t">${X(b.title)}</p><p class="rn-s">${X(b.sub)}</p>${card('e',0)}${card('f',1)}</div>
         <div class="rn-md" hidden><b>${X(b.modal[0])}</b><p>${X(b.modal[1]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p><div class="rn-inf">${ic.info}<span>${X(b.modal[2])}</span></div><div class="rn-bt"><span>${X(b.modal[3])}</span><span>${X(b.modal[4])}</span></div></div></div>
+      <div class="rn-gw"><span class="sc-k">${X(b.gl)}</span><p class="rn-gi">${X(b.gi)}</p>${rnGrid(b)}</div>
       <figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
@@ -679,6 +696,10 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const rnc=e.target.closest('.rn-cell'); if(rnc){ const f=rnc.closest('.rn'); f.dataset.e=rnc.dataset.ge; f.dataset.f=rnc.dataset.gf;
+    f.querySelectorAll('[data-rn="e"] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===f.dataset.e));
+    f.querySelectorAll('[data-rn="f"] button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===f.dataset.f));
+    rnApply(f); f.querySelector('.rn-ph').scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'}); return; }
   const rnb=e.target.closest('[data-rn] button'); if(rnb){ const g=rnb.parentNode, f=g.closest('.rn');
     g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===rnb)); f.dataset[g.dataset.rn]=rnb.dataset.v; rnApply(f); return; }
   const vwb=e.target.closest('[data-vw]'); if(vwb){ const f=vwb.closest('.vw'), i=vwb.dataset.vw;
