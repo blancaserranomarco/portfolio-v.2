@@ -37,7 +37,7 @@ Para casos en los que el trabajo es entender un problema complejo y resolverlo c
 2. Qué se reutiliza o queda preparado para después (otros beneficios, el caso siguiente).
 
 ## Escenas disponibles
-Franja del año (`season`), cajas por país o estado (`split` sin título), explorador de combinaciones (`renew`), vistas con selector (`views`, 2–4 pestañas de vídeo o imagen), antes/después con toque (`ba` con dos imágenes), comentario de feedback (`quote` con `fb`), callout con reglas (`goal` con `note` y `list`), pasos (`steps`), barras (`bars`).
+Franja del año (`season`), cajas por país o estado (`split` sin título), flujo en pasos con rama (`flow`, pasa a vertical cuando el gráfico es estrecho), antes/después con línea que se arrastra (`slide`), explorador de combinaciones (`renew`), vistas con selector (`views`, 2–4 pestañas de vídeo o imagen), antes/después con toque (`ba` con dos imágenes), comentario de feedback (`quote` con `fb`), callout con reglas (`goal` con `note` y `list`), pasos (`steps`), barras (`bars`).
 
 ## Checklist de esta plantilla
 
