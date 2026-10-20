@@ -1975,3 +1975,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .story .b-list.ol{margin-top:14px;padding-left:1.4em}.story .b-list.ol li::marker{font-weight:700;color:var(--ink)}
 .rn-bn.end{background:#EEEEF1;color:#3F3F49}.rn-bn.end svg{stroke:#5F5F6B}
 .rn-r.none{background:#EEEEF1;color:#1F1F2B}
+.s-goal .g-ol{margin:10px 0 0;padding-left:1.4em;display:grid;gap:6px}.s-goal .g-ol li::marker{font-weight:700}
