@@ -391,11 +391,11 @@ const PROJECTS = [
       [['Users','Usuarios'],['We checked whether they understood what would happen to their coverage and how to continue.','Comprobamos si entendían qué ocurriría con su cobertura y cómo continuar.']]
     ]},
 
-    {k:'chap', n:['4 · The result','4 · El resultado'], t:['Measuring right after renewing','Medir justo después de renovar']},
-    {k:'p', t:['With so much at stake, deciding how to measure was part of the solution. We needed two views: operational efficiency, through incidents and manual work, and user perception, through clarity, confidence and ease of use.',
-               'Con tanto en juego, decidir cómo medir formaba parte de la solución. Necesitábamos dos miradas: la eficiencia operativa, con las incidencias y el trabajo manual, y la percepción de los usuarios, con la claridad, la confianza y la facilidad de uso.']},
-    {k:'p', t:['Right after renewing, an in-app notification asked whether the experience had felt simple. We tracked answers per company, so we could contact those who reported friction and understand why and in which scenarios. Product and Operations tracked incidents together against the previous year.',
-               'Justo después de renovar, una notificación in-app preguntaba si la experiencia había sido sencilla. Seguimos las respuestas por empresa, para contactar con quienes tuvieron problemas y entender por qué y en qué escenarios. Producto y Operaciones siguieron juntos las incidencias frente al año anterior.']},
+    {k:'chap', n:['4 · The result','4 · El resultado'], t:['Checking that it worked for users and teams','Comprobar que funcionaba para usuarios y equipos']},
+    {k:'p', t:['We combined incident tracking with an in-app question right after renewing: “Did the experience feel simple?”',
+               'Combinamos el seguimiento de incidencias con una pregunta en la app justo después de renovar: «¿Te ha parecido sencilla la experiencia?»']},
+    {k:'p', t:['We analysed the answers by company and type of process to see where to dig deeper. In parallel, Product and Operations logged incidents and compared them with the previous campaign.',
+               'Analizamos las respuestas por empresa y tipo de proceso para identificar dónde profundizar. En paralelo, Producto y Operaciones registraron las incidencias y las compararon con la campaña anterior.']},
     {k:'img', src:'assets/renewals-feedback.webp', cap:['The in-app question right after renewing, and the thank-you state.','La pregunta in-app justo después de renovar y el estado de agradecimiento.']},
     {k:'split', meta:['December 2025 – January 2026 · In-app question right after renewing · 351 answers','Diciembre de 2025 – enero de 2026 · Pregunta in-app justo después de renovar · 351 respuestas'],
       h:['Simpler for users, calmer for the team','Más sencillo para los usuarios, más tranquilo para el equipo'],
