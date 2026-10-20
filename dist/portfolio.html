@@ -3249,8 +3249,8 @@ function rnGrid(b){ const lab=Object.fromEntries([...b.eo,...b.fo]), ic=RN_IC;
   const row=(who,st)=>`<span class="rn-r ${st}">${ic[st==='none'?'off':st]}<span><b>${X(who)}</b> ${X(lab[st]||lab.none)}</span></span>`;
   let h=`<div class="rn-g" role="table" aria-label="${X(b.gl)}"><span role="columnheader"></span>${b.fo.map(o=>`<span class="rn-gh" role="columnheader">${X(b.fl)}: ${X(o[1])}</span>`).join('')}`;
   for(const [e,el] of b.eo){ h+=`<span class="rn-gr" role="rowheader">${X(b.el)}: ${X(el)}</span>`;
-    for(const [f,fl] of b.fo){ const ef=rnEff(e,f);
-      h+=`<button type="button" class="rn-cell${ef!==f?' rule':''}" data-ge="${e}" data-gf="${f}" data-fl="${X(b.fl)}: ${X(fl)}">${ef!==f?`<span class="rn-tg">${X(b.rl)}</span>`:''}${row(b.short[0],e)}${row(b.short[1],ef)}</button>`; } }
+    for(const [f,fl] of b.fo){ const ef=rnEff(e,f), rule=e==='none'||((e==='repl'||e==='man')&&f!=='off');
+      h+=`<button type="button" class="rn-cell${rule?' rule':''}" data-ge="${e}" data-gf="${f}" data-fl="${X(b.fl)}: ${X(fl)}">${rule?`<span class="rn-tg">${X(b.rl)}</span>`:''}${row(b.short[0],e)}${row(b.short[1],ef)}</button>`; } }
   h+=`<span class="rn-gr" role="rowheader">${X(b.solo)}</span>`+b.eo.map(([e,el])=>`<button type="button" class="rn-cell solo" data-ge="${e}" data-gf="solo" data-fl="${X(el)}">${row(b.short[0],e)}</button>`).join('');
   return h+'</div>'; }
 // Renewal explorer rules: the family card follows the employee when the employee replaces, renews manually or loses the insurance
