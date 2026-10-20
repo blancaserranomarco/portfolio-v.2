@@ -1974,3 +1974,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .rn-r.man{background:#FFF1CC}.rn-r.man svg{stroke:#8A5F00}
 .rn-r.off,.rn-r.none{background:#E6E6EA;color:#4F4F59}.rn-r.off svg,.rn-r.none svg{stroke:#5F5F6B}
 @media (max-width:760px){.rn-g{grid-template-columns:1fr 1fr}.rn-gh,.rn-g>span[role="columnheader"]{display:none}.rn-gr{grid-column:1/-1;margin-top:8px}.rn-cell::before{content:attr(data-fl);font-size:.68rem;font-weight:700;color:#6B6B78}}
+.story .b-list.ol{margin-top:14px;padding-left:1.4em}.story .b-list.ol li::marker{font-weight:700;color:var(--ink)}

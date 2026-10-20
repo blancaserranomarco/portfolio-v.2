@@ -352,7 +352,7 @@ function block(b, p, ids){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
     case 'p': return `<p class="b-p">${X(b.t)}</p>`;
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
-    case 'list': return `<ul class="b-list">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</ul>`;
+    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</${t}>`; }
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
     case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;
