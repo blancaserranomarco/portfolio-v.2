@@ -1984,6 +1984,9 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 /* Story cases: one column for text and blocks, so everything starts and ends on the same line (~78 characters per line) */
 .sheet-in.story > *{max-width:840px}
 .story .s-p,.story .s-lead,.story .s-body > .b-list,.story .s-q,.story .fb,.story .s-next ol,.story .sc-intro,.story .s-lede,.story .steps p,.story .b-p,.story .ask-p > p,.story .ask-p li,.story .ask-note{max-width:none}
+/* Centre the story column in the panel: same margin on both sides (the third column mirrors the side index) */
+@media (min-width:641px){ .case-wrap{grid-template-columns:40px minmax(0,1fr) 40px} }
+.sheet-in.story{width:100%;max-width:calc(840px + 2 * clamp(20px,4vw,44px));justify-self:center}
 </style>
 <header class="top">
   <div class="wrap">
