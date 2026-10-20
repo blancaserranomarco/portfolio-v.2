@@ -1926,6 +1926,39 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .vw-vid{max-width:300px;margin:0 auto}.vw-vid video{display:block;width:100%;border-radius:18px}
 .vw-p img{display:block;width:100%;height:auto;border-radius:10px}
 .vw-p figcaption{margin-top:14px}
+/* Renewal explorer: insured-users card recreated from the app (fixed product colours) */
+.rn{display:grid;grid-template-columns:1fr minmax(280px,340px);gap:20px 28px;align-items:start}
+.rn fieldset{border:0;padding:0;margin:0}.rn fieldset+fieldset{margin-top:16px}
+.rn-wf[hidden]{display:none}
+.rn-note{margin:16px 0 0;font-size:.9rem;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--butter) 60%,var(--surface));border:1.5px solid var(--hair)}
+.rn-note[hidden]{display:none}
+.rn figcaption{grid-column:1/-1}
+.rn-ph{background:#fff;color:#1F1F2B;border:2px solid var(--line);border-radius:22px;padding:16px 14px 18px;box-shadow:4px 4px 0 var(--shadow)}
+.rn-t{margin:0;font-size:.95rem;font-weight:600}.rn-s{margin:2px 0 12px;font-size:.74rem;color:#6B6B78}
+.rn-c+.rn-c{margin-top:12px}
+.rn-u{border:1px solid #E4E3EA;border-radius:14px;padding:12px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.rn-u[hidden]{display:none}
+.rn-h{display:flex;gap:9px;align-items:flex-start}
+.rn-lg{flex:none;width:22px;height:22px;border-radius:5px;background:#D9472B;display:grid;place-items:center}
+.rn-lg svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2}
+.rn-h b{display:block;font-size:.86rem;font-weight:600}.rn-h small{display:block;font-size:.74rem;color:#6B6B78}
+.rn-pill{display:inline-block;margin:8px 0 0 31px;font-size:.72rem;background:#D9F5DD;color:#246B33;border-radius:999px;padding:2px 9px}
+.rn-bn{display:flex;gap:9px;align-items:flex-start;margin-top:10px;border-radius:8px;padding:9px 10px;font-size:.78rem;line-height:1.4}
+.rn-bn svg{flex:none;width:16px;height:16px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.rn-bn b{font-weight:700}
+.rn-bn.auto{background:#EDEBFA}.rn-bn.auto svg{stroke:#2340A8}
+.rn-bn.repl{background:#EEEEF1}.rn-bn.repl svg{stroke:#4A4A55}
+.rn-bn.man{background:#FFF1CC}.rn-bn.man svg{stroke:#8A5F00}
+.rn-u.off{background:#F2F2F4;box-shadow:none;color:#6E6E79}.rn-u.off .rn-lg{background:#B9B9C3}.rn-u.off .rn-h small{color:#7A7A85}
+.rn-bn.off{background:#E6E6EA;color:#4F4F59}.rn-bn.off svg{stroke:#5F5F6B}
+.rn-why [hidden]{display:none}
+.rn-md{margin-top:14px;background:#fff;color:#1F1F2B;border:2px solid var(--line);border-radius:16px;padding:14px}
+.rn-md[hidden]{display:none}
+.rn-md>b{display:block;font-size:.95rem}.rn-md p{margin:4px 0 0;font-size:.78rem;color:#5E5E6A}
+.rn-inf{display:flex;gap:8px;background:#EDEBFA;border-radius:8px;padding:9px;margin-top:10px;font-size:.76rem}
+.rn-inf svg{flex:none;width:15px;height:15px;stroke:#2340A8;fill:none;stroke-width:1.8}
+.rn-bt{display:flex;gap:8px;margin-top:12px}.rn-bt span{flex:1;text-align:center;border-radius:999px;padding:7px 0;font-size:.8rem;font-weight:600;border:1.5px solid #2340A8;color:#2340A8}.rn-bt span+span{background:#2340A8;color:#fff}
+@media (max-width:760px){.rn{grid-template-columns:1fr}}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2315,16 +2348,23 @@ const PROJECTS = [
                'La primera distinguía las situaciones del empleado y sus familiares. La segunda recogía cuatro resultados: renovación automática, contratación de un nuevo plan, reemplazo o ausencia de cobertura disponible.']},
     {k:'p', t:['One rule shaped every case: family members couldn’t keep the insurance if the employee didn’t first renew or contract their own coverage.',
                'Una regla condicionaba todos los casos: los familiares no podían mantener el seguro si el empleado no renovaba o contrataba antes su propia cobertura.']},
-    {k:'combo', sl:['Who is involved?','¿Quién está implicado?'], ol:['What happens next period?','¿Qué pasa el siguiente periodo?'], nl:['Combination','Combinación'],
-      sc:[[['Employee only','Solo el empleado'],['Applies to: the employee','Afecta a: el empleado']],
-          [['Employee + family · on the employee','Empleado + familiar · sobre el empleado'],['Applies to: the employee, with family members on the policy','Afecta a: el empleado, con familiares en la póliza']],
-          [['Employee + family · on the family member','Empleado + familiar · sobre el familiar'],['Applies to: the family member','Afecta a: el familiar']],
-          [['Employee + family · on both','Empleado + familiar · sobre ambos'],['Applies to: the employee and the family member','Afecta a: el empleado y el familiar']]],
-      oc:[[['Automatic renewal','Renovación automática'],['No action required. The plan will be renewed automatically for the next period.','No hace falta hacer nada. El plan se renovará automáticamente para el siguiente periodo.']],
-          [['Contract a new plan','Contratar un plan nuevo'],['Automatic renewal isn’t available: the current plan is no longer offered, or automatic renewal isn’t enabled for it.','La renovación automática no está disponible: el plan actual ya no se ofrece o no tiene activada la renovación automática.']],
-          [['Replacement','Reemplazo'],['A new plan was selected, because the previous one wasn’t eligible for automatic renewal or because the person decided to change their coverage.','Se ha elegido un plan nuevo, porque el anterior no admitía la renovación automática o porque la persona decidió cambiar su cobertura.']],
-          [['No coverage available','Sin cobertura disponible'],['No plan can be selected: the company no longer offers Health Insurance, or its configuration doesn’t allow any plan for the next period.','No se puede elegir ningún plan: la empresa ya no ofrece el Seguro de Salud o su configuración no permite ningún plan para el siguiente periodo.']]],
-      cap:['Diagram: the same message structure for every combination. The texts come from the outcome definitions.','Esquema: la misma estructura de mensaje para cada combinación. Los textos salen de la definición de cada resultado.']},
+    {k:'renew', el:['Employee','Empleado'], fl:['Family member','Familiar'], wl:['Why isn’t it covered?','¿Por qué no está cubierto?'],
+      eo:[['auto',['Automatic renewal','Renovación automática']],['repl',['Replacement','Reemplazo']],['man',['Manual renewal','Renovación manual']],['none',['Insurance no longer offered','Seguro no disponible']]],
+      fo:[['auto',['Automatic renewal','Renovación automática']],['repl',['Replacement','Reemplazo']],['man',['Manual renewal','Renovación manual']],['off',['Not covered','No cubierto']]],
+      wo:[['0',['Age','Edad']],['1',['Children','Descendientes']],['2',['Spouse','Cónyuge']]],
+      why:[['Your company doesn’t cover children over 24.','Tu empresa no cubre descendientes mayores de 24 años.'],['Your company doesn’t cover children.','Tu empresa no cubre descendientes.'],['Your company doesn’t cover spouses.','Tu empresa no cubre cónyuge.']],
+      people:[['Ernesto Pino (you)','Ernesto Pino (tú)'],['Sonia Pino (daughter)','Sonia Pino (hija)']], plan:['Integral élite plan','Plan Integral élite'], active:['Active','Activo'],
+      title:['Insured users','Usuarios asegurados'], sub:['These are the users with insurance','Estos son los usuarios con seguro contratado'],
+      msg:{auto:['This plan will renew on **1 · Feb · 2022**','Esta modalidad se renovará el **1 · Feb · 2022**'],
+           repl:['This plan will be replaced by the new one on **1 · Feb · 2022**','Esta modalidad será reemplazada por la nueva el **1 · Feb · 2022**'],
+           man:['This plan ends on **31 · Jan · 2022**. If you don’t request a new one, your insurance will be cancelled','Esta modalidad finaliza el **31 · Ene · 2022**. Si no solicitas una nueva se te cancelará el seguro'],
+           none:['Your insurance ends on **31 · Jan · 2022**. There are no renewals available to contract.','Tu seguro termina el **31 · Ene · 2022**. No dispones de renovaciones disponibles para contratar.']},
+      notes:{repl:['Replacing the employee’s plan resets the family member’s: they have to contract it again.','Al reemplazar la modalidad del empleado, la del familiar se resetea: tiene que volver a contratarla.'],
+             man:['If the employee doesn’t renew, both lose the insurance and would have to contract it from scratch.','Si el empleado no renueva, los dos pierden el seguro y tendrían que contratarlo desde cero.'],
+             none:['When the company stops offering the insurance, the family member gets the same message straight away.','Si la empresa deja de ofrecer el seguro, al familiar le sale el mismo mensaje en ese momento.'],
+             frepl:['Replacing the family member’s plan doesn’t affect the employee.','Reemplazar la modalidad del familiar no afecta al empleado.']},
+      modal:[['Replace plan','Reemplazar modalidad'],['This plan will replace the current one on **1 · Feb · 2022**','Esta modalidad pasará a reemplazar la actual el **1 · Feb · 2022**'],['Keep in mind you’ll have to insure your family members again after the replacement if they have a plan.','Ten en cuenta que tendrás que volver a asegurar a tus familiares tras el reemplazo si tienen alguna modalidad contratada.'],['Cancel','Cancelar'],['Replace','Reemplazar']],
+      cap:['Choose a state for the employee and for the family member to see what each card shows. Recreated from the app’s screens.','Elige el estado del empleado y del familiar para ver qué muestra cada ficha. Recreado a partir de las pantallas de la app.']},
     {k:'h', t:['Making every outcome understandable','Hacer comprensible cada resultado']},
     {k:'p', t:['I designed the cases on a common structure to communicate what was going to happen, who it affected and what the user had to do. That way, each person could understand their situation without knowing the system’s internal rules.',
                'Diseñé los casos sobre una estructura común para comunicar qué iba a pasar, a quién afectaba y qué debía hacer el usuario. Así, cada persona podía entender su situación sin conocer las reglas internas del sistema.']},
@@ -3170,6 +3210,24 @@ function tripRun(sv,instant){
 }
 /* ---------- Story case (new structure): chapters + scenes + "Ask me" ---------- */
 const ph=v=>/X €/.test(v)?`<span class="ph">${esc(v)}</span>`:esc(fmt(v));
+const RN_IC={
+ lg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+ auto:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.3-4.5M4 4v3.5h3.5"/><path d="M4 13a8 8 0 0 0 14.3 4.5M20 20v-3.5h-3.5"/><path d="M9 12.5l2 2 4-4"/></svg>',
+ repl:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15l-3.5-3.5M20 16H5l3.5 3.5"/></svg>',
+ man:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.5h.01"/></svg>',
+ off:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>',
+ info:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'};
+// Renewal explorer rules: the family card follows the employee when the employee replaces, renews manually or loses the insurance
+function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
+  const ef = e==='none'?'none' : fm==='off'?'off' : (e==='repl'||e==='man')?'man' : fm;
+  const set=(who,st)=>f.querySelectorAll(`.rn-c[data-who="${who}"] .rn-u`).forEach(u=>u.hidden=u.dataset.st!==st);
+  set('e',e); set('f',ef);
+  f.querySelectorAll('.rn-why [data-w]').forEach(x=>x.hidden=x.dataset.w!==w);
+  f.querySelector('.rn-wf').hidden=fm!=='off'||e==='none';
+  const note = e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
+  f.querySelectorAll('.rn-note').forEach(n=>n.hidden=n.dataset.n!==note);
+  f.querySelector('.rn-md').hidden=e!=='repl';
+}
 // Case title = the title of its card on the home page
 function caseTitle(p){ const c=SELCARD[p.id]; return c?esc(tr(c.h).join(' ')):X(p.title); }
 function sBlock(b,p,ids){
@@ -3257,6 +3315,19 @@ function sBlock(b,p,ids){
       return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
     case 'views': return `<figure class="scene vw"><div class="jv-top vw-hd"><span class="sc-k">${X(b.label)}</span><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
       ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
+    case 'renew': { const m=b.msg, ic=RN_IC;
+      const card=(who,i)=>`<div class="rn-c" data-who="${who}">${['auto','repl','man'].map(st=>`<div class="rn-u" data-st="${st}"${st==='auto'?'':' hidden'}><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn ${st}">${ic[st]}<span>${X(m[st]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</span></div></div>`).join('')}
+        <div class="rn-u off" data-st="off" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span class="rn-why">${b.why.map((w,j)=>`<span data-w="${j}"${j?' hidden':''}>${X(w)}</span>`).join('')}</span></div></div>
+        <div class="rn-u off" data-st="none" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span>${X(m.none).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</span></div></div></div>`;
+      const grp=(g,opts)=>`<div class="cb-ch" data-rn="${g}">${opts.map((o,i)=>`<button type="button" data-v="${o[0]}" aria-pressed="${i===0}">${X(o[1])}</button>`).join('')}</div>`;
+      return `<figure class="scene rn" data-e="auto" data-f="auto" data-w="0">
+      <div class="rn-ctl"><fieldset><legend class="sc-k">${X(b.el)}</legend>${grp('e',b.eo)}</fieldset>
+        <fieldset><legend class="sc-k">${X(b.fl)}</legend>${grp('f',b.fo)}</fieldset>
+        <fieldset class="rn-wf" hidden><legend class="sc-k">${X(b.wl)}</legend>${grp('w',b.wo)}</fieldset>
+        ${Object.entries(b.notes).map(([k,t])=>`<p class="rn-note" data-n="${k}" hidden>${X(t)}</p>`).join('')}</div>
+      <div class="rn-out"><div class="rn-ph" aria-live="polite"><p class="rn-t">${X(b.title)}</p><p class="rn-s">${X(b.sub)}</p>${card('e',0)}${card('f',1)}</div>
+        <div class="rn-md" hidden><b>${X(b.modal[0])}</b><p>${X(b.modal[1]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p><div class="rn-inf">${ic.info}<span>${X(b.modal[2])}</span></div><div class="rn-bt"><span>${X(b.modal[3])}</span><span>${X(b.modal[4])}</span></div></div></div>
+      <figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
@@ -3364,6 +3435,8 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const rnb=e.target.closest('[data-rn] button'); if(rnb){ const g=rnb.parentNode, f=g.closest('.rn');
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===rnb)); f.dataset[g.dataset.rn]=rnb.dataset.v; rnApply(f); return; }
   const vwb=e.target.closest('[data-vw]'); if(vwb){ const f=vwb.closest('.vw'), i=vwb.dataset.vw;
     f.querySelectorAll('[data-vw]').forEach(x=>x.setAttribute('aria-pressed',x===vwb));
     f.querySelectorAll('.vw-p').forEach(x=>{ const on=x.dataset.p===i; x.hidden=!on; const v=x.querySelector('video'); if(v){ if(on){ if(!reduce) v.play().catch(()=>{}); } else v.pause(); } }); return; }
