@@ -380,10 +380,11 @@ const PROJECTS = [
     {k:'h', t:['Making every outcome understandable','Hacer comprensible cada resultado']},
     {k:'p', t:['I designed the cases on a common structure to communicate what was going to happen, who it affected and what the user had to do. That way, each person could understand their situation without knowing the system’s internal rules.',
                'Diseñé los casos sobre una estructura común para comunicar qué iba a pasar, a quién afectaba y qué debía hacer el usuario. Así, cada persona podía entender su situación sin conocer las reglas internas del sistema.']},
-    {k:'vid', src:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', max:300, cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
     {k:'p', t:['I also covered errors, pending data and the communications needed. I organised the flows by subject to review their coverage and make implementation easier.',
                'También contemplé errores, datos pendientes y las comunicaciones necesarias. Organicé los flujos por tema para revisar su cobertura y facilitar la implementación.']},
-    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']},
+    {k:'views', label:['Two ways to see the process','Dos formas de ver el proceso'], items:[
+      {l:['Prototype','Prototipo'], vid:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
+      {l:['Flow design','Diseño de flujos'], img:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']}]},
     {k:'h', t:['Validating from three perspectives','Validar desde tres perspectivas']},
     {k:'steps', items:[
       [['Operations','Operaciones'],['We checked the scenarios against the cases they handled in practice.','Contrastamos los escenarios con los casos que gestionaban en la práctica.']],

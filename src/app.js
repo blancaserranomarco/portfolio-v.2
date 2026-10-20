@@ -539,6 +539,8 @@ function sBlock(b,p,ids){
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'quote': if(!b.fb) break;
       return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
+    case 'views': return `<figure class="scene vw"><div class="vw-hd"><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
+      ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
@@ -646,6 +648,9 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const vwb=e.target.closest('[data-vw]'); if(vwb){ const f=vwb.closest('.vw'), i=vwb.dataset.vw;
+    f.querySelectorAll('[data-vw]').forEach(x=>x.setAttribute('aria-pressed',x===vwb));
+    f.querySelectorAll('.vw-p').forEach(x=>{ const on=x.dataset.p===i; x.hidden=!on; const v=x.querySelector('video'); if(v){ if(on){ if(!reduce) v.play().catch(()=>{}); } else v.pause(); } }); return; }
   const cbb=e.target.closest('[data-cb-s],[data-cb-o]'); if(cbb){ const f=cbb.closest('.cb'), k=cbb.hasAttribute('data-cb-s')?'s':'o';
     f.querySelectorAll(`[data-cb-${k}]`).forEach(x=>x.setAttribute('aria-pressed',x===cbb)); f.dataset[k]=cbb.getAttribute(`data-cb-${k}`);
     f.querySelectorAll('.cb-o').forEach(x=>x.hidden=x.dataset.o!==f.dataset.o); f.querySelectorAll('.cb-who [data-s]').forEach(x=>x.hidden=x.dataset.s!==f.dataset.s);

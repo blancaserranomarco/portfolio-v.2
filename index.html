@@ -1927,6 +1927,11 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .fb figcaption{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:.86rem;margin:0}
 .fb figcaption span{color:var(--muted);font-size:.8rem}
 .fb blockquote{margin:6px 0 0}.fb blockquote p{margin:0;font-size:1rem;line-height:1.5}
+/* Two views of the process (renewals) */
+.vw-hd{display:flex;justify-content:flex-start;margin-bottom:16px}
+.vw-vid{max-width:300px;margin:0 auto}.vw-vid video{display:block;width:100%;border-radius:18px}
+.vw-p img{display:block;width:100%;height:auto;border-radius:10px}
+.vw-p figcaption{margin-top:14px}
 </style>
 </head>
 <body>
@@ -2331,10 +2336,11 @@ const PROJECTS = [
     {k:'h', t:['Making every outcome understandable','Hacer comprensible cada resultado']},
     {k:'p', t:['I designed the cases on a common structure to communicate what was going to happen, who it affected and what the user had to do. That way, each person could understand their situation without knowing the system’s internal rules.',
                'Diseñé los casos sobre una estructura común para comunicar qué iba a pasar, a quién afectaba y qué debía hacer el usuario. Así, cada persona podía entender su situación sin conocer las reglas internas del sistema.']},
-    {k:'vid', src:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', max:300, cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
     {k:'p', t:['I also covered errors, pending data and the communications needed. I organised the flows by subject to review their coverage and make implementation easier.',
                'También contemplé errores, datos pendientes y las comunicaciones necesarias. Organicé los flujos por tema para revisar su cobertura y facilitar la implementación.']},
-    {k:'img', src:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']},
+    {k:'views', label:['Two ways to see the process','Dos formas de ver el proceso'], items:[
+      {l:['Prototype','Prototipo'], vid:'assets/renewals-prototype.mp4', poster:'assets/renewals-prototype-poster.webp', cap:['Prototype of the renewal flow in the app.','Prototipo del flujo de renovación en la app.']},
+      {l:['Flow design','Diseño de flujos'], img:'assets/renewals-map.webp', cap:['Every flow organised by subject and the cases it includes.','Todos los flujos organizados por tema y los casos que incluye cada uno.']}]},
     {k:'h', t:['Validating from three perspectives','Validar desde tres perspectivas']},
     {k:'steps', items:[
       [['Operations','Operaciones'],['We checked the scenarios against the cases they handled in practice.','Contrastamos los escenarios con los casos que gestionaban en la práctica.']],
@@ -3256,6 +3262,8 @@ function sBlock(b,p,ids){
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'quote': if(!b.fb) break;
       return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
+    case 'views': return `<figure class="scene vw"><div class="vw-hd"><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
+      ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'combo': return `<figure class="scene cb" data-s="0" data-o="0">
@@ -3363,6 +3371,9 @@ function flPlay(box,on){ clearInterval(flT.get(box)); const pp=box.querySelector
   pp.setAttribute('aria-label',on?pp.dataset.lPause:pp.dataset.lPlay); pp.querySelector('span').textContent=on?'❚❚':'▶';
   if(on) flT.set(box,setInterval(()=>flGo(box,(+box.dataset.i||0)+1),3000)); }
 document.addEventListener('click',e=>{
+  const vwb=e.target.closest('[data-vw]'); if(vwb){ const f=vwb.closest('.vw'), i=vwb.dataset.vw;
+    f.querySelectorAll('[data-vw]').forEach(x=>x.setAttribute('aria-pressed',x===vwb));
+    f.querySelectorAll('.vw-p').forEach(x=>{ const on=x.dataset.p===i; x.hidden=!on; const v=x.querySelector('video'); if(v){ if(on){ if(!reduce) v.play().catch(()=>{}); } else v.pause(); } }); return; }
   const cbb=e.target.closest('[data-cb-s],[data-cb-o]'); if(cbb){ const f=cbb.closest('.cb'), k=cbb.hasAttribute('data-cb-s')?'s':'o';
     f.querySelectorAll(`[data-cb-${k}]`).forEach(x=>x.setAttribute('aria-pressed',x===cbb)); f.dataset[k]=cbb.getAttribute(`data-cb-${k}`);
     f.querySelectorAll('.cb-o').forEach(x=>x.hidden=x.dataset.o!==f.dataset.o); f.querySelectorAll('.cb-who [data-s]').forEach(x=>x.hidden=x.dataset.s!==f.dataset.s);
