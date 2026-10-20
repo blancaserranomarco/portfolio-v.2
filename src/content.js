@@ -703,9 +703,9 @@ const PROJECTS = [
                'Tras el lanzamiento, Operaciones observó una reducción del trabajo manual y no registramos respuestas negativas de NPS en el seguimiento realizado.']},
     {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
       meta:['Comparison between March 2023 and November 2025. These figures reflect the benefit’s evolution, not the isolated effect of the redesign.','Comparación entre marzo de 2023 y noviembre de 2025. Estas cifras reflejan la evolución del beneficio, no el efecto aislado del rediseño.'], items:[
-      [['Companies offering the insurance','Empresas que ofrecían el seguro'],['250 → 1,007','250 → 1.007'],['+303%','+303 %'],1],
-      [['Adoption among active companies','Adopción entre empresas activas'],['22.3 → 29.2%','22,3 → 29,2 %'],['+6.9 percentage points','+6,9 puntos porcentuales'],1],
-      [['Active subscriptions','Suscripciones activas'],['22,000 → 63,268','22.000 → 63.268'],['+188%','+188 %'],1]]},
+      [['Companies offering the insurance','Empresas que ofrecían el seguro'],['250 → 1,007','250 → 1.007'],['+303%','+303 %'],'d'],
+      [['Adoption among active companies','Adopción entre empresas activas'],['22.3 → 29.2%','22,3 → 29,2 %'],['+6.9 percentage points','+6,9 puntos porcentuales'],'d'],
+      [['Active subscriptions','Suscripciones activas'],['22,000 → 63,268','22.000 → 63.268'],['+188%','+188 %'],'d']]},
     {k:'p', t:['The share of companies offering the insurance grew even while Cobee’s client base was growing.',
                'La proporción de empresas que ofrecían el seguro aumentó incluso mientras crecía la base de clientes de Cobee.']},
     {k:'h', t:['Scaling the experience didn’t guarantee its adoption','Escalar la experiencia no garantizaba su adopción']},
