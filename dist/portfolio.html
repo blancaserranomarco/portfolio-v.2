@@ -1978,6 +1978,8 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .rn-r.off,.rn-r.none{background:#E6E6EA;color:#4F4F59}.rn-r.off svg,.rn-r.none svg{stroke:#5F5F6B}
 @media (max-width:760px){.rn-g{grid-template-columns:1fr 1fr}.rn-gh,.rn-g>span[role="columnheader"]{display:none}.rn-gr{grid-column:1/-1;margin-top:8px}.rn-cell::before{content:attr(data-fl);font-size:.68rem;font-weight:700;color:#6B6B78}}
 .story .b-list.ol{margin-top:14px;padding-left:1.4em}.story .b-list.ol li::marker{font-weight:700;color:var(--ink)}
+.rn-bn.end{background:#EEEEF1;color:#3F3F49}.rn-bn.end svg{stroke:#5F5F6B}
+.rn-r.none{background:#EEEEF1;color:#1F1F2B}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2389,7 +2391,7 @@ const PROJECTS = [
            repl:['a new plan was chosen, because the previous one couldn’t renew automatically or because they decided to change their coverage.','se ha elegido una modalidad nueva, porque la anterior no admitía la renovación automática o porque se decidió cambiar de cobertura.'],
            man:['the renewal isn’t automatic: the employee has to carry it out. They can renew the same plan, if it’s still offered, or choose another one.','la renovación no es automática: tiene que hacerla el empleado. Puede renovar la misma modalidad, si sigue disponible, o elegir otra.'],
            reset:['their plan is reset by the employee’s change and has to be contracted again.','su modalidad se resetea por el cambio del empleado y hay que volver a contratarla.'],
-           none:['the company no longer offers Health Insurance, so there’s no plan to renew or contract.','la empresa ya no ofrece el Seguro de Salud, así que no hay modalidad que renovar ni contratar.'],
+           none:['the company no longer offers Health Insurance, so there’s no plan to renew. The insurance stays visible with the notice until it ends.','la empresa ya no ofrece el Seguro de Salud, así que no hay modalidad que renovar. El seguro sigue visible con el aviso hasta que termina.'],
            off:['the company’s policy doesn’t cover this family member, by age or by type of relative. The card is shown disabled.','la póliza de la empresa no cubre a este familiar, por edad o por tipo de familiar. La ficha se muestra desactivada.']},
       gl:['All combinations','Todas las combinaciones'], gi:['Rows: the employee. Columns: the family member. Tap a combination to see it above.','Filas: el empleado. Columnas: el familiar. Pulsa una combinación para verla arriba.'],
       short:[['You ·','Tú ·'],['Daughter ·','Hija ·']], solo:['Employee only','Solo el empleado'],
@@ -3361,7 +3363,7 @@ function sBlock(b,p,ids){
     case 'renew': { const m=b.msg, ic=RN_IC;
       const card=(who,i)=>`<div class="rn-c" data-who="${who}">${['auto','repl','man'].map(st=>`<div class="rn-u" data-st="${st}"${st==='auto'?'':' hidden'}><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn ${st}">${ic[st]}<span>${X(m[st]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</span></div></div>`).join('')}
         <div class="rn-u off" data-st="off" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span class="rn-why">${b.why.map((w,j)=>`<span data-w="${j}"${j?' hidden':''}>${X(w)}</span>`).join('')}</span></div></div>
-        <div class="rn-u off" data-st="none" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span>${X(m.none).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</span></div></div></div>`;
+        <div class="rn-u" data-st="none" hidden><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn end">${ic.off}<span>${X(m.none).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</span></div></div></div>`;
       const grp=(g,opts)=>`<div class="cb-ch" data-rn="${g}">${opts.map((o,i)=>`<button type="button" data-v="${o[0]}" aria-pressed="${i===0}">${X(o[1])}</button>`).join('')}</div>`;
       return `<figure class="scene rn" data-e="auto" data-f="auto" data-w="0">
       <div class="rn-ctl"><fieldset><legend class="sc-k">${X(b.el)}</legend>${grp('e',b.eo)}</fieldset>
