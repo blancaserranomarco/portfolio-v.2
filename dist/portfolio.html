@@ -3253,7 +3253,7 @@ const RN_IC={
  man:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 2.5 20h19z"/><path d="M12 10v4.5M12 17.5h.01"/></svg>',
  off:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg>',
  info:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'};
-function rnEff(e,f){ return e==='none'?'none' : f==='off'?'off' : (e==='repl'||e==='man')?'man' : f; }
+function rnEff(e,f){ return f==='off'?'off' : e==='none'?'none' : (e==='repl'||e==='man')?'man' : f; }
 function rnGrid(b){ const lab=Object.fromEntries([...b.eo,...b.fo]), ic=RN_IC;
   const row=(who,st)=>`<span class="rn-r ${st}">${ic[st==='none'?'off':st]}<span><b>${X(who)}</b> ${X(lab[st]||lab.none)}</span></span>`;
   let h=`<div class="rn-g" role="table" aria-label="${X(b.gl)}"><span role="columnheader"></span>${b.fo.map(o=>`<span class="rn-gh" role="columnheader">${X(b.fl)}: ${X(o[1])}</span>`).join('')}`;
@@ -3269,12 +3269,12 @@ function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
   const set=(who,st)=>f.querySelectorAll(`.rn-c[data-who="${who}"] .rn-u`).forEach(u=>u.hidden=u.dataset.st!==st);
   set('e',e); set('f',ef);
   f.querySelectorAll('.rn-why [data-w]').forEach(x=>x.hidden=x.dataset.w!==w);
-  f.querySelector('.rn-wf').hidden=fm!=='off'||e==='none';
+  f.querySelector('.rn-wf').hidden=fm!=='off';
   f.querySelectorAll('[data-xe]').forEach(x=>x.hidden=x.dataset.xe!==e);
   f.querySelectorAll('[data-xf]').forEach(x=>x.hidden=x.dataset.xf!==((e==='repl'||e==='man')&&fm!=='off'?(e==='repl'?'reset_':'manr_')+fm:ef));
   f.querySelectorAll('[data-xf]').forEach(x=>x.closest('p').hidden=solo);
   f.querySelectorAll('.rn-cell').forEach(c=>c.setAttribute('aria-pressed',c.dataset.ge===e&&c.dataset.gf===fm));
-  const note = solo?'' : e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
+  const note = (solo||fm==='off')?'' : e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
   f.querySelectorAll('.rn-note').forEach(n=>n.hidden=n.dataset.n!==note);
   f.querySelector('.rn-md').hidden=e!=='repl';
 }
