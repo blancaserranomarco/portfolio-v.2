@@ -479,7 +479,7 @@ function rnApply(f){ const e=f.dataset.e, fm=f.dataset.f, w=f.dataset.w;
   f.querySelectorAll('.rn-why [data-w]').forEach(x=>x.hidden=x.dataset.w!==w);
   f.querySelector('.rn-wf').hidden=fm!=='off'||e==='none';
   f.querySelectorAll('[data-xe]').forEach(x=>x.hidden=x.dataset.xe!==e);
-  f.querySelectorAll('[data-xf]').forEach(x=>x.hidden=x.dataset.xf!==((e==='repl'||e==='man')&&fm!=='off'?'reset':ef));
+  f.querySelectorAll('[data-xf]').forEach(x=>x.hidden=x.dataset.xf!==((e==='repl'||e==='man')&&fm!=='off'?'reset_'+fm:ef));
   f.querySelectorAll('[data-xf]').forEach(x=>x.closest('p').hidden=solo);
   f.querySelectorAll('.rn-cell').forEach(c=>c.setAttribute('aria-pressed',c.dataset.ge===e&&c.dataset.gf===fm));
   const note = solo?'' : e==='repl'?'repl' : e==='man'?'man' : e==='none'?'none' : fm==='repl'?'frepl' : '';
