@@ -1988,3 +1988,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-c .sum-it{margin-top:16px}.sum-c .sum-it:first-of-type{margin-top:12px}
 .sum-c .sum-it b{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .sum-c .sum-it span{display:block;margin-top:2px}
+.story .s-sum .sum-big.sum-big-w{white-space:normal}
