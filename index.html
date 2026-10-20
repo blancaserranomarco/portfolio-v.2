@@ -2428,7 +2428,7 @@ const PROJECTS = [
                'Dos años después, el sistema reunía 414 beneficios distintos, con más de 5.300 activaciones en empresas, y estaba disponible en España, México y Portugal.']},
     {k:'p', t:['An activation is one benefit enabled in one company; the same company can have several.',
                'Una activación equivale a un beneficio habilitado en una empresa; una misma empresa puede tener varios.']},
-    {k:'split', h:['The system two years later','El sistema dos años después'], meta:['2023 – 2025','2023 – 2025'], items:[
+    {k:'split', res:1, meta:['2023 – 2025','2023 – 2025'], items:[
       [['Different benefits','Beneficios distintos'],['414','414'],['Created since launch.','Creados desde el lanzamiento.']],
       [['Activations','Activaciones'],['+5,300','+5.300'],['Benefits enabled in companies.','Beneficios habilitados en empresas.']],
       [['Countries','Países'],['3','3'],['Spain, Mexico and Portugal.','España, México y Portugal.']]]},
@@ -2436,7 +2436,7 @@ const PROJECTS = [
       [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
       [['2024 · payment pieces','2024 · piezas de pago'],'206','6','10'],
       ['2025','161','8','5']
-    ], note:['New unique benefits created each year, by type.','Beneficios únicos nuevos creados cada año, por tipo.']},
+    ], note:['New benefits created each year, by type.','Beneficios nuevos creados cada año, por tipo.']},
     {k:'bars', label:['Most popular benefit by country, 2025','Beneficio más popular por país, 2025'], max:60, rows:[[['🇪🇸 Spain','🇪🇸 España'],45,'mint'],[['🇲🇽 Mexico','🇲🇽 México'],34,'mint']],
       cap:['Share of our companies in each country that offered it.','Porcentaje de nuestras empresas de cada país que lo ofrecía.']},
     {k:'h', t:['What each market needed','Qué necesitaba cada mercado']},
@@ -3607,7 +3607,7 @@ function sBlock(b,p,ids){
     case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s${st.sub?' has-sub':''}"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map((h,j,A)=>`<li class="fw-sb"><b>${X(h)}</b>${j===A.length-1&&st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</li>`).join('')}</ol>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v+'%'))}</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'split': if(b.h) return `<div class="s-res${b.cls?' '+b.cls:''}"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up,dl])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span>${dl?`<span class="sc-d">${X(dl)}</span>`:''}</div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
+    case 'split': if(b.h||b.res) return `<div class="s-res${b.cls?' '+b.cls:''}">${b.h?`<h3 class="s-h3">${X(b.h)}</h3>`:''}${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up,dl])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span>${dl?`<span class="sc-d">${X(dl)}</span>`:''}</div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
     case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">

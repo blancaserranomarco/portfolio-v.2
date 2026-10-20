@@ -27,7 +27,7 @@ Hay cuatro niveles de cifra, siempre con la misma estructura: **etiqueta → cif
 | Nivel | Dónde | Cifra | Texto debajo | Variación |
 |---|---|---|---|---|
 | Cabecera | Tarjeta «Impacto» o «Evolución» | Fraunces 600, 29 px (24 px móvil) | DM Sans 18 px tinta | DM Sans 700 verde |
-| Resultados | Cajas «La campaña en cifras», «Cómo evolucionó…» (`split` con `h`) | Fraunces 500, 30 px; verde si es el resultado, tinta si es neutro | DM Sans 14,7 px gris («Frente a…», «Desde…», base) | DM Sans 600, 14,7 px, verde (5.º campo del `split`) |
+| Resultados | Cajas «La campaña en cifras», «Cómo evolucionó…» (`split` con `h`, o con `res:1` si el capítulo ya hace de título) | Fraunces 500, 30 px; verde si es el resultado, tinta si es neutro | DM Sans 14,7 px gris («Frente a…», «Desde…», base) | DM Sans 600, 14,7 px, verde (5.º campo del `split`) |
 | Cajas descriptivas | Punto de partida por país (`split` sin `h`) | Fraunces 500, 30 px, tinta | DM Sans 14,7 px gris | — |
 | Pregúntame | «¿Qué impacto tuvo…?» (`m`) | Fraunces 500, 22 px, tinta | DM Sans 14,4 px gris | — |
 | Barras | `bars` | Fraunces 600, 16 px | Etiqueta DM Sans 16 px tinta | — |

@@ -326,7 +326,7 @@ const PROJECTS = [
                'Dos años después, el sistema reunía 414 beneficios distintos, con más de 5.300 activaciones en empresas, y estaba disponible en España, México y Portugal.']},
     {k:'p', t:['An activation is one benefit enabled in one company; the same company can have several.',
                'Una activación equivale a un beneficio habilitado en una empresa; una misma empresa puede tener varios.']},
-    {k:'split', h:['The system two years later','El sistema dos años después'], meta:['2023 – 2025','2023 – 2025'], items:[
+    {k:'split', res:1, meta:['2023 – 2025','2023 – 2025'], items:[
       [['Different benefits','Beneficios distintos'],['414','414'],['Created since launch.','Creados desde el lanzamiento.']],
       [['Activations','Activaciones'],['+5,300','+5.300'],['Benefits enabled in companies.','Beneficios habilitados en empresas.']],
       [['Countries','Países'],['3','3'],['Spain, Mexico and Portugal.','España, México y Portugal.']]]},
@@ -334,7 +334,7 @@ const PROJECTS = [
       [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
       [['2024 · payment pieces','2024 · piezas de pago'],'206','6','10'],
       ['2025','161','8','5']
-    ], note:['New unique benefits created each year, by type.','Beneficios únicos nuevos creados cada año, por tipo.']},
+    ], note:['New benefits created each year, by type.','Beneficios nuevos creados cada año, por tipo.']},
     {k:'bars', label:['Most popular benefit by country, 2025','Beneficio más popular por país, 2025'], max:60, rows:[[['🇪🇸 Spain','🇪🇸 España'],45,'mint'],[['🇲🇽 Mexico','🇲🇽 México'],34,'mint']],
       cap:['Share of our companies in each country that offered it.','Porcentaje de nuestras empresas de cada país que lo ofrecía.']},
     {k:'h', t:['What each market needed','Qué necesitaba cada mercado']},
