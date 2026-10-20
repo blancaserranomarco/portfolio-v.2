@@ -1989,3 +1989,19 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-c .sum-it b{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .sum-c .sum-it span{display:block;margin-top:2px}
 .story .s-sum .sum-big.sum-big-w{white-space:normal}
+
+/* Flujo en pasos (flow) */
+.s-flow .fw{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
+.s-flow .fw-s{position:relative}
+.s-flow .fw-c{border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);padding:12px 12px 14px;min-height:96px;display:flex;flex-direction:column;gap:8px}
+.s-flow .fw-n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
+.s-flow .fw-c b{font-weight:600;font-size:.95rem;line-height:1.3}
+.s-flow .fw-s:not(:last-child)::after{content:'→';position:absolute;top:36px;right:-20px;font-size:1rem;line-height:1;color:var(--ink)}
+.s-flow .fw-sub{position:relative;margin-top:22px;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;font-size:.9rem;line-height:1.3;background:var(--surface)}
+.s-flow .fw-sub::before{content:'';position:absolute;top:-21px;left:24px;width:0;height:18px;border-left:1.5px dashed var(--muted)}
+@media (max-width:640px){
+  .s-flow .fw{grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-c{min-height:0;flex-direction:row;align-items:center;gap:12px}
+  .s-flow .fw-s:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
+  .s-flow .fw-sub{margin:22px 0 0 36px}
+}

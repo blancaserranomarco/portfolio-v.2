@@ -1994,6 +1994,22 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .sum-c .sum-it b{display:block;font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.15;color:var(--ink)}
 .sum-c .sum-it span{display:block;margin-top:2px}
 .story .s-sum .sum-big.sum-big-w{white-space:normal}
+
+/* Flujo en pasos (flow) */
+.s-flow .fw{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
+.s-flow .fw-s{position:relative}
+.s-flow .fw-c{border:1.5px solid var(--ink);border-radius:12px;background:var(--surface);padding:12px 12px 14px;min-height:96px;display:flex;flex-direction:column;gap:8px}
+.s-flow .fw-n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
+.s-flow .fw-c b{font-weight:600;font-size:.95rem;line-height:1.3}
+.s-flow .fw-s:not(:last-child)::after{content:'→';position:absolute;top:36px;right:-20px;font-size:1rem;line-height:1;color:var(--ink)}
+.s-flow .fw-sub{position:relative;margin-top:22px;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;font-size:.9rem;line-height:1.3;background:var(--surface)}
+.s-flow .fw-sub::before{content:'';position:absolute;top:-21px;left:24px;width:0;height:18px;border-left:1.5px dashed var(--muted)}
+@media (max-width:640px){
+  .s-flow .fw{grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-c{min-height:0;flex-direction:row;align-items:center;gap:12px}
+  .s-flow .fw-s:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
+  .s-flow .fw-sub{margin:22px 0 0 36px}
+}
 </style>
 <header class="top">
   <div class="wrap">
@@ -2669,7 +2685,13 @@ const PROJECTS = [
     {k:'chap', n:['3 · The design','3 · El diseño'], t:['A common structure, adapted to each situation','Una estructura común, adaptada a cada situación']},
     {k:'p', t:['I defined a base journey to request the insurance, choose a plan, review the conditions and confirm the hiring. Adding family members brought its own conditions within that structure.',
                'Definí un recorrido base para solicitar el seguro, elegir modalidad, revisar las condiciones y confirmar la contratación. La incorporación de familiares añadía sus propias condiciones dentro de esa estructura.']},
-    {k:'img', src:'assets/health-happyflow.webp', cap:['The main employee flow, documented for the first time.','El flujo principal del empleado, documentado por primera vez.']},
+    {k:'flow', label:['The employee’s main flow','El flujo principal del empleado'], steps:[
+      {h:['Choose the Health Insurance benefit','Elegir el beneficio de Seguro de Salud']},
+      {h:['Request the insurance','Solicitar el seguro']},
+      {h:['Choose the plan','Elegir la modalidad'], sub:['Add family members','Añadir familiares']},
+      {h:['Complete the hiring','Completar la contratación']},
+      {h:['Receive the confirmation email','Recibir el email de confirmación']}],
+      cap:['Documented for the first time: the base journey and where family members are added.','Documentado por primera vez: el recorrido base y dónde se añaden los familiares.']},
     {k:'p', t:['On top of that flow, each case depended on several conditions: who pays for the insurance (the company, the employee through Flexible Pay, or both), who the company lets them insure, whether the employee already has their own insurance and whether their profile is complete.',
                'Sobre ese flujo, cada caso dependía de varias condiciones: quién paga el seguro (la empresa, el empleado con Retribución Flexible o un pago mixto), a quién permite asegurar la empresa, si el empleado ya tiene su seguro y si su perfil está completo.']},
     {k:'p', t:['Combined, they produced too many possible alerts. With Engineering, the challenge was to prioritise them so each person only saw the one they needed.',
@@ -3436,6 +3458,7 @@ function sBlock(b,p,ids){
     case 'slide': return `<figure class="scene s-slide">${b.cap?`<p class="sl-hint"><span aria-hidden="true">⇆</span> ${X(b.cap)}</p>`:''}<div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
       <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div></figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
+    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<div class="fw-sub"><span aria-hidden="true">+</span> ${X(st.sub)}</div>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'split': if(b.h) return `<div class="s-res"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
