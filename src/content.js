@@ -693,6 +693,8 @@ const PROJECTS = [
                'Lanzamos la nueva experiencia en México y la actualizamos en España en noviembre de 2023. Con Portugal, se convirtió en el primer beneficio realmente global de Cobee.']},
     {k:'p', t:['After launch there were no negative NPS responses, and Operations significantly reduced its manual work. In Portugal, it became a key benefit for partnerships.',
                'Tras el lanzamiento no hubo respuestas de NPS negativas y Operaciones redujo de forma notable el trabajo manual. En Portugal, se convirtió en un beneficio clave para los acuerdos con partners.']},
+    {k:'p', t:['In November 2025, while preparing the renewals campaign, we reviewed how the benefit had evolved since this redesign. It helped us understand the context and set what we expected from the next improvement.',
+               'En noviembre de 2025, al preparar la campaña de renovaciones, revisamos cómo había evolucionado el beneficio desde este rediseño. Nos sirvió para entender el contexto y fijar qué esperábamos de la siguiente mejora.']},
     {k:'split', h:['Two years later, in Spain','Dos años después, en España'], meta:['March 2023 (before launch) → November 2025 · Adoption: companies offering the insurance out of all active companies','Marzo de 2023 (antes del lanzamiento) → noviembre de 2025 · Adopción: empresas que ofrecen el seguro sobre el total de empresas activas'], items:[
       [['Companies offering it','Empresas que lo ofrecen'],['250 → 1,007','250 → 1.007'],['+303%','+303\u00a0%'],1],
       [['Adoption','Adopción'],['22.3 → 29.2%','22,3 → 29,2\u00a0%'],['+31%','+31\u00a0%'],1],
