@@ -2031,3 +2031,5 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-rel-b i{grid-row:1/span 2;grid-column:2;font-style:normal;font-size:1.4rem}
 .s-rel-b:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--shadow)}
 .s-rel-b:focus-visible{outline:3px solid #5B3DF5;outline-offset:3px}
+.vw{container-type:inline-size}
+@container (max-width:520px){ .vw .jv-sw{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:14px} .vw .jv-sw button{padding:8px 10px} }
