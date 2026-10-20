@@ -701,10 +701,10 @@ const PROJECTS = [
                'La nueva experiencia se lanzó en México y se actualizó en España en noviembre de 2023. Junto con Portugal, el Seguro de Salud pasó a funcionar sobre una estructura común en los tres mercados.']},
     {k:'p', t:['After launch, Operations saw a reduction in manual work, and we recorded no negative NPS responses in the follow-up.',
                'Tras el lanzamiento, Operaciones observó una reducción del trabajo manual y no registramos respuestas negativas de NPS en el seguimiento realizado.']},
-    {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
+    {k:'split', cls:'sc-tight', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
       meta:['Comparison between March 2023 and November 2025. These figures reflect the benefit’s evolution, not the isolated effect of the redesign.','Comparación entre marzo de 2023 y noviembre de 2025. Estas cifras reflejan la evolución del beneficio, no el efecto aislado del rediseño.'], items:[
       [['Companies offering the insurance','Empresas que ofrecían el seguro'],['250 → 1,007','250 → 1.007'],['+303%','+303 %'],'d'],
-      [['Adoption among active companies','Adopción entre empresas activas'],['22.3 → 29.2%','22,3 → 29,2 %'],['+6.9 percentage points','+6,9 puntos porcentuales'],'d'],
+      [['Adoption among active companies','Adopción entre empresas activas'],['22.3% → 29.2%','22,3\u00a0% → 29,2\u00a0%'],['+6.9 percentage points','+6,9 puntos porcentuales'],'d'],
       [['Active subscriptions','Suscripciones activas'],['22K → 63K','22K → 63K'],['+188%','+188 %'],'d']]},
     {k:'p', t:['Health Insurance grew faster than Cobee’s client base: the share of companies offering it went from 22.3% to 29.2%.',
                'El Seguro de Salud creció más rápido que la base de clientes de Cobee: la proporción de empresas que lo ofrecían pasó del 22,3\u00a0% al 29,2\u00a0%.']},

@@ -2019,3 +2019,6 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:560px){ .b-tk .sc-row{grid-template-columns:1fr auto} .b-tk .sc-row i{display:none} }
 .sl-pair:has(> .sl-item:only-child){grid-template-columns:minmax(0,420px);justify-content:center}
 .sc-split > div > span.sc-d{color:#1f8a5b;font-weight:600}
+.s-res.sc-tight .sc-split strong{white-space:nowrap;font-size:clamp(1.25rem,2.4vw,1.6rem)}
+.s-res.sc-tight .sc-split .sc-k{display:block;min-height:2.8em}
+@media (max-width:560px){ .s-res.sc-tight .sc-split .sc-k{min-height:0} }

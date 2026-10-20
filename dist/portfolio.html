@@ -2024,6 +2024,9 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 @media (max-width:560px){ .b-tk .sc-row{grid-template-columns:1fr auto} .b-tk .sc-row i{display:none} }
 .sl-pair:has(> .sl-item:only-child){grid-template-columns:minmax(0,420px);justify-content:center}
 .sc-split > div > span.sc-d{color:#1f8a5b;font-weight:600}
+.s-res.sc-tight .sc-split strong{white-space:nowrap;font-size:clamp(1.25rem,2.4vw,1.6rem)}
+.s-res.sc-tight .sc-split .sc-k{display:block;min-height:2.8em}
+@media (max-width:560px){ .s-res.sc-tight .sc-split .sc-k{min-height:0} }
 </style>
 <header class="top">
   <div class="wrap">
@@ -2747,10 +2750,10 @@ const PROJECTS = [
                'La nueva experiencia se lanzó en México y se actualizó en España en noviembre de 2023. Junto con Portugal, el Seguro de Salud pasó a funcionar sobre una estructura común en los tres mercados.']},
     {k:'p', t:['After launch, Operations saw a reduction in manual work, and we recorded no negative NPS responses in the follow-up.',
                'Tras el lanzamiento, Operaciones observó una reducción del trabajo manual y no registramos respuestas negativas de NPS en el seguimiento realizado.']},
-    {k:'split', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
+    {k:'split', cls:'sc-tight', h:['How the benefit evolved in Spain','Cómo evolucionó el beneficio en España'], intro:['In November 2025 we reviewed its evolution to prepare the next renewals campaign.','En noviembre de 2025 revisamos su evolución para preparar la siguiente campaña de renovaciones.'],
       meta:['Comparison between March 2023 and November 2025. These figures reflect the benefit’s evolution, not the isolated effect of the redesign.','Comparación entre marzo de 2023 y noviembre de 2025. Estas cifras reflejan la evolución del beneficio, no el efecto aislado del rediseño.'], items:[
       [['Companies offering the insurance','Empresas que ofrecían el seguro'],['250 → 1,007','250 → 1.007'],['+303%','+303 %'],'d'],
-      [['Adoption among active companies','Adopción entre empresas activas'],['22.3 → 29.2%','22,3 → 29,2 %'],['+6.9 percentage points','+6,9 puntos porcentuales'],'d'],
+      [['Adoption among active companies','Adopción entre empresas activas'],['22.3% → 29.2%','22,3\u00a0% → 29,2\u00a0%'],['+6.9 percentage points','+6,9 puntos porcentuales'],'d'],
       [['Active subscriptions','Suscripciones activas'],['22K → 63K','22K → 63K'],['+188%','+188 %'],'d']]},
     {k:'p', t:['Health Insurance grew faster than Cobee’s client base: the share of companies offering it went from 22.3% to 29.2%.',
                'El Seguro de Salud creció más rápido que la base de clientes de Cobee: la proporción de empresas que lo ofrecían pasó del 22,3\u00a0% al 29,2\u00a0%.']},
@@ -3481,7 +3484,7 @@ function sBlock(b,p,ids){
     case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s${st.sub?' has-sub':''}"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map((h,j,A)=>`<li class="fw-sb"><b>${X(h)}</b>${j===A.length-1&&st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</li>`).join('')}</ol>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'split': if(b.h) return `<div class="s-res"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
+    case 'split': if(b.h) return `<div class="s-res${b.cls?' '+b.cls:''}"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
     case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
     case 'dots': return `<figure class="scene" data-anim="dots" data-total="${b.total}" data-no="${b.no}">
