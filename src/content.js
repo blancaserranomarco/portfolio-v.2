@@ -637,8 +637,6 @@ const PROJECTS = [
     {k:'p', t:['The employee flows weren’t documented. I reviewed the existing experience and mapped the hiring and family management journeys, linking them to the errors and doubts detected by CX and Operations.',
                'Los flujos del empleado no estaban documentados. Revisé la experiencia existente y mapeé los recorridos de contratación y gestión de familiares, relacionándolos con los errores y dudas detectados por CX y Operaciones.']},
     {k:'img', src:'assets/health-current.webp', cap:['The previous flow in Spain: long texts, unclear steps and little feedback after hiring.','El flujo anterior en España: textos largos, pasos poco claros y poco feedback tras contratar.']},
-    {k:'p', t:['We defined the MVP around employees’ problems and Operations’ priorities, starting with the app: the part with the most friction and CX tickets.',
-               'Definimos el MVP a partir de los problemas de los empleados y las prioridades de Operaciones, empezando por la app: la parte con más fricción y más tickets de CX.']},
     {k:'h', t:['What the redesign had to achieve','Qué debía conseguir el rediseño']},
     {k:'steps', items:[
       [['Hire with clarity','Contratar con claridad'],['Understand the plans, their conditions and who covered the cost.','Entender las modalidades, sus condiciones y quién asumía el coste.']],
