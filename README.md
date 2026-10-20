@@ -21,7 +21,7 @@ CLAUDE.md          instrucciones de trabajo (lo primero que se lee)
 README.md          contexto: dónde vive cada cosa, cómo publicar, pendiente
 casos/_PLANTILLA.md  partes comunes de los casos (cabecera, Pregúntame, coherencia, montaje)
 casos/_PLANTILLA-EXPERIMENTOS.md  historia de casos de experimentación (TaxDown, Descuentos)
-casos/_PLANTILLA-SISTEMA.md  historia de casos de sistema o end-to-end (Seguro de Salud II · Renovaciones)
+casos/_PLANTILLA-SISTEMA.md  historia de casos de sistema o end-to-end (Seguro de Salud I y II)
 
 src/               código fuente (lo único que se edita)
   content.js       textos publicados de casos, empresas, tags y focos (cada texto: 'igual' o ['English','Español'])
@@ -74,7 +74,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar las plantillas al resto de casos. Siguiente: Seguro de Salud I, con la plantilla de sistema, para ajustarla.
+- Aplicar las plantillas al resto de casos. Seguro de Salud I, en borrador (rama `borrador/salud`) a la espera de la revisión de Blanca; faltan «¿Qué descarté?» y confirmar rol, fechas y nombres de aseguradoras en los vídeos.
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).

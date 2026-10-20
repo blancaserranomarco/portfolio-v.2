@@ -25,7 +25,7 @@ Leyenda: **Fija** = va en todos los casos · **Si existe** = solo si hay materia
 
 Hay dos plantillas según el tipo de caso:
 - **Experimentación** (`_PLANTILLA-EXPERIMENTOS.md`): el caso se cuenta como una serie de experimentos medidos. Ejemplos: TaxDown y Descuentos.
-- **Sistema o end-to-end** (`_PLANTILLA-SISTEMA.md`): un problema complejo resuelto con un modelo o sistema, sin A/B. Ejemplo: Seguro de Salud II · Renovaciones.
+- **Sistema o end-to-end** (`_PLANTILLA-SISTEMA.md`): un problema complejo resuelto con un modelo o sistema, sin A/B. Ejemplos: Seguro de Salud I y II.
 
 ## 3. Pregúntame (fija)
 
