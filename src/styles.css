@@ -1982,3 +1982,4 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 /* Centre the story column in the panel: same margin on both sides (the third column mirrors the side index) */
 @media (min-width:641px){ .case-wrap{grid-template-columns:40px minmax(0,1fr) 40px} }
 .sheet-in.story{width:100%;max-width:calc(840px + 2 * clamp(20px,4vw,44px));justify-self:center}
+.s-goal p strong{font-weight:700}
