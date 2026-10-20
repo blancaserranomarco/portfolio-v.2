@@ -392,7 +392,7 @@ const PROJECTS = [
            none:['the company no longer offers Health Insurance, so there’s no plan to renew or contract.','la empresa ya no ofrece el Seguro de Salud, así que no hay modalidad que renovar ni contratar.'],
            off:['the company’s policy doesn’t cover this family member, by age or by type of relative. The card is shown disabled.','la póliza de la empresa no cubre a este familiar, por edad o por tipo de familiar. La ficha se muestra desactivada.']},
       gl:['All combinations','Todas las combinaciones'], gi:['Rows: the employee. Columns: the family member. Tap a combination to see it above.','Filas: el empleado. Columnas: el familiar. Pulsa una combinación para verla arriba.'],
-      rl:['Rule','Regla'], short:[['You ·','Tú ·'],['Daughter ·','Hija ·']], solo:['Employee only','Solo el empleado'],
+      short:[['You ·','Tú ·'],['Daughter ·','Hija ·']], solo:['Employee only','Solo el empleado'],
       cap:['Choose a state for the employee and for the family member to see what each card shows. Recreated from the app’s screens.','Elige el estado del empleado y del familiar para ver qué muestra cada ficha. Recreado a partir de las pantallas de la app.']},
     {k:'h', t:['Making every outcome understandable','Hacer comprensible cada resultado']},
     {k:'p', t:['I designed the cases on a common structure to communicate what was going to happen, who it affected and what the user had to do. That way, each person could understand their situation without knowing the system’s internal rules.',
