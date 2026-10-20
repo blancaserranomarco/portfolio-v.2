@@ -2662,9 +2662,9 @@ const PROJECTS = [
     {k:'p', t:['We prioritised the app because it concentrated employees’ main difficulties, coordinating the changes with the admin dashboard and the backoffice.',
                'Priorizamos la app porque concentraba las principales dificultades de los empleados, coordinando los cambios con el panel de administración y el backoffice.']},
     {k:'h', t:['How we would evaluate the result','Cómo evaluaríamos el resultado']},
-    {k:'list', t:[['Benefit adoption and activation.','Adopción y activación del beneficio.'],
-                  ['CX tickets and invoice mismatches.','Tickets de CX y descuadres de facturas.'],
-                  ['One interface across the three countries.','Una misma interfaz en los tres países.']]},
+    {k:'list', t:[['**Adoption:** companies offering the benefit and employees taking it out.','**Adopción:** empresas que ofrecían el beneficio y empleados que lo contrataban.'],
+                  ['**Operations:** CX tickets and billing mismatches.','**Operación:** tickets de CX y desajustes de facturación.'],
+                  ['**Scalability:** the ability to adapt the common structure to the three countries.','**Escalabilidad:** capacidad de adaptar la estructura común a los tres países.']]},
 
     {k:'chap', n:['3 · The design','3 · El diseño'], t:['One structure to take out insurance, whatever the situation','Una sola estructura para contratar, sea cual sea la situación']},
     {k:'p', t:['The main flow had five steps: choose the benefit, request it, pick the plan, complete the hiring and add family members.',
@@ -3235,7 +3235,7 @@ function block(b, p, ids){
     case 'h': { const id=`s-${p.id}-${ids.length}`; ids.push([id,tr(b.t)]); return `<h2 class="b-h" id="${id}">${X(b.t)}</h2>`; }
     case 'p': return `<p class="b-p">${X(b.t)}</p>`;
     case 'call': return `<div class="b-call">${X(b.t)}</div>`;
-    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x)}</li>`).join('')}</${t}>`; }
+    case 'list': { const t=b.ol?'ol':'ul'; return `<${t} class="b-list${b.ol?' ol':''}">${b.t.map(x=>`<li>${X(x).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</li>`).join('')}</${t}>`; }
     case 'quote': return `<blockquote class="b-quote"><p>${X(b.t)}</p><cite>${X(b.by)}</cite></blockquote>`;
     case 'table': return `<div class="b-table${b.head.length===2?' n2':''}"><table><thead><tr>${b.head.map(h=>`<th scope="col">${X(h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<th scope="row">${esc(fmt(tr(c)))}</th>`:`<td>${esc(fmt(tr(c)))}</td>`).join('')}</tr>`).join('')}</tbody></table>${b.note?`<p class="b-note">${X(b.note)}</p>`:''}</div>`;
     case 'steps': return `<ol class="steps">${b.items.map(([h,t])=>`<li><div><h3>${X(h)}</h3><p>${X(t)}</p></div></li>`).join('')}</ol>`;

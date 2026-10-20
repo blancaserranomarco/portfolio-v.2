@@ -646,9 +646,9 @@ const PROJECTS = [
     {k:'p', t:['We prioritised the app because it concentrated employees’ main difficulties, coordinating the changes with the admin dashboard and the backoffice.',
                'Priorizamos la app porque concentraba las principales dificultades de los empleados, coordinando los cambios con el panel de administración y el backoffice.']},
     {k:'h', t:['How we would evaluate the result','Cómo evaluaríamos el resultado']},
-    {k:'list', t:[['Benefit adoption and activation.','Adopción y activación del beneficio.'],
-                  ['CX tickets and invoice mismatches.','Tickets de CX y descuadres de facturas.'],
-                  ['One interface across the three countries.','Una misma interfaz en los tres países.']]},
+    {k:'list', t:[['**Adoption:** companies offering the benefit and employees taking it out.','**Adopción:** empresas que ofrecían el beneficio y empleados que lo contrataban.'],
+                  ['**Operations:** CX tickets and billing mismatches.','**Operación:** tickets de CX y desajustes de facturación.'],
+                  ['**Scalability:** the ability to adapt the common structure to the three countries.','**Escalabilidad:** capacidad de adaptar la estructura común a los tres países.']]},
 
     {k:'chap', n:['3 · The design','3 · El diseño'], t:['One structure to take out insurance, whatever the situation','Una sola estructura para contratar, sea cual sea la situación']},
     {k:'p', t:['The main flow had five steps: choose the benefit, request it, pick the plan, complete the hiring and add family members.',
