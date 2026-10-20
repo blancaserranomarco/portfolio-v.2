@@ -2034,6 +2034,28 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .vw{container-type:inline-size}
 @container (max-width:520px){ .vw .jv-sw{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:14px} .vw .jv-sw button{padding:8px 10px} }
 .s-goal.note.good{border-left-color:#1f8a5b;background:color-mix(in srgb,var(--mint) 22%,var(--surface))}
-.s-goal.note.good > b{font-size:1.05rem}
 .s-foot-b{margin-top:14px}
 .sc-split > div > span.sc-d{display:block;margin-top:6px}
+
+/* ===== Coherencia tipográfica de cifras y textos (ver casos/_PLANTILLA.md · Sistema visual) ===== */
+:root{--win:#1f7a50}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--win:#6fd6a3} }
+:root[data-theme="dark"]{--win:#6fd6a3}
+/* Un solo verde para resultados */
+.sc-split strong.up,.sc-split > div > span.sc-d,.sum-pp,.sum-c.good .sc-k,.cmp-win,.sgc.win .sgc-res,.sl-ch li::before{color:var(--win)}
+/* Texto bajo la cifra: siempre gris y al mismo tamaño, también cuando hay variación debajo */
+.sc-split > div > span:not(.sc-k):not(.sc-d){color:var(--muted);font-size:.92rem}
+/* Pies de figura: un solo tamaño */
+.story .fig figcaption,.s-cmp figcaption{font-size:.86rem}
+/* Texto de los callouts: un solo tamaño */
+.s-goal.note p{font-size:1.02rem}
+/* Espaciado vertical de la historia: texto→texto 14 · bloque 24 · subtítulo 32 · capítulo 56 */
+.story .s-body > :is(.scene,.s-fig,.fig,.s-goal,.s-res,.fb,.steps,.b-list,.s-cmp,.s-next,.s-q,.s-segs,.s-rel){margin-top:24px;margin-bottom:0}
+.story .s-body > .s-p + :is(.b-list,.steps){margin-top:14px}
+.story .s-body > :is(.scene,.s-fig,.fig,.s-goal,.s-res,.fb,.steps,.b-list,.s-cmp,.s-next,.s-q,.s-segs,.s-rel) + .s-p{margin-top:24px}
+.story .s-body > .s-foot{margin-top:12px}
+/* Radios: 8 elementos pequeños · 12 tarjetas internas · 16 contenedores · 999 pastillas */
+.ask-i,.s-rel-b,.qz-opt,.rn-u{border-radius:12px}
+.sum-c,.ask,.scene.quiz,.vw-vid video{border-radius:16px}
+.story .s-body > .s-h3 + *{margin-top:14px}
+.story .s-body > .s-lead{margin-top:14px}

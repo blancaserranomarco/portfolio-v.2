@@ -45,8 +45,9 @@ const tr = v => Array.isArray(v) ? v[S.lang==='es'?1:0] : (v ?? '');
 const u = k => tr(UI[k]);
 const $ = (s,r=document)=>r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const X = v => esc(tr(v));
-const fmt = v => S.lang==='es' ? String(v).replace(/(\d)\.(\d)/g,'$1,$2').replace(/(\d),(\d{3})(?!\d)/g,'$1.$2') : String(v);
+const pct = t => S.lang==='es' ? t.replace(/(\d)\s?%/g,'$1\u00a0%') : t;
+const X = v => pct(esc(tr(v)));
+const fmt = v => S.lang==='es' ? pct(String(v).replace(/(\d)\.(\d)/g,'$1,$2').replace(/(\d),(\d{3})(?!\d)/g,'$1.$2')) : String(v);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const P = PROJECTS, I = INTERESTS, byId = id => P.find(p=>p.id===id);
 const yr = p => String(p.year).slice(0,4);
@@ -362,7 +363,7 @@ function block(b, p, ids){
     case 'img': return `<figure class="fig"><img src="${b.src}" alt="${X(b.cap)}" loading="lazy" tabindex="0" data-zoom ${b.max?`class="narrow" style="max-width:${b.max}px"`:''}><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'vid': return `<figure class="fig"><div class="vid" ${b.max?`style="max-width:${b.max}px"`:''}>${vidTag(b.src,b.poster,b.cap)}</div><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'abc': { const max=Math.max(...b.rows.map(r=>r[1]));
-      return `<figure class="fig"><div class="abc">${b.rows.map(([l,v])=>`<div><span>${X(l)}</span><i><em style="width:${(v/max*100).toFixed(1)}%"></em></i><strong>${esc(fmt(v))}${b.unit||''}</strong></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
+      return `<figure class="fig"><div class="abc">${b.rows.map(([l,v])=>`<div><span>${X(l)}</span><i><em style="width:${(v/max*100).toFixed(1)}%"></em></i><strong>${esc(fmt(v+(b.unit||'')))}</strong></div>`).join('')}</div><figcaption>${X(b.cap)}</figcaption></figure>`; }
     case 'learn': return `<div class="learns"><h2 class="b-h" id="s-${p.id}-learn">${u('learn')}</h2>${b.items.map(([h,t])=>`<div class="lr"><h3>${X(h)}</h3><p>${X(t)}</p></div>`).join('')}</div>`;
   }
   return '';
@@ -558,7 +559,7 @@ function sBlock(b,p,ids){
     case 'foot': return `<p class="s-foot s-foot-b">${X(b.t)}</p>`;
     case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s${st.sub?' has-sub':''}"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map((h,j,A)=>`<li class="fw-sb"><b>${X(h)}</b>${j===A.length-1&&st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</li>`).join('')}</ol>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
-    case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
+    case 'bars': return `<figure class="scene${b.cls?' '+b.cls:''}" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v+'%'))}</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'split': if(b.h) return `<div class="s-res${b.cls?' '+b.cls:''}"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up,dl])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up&&up!=='d'?'up':''}">${esc(fmt(tr(v)))}</strong><span${up==='d'?' class="sc-d"':''}>${X(t)}</span>${dl?`<span class="sc-d">${X(dl)}</span>`:''}</div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
     case 'split': return `<figure class="scene">${b.meta?`<p class="sc-meta">${X(b.meta)}</p>`:''}${b.h?`<h3 class="sc-h">${X(b.h)}</h3>`:''}${b.intro?`<p class="sc-intro">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'h': return `<h3 class="s-h3">${X(b.t)}</h3>`;
@@ -570,7 +571,7 @@ function sBlock(b,p,ids){
     case 'quiz': return `<div class="scene quiz" data-quiz="${p.id}"><div class="qz-head"><span class="qz-tag">${spark}${u('qz_tag')}</span><h3 id="qz-${p.id}">${X(b.q)}</h3></div><p class="muted">${X(b.sub)}</p>
         <div class="qz-opts" role="group" aria-labelledby="qz-${p.id}">${b.opts.map(o=>`<button type="button" class="qz-opt${o.img?' qz-img':''}" data-pick="${o.id}" aria-pressed="false">${o.img?`<img src="${o.img}" alt="" decoding="async">`:`<span class="mock ${o.mock}" aria-hidden="true">${o.mock==='a'?'<b>BBVA</b><small>25%</small>':'<b>TaxDown | BBVA</b><small>25%</small>'}</span><strong>${X(o.h)}</strong>`}<span class="qz-t">${X(o.t)}</span><span class="qz-go">${o.img?`${u('qz_choose')} ${o.id.toUpperCase()}`:`${u('qz_pick')} →`}</span>${o.img?`<span class="qz-letter" aria-hidden="true">${o.id.toUpperCase()}</span>`:''}</button>`).join('')}</div>
         <div class="qz-lock" aria-hidden="true">${b.rows.map(()=>`<div class="sc-row"><span class="lk-l"></span><i></i><b>?</b></div>`).join('')}<p>${u('qz_hint')}</p></div>
-        <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}${b.unit||''}</b></div>`).join('')}
+        <div class="qz-res" hidden aria-live="polite">${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/Math.max(...b.rows.map(r=>r[1]))*100).toFixed(1)}"></em></i><b>${esc(fmt(v+(b.unit||'')))}</b></div>`).join('')}
           <p class="qz-v" data-ok="${X(b.ok)}" data-ko="${X(b.ko)}" data-win="${b.win}"></p>
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'quote': if(!b.fb) break;

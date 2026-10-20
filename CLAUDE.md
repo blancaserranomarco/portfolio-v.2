@@ -1,12 +1,13 @@
 # Instrucciones para Claude
 
-Orden de lectura: este archivo → `README.md` (dónde vive cada cosa, cómo publicar, qué está pendiente) → `casos/_PLANTILLA.md` (partes comunes de un caso) y la plantilla de su tipo: `_PLANTILLA-EXPERIMENTOS.md` o `_PLANTILLA-SISTEMA.md` → resto de `casos/` (material de partida de cada caso, solo en el Escritorio).
+Orden de lectura: este archivo → `README.md` (dónde vive cada cosa, cómo publicar, qué está pendiente) → `casos/_SISTEMA-VISUAL.md` (tipografía, cifras, componentes, color y espaciado) → `casos/_PLANTILLA.md` (partes comunes de un caso) y la plantilla de su tipo: `_PLANTILLA-EXPERIMENTOS.md` o `_PLANTILLA-SISTEMA.md` → resto de `casos/` (material de partida de cada caso, solo en el Escritorio).
 
 ## Cómo trabajar con Blanca
 - Habla en español.
 - Antes de aplicar un cambio de diseño, enseña un boceto o propuesta y espera su ok.
 - Cambios pequeños pedidos de forma concreta: aplicar directamente.
 - Mantener accesibilidad (contraste, foco visible, teclado, textos alternativos) y el responsive.
+- Todo caso respeta `casos/_SISTEMA-VISUAL.md`. Una pieza nueva reutiliza un componente de ahí; si hace falta uno nuevo, se documenta allí antes de cerrar el cambio.
 - Todo texto visible va en EN y ES.
 
 ## Reglas técnicas

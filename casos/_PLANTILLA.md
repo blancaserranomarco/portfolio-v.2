@@ -61,10 +61,7 @@ Siempre estas 7 preguntas, en primera persona y en este orden. Si una no tiene r
 - Mismo color por variante en journey, tablas y etiquetas (2A rosa, 2B gris).
 
 **Visual**
-- Cajas que solo se leen: borde fino. Borde negro y sombra dura: lo que se toca y las tarjetas de la cabecera.
-- Colores con significado: rosa = reto, amarillo = objetivo, aportación y pregunta, verde = impacto y ganadora.
-- Negrita solo como etiqueta inicial («La oportunidad:»), no en frases enteras.
-- Mismo espacio entre bloques; tablas y gráficos separados del texto.
+- Tipografía, cifras, componentes, color y espaciado: `_SISTEMA-VISUAL.md`. No se repite aquí.
 
 **Escritura**
 - Primera persona y en activo; «nosotros» solo para lo hecho en equipo.
