@@ -35,7 +35,7 @@ Siempre estas 7 preguntas, en primera persona y en este orden. Si una no tiene r
 
 | Pregunta | Formato |
 |---|---|
-| ¿Qué impacto tuvo en negocio? | Cifras en cajas + pie con el cálculo y si es estimado. Si las cifras no aíslan el efecto del diseño, «¿Qué impacto tuvo?» en texto, diciendo qué reflejan |
+| ¿Qué impacto tuvo en negocio? | Cifras en cajas + pie con el cálculo y si es estimado. Si las cifras no aíslan el efecto del diseño, la pregunta es «¿Qué impacto tuvo?» y el pie lo dice |
 | ¿Cuál fue mi papel? | Bullets: qué propuse, qué diseñé, con quién |
 | ¿Qué descarté? | Tabla Opción · Por qué, o un párrafo si es un solo descarte. Solo descartes; si se probó, se dice en el porqué. En casos de sistema puede ser «¿Cómo priorizamos el alcance?»: qué fue primero, qué se dejó para otra fase y por qué |
 | ¿Qué no salió como esperaba? | Hechos concretos, sin repetir los aprendizajes |
