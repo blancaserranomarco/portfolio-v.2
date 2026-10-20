@@ -2002,17 +2002,20 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .s-flow .fw-n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--peach);border:1.5px solid var(--ink);font-size:.75rem;font-weight:700;color:#1B1724}
 .s-flow .fw-c b{font-weight:600;font-size:.95rem;line-height:1.3}
 .s-flow .fw-s:not(:last-child)::after{content:'→';position:absolute;top:36px;right:-20px;font-size:1rem;line-height:1;color:var(--ink)}
-.s-flow .fw-sub{position:relative;margin-top:22px;width:calc(200% + 24px);display:flex;flex-direction:column;gap:4px;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;font-size:.9rem;line-height:1.3;background:var(--surface)}
+.s-flow .fw-sub{position:relative;list-style:none;margin:22px 0 0;padding:0;width:calc(var(--n) * 100% + (var(--n) - 1) * 24px);display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:24px;align-items:start}
 .s-flow .fw-sub::before{content:'';position:absolute;top:-21px;left:24px;width:0;height:18px;border-left:1.5px dashed var(--muted)}
+.s-flow .fw-sb{position:relative;border:1.5px dashed var(--muted);border-radius:12px;padding:10px 12px;background:var(--surface);display:flex;flex-direction:column;gap:6px;font-size:.9rem;line-height:1.3}
+.s-flow .fw-sb b{font-weight:600}
+.s-flow .fw-sb:not(:last-child)::after{content:'→';position:absolute;top:12px;right:-20px;font-size:1rem;color:var(--ink)}
 @media (max-width:640px){
   .s-flow .fw{grid-template-columns:1fr;gap:22px}
   .s-flow .fw-c{min-height:0;flex-direction:row;align-items:center;gap:12px}
   .s-flow .fw-s:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
-  .s-flow .fw-sub{margin:22px 0 0 36px;width:auto}
+  .s-flow .fw-sub{margin:22px 0 0 36px;width:auto;grid-template-columns:1fr;gap:22px}
+  .s-flow .fw-sb:not(:last-child)::after{content:'↓';top:auto;bottom:-20px;right:auto;left:18px}
 }
-.s-flow .fw-ss{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 8px;font-weight:600}
-.s-flow .fw-ss li+li::before{content:'→';margin-right:8px;font-weight:400}
-.s-flow .fw-sub small{color:var(--muted);font-size:.85rem}
+.s-flow .fw-note{margin:8px 0 0;width:calc(200% + 24px);color:var(--muted);font-size:.85rem;line-height:1.35}
+@media (max-width:640px){ .s-flow .fw-note{width:auto;margin-left:36px} }
 </style>
 <header class="top">
   <div class="wrap">
@@ -3461,7 +3464,7 @@ function sBlock(b,p,ids){
     case 'slide': return `<figure class="scene s-slide">${b.cap?`<p class="sl-hint"><span aria-hidden="true">⇆</span> ${X(b.cap)}</p>`:''}<div class="sl-pair">${b.items.map(it=>`<div class="sl-item"><div class="sl-cmp" style="--p:50%"><img src="${it.before}" alt="${X(it.alt_b)}" decoding="async"><img class="sl-af" src="${it.after}" alt="${X(it.alt_a)}" decoding="async"><span class="sl-tg l">${esc(tr(['Before','Antes']))}</span><span class="sl-tg r">${esc(tr(['After','Después']))}</span><i class="sl-ln" aria-hidden="true"></i><span class="sl-kn" aria-hidden="true">⇆</span><input type="range" min="0" max="100" value="50" aria-label="${esc(tr(['Compare before and after: ','Comparar antes y después: ']))}${X(it.h)}"></div>
       <h3 class="sl-h">${X(it.h)}</h3><ul class="sl-ch">${it.checks.map(c=>`<li>${X(c)}</li>`).join('')}</ul></div>`).join('')}</div></figure>`;
     case 'lead': return `<p class="s-lead">${X(b.t)}</p>`;
-    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<div class="fw-sub"><ol class="fw-ss">${st.sub.steps.map(h=>`<li>${X(h)}</li>`).join('')}</ol>${st.sub.t?`<small>${X(st.sub.t)}</small>`:''}</div>`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
+    case 'flow': return `<figure class="scene s-flow">${b.label?`<span class="sc-k">${X(b.label)}</span>`:''}<ol class="fw" style="--n:${b.steps.length}">${b.steps.map((st,i)=>`<li class="fw-s"><div class="fw-c"><span class="fw-n">${i+1}</span><b>${X(st.h)}</b></div>${st.sub?`<ol class="fw-sub" style="--n:${st.sub.steps.length}">${st.sub.steps.map(h=>`<li class="fw-sb"><b>${X(h)}</b></li>`).join('')}</ol>${st.sub.t?`<p class="fw-note">${X(st.sub.t)}</p>`:''}`:''}</li>`).join('')}</ol>${b.cap?`<figcaption>${X(b.cap)}</figcaption>`:''}</figure>`;
     case 'img': return `<figure class="s-fig"><img src="${b.src}" alt="${X(b.cap)}" decoding="async" tabindex="0" data-zoom><figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'bars': return `<figure class="scene" data-anim="bars"><span class="sc-k">${X(b.label)}</span>${b.rows.map(([l,v,c])=>`<div class="sc-row"><span>${X(l)}</span><i><em class="${c||''}" data-w="${(v/(b.max||100)*100).toFixed(1)}"></em></i><b>${esc(fmt(v))}%</b></div>`).join('')}<figcaption>${X(b.cap)}</figcaption></figure>`;
     case 'split': if(b.h) return `<div class="s-res"><h3 class="s-h3">${X(b.h)}</h3>${b.intro?`<p class="s-p">${X(b.intro)}</p>`:''}<div class="sc-split n${b.items.length}">${b.items.map(([k,v,t,up])=>`<div><span class="sc-k">${X(k)}</span><strong class="${up?'up':''}">${esc(fmt(tr(v)))}</strong><span>${X(t)}</span></div>`).join('')}</div>${b.meta?`<p class="s-foot">${X(b.meta)}</p>`:''}</div>`;
