@@ -340,8 +340,9 @@ const PROJECTS = [
                'En España y México predominaban los beneficios informativos. En Portugal, 8 de las 16 activaciones incluían pagos, lo que daba mayor peso a las funciones de tarjeta y reembolso.']},
     {k:'p', t:['Overall, the payment options accounted for around 7% of the different benefits. The system’s main use was still to bring together and communicate perks that had previously been left out of Cobee.',
                'En conjunto, las modalidades con pago representaban alrededor del 7 % de los beneficios distintos. El principal uso del sistema seguía siendo reunir y comunicar ventajas que antes quedaban fuera de Cobee.']},
-    {k:'bars', label:['Most popular benefit by country, 2025','Beneficio más popular por país, 2025'], max:60, rows:[[['🇪🇸 Spain','🇪🇸 España'],45,'mint'],[['🇲🇽 Mexico','🇲🇽 México'],34,'mint']],
-      cap:['Share of our companies in each country that offered it.','Porcentaje de nuestras empresas de cada país que lo ofrecía.']},
+    {k:'split', h:['The most offered Plain benefit in each country, 2025','El beneficio Plain más ofrecido en cada país, 2025'], meta:['Share of companies in each country that offered it, 2025.','Porcentaje de empresas de cada país que lo ofrecía, 2025.'], items:[
+      [['Spain · TaxDown','España · TaxDown'],['45%','45 %'],['of our companies in Spain offered it. An exclusive perk for filing the income tax return, with a commission for Cobee for each user.','de nuestras empresas en España lo ofrecía. Una ventaja exclusiva para hacer la declaración de la renta, con comisión para Cobee por cada usuario.']],
+      [['Mexico · Meeting Doctors','México · Meeting Doctors'],['34%','34 %'],['of our companies in Mexico offered it. Meeting Pros’ medical assistance service.','de nuestras empresas en México lo ofrecía. El servicio de asistencia médica de Meeting Pros.']]]},
     {k:'goal', note:1, good:1, label:['Flexibility mattered more than payments.','La flexibilidad pesó más que los pagos.'], t:['The main value was centralising and communicating benefits, with payments only where they were needed.','El valor principal fue centralizar y comunicar los beneficios, con pagos solo donde hacían falta.']},
 
     {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['A tool to test new offers','Una herramienta para probar nuevas propuestas']},
