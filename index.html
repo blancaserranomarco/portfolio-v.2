@@ -1928,7 +1928,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .fb figcaption span{color:var(--muted);font-size:.8rem}
 .fb blockquote{margin:6px 0 0}.fb blockquote p{margin:0;font-size:1rem;line-height:1.5}
 /* Two views of the process (renewals) */
-.vw-hd{display:flex;justify-content:flex-start;margin-bottom:16px}
+.vw-hd{margin-bottom:16px}
 .vw-vid{max-width:300px;margin:0 auto}.vw-vid video{display:block;width:100%;border-radius:18px}
 .vw-p img{display:block;width:100%;height:auto;border-radius:10px}
 .vw-p figcaption{margin-top:14px}
@@ -3263,7 +3263,7 @@ function sBlock(b,p,ids){
           ${b.img?`<figure class="s-fig"><img src="${b.img}" alt="${X(b.imgcap)}" loading="lazy" tabindex="0" data-zoom><figcaption>${X(b.imgcap)}</figcaption></figure>`:''}${b.note?`<p class="qz-note">${X(b.note)}</p>`:''}</div></div>`;
     case 'quote': if(!b.fb) break;
       return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
-    case 'views': return `<figure class="scene vw"><div class="vw-hd"><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
+    case 'views': return `<figure class="scene vw"><div class="jv-top vw-hd"><span class="sc-k">${X(b.label)}</span><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
       ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
     case 'season': return `<figure class="scene se"><span class="sc-k">${X(b.label)}</span><ol class="se-m">${b.months.map((m,i)=>`<li class="${b.hot.includes(i)?'hot':''}${i===b.launch?' ln':''}"><span class="se-f">${X(m)}</span><span class="se-i" aria-hidden="true">${X(m).charAt(0)}</span></li>`).join('')}</ol>
       <div class="se-k"><span class="se-l"><i class="hot" aria-hidden="true"></i>${X(b.hotl)}</span><span class="se-l"><i class="ln" aria-hidden="true"></i>${X(b.launchl)}</span></div><figcaption>${X(b.cap)}</figcaption></figure>`;

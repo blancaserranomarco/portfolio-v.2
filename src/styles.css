@@ -1917,7 +1917,7 @@ img[data-zoom]:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .fb figcaption span{color:var(--muted);font-size:.8rem}
 .fb blockquote{margin:6px 0 0}.fb blockquote p{margin:0;font-size:1rem;line-height:1.5}
 /* Two views of the process (renewals) */
-.vw-hd{display:flex;justify-content:flex-start;margin-bottom:16px}
+.vw-hd{margin-bottom:16px}
 .vw-vid{max-width:300px;margin:0 auto}.vw-vid video{display:block;width:100%;border-radius:18px}
 .vw-p img{display:block;width:100%;height:auto;border-radius:10px}
 .vw-p figcaption{margin-top:14px}
