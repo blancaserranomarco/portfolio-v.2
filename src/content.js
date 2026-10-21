@@ -333,8 +333,8 @@ const PROJECTS = [
     {k:'h', t:['Usage differed in each market','El uso fue distinto en cada mercado']},
     {k:'p', t:['In Spain and Mexico, informational benefits dominated. In Portugal, 8 of the 16 activations included payments, which gave more weight to the card and reimbursement features.',
                'En España y México predominaban los beneficios informativos. En Portugal, 8 de las 16 activaciones incluían pagos, lo que daba mayor peso a las funciones de tarjeta y reembolso.']},
-    {k:'p', t:['Overall, the payment options accounted for around 7% of the different benefits. The system’s main use was still to bring together and communicate perks that had previously been left out of Cobee.',
-               'En conjunto, las modalidades con pago representaban alrededor del 7 % de los beneficios distintos. El principal uso del sistema seguía siendo reunir y comunicar ventajas que antes quedaban fuera de Cobee.']},
+    {k:'p', t:['Only around **7% of the benefits created included payments**. Most used the informational template to bring together and communicate perks that had previously been left out of Cobee.',
+               'Solo alrededor del **7 % de los beneficios creados incorporaban pagos**. La mayoría utilizaba la plantilla informativa para reunir y comunicar ventajas que antes quedaban fuera de Cobee.']},
     {k:'views', label:['Two views of the system','Dos vistas del sistema'], items:[
       {l:['By year','Por año'], table:{head:[['Year','Año'],'Plain',['Card','Tarjeta'],['Reimbursement','Reembolso']], rows:[
         ['2023','38','–','–'],
