@@ -75,7 +75,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 ## Pendiente
 
-- Aplicar las plantillas al resto de casos (Beneficios personalizados, Banners, Playtomic). Seguro de Salud I: confirmar fechas y si se tapa la aseguradora mexicana en los vídeos.
+- Aplicar las plantillas al resto de casos (Banners, Playtomic). Beneficios personalizados: decidir si se quita el callout del capítulo 1 y si «70 %» y la nota de Ventas siguen en Pregúntame; la captura del dashboard muestra el nombre de un cliente. Seguro de Salud I: confirmar fechas y si se tapa la aseguradora mexicana en los vídeos.
 - Dar acceso a la integración de Notion a la base «Preguntas más abiertas» (dentro de «Porfolio, feedback») para que `/api/event` pueda escribir.
 - Al terminar todos los casos: revisar (sin nombres confidenciales) y subir a GitHub `contexto/`, `casos/` y `recursos/bocetos/`. El export de Notion no se sube (repo público).
 - "Modo 1 minuto" (aplazado).
@@ -86,6 +86,7 @@ Variables de entorno en Vercel (tras cambiarlas, redesplegar):
 
 Una línea por cambio que altere estructura, funcionalidad o despliegue. Lo más reciente arriba.
 
+- 2026-10-21 · Caso Beneficios personalizados con la plantilla de sistema y los textos de Blanca: fake door, plantilla y superficies, evolución por etapas, resultado con dos vistas (por año y por país, `views` con tablas), beneficios más ofrecidos por país y Meeting Doctors en México. Cifras de resultado sin título (`split` con `res:1`).
 - 2026-10-20 · Revisión de UI de los 4 casos con historia y `casos/_SISTEMA-VISUAL.md`. Un solo verde para resultados, texto bajo la cifra siempre gris, pies de figura y callouts a un tamaño, radios 8/12/16/999, espaciado vertical 14/24/32/56 en CSS y espacio antes de % automático en español.
 - 2026-10-20 · Caso Seguro de Salud I con la plantilla de sistema: cajas por país, tickets en barras, flujo en pasos con rama del familiar (`flow`), regla de avisos, vídeos con selector, cifras con la estructura de Renovaciones, giro de México. Enlaces entre casos (`[[texto|id]]` y tarjeta `rel`) entre Salud I, Renovaciones y Beneficios personalizados. Títulos de caso al mismo tamaño en todos. Rol Product Designer en Salud I y Descuentos.
 - 2026-10-20 · Caso Seguro de Salud II · Renovaciones con la nueva estructura: franja de temporada, explorador de combinaciones con las fichas reales y tabla, prototipo y flujos con selector, notificación animada, feedback de Operaciones como comentario. Datos de enero de 2026 (702 respuestas). Plantillas separadas: común, experimentación y sistema.

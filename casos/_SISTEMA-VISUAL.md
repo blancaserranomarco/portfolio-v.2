@@ -27,14 +27,14 @@ Hay cuatro niveles de cifra, siempre con la misma estructura: **etiqueta → cif
 | Nivel | Dónde | Cifra | Texto debajo | Variación |
 |---|---|---|---|---|
 | Cabecera | Tarjeta «Impacto» o «Evolución» | Fraunces 600, 29 px (24 px móvil) | DM Sans 18 px tinta | DM Sans 700 verde |
-| Resultados | Cajas «La campaña en cifras», «Cómo evolucionó…» (`split` con `h`) | Fraunces 500, 30 px; verde si es el resultado, tinta si es neutro | DM Sans 14,7 px gris («Frente a…», «Desde…», base) | DM Sans 600, 14,7 px, verde (5.º campo del `split`) |
+| Resultados | Cajas «La campaña en cifras», «Cómo evolucionó…» (`split` con `h`, o con `res:1` si el capítulo ya hace de título) | Fraunces 500, 30 px; verde si es el resultado, tinta si es neutro | DM Sans 14,7 px gris («Frente a…», «Desde…», base) | DM Sans 600, 14,7 px, verde (5.º campo del `split`) |
 | Cajas descriptivas | Punto de partida por país (`split` sin `h`) | Fraunces 500, 30 px, tinta | DM Sans 14,7 px gris | — |
 | Pregúntame | «¿Qué impacto tuvo…?» (`m`) | Fraunces 500, 22 px, tinta | DM Sans 14,4 px gris | — |
 | Barras | `bars` | Fraunces 600, 16 px | Etiqueta DM Sans 16 px tinta | — |
 
 Reglas:
 - **Un solo verde por caja.** Si la caja lleva variación («+6,9 puntos porcentuales», «+188 %»), la cifra grande va en tinta y la variación en verde. Si no lleva variación, la cifra grande va en verde cuando es el resultado.
-- **Verde = mejora o resultado positivo.** Un resultado neutro («Sin cambios», «96 %») va en tinta. Hay un solo verde para texto (`--win`) y se ajusta solo en modo oscuro.
+- **Verde = mejora o resultado positivo.** Solo va en verde una cifra que mejora frente a una base («+12,8 pp», «−50 % de incidencias») o que mide algo positivo («89 % de respuestas positivas»). Un nivel o un recuento sin comparación («26 % hizo clic», «414 beneficios», «3 países») y un resultado neutro («Sin cambios», «96 %») van en tinta. Hay un solo verde para texto (`--win`) y se ajusta solo en modo oscuro.
 - En las cajas, la cifra final va grande y la base va en el texto de debajo. No se usa «antes → después» en grande, que se parte en dos líneas.
 - Máximo 3 cajas por fila. Las etiquetas caben en una línea; si no caben, se acortan.
 - Formato en español: coma decimal, punto de miles y **espacio antes de %** («29,2 %»). El código lo pone solo (`fmt` y `X`), así que en el contenido se puede escribir con o sin espacio.
@@ -50,6 +50,7 @@ Reglas:
 | Callout | `goal note` | 1 px suave + filete de 4 px lila · 16 | — | Lo que fallaba, la regla del sistema |
 | Callout de lectura clave | `goal note good` | Filete verde, fondo verde muy claro · 16 | — | La conclusión de unas cifras |
 | Pregunta del experimento | `goal q` | Filete amarillo | — | Solo en casos de experimentación |
+| Tabla | `table` | 1 px suave · 16; cabecera en mayúsculas gris sobre fondo papel | — | Datos por año o tipo. Máximo 4 columnas para que quepa en móvil sin desplazar |
 | Escena / figura | `scene`, `img`, `views`, `bars`, `flow` | 1 px suave · 16 | Muy suave (1 px) | Todo lo que se lee o se mira |
 | Tarjeta interna | Cajas de cifras, pasos del flujo, cajas por país | 1 px suave · 12 | — | Dentro de una escena |
 | Comentario | `quote` con `fb` | 1 px tinta | Dura 3 px | Feedback de un equipo. Excepción, porque imita un comentario |
@@ -84,7 +85,8 @@ El espaciado lo pone `styles.css` («Espaciado vertical de la historia»). Un bl
 
 - Los componentes con columnas pasan a una sola columna según su propio ancho (container queries), no según la pantalla: el panel ocupa 2/3 en escritorio y su ancho cambia.
 - El flujo en pasos pasa a vertical bajo 720 px, con una línea continua entre pasos y la rama hacia un lado.
-- Los selectores con más de 2 pestañas pasan a una rejilla de 2 columnas bajo 520 px.
+- Un selector (`views`) puede alternar imágenes, vídeos o tablas (`table` en cada pestaña) para dar dos lecturas del mismo dato, p. ej. por año y por país.
+- Los selectores con más de 2 pestañas pasan a una rejilla de 2 columnas bajo 520 px; si quedan impares, la última ocupa toda la fila.
 - En móvil las barras de una lista larga pueden ocultarse y dejar solo el texto y el % (`cls:'b-tk'`).
 
 ## 7. Antes de dar un caso por terminado
