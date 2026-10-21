@@ -2437,11 +2437,15 @@ const PROJECTS = [
                'En España y México predominaban los beneficios informativos. En Portugal, 8 de las 16 activaciones incluían pagos, lo que daba mayor peso a las funciones de tarjeta y reembolso.']},
     {k:'p', t:['Overall, the payment options accounted for around 7% of the different benefits. The system’s main use was still to bring together and communicate perks that had previously been left out of Cobee.',
                'En conjunto, las modalidades con pago representaban alrededor del 7 % de los beneficios distintos. El principal uso del sistema seguía siendo reunir y comunicar ventajas que antes quedaban fuera de Cobee.']},
-    {k:'table', head:[['Year','Año'],'Plain',['Card','Tarjeta'],['Reimbursement','Reembolso']], rows:[
-      [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
-      [['2024 · payment pieces','2024 · piezas de pago'],'206','6','10'],
-      ['2025','161','8','5']
-    ], note:['New benefits created each year, by type.','Beneficios nuevos creados cada año, por tipo.']},
+    {k:'views', label:['Two views of the system','Dos vistas del sistema'], items:[
+      {l:['By year','Por año'], table:{head:[['Year','Año'],'Plain',['Card','Tarjeta'],['Reimbursement','Reembolso']], rows:[
+        [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
+        [['2024 · payment pieces','2024 · piezas de pago'],'206','6','10'],
+        ['2025','161','8','5']]}, cap:['New different benefits launched each year, by type.','Beneficios distintos nuevos lanzados cada año, por tipo.']},
+      {l:['By country','Por país'], table:{head:[['Type','Tipo'],'🇪🇸 ES','🇲🇽 MX','🇵🇹 PT'], rows:[
+        ['Plain',['4,871','4.871'],'560','8'],
+        [['Card','Tarjeta'],'5','–','3'],
+        [['Reimbursement','Reembolso'],'1','–','5']]}, cap:['Activations by type in Spain, Mexico and Portugal, 2025.','Activaciones por tipo en España, México y Portugal, 2025.']}]},
     {k:'split', h:['The most offered Plain benefit in each country, 2025','El beneficio Plain más ofrecido en cada país, 2025'], meta:['Share of companies in each country that offered it, 2025.','Porcentaje de empresas de cada país que lo ofrecía, 2025.'], items:[
       [['Spain · TaxDown','España · TaxDown'],['45%','45 %'],['of our companies in Spain offered it. An exclusive perk for filing the income tax return, with a commission for Cobee for each user.','de nuestras empresas en España lo ofrecía. Una ventaja exclusiva para hacer la declaración de la renta, con comisión para Cobee por cada usuario.']],
       [['Mexico · Meeting Doctors','México · Meeting Doctors'],['34%','34 %'],['of our companies in Mexico offered it. Meeting Pros’ medical assistance service.','de nuestras empresas en México lo ofrecía. El servicio de asistencia médica de Meeting Pros.']]]},
@@ -3630,7 +3634,7 @@ function sBlock(b,p,ids){
     case 'quote': if(!b.fb) break;
       return `<figure class="fb"><span class="fb-av" aria-hidden="true">${esc(b.av||X(b.by).slice(0,1))}</span><div class="fb-b"><figcaption><b>${X(b.by)}</b><span>${X(b.fb)}</span></figcaption><blockquote><p>${X(b.t)}</p></blockquote></div></figure>`;
     case 'views': return `<figure class="scene vw"><div class="jv-top vw-hd"><span class="sc-k">${X(b.label)}</span><div class="jv-sw" role="group" aria-label="${X(b.label)}">${b.items.map((v,i)=>`<button type="button" data-vw="${i}" aria-pressed="${i===0}">${X(v.l)}</button>`).join('')}</div></div>
-      ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
+      ${b.items.map((v,i)=>`<div class="vw-p" data-p="${i}"${i?' hidden':''}>${v.table?block(Object.assign({k:'table'},v.table),p,ids):v.vid?`<div class="vw-vid">${vidTag(v.vid,v.poster,v.cap)}</div>`:`<img src="${v.img}" alt="${X(v.cap)}" loading="lazy" decoding="async" tabindex="0" data-zoom>`}<figcaption>${X(v.cap)}</figcaption></div>`).join('')}</figure>`;
     case 'renew': { const m=b.msg, ic=RN_IC;
       const card=(who,i)=>`<div class="rn-c" data-who="${who}">${['auto','repl','man'].map(st=>`<div class="rn-u" data-st="${st}"${st==='auto'?'':' hidden'}><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><span class="rn-pill">${X(b.active)}</span><div class="rn-bn ${st}">${ic[st]}<span>${X(m[st]).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}</span></div></div>`).join('')}
         <div class="rn-u off" data-st="off" hidden aria-disabled="true"><div class="rn-h"><span class="rn-lg">${ic.lg}</span><div><b>${X(b.people[i])}</b><small>${X(b.plan)}</small></div></div><div class="rn-bn off">${ic.off}<span class="rn-why">${b.why.map((w,j)=>`<span data-w="${j}"${j?' hidden':''}>${X(w)}</span>`).join('')}</span></div></div>

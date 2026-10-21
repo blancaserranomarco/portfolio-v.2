@@ -85,6 +85,7 @@ El espaciado lo pone `styles.css` («Espaciado vertical de la historia»). Un bl
 
 - Los componentes con columnas pasan a una sola columna según su propio ancho (container queries), no según la pantalla: el panel ocupa 2/3 en escritorio y su ancho cambia.
 - El flujo en pasos pasa a vertical bajo 720 px, con una línea continua entre pasos y la rama hacia un lado.
+- Un selector (`views`) puede alternar imágenes, vídeos o tablas (`table` en cada pestaña) para dar dos lecturas del mismo dato, p. ej. por año y por país.
 - Los selectores con más de 2 pestañas pasan a una rejilla de 2 columnas bajo 520 px; si quedan impares, la última ocupa toda la fila.
 - En móvil las barras de una lista larga pueden ocultarse y dejar solo el texto y el % (`cls:'b-tk'`).
 
