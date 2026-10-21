@@ -337,9 +337,9 @@ const PROJECTS = [
                'En conjunto, las modalidades con pago representaban alrededor del 7 % de los beneficios distintos. El principal uso del sistema seguía siendo reunir y comunicar ventajas que antes quedaban fuera de Cobee.']},
     {k:'views', label:['Two views of the system','Dos vistas del sistema'], items:[
       {l:['By year','Por año'], table:{head:[['Year','Año'],'Plain',['Card','Tarjeta'],['Reimbursement','Reembolso']], rows:[
-        [['2023 · launch','2023 · lanzamiento'],'38','–','–'],
-        [['2024 · payment pieces','2024 · piezas de pago'],'206','6','10'],
-        ['2025','161','8','5']]}, cap:['New different benefits launched each year, by type.','Beneficios distintos nuevos lanzados cada año, por tipo.']},
+        ['2023','38','–','–'],
+        ['2024','206','6','10'],
+        ['2025','161','8','5']]}, cap:['New different benefits launched each year, by type. Launch in 2023; payment pieces from 2024.','Beneficios distintos nuevos lanzados cada año, por tipo. Lanzamiento en 2023; piezas de pago desde 2024.']},
       {l:['By country','Por país'], table:{head:[['Type','Tipo'],'🇪🇸 ES','🇲🇽 MX','🇵🇹 PT'], rows:[
         ['Plain',['4,871','4.871'],'560','8'],
         [['Card','Tarjeta'],'5','–','3'],
@@ -347,7 +347,6 @@ const PROJECTS = [
     {k:'split', h:['The most offered informational benefits in Spain and Mexico','Los beneficios informativos más ofrecidos en España y México'], meta:['Share of Cobee client companies that offered each benefit in their country, in 2025.','Porcentaje de empresas clientes de Cobee que ofrecían cada beneficio en su país, en 2025.'], items:[
       [['Spain · TaxDown','España · TaxDown'],['45% of companies','45 % de las empresas'],['offered it. An exclusive discount for filing the income tax return. It earned Cobee a commission for each user.','lo ofrecían. Un descuento exclusivo para hacer la declaración de la renta. Generaba una comisión para Cobee por cada usuario.']],
       [['Mexico · Meeting Doctors','México · Meeting Doctors'],['34% of companies','34 % de las empresas'],['offered it. A medical assistance service from Meeting Pros, offered as a more affordable alternative to Health Insurance.','lo ofrecían. Un servicio de asistencia médica de Meeting Pros, ofrecido como una alternativa más económica al Seguro de Salud.']]]},
-    {k:'goal', note:1, good:1, label:['Flexibility mattered more than payments.','La flexibilidad pesó más que los pagos.'], t:['The main value was centralising and communicating benefits, with payments only where they were needed.','El valor principal fue centralizar y comunicar los beneficios, con pagos solo donde hacían falta.']},
 
     {k:'chap', n:['5 · What changed','5 · Lo que cambió'], t:['A tool to test new offers','Una herramienta para probar nuevas propuestas']},
     {k:'p', t:['The system made it possible to launch benefits with less upfront investment and observe their adoption before developing more complex solutions.',
@@ -356,8 +355,7 @@ const PROJECTS = [
                'En México lo utilizamos para ofrecer Meeting Doctors, el servicio de asistencia médica de Meeting Pros, como una alternativa más económica al Seguro de Salud. En noviembre de 2025 lo ofrecían 162 de 474 empresas, frente a las 8 que ofrecían el seguro.']},
     {k:'p', t:['We had invested in adapting [[Health Insurance|health]] to Mexico because of its success in Spain, but sign-ups fell short of expectations. The higher adoption of Meeting Doctors pointed to a better fit for that offer in the local market, with a solution that was simpler to launch.',
                'Habíamos invertido en adaptar el [[Seguro de Salud|health]] a México por su éxito en España, pero la contratación no alcanzó las expectativas. La mayor adopción de Meeting Doctors apuntaba a un mejor encaje de esa propuesta en el mercado local, con una solución más sencilla de lanzar.']},
-    {k:'p', t:['**Custom Benefits also became a way to validate demand before investing in specific developments.**',
-               '**Beneficios personalizados se convirtió también en una forma de validar la demanda antes de invertir en desarrollos específicos.**']},
+    {k:'goal', note:1, good:1, label:['A way to validate demand','Una forma de validar la demanda'], t:['Custom Benefits also became a way to validate demand before investing in specific developments.','Beneficios personalizados se convirtió también en una forma de validar la demanda antes de invertir en desarrollos específicos.']},
   ],
   ask:[
     {id:'impact', q:['What was the business impact?','¿Qué impacto tuvo en negocio?'], m:[
